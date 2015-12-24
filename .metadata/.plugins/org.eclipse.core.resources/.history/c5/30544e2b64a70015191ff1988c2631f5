@@ -1,0 +1,47 @@
+package br.com.Mateus.Brpp;
+
+import br.com.Mateus.Brpp.BrppCompiler;
+
+public class BrppTeste {
+
+	public static String[] lines = { 
+			"uso Motor;",
+			"uso Brava.Leitor;",
+			
+			"Fabrica Teste{",
+			"	imprimaln(leia(0));",
+			"	imprimaln(leia(Digital.0));",
+			"	Restrito Numero num;",
+			"	Configuracao(){",
+			"		modo(0, Entrada);",
+			"		modo(1,Saida);",
+			"		escreva(Analogica.0,1023);",
+			"		escreva(APD.3,255);",
+			"		escreva(3,Ligado);",
+			"		Conecte();",
+			"	}",
+			"	Principal(){\n"
+			+ "		Numero alfa = 0;\n",
+			"	NumeroDecimal beta = 1;",\t}",
+			"	
+			"	Numero soma(){",
+			"		Resposta alfa+beta;",
+			"	}",
+			"	Palavra palavra = 'caraca';",
+			"	Condicao teste = Verdade; ",
+			"	Numero x = 1;",
+			"	enquanto (x>0) faça{",
+			"		x++;	}",
+			"	Numero gamma;",
+			"	se (teste) faça {",
+			"		NumeroDecimal soma = alfa+beta;"
+			+ "	}",
+			"}" };
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		if (BrppCompiler.compile(lines) == false)
+			System.out.println("Seu código contém erros");
+	}
+
+}

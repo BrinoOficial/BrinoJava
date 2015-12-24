@@ -1,0 +1,12 @@
+package br.com.Mateus.Brava;
+
+public class BravaTeste {
+	
+	public static String[] lines={"Caixa br.com.Mateus.Brava;", "	se (boolean legal==true) faça {"};
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BravaCompiler.compile(lines);
+	}
+
+}

@@ -1,0 +1,13 @@
+package br.com.Mateus.Brava;
+
+public class BravaTeste {
+	
+	public static String[] lines={"Caixa br.com.Mateus.Brava;","Fabrica Teste{","Numero alfa=0;", "	se (alfa>=0) faça {","}","}"};
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		if(BravaCompiler.compile(lines)==false)
+			System.out.println("Seu código contém erros");
+	}
+
+}

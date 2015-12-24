@@ -1,0 +1,43 @@
+package br.com.Mateus.Brava;
+
+import java.util.ArrayList;
+
+public class BravaCompiler {
+	
+	public static boolean compile(String[] lines){
+		ArrayList<String> programa = new ArrayList<String>();
+		for (String line:lines){
+			String command="";
+			if((line.contains(";") || line.contains("{"))){
+				if (line.contains("Caixa ")){
+					command = ("package " + 
+							line.substring(line.indexOf('x')+2,
+									line.indexOf(';')+1));
+					
+				}
+				if(line.contains("se (")){
+					command =line.substring(0, line.indexOf('s'))
+							+"if "
+							+line.substring(line.indexOf('(')-1,
+									line.indexOf(')')+1)
+							+"{";
+				}
+				if(line.contains("Fabrica")){
+					command="public class "+line.substring(line.indexOf(' '));
+					
+				}
+				if(line.contains("Numero")){
+					command=line.substring(0, line.indexOf('N'))
+							+"int "
+							+line.substring(line.indexOf('o'),
+									line.indexOf(';')+1);
+				}
+				programa.add(command);
+				System.out.println(command);
+			}else{
+				return false;
+			}
+		}
+		return true;
+	}
+}
