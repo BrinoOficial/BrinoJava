@@ -149,6 +149,10 @@ public class BrppCompiler {
 					command = command.replace("Pino.desligar(" + pin + ")",
 							"digitalWrite(" + pin.trim() + ",LOW)");
 				}
+				if (command.contains("tambem")){
+					command.replace("e tambem", "&&");
+					command.replace("ou tambem", "||");
+				}
 				if (command.contains("responder"))
 					command = command.replace("responder", "return");
 				if (command.contains("<native>"))
