@@ -64,13 +64,10 @@ public class BrppCompiler {
 				if (command.contains("Restrito")) {
 					command = command.replace("Restrito", "private");
 				}
-				if (command.contains("senao")){
+				if (command.contains("senao"))
 					command = command.replace("senao", "else");
-					command = command.replace("faca", "");
-				}
 				if (command.contains("se (") || command.contains("se(")) {
-					command = command.replace("se(", "if(");
-					command = command.replace("se (", "if(");
+					command = command.replace(" se", " if");
 					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains(";")
@@ -170,7 +167,7 @@ public class BrppCompiler {
 				program.format("%s\n", command);
 				System.out.println(command);
 				command = "";
-			} else if (line.length() > 1 && !line.contains("//") && !line.contains("definir")) {
+			} else if (line.length() > 1 && !line.contains("//")) {
 				System.out.println("fu");
 
 				return false;

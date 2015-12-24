@@ -20,8 +20,8 @@ public class BrppCompilerFrame extends JFrame {
 	private GridBagLayout layout;
 	private GridBagConstraints constraints;
 
-	public BrppCompilerFrame(String title) {
-		super(title);
+	public BrppCompilerFrame() {
+		super();
 		layout = new GridBagLayout();
 		setLayout(layout);
 		constraints = new GridBagConstraints();

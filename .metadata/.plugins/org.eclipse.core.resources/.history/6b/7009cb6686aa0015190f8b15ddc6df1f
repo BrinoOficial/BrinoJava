@@ -12,7 +12,7 @@ public class BrppCompiler {
 
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
-
+	
 	public static boolean compile(String path) {
 		String file = path.substring(0, path.length() - 4);
 		file = file.concat("ino");
@@ -42,7 +42,6 @@ public class BrppCompiler {
 	public static boolean proccess(String[] lines) {
 		for (String line : lines) {
 			String command = line;
-			if(command.contains("definir")) command=command.replace("definir", "#define");
 			if ((command.contains(";") || command.contains("{") || command
 					.contains("}"))) {
 				if (command.contains("Fabrica")) {
@@ -64,13 +63,8 @@ public class BrppCompiler {
 				if (command.contains("Restrito")) {
 					command = command.replace("Restrito", "private");
 				}
-				if (command.contains("senao")){
-					command = command.replace("senao", "else");
-					command = command.replace("faca", "");
-				}
 				if (command.contains("se (") || command.contains("se(")) {
-					command = command.replace("se(", "if(");
-					command = command.replace("se (", "if(");
+					command = command.replace("se ", "if ");
 					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains(";")
@@ -79,7 +73,7 @@ public class BrppCompiler {
 										.contains(">"))))
 						return false;
 				}
-				
+				if (command.contains("senao"))
 				if (command.contains("enquanto (")
 						|| command.contains("enquanto(")) {
 					command = command.replace("enquanto ", "while ");
@@ -99,13 +93,13 @@ public class BrppCompiler {
 
 				if (command.contains("Numero") || command.contains("Palavra")
 						|| command.contains("Condicao")
-						|| command.contains("Verdadeiro")
-						|| command.contains("Falso")) {
+						|| command.contains("Verdade")
+						|| command.contains("Mentira")) {
 					while (command.contains("Numero")
 							|| command.contains("Palavra")
 							|| command.contains("Condicao")
-							|| command.contains("Verdadeiro")
-							|| command.contains("Falso")) {
+							|| command.contains("Verdade")
+							|| command.contains("Mentira")) {
 
 						command = addVar(command, command.contains("=") ? true
 								: false);
@@ -125,7 +119,7 @@ public class BrppCompiler {
 				}
 				if (command.contains("Pino.ler(A")) {
 					command = command.replace("Pino.ler", "analogRead");
-					command = command.replace("Analogico.", "A");
+					command = command.replace("Analogica.", "A");
 				}
 				if (command.contains("Pino.ler(")) {
 					command = command.replace("Pino.ler", "digitalRead");
@@ -156,7 +150,7 @@ public class BrppCompiler {
 					command = command.replace("Pino.desligar(" + pin + ")",
 							"digitalWrite(" + pin.trim() + ",LOW)");
 				}
-				if (command.contains("tambem")) {
+				if (command.contains("tambem")){
 					command.replace("e tambem", "&&");
 					command.replace("ou tambem", "||");
 				}
@@ -170,7 +164,7 @@ public class BrppCompiler {
 				program.format("%s\n", command);
 				System.out.println(command);
 				command = "";
-			} else if (line.length() > 1 && !line.contains("//") && !line.contains("definir")) {
+			} else if (line.length() > 1 && !line.contains("//")) {
 				System.out.println("fu");
 
 				return false;
@@ -190,7 +184,6 @@ public class BrppCompiler {
 		String name = "";
 		String value = "-";
 		String var = "";
-		if (line.contains("Constante")) line=line.replace("Constante", "const");
 		if (line.contains("Numero")) {
 
 			if (!line.contains("Decimal")) {
@@ -224,11 +217,11 @@ public class BrppCompiler {
 			// value = contains ? var.substring(var.indexOf('\"') + 1,
 			// var.lastIndexOf('\"')) : "-";
 		}
-		if (line.contains("Condicao") || line.contains("Verdadeiro")
-				|| line.contains("Falso")) {
+		if (line.contains("Condicao") || line.contains("Verdade")
+				|| line.contains("Mentira")) {
 			/*
-			 * if (line.contains("Verdadeiro")) { // value = "true"; } else if
-			 * (line.contains("Falso")) { // value = "false"; } else if
+			 * if (line.contains("Verdade")) { // value = "true"; } else if
+			 * (line.contains("Mentira")) { // value = "false"; } else if
 			 * (!line.contains("=")) { // value = "-"; } else
 			 */
 			if (line.contains("=")
@@ -240,11 +233,11 @@ public class BrppCompiler {
 						.println("há um erro na declaração desta variável..."
 								+ line.substring(line.indexOf('o', 'a') + 2,
 										line.indexOf(';') + 1)
-								+ " ela só pode assumir como valores Verdadeiro ou Falso.");
+								+ " ela só pode assumir como valores Verdade ou Mentira.");
 			}
 			var = line.replace("Condicao", "boolean");
-			var = var.replace("Falso", "false");
-			var = var.replace("Verdadeiro", "true");
+			var = var.replace("Mentira", "false");
+			var = var.replace("Verdade", "true");
 			// name = var.substring(var.indexOf('n') + 2,
 			// contains ? var.indexOf('=') - 1 : var.indexOf(';') - 1);
 			// value = contains ? value : "-";
