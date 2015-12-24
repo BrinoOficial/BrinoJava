@@ -1,0 +1,25 @@
+/*
+  Piscada
+  Acende um LED por um segundo e o apaga, repetidamente.
+
+  A maioria dos Arduinos possuem um LED on-board que pode ser controlado. No UNO e no Leonardo,
+  ele está conectado a porta digital 13. Se você não sabe em qual porta ele está conectado em seu Arduino, leia
+  a documentação no site: arduino.cc
+
+  Esse codigo de exemplo esta em domínio público.
+ */
+
+
+// Parte do codigo de configuração
+Configuracao() {
+  // inicia a porta digital 13 como uma saida(OUTPUT)
+  modo(13, saida);
+}
+
+// Loop que se repete indefinidamente
+Principal() {
+  Pino.ligar(13);          	// liga a porta digital acedendo o LED
+  esperar(1000);       		// espera por um segundo
+  Pino.desligar(13);        // desliga a porta digital apagando o LED
+  esperar(1000);   			// espera por um segundo
+}
