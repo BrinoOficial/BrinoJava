@@ -1,0 +1,35 @@
+/* 
+ Amortecer
+
+ Esse exemplo mostra como "graduar"  um LED ligado a porta 9 
+ fazendo com que ele se acenda e apague lentamente
+ usando a função Pino.escrever(APD ).
+
+ Esse codigo de exemplo esta em domínio público.
+ */
+
+Numero LED = 9;           // A porta em que o Led esta ligado
+Numero brilho = 0;        // variavel de brilho
+Numero mudanca = 5;       // constante de mudança
+
+// Parte do codigo de configuração
+Configuracao() {
+  // declara o pino 9 como uma saida
+  Pino.definirModo(LED, saida);
+}
+
+// Loop que se repete indefinidamente
+Principal() {
+  // escreve o brilho do LED
+  Pino.escrever(APD.LED, brilho);
+
+  // Muda o brilho para a proxima passagem do loop
+  brilho = brilho + mudanca;
+
+  // Muda o "sentido" da mudança quando ela chega em um dos extremos
+  se (brilho == 0 ou brilho == 255) faca{
+    mudanca = -mudanca ;
+  }
+  // tempo para que seja possivel observar o efeito
+  esperar(30);
+}
