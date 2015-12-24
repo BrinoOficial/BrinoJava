@@ -126,7 +126,7 @@ public class BrppCompiler {
 				}
 				if (command.contains("Pino.escrever(A")) {
 					command = command.replace("Pino.escrever", "analogWrite");
-					command = command.replace("Analogica.", "A");
+					command = command.replace("Analogico.", "A");
 					command = command.replace("APD.", "");
 				}
 				if (command.contains("Pino.escrever(")) {
