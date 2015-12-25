@@ -24,7 +24,7 @@ Numero saidaPWM = 0;        // valor de saida da porta PWM (LED)
 
 Configuracao() {
   // começa uma comunicação serial
-  USB.conectar;
+  USB.conectar();
 }
 
 Principal() {
@@ -33,7 +33,7 @@ Principal() {
   // faz uma regra de 3 com os possiveis valores de saida da porta PWM:
   saidaPWM = proporcionar(medidaSensor, 0, 1023, 0, 255);
   // muda o valor da saida PWM:
-  Pino.escrever(saidaPortaAnalogica, saidaPWM);
+  Pino.escrever(APD.saidaPortaAnalogica, saidaPWM);
 
   // mostra os resultados pela serial:
   USB.enviar[ln]("sensor = " );
