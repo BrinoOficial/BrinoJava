@@ -6,7 +6,7 @@
    
 *		 Brino 		  	   --- 		Arduino				*
 *		<native>		*						*	
-*	   	Fabrica		 	*		public clesass			*
+*	   	Fabrica		 	*		public class			*
 *		usar		 	*		#include<.h>			*
 *	 	Configuracao		*		void setup			*
 *		Principal	 	*		void loop 			*
