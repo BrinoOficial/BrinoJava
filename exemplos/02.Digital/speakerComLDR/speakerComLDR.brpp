@@ -1,0 +1,45 @@
+/*
+  Speaker guiado por LDR
+
+Toca um speaker baseado na estrada analogica de um LDR
+
+ Circuito
+ * 8-ohm speaker na porta digital 9
+ * LDR, da porta analogica 0 para a +5V
+ * resistor de 4.7K, do analogico 0 para o ground
+ circuit:
+ 
+ 
+Esse exemplo está em dominio público em:
+
+ http://www.arduino.cc/en/Tutorial/Tone2
+
+ */
+
+
+void setup() {
+  // initialize serial communications (for debugging only):
+  Serial.begin(9600);
+}
+
+Configuracao() {
+  // Lê a entrada do LDR:
+  Numero leituraLDR = analogRead(A0);
+  // mostra na serial o seu valor, para você saber a sua variação
+  USB.enviar[ln](leituraLDR);
+  // Verifica a variação da entrada analogica, (no caso, 400 - 1000 do LDR)
+  // A saida do speacker varia de 120 a 1500Hz
+  // Modifica os numeros máximo e mínimo para os abaixo dependendo
+  // da variaçao medida pelo sensor.
+  Numero nota = proporcionar(leituraLDR, 400, 1000, 120, 1500);
+
+  // toca a nota:
+  soar(9, not, 10);
+  // Espera entre as leituras para aumentar a estabilidade
+  esperar(1);
+}
+
+
+
+
+

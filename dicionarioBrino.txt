@@ -6,7 +6,7 @@
    
 *		 Brino 		  	   --- 		Arduino				*
 *		<native>		*						*	
-*	   	Fabrica		 	*		public class			*
+*	   	Fabrica		 	*		public clesass			*
 *		usar		 	*		#include<.h>			*
 *	 	Configuracao		*		void setup			*
 *		Principal	 	*		void loop 			*
@@ -33,10 +33,20 @@
 *		NumeroDecimal		*		float				*
 *		Palavra			*		String				*
 *		Condicao		*		boolean				*
-*		Verdade			*		true				*
-*		Mentira			*		false				*
+*		Verdadeiro		*		true				*
+*		Falso			*		false				*
 *		Ligado		        *		HIGH				*
 *		Desligado		*		LOW				*
 *		e tambem		*		&&				*
 *		ou tambem		*		||				*
-
+*		senao			*		else			        *
+*		definir			*		define				*
+*		Constante		*		const				*
+*		Saida    		*		OUTPUT				*
+*		Entrada		        *		INPUT				*
+*		NumeroLongo	        *		long				*
+*		Modulo		        *		unsigned			*
+*               soar()                  *		tone()				*
+*		pararSoar()		*		noTone()			*
+*		para()			*		for				*
+*		proporcionar()		*		map()				*

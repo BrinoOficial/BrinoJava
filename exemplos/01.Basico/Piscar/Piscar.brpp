@@ -13,7 +13,7 @@
 // Parte do codigo de configuração
 Configuracao() {
   // inicia a porta digital 13 como uma saida(OUTPUT)
-  modo(13, saida);
+  modo(13, Saida);
 }
 
 // Loop que se repete indefinidamente

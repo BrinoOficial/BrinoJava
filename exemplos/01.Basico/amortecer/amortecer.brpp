@@ -15,7 +15,7 @@ Numero mudanca = 5;       // constante de mudança
 // Parte do codigo de configuração
 Configuracao() {
   // declara o pino 9 como uma saida
-  Pino.definirModo(LED, saida);
+  Pino.definirModo(LED, Saida);
 }
 
 // Loop que se repete indefinidamente
