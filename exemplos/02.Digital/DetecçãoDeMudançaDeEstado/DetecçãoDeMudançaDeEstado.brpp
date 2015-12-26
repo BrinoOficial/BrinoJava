@@ -1,0 +1,85 @@
+/*
+  Detecção de mudança de estado (contador botão)
+ 
+ Normalmente, não é necessário saber o estado do pino digital o tempo todo,
+ basta saber quando a mudança de estado (ligado/ deligado).
+ Por exemplo, deseja-se saber quando e quantas vezes um botão é acionado,
+ isso é chamado detecção de mudança de estado.
+
+ Esse exemplo mostra como detectar quando um botão é precionado
+
+ Circuito:
+ * Botão de pressionar, da porta 2 para +5V
+ * Resistor de 10k, da porta 2 para o ground 
+ * LED, da porta 13 para o ground ou LED acoplado na placa(presente na maioria dos arduinos)
+
+Esse cofdigo está em dominio público em:
+ http://www.arduino.cc/en/Tutorial/ButtonStateChange
+
+ */
+
+ //Essas são as constantes, como o nome sugere, elas não mudam
+Constante Numero  botao = 2;    // porta em que o botão deve ser conectado
+Constante Numero LED = 13;      // porta em que o LED deve ser conectado
+
+// Essas são as variaveis, como o nome sugere, elas irão mudar
+Numero contadorBotao = 0;   //conta quantas vezes o botão foi acionado
+Numero estadoBotao = 0;         // verifica se o estado do botão (ligado/deligado)
+Numero ultimoEstado = 0;     // armazena o ultimo estado do botao (ligado/deligado)
+
+Configuracao() {
+  // Define o botao como uma entrada:
+  Pino.definirModo(botao, Entrada);
+  // Define o LED como uma saida:
+  Pino.definirModo(LED, Saida);
+  // Inicia uma comunicação serial:
+  USB.conectar;
+}
+
+
+Principal() {
+  // lê a entrada do botão:
+  estadoBotao = Pino.ler(botao);
+
+  // compara o estado do botão com o seu último estado
+  se (estadoBotao != ultimoEstado) {
+    // Se o estado ter mudado, soma um ao medidor)
+    se (estadoBotao == Ligado) {
+      // Se o estado do botão for ligado ele
+	  // muda do "desligado" pro "ligado"
+      contadorBotao++;
+      USB.enviar[ln]("ligado");
+      USB.enviar[ln]("o botão foi acionado:  ");
+      USB.enviar[ln](contadorBotao);
+    }
+    senao {
+      // Se o estado do botão for desligado, ele
+	  // muda do "desligado" pro "ligado"
+      USB.enviar[ln]("desligado");
+    }
+    // esperar para evitar ruidos:
+    esperar(50);
+  }
+  // Salva o estado atual como o ultimo estado do botao
+  // para o próximo loop a ser executado
+  ultimoEstado = estadoBotao;
+
+
+  // Liga o LED a cada 4 vezes que o botão for precionado 
+  // verificando o modulo do contador do botão
+
+  se (contadorBotao % 4 == 0) {
+    Pino.escrever(LED, Ligado);
+  } senao {
+    Pino.escrever(LED, Desligado);
+  }
+
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,59 @@
+/* PiscarSemAtraso
+
+ Liga/ desliga um LED conectado ao pino digital, sem o uso de esperar().
+ Ou seja, outro programa pode ser processado simultaneamente sem ser 
+ intenrropido pelo LED.
+
+ O circuito:
+ * LED conectado na porta 13 e no ground.
+ * Nota: A maioria dos arduinos já possuem um LED on-board 
+ instalado na porta 13.
+ 
+ 
+ Esse codigo de exemplo esta em domínio público.
+ Codigo original para o Arduino:
+ http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
+ */
+
+// constantes nao mudam. Usada para definir a porta do LED:
+Constante Numero LED = 13;      
+
+// Variables will change :
+Condicao estadoLED = Desligado;             // Usado para quardar o estado do LED
+
+NumeroLongo tempoAnterior = 0;        // salva a ultima mudança no estado do LED(ligado/desligado)
+
+// constants won't change :
+Consntante Numero intervalo = 1000;    // intervalo entre as mudanças (milissegundos)
+
+Configuracao() {
+  // define o LED como uma saida:
+  Pino.definirModo(LED, Saida);
+}
+
+Principal()
+{
+  // Aqui você pode por o seu codigo.
+
+
+  //confira se o tempo para pisca-lo é viavel, uma vez que o tempo
+  //no circuito pode divergir do tempo teorico no código.
+  
+  Modulo NumeroLongo tempoAtual = <native> millis();
+ 
+  se(tempoAtual - tempoAnterior >= intervalo) faca{
+    // salva o tempo da ultima alteração do LED
+    tempoAnterior = tempoAtual;   
+
+    // inverte o estado do LED:
+    se (estadoLED == Desligado)	faca{
+      estadoLED = Ligado;
+	  }
+    senao{
+      estadoLED = Desligado;
+	  }
+
+    // Muda o LED de acordo com a variavel:
+    Pino.escrever(D.LED, estadoLED);
+  }
+}

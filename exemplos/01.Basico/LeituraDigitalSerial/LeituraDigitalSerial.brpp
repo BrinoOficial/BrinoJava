@@ -13,7 +13,7 @@ Configuracao() {
   // Inicia a comunicação serial padrão
   USB.conectar();
   // define o botão como uma entrada:
-  Pino.definirModo(botao, entrada);
+  Pino.definirModo(botao, Entrada);
 }
 
 // Loop que se repete indefinidamente

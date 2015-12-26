@@ -1,0 +1,47 @@
+/*
+  SoarMelodia
+
+ Toca uma pequena melodia
+
+ Circuito:
+ * 8-ohm speaker na porta digital 8
+
+ Esse codigo de exemplo esta em domínio público.
+ Codigo original para o Arduino:
+ http://www.arduino.cc/en/Tutorial/Tone
+
+ */
+usar "pitches.h"
+
+// notes in the melody:
+Numero melodia[] = {
+  NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+};
+
+// Duração das notas: 4 = quarter note, 8 = eighth note, etc.:
+Numero duracaoNotas[] = {
+  4, 8, 8, 4, 4, 4, 4, 4
+};
+
+Configuracao() {
+  // iterate over the notes of the melody:
+  for ( Numero essaNota = 0; essaNota < 8; essaNota++) {
+
+    // Para calcular a duraçao da nota, pegue um segundo
+    // e divida pelo tipo de nota.
+    // Ex. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    Numero duracaoNota = 1000 / duracaoNotas[essaNota];
+    soar(8, melodia[essaNota], duracaoNota);
+
+    // Para distinguir as notas, precisamos de um tempo minimo entre elas.
+    // A duração da nota + 30% parece funcionar bem:
+    Numero tempoEntreNotas = duracaoNota * 1.30;
+    esperar(tempoEntreNotas);
+    // Parar a nota:
+    pararSoar(8);
+  }
+}
+
+Principal() {
+  // A melodia nao precisa ser repetida.
+}
