@@ -3,8 +3,8 @@
   		 *		    Dicionario Brino      	     *
   	      	 *					       	     *			
  		  ***************************************************
-   
-*		 Brino 		  	       		Arduino				*
+   					
+*		 Brino 		  	*       	Arduino				*
 *		<native>		*						*	
 *	   	Fabrica		 	*		public class			*
 *		usar		 	*		#include<.h>			*
