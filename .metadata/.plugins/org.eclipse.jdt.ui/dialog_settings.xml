@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<section name="FatJarPackageWizard">
 		<item value="C:\Users\Mateus Terra\Documents\GitHub\Brpp\Brino" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="BrppTeste - Br++" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="BrppCompilerMain - Br++" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
 		<item value="C:\Users\Mateus Terra\Documents\GitHub\Brpp\Brino\BrinoCompiler.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
