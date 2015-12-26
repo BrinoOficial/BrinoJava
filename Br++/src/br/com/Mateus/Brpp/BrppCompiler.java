@@ -40,12 +40,15 @@ public class BrppCompiler {
 	}
 
 	public static boolean proccess(String[] lines) {
+		boolean comment=false;
 		for (String line : lines) {
 			String command = line;
+			if (command.contains("/*")) comment =true;
+			if (command.contains("*/")) comment = false;
 			if (command.contains("definir "))
 				command = command.replace("definir ", "#define ");
 			if ((command.contains(";") || command.contains("{") || command
-					.contains("}"))) {
+					.contains("}")) && comment==false) {
 
 				if (command.contains("usar")) {
 					command = command.replace("usar ", "#include <");
@@ -186,7 +189,7 @@ public class BrppCompiler {
 				System.out.println(command);
 				command = "";
 			} else if (line.length() > 3 && !line.contains("//")
-					&& !line.contains("definir")) {
+					&& !line.contains("definir") && comment == false) {
 				System.out.println(line);
 
 				return false;
