@@ -49,7 +49,7 @@ Principal() {
   // tempo suficiente a partir do ultimo acionamento, para ignorar ruidos
 
   // se o estado mudar , durante o ruido ou precionamento
-  se (leitura != ultimoEstadoBotao) {
+  se (leitura != ultimoEstadoBotao) faca {
     // marca a contagem de tempo
     demoraUltimaTroca  = <native> millis();
   }

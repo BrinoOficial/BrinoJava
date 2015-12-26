@@ -6,7 +6,7 @@
  usando a função Pino.escrever(APD ).
 
  Esse codigo de exemplo esta em domínio público.
- */
+*/
 
 Numero LED = 9;           // A porta em que o Led esta ligado
 Numero brilho = 0;        // variavel de brilho

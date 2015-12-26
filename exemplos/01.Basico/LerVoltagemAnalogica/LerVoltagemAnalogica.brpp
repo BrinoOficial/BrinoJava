@@ -15,9 +15,11 @@ Configuracao() {
 Principal() {
   // Lê a entrada da porta analogica A0:
   Numero leitura= Pino.ler(A0);
-  // Converte a entrada analogica(que vai de 0 a 1023) na voltagem que esta entrando (0 - 5V):
+  // Converte a entrada analogica(que vai de 0 a 1023) na voltagem que esta entrando (0 - 5V): 
   NumeroDecimal voltagem = leitura * (5.0 / 1023.0);
   // Apresenta no monitor serial a voltagem:
   USB.enviar(voltagem);
+  USB.enviar(" V");
+  USB.enviarln("-----------------------");
   esperar(200); //tempo entre uma medida e outra
 }
