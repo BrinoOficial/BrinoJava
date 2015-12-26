@@ -25,9 +25,9 @@
             <Keywords name="Folders in comment, middle">*</Keywords>
             <Keywords name="Folders in comment, close">*/</Keywords>
             <Keywords name="Keywords1">Pino&#x000D;&#x000A;USB</Keywords>
-            <Keywords name="Keywords2">escrever ler ligar desligar definirModo esperar conectar enviar</Keywords>
-            <Keywords name="Keywords3">Numero NumeroDecimal Condicao Palavra &lt;native&gt;</Keywords>
-            <Keywords name="Keywords4">enquanto faca se SemRetorno Restrito e tambem ou tambem Constante senao</Keywords>
+            <Keywords name="Keywords2">escrever ler ligar desligar definirModo esperar conectar enviar soar pararSoar proporcionar</Keywords>
+            <Keywords name="Keywords3">Numero NumeroDecimal Condicao Palavra &lt;native&gt; NumeroLongo</Keywords>
+            <Keywords name="Keywords4">enquanto faca se SemRetorno e tambem ou tambem Constante senao para Modulo</Keywords>
             <Keywords name="Keywords5">usar responder definir</Keywords>
             <Keywords name="Keywords6"></Keywords>
             <Keywords name="Keywords7">Principal Configuracao</Keywords>

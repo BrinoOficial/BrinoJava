@@ -42,12 +42,11 @@ public class BrppCompiler {
 	public static boolean proccess(String[] lines) {
 		for (String line : lines) {
 			String command = line;
-			if(command.contains("definir")) command=command.replace("definir", "#define");
+			if (command.contains("definir "))
+				command = command.replace("definir ", "#define ");
 			if ((command.contains(";") || command.contains("{") || command
 					.contains("}"))) {
-				if (command.contains("Fabrica")) {
-					command = command.replace("Fabrica", "public class");
-				}
+
 				if (command.contains("usar")) {
 					command = command.replace("usar ", "#include <");
 					command = command.replace(";", ".h>;");
@@ -56,15 +55,17 @@ public class BrppCompiler {
 					command = command.replace("Configuracao", "void setup");
 				if (command.contains("Principal"))
 					command = command.replace("Principal", "void loop");
-
+				if (command.contains("soar"))
+					command = command.replace("soar", "tone");
+				if (command.contains("pararSoar"))
+					command = command.replace("pararSoar", "noTone");
+				if (command.contains("proporcionar"))
+					command = command.replace("proporcionar", "map");
 				if (command.contains("esperar("))
 					command = command.replace("esperar", "delay");
 				if (command.contains("SemRetorno"))
 					command = command.replace("SemRetorno", "void");
-				if (command.contains("Restrito")) {
-					command = command.replace("Restrito", "private");
-				}
-				if (command.contains("senao")){
+				if (command.contains("senao")) {
 					command = command.replace("senao", "else");
 					command = command.replace("faca", "");
 				}
@@ -73,23 +74,37 @@ public class BrppCompiler {
 					command = command.replace("se (", "if(");
 					command = command.replace("faca", "");
 					if (command.contains("=")
-							&& !((command.contains(";")
-									|| command.contains("==")
+							&& !((command.contains("==")
 									|| command.contains("<") || command
-										.contains(">"))))
+										.contains(">")))) {
+						System.out.println(line);
 						return false;
+					}
 				}
-				
-				if (command.contains("enquanto (")
-						|| command.contains("enquanto(")) {
-					command = command.replace("enquanto ", "while ");
+				if (command.contains("para (") || command.contains("para(")) {
+					command = command.replace("for(", "if(");
+					command = command.replace("for (", "if(");
 					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains(";")
 									|| command.contains("==")
 									|| command.contains("<") || command
-										.contains(">"))))
+										.contains(">")))) {
+						System.out.println(line);
 						return false;
+					}
+				}
+				if (command.contains("enquanto (")
+						|| command.contains("enquanto(")) {
+					command = command.replace("enquanto ", "while ");
+					command = command.replace("faca", "");
+					if (command.contains("=")
+							&& !((command.contains("==")
+									|| command.contains("<") || command
+										.contains(">")))) {
+						System.out.println(line);
+						return false;
+					}
 				}
 				if (command.contains("USB.conectar()"))
 					command = command.replace("USB.conectar()",
@@ -157,8 +172,8 @@ public class BrppCompiler {
 							"digitalWrite(" + pin.trim() + ",LOW)");
 				}
 				if (command.contains("tambem")) {
-					command.replace("e tambem", "&&");
-					command.replace("ou tambem", "||");
+					command = command.replace("e tambem", "&&");
+					command = command.replace("ou tambem", "||");
 				}
 				if (command.contains("responder"))
 					command = command.replace("responder", "return");
@@ -170,8 +185,9 @@ public class BrppCompiler {
 				program.format("%s\n", command);
 				System.out.println(command);
 				command = "";
-			} else if (line.length() > 1 && !line.contains("//") && !line.contains("definir")) {
-				System.out.println("fu");
+			} else if (line.length() > 3 && !line.contains("//")
+					&& !line.contains("definir")) {
+				System.out.println(line);
 
 				return false;
 			} else {
@@ -190,10 +206,13 @@ public class BrppCompiler {
 		String name = "";
 		String value = "-";
 		String var = "";
-		if (line.contains("Constante")) line=line.replace("Constante", "const");
+		if (line.contains("Constante"))
+			line = line.replace("Constante", "const");
+		if (line.contains("Modulo"))
+			line = line.replace("Modulo", "unsigned");
 		if (line.contains("Numero")) {
 
-			if (!line.contains("Decimal")) {
+			if (!line.contains("Decimal") && !line.contains("Longo")) {
 				var = line.replace("Numero", "int");
 
 			} else {
@@ -207,6 +226,7 @@ public class BrppCompiler {
 					co = false;
 				}
 				var = line.replace("NumeroDecimal", "float");
+				var = line.replace("NumeroLongo", "long");
 			}
 			// System.out.println(var);
 
