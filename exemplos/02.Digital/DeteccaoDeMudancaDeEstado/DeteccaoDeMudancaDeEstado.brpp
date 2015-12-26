@@ -33,7 +33,7 @@ Configuracao() {
   // Define o LED como uma saida:
   Pino.definirModo(LED, Saida);
   // Inicia uma comunicação serial:
-  USB.conectar;
+  USB.conectar();
 }
 
 
@@ -42,20 +42,20 @@ Principal() {
   estadoBotao = Pino.ler(botao);
 
   // compara o estado do botão com o seu último estado
-  se (estadoBotao != ultimoEstado) {
+  se (estadoBotao != ultimoEstado) faca{
     // Se o estado ter mudado, soma um ao medidor)
-    se (estadoBotao == Ligado) {
+    se (estadoBotao == Ligado) faca{
       // Se o estado do botão for ligado ele
 	  // muda do "desligado" pro "ligado"
       contadorBotao++;
-      USB.enviar[ln]("ligado");
-      USB.enviar[ln]("o botão foi acionado:  ");
-      USB.enviar[ln](contadorBotao);
+      USB.enviarln("ligado");
+      USB.enviarln("o botão foi acionado:  ");
+      USB.enviarln(contadorBotao);
     }
-    senao {
+    senao faca{
       // Se o estado do botão for desligado, ele
 	  // muda do "desligado" pro "ligado"
-      USB.enviar[ln]("desligado");
+      USB.enviarln("desligado");
     }
     // esperar para evitar ruidos:
     esperar(50);
@@ -68,9 +68,9 @@ Principal() {
   // Liga o LED a cada 4 vezes que o botão for precionado 
   // verificando o modulo do contador do botão
 
-  se (contadorBotao % 4 == 0) {
+  se (contadorBotao % 4 == 0) faca {
     Pino.escrever(LED, Ligado);
-  } senao {
+  } senao faca{
     Pino.escrever(LED, Desligado);
   }
 

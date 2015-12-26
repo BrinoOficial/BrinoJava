@@ -40,20 +40,28 @@ public class BrppCompiler {
 	}
 
 	public static boolean proccess(String[] lines) {
-		boolean comment=false;
+		boolean comment = false;
+		boolean linecomment = false;
 		for (String line : lines) {
 			String command = line;
-			if (command.contains("/*")) comment =true;
-			if (command.contains("*/")) comment = false;
-			if (command.contains("definir "))
+			linecomment = false;
+			if (command.contains("//"))
+				linecomment = true;
+			if (command.contains("/*"))
+				comment = true;
+			if (command.contains("*/"))
+				comment = false;
+			if (command.contains("definir ") && !linecomment)
 				command = command.replace("definir ", "#define ");
+			if (command.contains("usar") && !linecomment) {
+				command = command.replace("usar ", "#include <");
+				command = command.trim();
+				command = command.concat(".h>");
+			}
 			if ((command.contains(";") || command.contains("{") || command
-					.contains("}")) && comment==false) {
+					.contains("}")) && comment == false) {
 
-				if (command.contains("usar")) {
-					command = command.replace("usar ", "#include <");
-					command = command.replace(";", ".h>;");
-				}
+				
 				if (command.contains("Configuracao"))
 					command = command.replace("Configuracao", "void setup");
 				if (command.contains("Principal"))
@@ -78,8 +86,9 @@ public class BrppCompiler {
 					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains("==")
-									|| command.contains("<") || command
-										.contains(">")))) {
+									|| command.contains("<")
+									|| command.contains(">") || command
+										.contains("!")))) {
 						System.out.println(line);
 						return false;
 					}
@@ -127,15 +136,9 @@ public class BrppCompiler {
 
 						command = addVar(command, command.contains("=") ? true
 								: false);
+						System.out.println(command);
 					}
 				}
-				if (command.contains("}") && !command.contains("\n")) {
-					command = command.replace("}", "");
-					command = command.concat(command.substring(
-							command.indexOf(';') + 1,
-							command.lastIndexOf('\t') + 1) + "}");
-				} else if (command.contains("}"))
-					command = "}";
 				if (command.contains("Pino.definirModo")) {
 					command = command.replace("Pino.definirModo", "pinMode");
 					command = command.replace("Saida", "OUTPUT");
@@ -148,6 +151,7 @@ public class BrppCompiler {
 				if (command.contains("Pino.ler(")) {
 					command = command.replace("Pino.ler", "digitalRead");
 					command = command.replace("Digital.", "");
+					command = command.replace("D.", "");
 				}
 				if (command.contains("Pino.escrever(A")) {
 					command = command.replace("Pino.escrever", "analogWrite");
@@ -157,11 +161,11 @@ public class BrppCompiler {
 				if (command.contains("Pino.escrever(")) {
 					command = command.replace("Pino.escrever", "digitalWrite");
 					command = command.replace("Digital.", "");
-					command = command.replace("Ligado", "HIGH");
-					command = command.replace("Desligado", "LOW");
+					command = command.replace("D.", "");
 				}
 				if (command.contains("Pino.ligar(")) {
 					command = command.replace("Digital.", "");
+					command = command.replace("D.", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.ligar(" + pin + ")",
@@ -169,29 +173,41 @@ public class BrppCompiler {
 				}
 				if (command.contains("Pino.desligar(")) {
 					command = command.replace("Digital.", "");
+					command = command.replace("D.", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.desligar(" + pin + ")",
 							"digitalWrite(" + pin.trim() + ",LOW)");
 				}
-				if (command.contains("tambem")) {
-					command = command.replace("e tambem", "&&");
-					command = command.replace("ou tambem", "||");
+				if (command.contains("Ligado"))
+					command = command.replace("Ligado", "HIGH");
+				if (command.contains("Desligado"))
+					command = command.replace("Desligado", "LOW");
+				if (command.contains(" e ") || command.contains(" ou ")) {
+					command = command.replace(" e ", "&&");
+					command = command.replace(" ou ", "||");
 				}
 				if (command.contains("responder"))
 					command = command.replace("responder", "return");
 				if (command.contains("<native>"))
-					command = line.replace("<native>", "");
+					command = command.replace(
+							command.substring(command.indexOf("<native>")),
+							line.substring(line.indexOf("e>") + 2));
 				if (command.contains("//")) {
-					command = line;
+					command = command.replace(
+							command.substring(command.indexOf("//")),
+							line.substring(line.indexOf("//")));
 				}
 				program.format("%s\n", command);
 				System.out.println(command);
 				command = "";
-			} else if (line.length() > 3 && !line.contains("//")
-					&& !line.contains("definir") && comment == false) {
+			} else if (line.length() > 3 && linecomment == false
+					&& line.contains("definir") == false && comment == false
+					&& line.contains("*/") == false && line.contains("usar") == false) {
 				System.out.println(line);
-
+				System.out.println(linecomment);
+				program.flush();
+				program.close();
 				return false;
 			} else {
 				program.format("%s\n", command);
@@ -228,8 +244,10 @@ public class BrppCompiler {
 				} else {
 					co = false;
 				}
-				var = line.replace("NumeroDecimal", "float");
-				var = line.replace("NumeroLongo", "long");
+				if (line.contains("Decimal"))
+					var = line.replace("NumeroDecimal", "float");
+				if (line.contains("Longo"))
+					var = line.replace("NumeroLongo", "long");
 			}
 			// System.out.println(var);
 
