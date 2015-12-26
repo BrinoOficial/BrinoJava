@@ -1,0 +1,75 @@
+/*
+ Debounce
+
+ Toda vez que o pino de entrada varia de desligado para ligado (por ser um
+ botao ele passa pelos dois estados), a saida varia de desligado para ligado
+ ou de ligado para desligado. Há um esperar() mínimo .
+
+ O circuito:
+ * LED conectado na porta 13 e no ground.
+ * botao da porta 2 para a +5V
+ * resistor de 10k da porta 2 para o ground
+
+ * Nota: A maioria dos arduinos já possuem um LED na placa 
+ instalado na porta 13.
+ 
+ Esse codigo de exemplo esta em domínio público.
+ Codigo original para o Arduino:
+ http://www.arduino.cc/en/Tutorial/Debounce
+ */
+
+// contantes nao mudam, elas estão aqui para
+// identificar as portas dos componentes:
+Constante Numero botao = 2;    // porta do botao(2)
+Constante Numero LED = 13;      // porta do LED(13)
+
+// variaveis vão mudar:
+Numero estadoLED = Ligado;         // estado atual do pino de saida
+Numero estadoBotao;             // leitura do pino de entrada
+Numero ultimoEstadoBotao = Desligado;   // ultima leitura do pino de entrada
+
+// As próximas variaveis são longas por conta do tempo, medido em milisegundos.
+NumeroLongo demoraUltimaTroca = 0;  // ultima vez que a porta de saida foi acionada
+NumeroLongo UltimaTrocaEsperar = 50;    // tempo de troca, aumenta se a saida mudar de estado.
+
+Configuracao() {
+  Pino.definirModo(botao, Entrada);
+  Pino.definirModo(LED, Saida);
+
+  // inicia o estado do LED
+  Pino.escrever(D.LED, estadoLED);
+}
+
+Principal() {
+  // lê o estado da porta e armazena na variavel
+  Numero leitura = Pino.ler(botao);
+
+  // verifique se o botao ja foi precionado
+  // (a entrada vai de desligado para ligado), e você tem que esperar
+  // tempo suficiente a partir do ultimo acionamento, para ignorar ruidos
+
+  // se o estado mudar , durante o ruido ou precionamento
+  se (leitura != ultimoEstadoBotao) {
+    // marca a contagem de tempo
+    demoraUltimaTroca  = <native> millis();
+  }
+
+  se (( <native> millis() - demoraUltimaTroca ) > UltimaTrocaEsperar) {
+
+    // se o estado do botão mudou
+    se (leitura != estadoBotao) {
+      estadoBotao = leitura;
+
+      // Altera o estado da constante se o botao estiver ligado
+      se (estadoBotao == Ligado) {
+        estadoLED = !estadoLED;
+      }
+    }
+  }
+
+  // Altera o LED:
+  Pino.escrever(D.LED, estadoLED);
+
+  // Salva a ultima leitura
+  ultimoEstadoBotao = leitura;
+}
