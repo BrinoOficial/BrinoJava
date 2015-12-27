@@ -38,8 +38,8 @@
 *		Falso			*		false				*
 *		Ligado		        *		HIGH				*
 *		Desligado		*		LOW				*
-*		e tambem		*		&&				*
-*		ou tambem		*		||				*
+*		e 			*		&&				*
+*		ou 			*		||				*
 *		senao			*		else			        *
 *		definir			*		define				*
 *		Constante		*		const				*
