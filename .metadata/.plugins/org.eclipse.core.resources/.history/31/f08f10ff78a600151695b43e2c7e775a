@@ -1,8 +1,0 @@
-package br.com.Mateus.Brava;
-
-public class BravaCompiler {
-	
-	public static boolean compile(){
-		
-	}
-}
