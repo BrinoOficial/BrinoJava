@@ -1811,3 +1811,584 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2015-12-27 00:03:16.495 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.8.0_66
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=pt_BR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jface 2 0 2015-12-27 00:03:24.940
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-12-27 00:03:24.940
+!MESSAGE A conflict occurred for ALT+CTRL+P:
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.m2e.profiles.ui.commands.selectMavenProfileCommand,Select Maven Profiles,
+		,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@150ce46,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.linuxtools.changelog.core.preparechangelog,Prepare Changelog,
+		Prepares Changelog,
+		Category(org.eclipse.linuxtools.changelog,Changelog,Changelog key bindings,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1f69078,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-12-27 00:03:29.092
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-12-27 00:03:29.094
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Mateus Terra'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2015-12-27 00:10:14.769 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.8.0_66
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=pt_BR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.jface 2 0 2015-12-27 00:10:21.600
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-12-27 00:10:21.600
+!MESSAGE A conflict occurred for ALT+CTRL+P:
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.m2e.profiles.ui.commands.selectMavenProfileCommand,Select Maven Profiles,
+		,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@82f1eb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.linuxtools.changelog.core.preparechangelog,Prepare Changelog,
+		Prepares Changelog,
+		Category(org.eclipse.linuxtools.changelog,Changelog,Changelog key bindings,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@d6cbf,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-12-27 00:10:25.447
+!MESSAGE Warning: EGit couldn't detect the installation path "gitPrefix" of native Git. Hence EGit can't respect system level
+Git settings which might be configured in ${gitPrefix}/etc/gitconfig under the native Git installation directory.
+The most important of these settings is core.autocrlf. Git for Windows by default sets this parameter to true in
+this system level configuration. The Git installation location can be configured on the
+Team > Git > Configuration preference page's 'System Settings' tab.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.egit.ui 2 0 2015-12-27 00:10:25.449
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Mateus Terra'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.718
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.debug.standalone_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.721
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.gnu.debug_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.724
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.launch.remote_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.726
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.msw_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.728
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.native_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.730
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.platform_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.740
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.epp.package.cpp.feature_4.4.2.20150219-0708.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.747
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.changelog.c_3.0.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.748
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.750
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gcov_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.752
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gprof.feature_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.755
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.lttng2.ust_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.756
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.profiling_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.758
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.760
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.769
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.core_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.773
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.local_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:51.775
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.ssh_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.982
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.debug.standalone_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.984
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.gnu.debug_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.986
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.launch.remote_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.987
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.msw_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.988
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.native_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.989
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.platform_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.992
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.epp.package.cpp.feature_4.4.2.20150219-0708.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.995
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.changelog.c_3.0.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.996
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.997
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gcov_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.998
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gprof.feature_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:58.999
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.lttng2.ust_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:59.001
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.profiling_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:59.002
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:59.003
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:59.006
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.core_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:59.008
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.local_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:10:59.009
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.ssh_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2015-12-27 00:14:58.048
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.operations 1 10001 2015-12-27 00:14:58.048
+!MESSAGE Your original request has been modified.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.048
+!MESSAGE "Eclipse Git Team Provider - Task focused interface" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.048
+!MESSAGE "Java implementation of Git" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.048
+!MESSAGE "Eclipse Git Team Provider" is already installed, so an update will be performed instead.
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2015-12-27 00:14:58.048
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.048
+!MESSAGE Software being installed: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.048
+!MESSAGE Missing requirement: Import framework 0.2.0.v20151123-1229 (org.eclipse.e4.ui.importer 0.2.0.v20151123-1229) requires 'bundle org.eclipse.core.jobs 3.7.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2015-12-27 00:14:58.048
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.048
+!MESSAGE From: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.048
+!MESSAGE To: bundle org.eclipse.e4.ui.importer 0.1.0
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2015-12-27 00:14:58.064
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.operations 1 10001 2015-12-27 00:14:58.064
+!MESSAGE Your original request has been modified.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.064
+!MESSAGE "Eclipse Git Team Provider - Task focused interface" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.064
+!MESSAGE "Java implementation of Git" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.065
+!MESSAGE "Eclipse Git Team Provider" is already installed, so an update will be performed instead.
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2015-12-27 00:14:58.065
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.065
+!MESSAGE Software being installed: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.065
+!MESSAGE Missing requirement: Import framework 0.2.0.v20151123-1229 (org.eclipse.e4.ui.importer 0.2.0.v20151123-1229) requires 'bundle org.eclipse.core.jobs 3.7.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2015-12-27 00:14:58.065
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.065
+!MESSAGE From: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.065
+!MESSAGE To: bundle org.eclipse.e4.ui.importer 0.1.0
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2015-12-27 00:14:58.109
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.operations 1 10001 2015-12-27 00:14:58.109
+!MESSAGE Your original request has been modified.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.110
+!MESSAGE "Eclipse Git Team Provider - Task focused interface" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.110
+!MESSAGE "Java implementation of Git" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.110
+!MESSAGE "Eclipse Git Team Provider" is already installed, so an update will be performed instead.
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2015-12-27 00:14:58.110
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.110
+!MESSAGE Software being installed: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.110
+!MESSAGE Missing requirement: Import framework 0.2.0.v20151123-1229 (org.eclipse.e4.ui.importer 0.2.0.v20151123-1229) requires 'bundle org.eclipse.core.jobs 3.7.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2015-12-27 00:14:58.110
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.110
+!MESSAGE From: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.110
+!MESSAGE To: bundle org.eclipse.e4.ui.importer 0.1.0
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2015-12-27 00:14:58.112
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.operations 1 10001 2015-12-27 00:14:58.112
+!MESSAGE Your original request has been modified.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.112
+!MESSAGE "Eclipse Git Team Provider - Task focused interface" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.112
+!MESSAGE "Java implementation of Git" is already installed, so an update will be performed instead.
+!SUBENTRY 2 org.eclipse.equinox.p2.operations 1 10003 2015-12-27 00:14:58.112
+!MESSAGE "Eclipse Git Team Provider" is already installed, so an update will be performed instead.
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2015-12-27 00:14:58.112
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.112
+!MESSAGE Software being installed: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.112
+!MESSAGE Missing requirement: Import framework 0.2.0.v20151123-1229 (org.eclipse.e4.ui.importer 0.2.0.v20151123-1229) requires 'bundle org.eclipse.core.jobs 3.7.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2015-12-27 00:14:58.112
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.112
+!MESSAGE From: Git Team Provider - experimental auto-import (Incubation) 4.1.1.201511131810-r (org.eclipse.egit.ui.importer 4.1.1.201511131810-r)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2015-12-27 00:14:58.112
+!MESSAGE To: bundle org.eclipse.e4.ui.importer 0.1.0
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.040
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.debug.standalone_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.042
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.gnu.debug_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.043
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.launch.remote_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.045
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.msw_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.046
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.native_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.048
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.platform_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.052
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.epp.package.cpp.feature_4.4.2.20150219-0708.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.055
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.changelog.c_3.0.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.056
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.058
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gcov_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.059
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gprof.feature_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.061
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.lttng2.ust_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.062
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.profiling_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.064
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.065
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.069
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.core_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.071
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.local_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:17:10.073
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.ssh_3.7.0.201502160819.
+!SESSION 2015-12-27 00:20:14.532 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.8.0_66
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=pt_BR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.mylyn.git.ui 4 0 2015-12-27 00:20:19.802
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.mylyn.git.ui [272]
+  Unresolved requirement: Require-Bundle: org.eclipse.egit.ui
+    -> Bundle-SymbolicName: org.eclipse.egit.ui; bundle-version="4.1.1.201511131810-r"; singleton:="true"
+       org.eclipse.egit.ui [592]
+         No resolution report for the bundle.  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"] because it is exposed to package 'com.jcraft.jsch' from resources com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"] and com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"] via two dependency chains.
+
+Chain 1:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.37)(!(bundle-version>=0.2.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"]
+
+Chain 2:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=org.eclipse.jsch.core)(&(bundle-version>=1.1.100)(!(bundle-version>=2.0.0))))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.1.500.v20131112-1442"; osgi.wiring.bundle="org.eclipse.jsch.core"; singleton:="true"
+  org.eclipse.jsch.core [osgi.identity; osgi.identity="org.eclipse.jsch.core"; type="osgi.bundle"; version:Version="1.1.500.v20131112-1442"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.50)(!(bundle-version>=1.0.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.egit.gitflow.ui 4 0 2015-12-27 00:20:23.683
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.egit.gitflow.ui [590]
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.repository.tree; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.repository.tree; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.gitflow.ui"
+       org.eclipse.egit.ui [592]
+         No resolution report for the bundle.  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.selection; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.selection; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-internal:="true"
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.commit; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.commit; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.mylyn.ui,org.eclipse.egit.gitflow.ui"
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.history; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.history; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-internal:="true"
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.mylyn.ui,org.eclipse.egit.gitflow.ui"
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.rebase; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.rebase; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.gitflow.ui"
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.import,org.eclipse.egit.gitflow.ui"
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.branch; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.branch; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.gitflow.ui"
+  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"] because it is exposed to package 'com.jcraft.jsch' from resources com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"] and com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"] via two dependency chains.
+
+Chain 1:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.37)(!(bundle-version>=0.2.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"]
+
+Chain 2:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=org.eclipse.jsch.core)(&(bundle-version>=1.1.100)(!(bundle-version>=2.0.0))))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.1.500.v20131112-1442"; osgi.wiring.bundle="org.eclipse.jsch.core"; singleton:="true"
+  org.eclipse.jsch.core [osgi.identity; osgi.identity="org.eclipse.jsch.core"; type="osgi.bundle"; version:Version="1.1.500.v20131112-1442"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.50)(!(bundle-version>=1.0.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.egit.mylyn.ui 4 0 2015-12-27 00:20:23.829
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.egit.mylyn.ui [591]
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.mylyn.ui,org.eclipse.egit.gitflow.ui"
+       org.eclipse.egit.ui [592]
+         No resolution report for the bundle.  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.commit; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.commit; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.mylyn.ui,org.eclipse.egit.gitflow.ui"
+  Unresolved requirement: Import-Package: org.eclipse.egit.ui.internal.synchronize.model; version="[4.1.1,4.2.0)"
+    -> Export-Package: org.eclipse.egit.ui.internal.synchronize.model; bundle-symbolic-name="org.eclipse.egit.ui"; bundle-version="4.1.1.201511131810-r"; version="4.1.1"; x-friends:="org.eclipse.egit.mylyn.ui"
+  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"] because it is exposed to package 'com.jcraft.jsch' from resources com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"] and com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"] via two dependency chains.
+
+Chain 1:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.37)(!(bundle-version>=0.2.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"]
+
+Chain 2:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=org.eclipse.jsch.core)(&(bundle-version>=1.1.100)(!(bundle-version>=2.0.0))))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.1.500.v20131112-1442"; osgi.wiring.bundle="org.eclipse.jsch.core"; singleton:="true"
+  org.eclipse.jsch.core [osgi.identity; osgi.identity="org.eclipse.jsch.core"; type="osgi.bundle"; version:Version="1.1.500.v20131112-1442"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.50)(!(bundle-version>=1.0.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.egit.ui 4 0 2015-12-27 00:20:23.907
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.egit.ui [592]
+  Bundle was not resolved because of a uses contraint violation.
+  org.osgi.service.resolver.ResolutionException: Uses constraint violation. Unable to resolve resource org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"] because it is exposed to package 'com.jcraft.jsch' from resources com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"] and com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"] via two dependency chains.
+
+Chain 1:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.37)(!(bundle-version>=0.2.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.53.v201508180515"]
+
+Chain 2:
+  org.eclipse.egit.ui [osgi.identity; osgi.identity="org.eclipse.egit.ui"; type="osgi.bundle"; version:Version="4.1.1.201511131810-r"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=org.eclipse.jsch.core)(&(bundle-version>=1.1.100)(!(bundle-version>=2.0.0))))
+     |
+    provide: osgi.wiring.bundle; bundle-version:Version="1.1.500.v20131112-1442"; osgi.wiring.bundle="org.eclipse.jsch.core"; singleton:="true"
+  org.eclipse.jsch.core [osgi.identity; osgi.identity="org.eclipse.jsch.core"; type="osgi.bundle"; version:Version="1.1.500.v20131112-1442"; singleton:="true"]
+    require: (&(osgi.wiring.bundle=com.jcraft.jsch)(&(bundle-version>=0.1.50)(!(bundle-version>=1.0.0))))
+     |
+    provide: osgi.wiring.bundle: com.jcraft.jsch
+  com.jcraft.jsch [osgi.identity; osgi.identity="com.jcraft.jsch"; type="osgi.bundle"; version:Version="0.1.51.v201410302000"]
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.026
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.debug.standalone_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.028
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.gnu.debug_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.029
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.launch.remote_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.031
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.msw_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.033
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.native_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.034
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.cdt.platform_8.6.0.201502131403.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.038
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.epp.package.cpp.feature_4.4.2.20150219-0708.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.041
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.changelog.c_3.0.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.042
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.043
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gcov_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.045
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.gprof.feature_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.046
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.lttng2.ust_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.048
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.profiling_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.049
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf.ctf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.050
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.linuxtools.tmf_3.2.0.201502180018.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.054
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.core_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.056
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.local_3.7.0.201502160819.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2015-12-27 00:20:26.058
+!MESSAGE Unable to acquire PluginConverter service during generation for: C:\Users\Mateus Terra\Desktop\eclipse\features\org.eclipse.rse.ssh_3.7.0.201502160819.
+
+!ENTRY org.eclipse.jface 2 0 2015-12-27 00:20:53.887
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2015-12-27 00:20:53.887
+!MESSAGE A conflict occurred for ALT+CTRL+P:
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.m2e.profiles.ui.commands.selectMavenProfileCommand,Select Maven Profiles,
+		,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@c7ad61,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.linuxtools.changelog.core.preparechangelog,Prepare Changelog,
+		Prepares Changelog,
+		Category(org.eclipse.linuxtools.changelog,Changelog,Changelog key bindings,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@33c093,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
