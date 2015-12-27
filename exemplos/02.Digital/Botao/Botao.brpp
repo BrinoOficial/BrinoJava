@@ -23,9 +23,9 @@ Numero estadoBotao = 0;         // variavel do estado do botão
 
 Configuracao() {
   // declara o LED como uma saida
-  Pino.definirModo(LED, saida);
+  Pino.definirModo(LED, Saida);
   // declara o botão como uma entrada
-  Pino.definirModo(botao, entrada);
+  Pino.definirModo(botao, Entrada);
 }
 
 Principal() {

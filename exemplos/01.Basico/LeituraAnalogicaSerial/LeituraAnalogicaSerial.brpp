@@ -17,5 +17,6 @@ Principal() {
   Numero leitura= Pino.ler(A0);
   // Apresenta no monitor serial o valor lido:
   USB.enviar(leitura);
-  esperar(200); //tempo entre uma medida e outra
+  //tempo entre uma medida e outra
+  esperar(200); 
 }

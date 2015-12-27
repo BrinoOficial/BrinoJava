@@ -19,20 +19,19 @@
 Constante Numero LED = 13;      
 
 // Variables will change :
-Condicao estadoLED = Desligado;             // Usado para quardar o estado do LED
+Condicao estadoLED = Falso;             // Usado para quardar o estado do LED
 
 NumeroLongo tempoAnterior = 0;        // salva a ultima mudança no estado do LED(ligado/desligado)
 
 // constants won't change :
-Consntante Numero intervalo = 1000;    // intervalo entre as mudanças (milissegundos)
+Constante Numero intervalo = 1000;    // intervalo entre as mudanças (milissegundos)
 
 Configuracao() {
   // define o LED como uma saida:
   Pino.definirModo(LED, Saida);
 }
 
-Principal()
-{
+Principal(){
   // Aqui você pode por o seu codigo.
 
 
