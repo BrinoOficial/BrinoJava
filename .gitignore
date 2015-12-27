@@ -56,3 +56,4 @@ Temporary Items
 .metadata/.plugins/org.eclipse.cdt.core/.log
 .metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
 .metadata/version.ini
+.metadata/.log
