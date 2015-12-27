@@ -1,3 +1,12 @@
+/* version 1.0.1
+ * 
+ * Compilador Brino criado para transformar código Brpp em 
+ * código arduino. 
+ * 
+ * @author Mateus Berardo de Souza Terra
+ * @date 27/12/2015
+ * 
+ */
 package br.com.Mateus.Brpp;
 
 import java.io.FileNotFoundException;
