@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class BrppCompilerFrame extends JFrame {
@@ -19,6 +20,7 @@ public class BrppCompilerFrame extends JFrame {
 	public JFileChooser FC;
 	private GridBagLayout layout;
 	private GridBagConstraints constraints;
+	private JTextField IDE = new JTextField(400);
 
 	public BrppCompilerFrame(String title) {
 		super(title);
@@ -27,6 +29,7 @@ public class BrppCompilerFrame extends JFrame {
 		constraints = new GridBagConstraints();
 		COMP = new JButton("Compilar");
 		addComponent(COMP, 3, 0, 1, 1);
+		addComponent(IDE, 0,0,3,3);
 		ButtonHandler handler = new ButtonHandler();
 		COMP.addActionListener(handler);
 		CANCEL = new JButton("Abort");
