@@ -8,7 +8,7 @@ public class BrppCompilerMain {
 		// TODO Auto-generated method stub
 		BrppCompilerFrame frame = new BrppCompilerFrame("Compilador Brino");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 100);
+		frame.setSize(400, 400);
 		frame.setVisible(true);
 //		if (!(BrppCompiler
 //				.compile("C:/Users/Mateus Terra/OneDrive/Lua/Blink/Blink.Brpp")))
