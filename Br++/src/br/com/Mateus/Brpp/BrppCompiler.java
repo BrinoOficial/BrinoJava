@@ -1,3 +1,12 @@
+/* version 1.0.1
+ * 
+ * Compilador Brino criado para transformar código Brpp em 
+ * código arduino. 
+ * 
+ * @author Mateus Berardo de Souza Terra
+ * @date 27/12/2015
+ * 
+ */
 package br.com.Mateus.Brpp;
 
 import java.io.FileNotFoundException;
@@ -61,7 +70,6 @@ public class BrppCompiler {
 			if ((command.contains(";") || command.contains("{") || command
 					.contains("}")) && comment == false) {
 
-				
 				if (command.contains("Configuracao"))
 					command = command.replace("Configuracao", "void setup");
 				if (command.contains("Principal"))
@@ -112,8 +120,9 @@ public class BrppCompiler {
 					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains("==")
-									|| command.contains("<") || command
-										.contains(">")))) {
+									|| command.contains("<")
+									|| command.contains(">") || command
+										.contains("!")))) {
 						System.out.println(line);
 						return false;
 					}
@@ -203,7 +212,8 @@ public class BrppCompiler {
 				command = "";
 			} else if (line.length() > 3 && linecomment == false
 					&& line.contains("definir") == false && comment == false
-					&& line.contains("*/") == false && line.contains("usar") == false) {
+					&& line.contains("*/") == false
+					&& line.contains("usar") == false) {
 				System.out.println(line);
 				System.out.println(linecomment);
 				program.flush();
