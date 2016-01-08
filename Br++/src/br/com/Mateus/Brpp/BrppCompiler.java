@@ -21,7 +21,7 @@ public class BrppCompiler {
 
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
-	public static String version = "1.1.0";
+	public static String version = "1.1.1";
 
 	public static boolean compile(String path) {
 		String file = path.substring(0, path.length() - 4);
@@ -143,8 +143,7 @@ public class BrppCompiler {
 							|| command.contains("Verdadeiro")
 							|| command.contains("Falso")) {
 
-						command = addVar(command, command.contains("=") ? true
-								: false);
+						command = addVar(command, command.contains("="));
 						System.out.println(command);
 					}
 				}
@@ -161,6 +160,7 @@ public class BrppCompiler {
 					command = command.replace("Pino.ler", "digitalRead");
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 				}
 				if (command.contains("Pino.escrever(A")) {
 					command = command.replace("Pino.escrever", "analogWrite");
@@ -171,10 +171,12 @@ public class BrppCompiler {
 					command = command.replace("Pino.escrever", "digitalWrite");
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 				}
 				if (command.contains("Pino.ligar(")) {
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.ligar(" + pin + ")",
@@ -183,6 +185,7 @@ public class BrppCompiler {
 				if (command.contains("Pino.desligar(")) {
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.desligar(" + pin + ")",
@@ -209,6 +212,7 @@ public class BrppCompiler {
 				}
 				if (command.contains(".conectar(D")) {
 					command = command.replace(".conectar(D", ".attach(");
+					command = command.replace(".conectar(D.", ".attach(");
 					command = command.replace(".conectar(Digital.", ".attach(");
 				}
 				if (command.contains("escreverAngulo"))
