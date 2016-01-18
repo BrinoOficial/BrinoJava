@@ -77,6 +77,8 @@ public class BrppCompiler {
 				command = command.replace("LCD", "LiquidCrystal");
 			if (command.contains("Memoria"))
 				command = command.replace("Memoria", "EEPROM");
+			if (command.contains("I2C"))
+				command = command.replace("I2C", "Wire");
 			if ((command.contains(";") || command.contains("{") || command
 					.contains("}")) && comment == false) {
 
@@ -235,6 +237,18 @@ public class BrppCompiler {
 					command = command.replace(".conectar(", ".begin(");
 				if (command.contains(".limpar"))
 					command = command.replace("limpar", "clear");
+				if (command.contains(".transmitir"))
+					command = command
+							.replace("transmitir", "beginTransmission");
+				if (command.contains(".pararTransmitir"))
+					command = command.replace("pararTransmitir",
+							"endTransmission");
+				if (command.contains(".solicitar"))
+					command = command.replace(".solicitar", ".requestFrom");
+				if (command.contains(".solicitado"))
+					command = command.replace("solicitado", "onRequest");
+				if (command.contains(".recebido"))
+					command = command.replace("recebido", "onReceive");
 				if (command.contains("USB"))
 					command = command.replace("USB", "Serial");
 				if (command.contains(".disponivel"))
