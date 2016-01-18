@@ -6,15 +6,18 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class BrppCompilerFrame extends JFrame {
+	public static JTextArea LOG = new JTextArea();
 	private JButton COMP;
 	private JButton CANCEL;
 	public JFileChooser FC;
@@ -28,17 +31,21 @@ public class BrppCompilerFrame extends JFrame {
 		setLayout(layout);
 		constraints = new GridBagConstraints();
 		COMP = new JButton("Compilar");
-		addComponent(COMP, 3, 0, 1, 1);
-		addComponent(IDE, 0,0,3,3);
+		addComponent(COMP, 3, 1, 1, 1);
+		// addComponent(IDE, 0,0,3,3);
 		ButtonHandler handler = new ButtonHandler();
 		COMP.addActionListener(handler);
 		CANCEL = new JButton("Abort");
-		addComponent(CANCEL, 3, 1, 1, 1);
+		addComponent(CANCEL, 3, 2, 1, 1);
 		CanButtonHandler CanHandler = new CanButtonHandler();
 		CANCEL.addActionListener(CanHandler);
-
+		addComponent(LOG, 5, 0, 6, 4);
 		// addComponent(FC,0,0,1,2);
 
+	}
+
+	public static void setText(String line) {
+		LOG.setText(line + "\n");
 	}
 
 	private void addComponent(Component component, int row, int column,
@@ -47,6 +54,7 @@ public class BrppCompilerFrame extends JFrame {
 		constraints.gridy = row;
 		constraints.gridwidth = width;
 		constraints.gridheight = height;
+		constraints.fill = constraints.BOTH;
 		layout.setConstraints(component, constraints);
 		add(component);
 	}
@@ -59,8 +67,14 @@ public class BrppCompilerFrame extends JFrame {
 			if (res == JFileChooser.APPROVE_OPTION) {
 				diretorio = FC.getSelectedFile();
 				if (BrppCompiler.compile(diretorio.getAbsolutePath()))
-					JOptionPane.showMessageDialog(null, diretorio.getName()
-							+ " compilado");
+					try {
+						Uploader.upload(BrppCompiler.getFile());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				// JOptionPane.showMessageDialog(null, diretorio.getName()
+				// + " compilado");
 			} else
 				JOptionPane.showMessageDialog(null,
 						"Voce nao selecionou nenhum diretorio.");

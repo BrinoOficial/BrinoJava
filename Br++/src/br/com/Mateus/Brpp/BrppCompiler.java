@@ -9,6 +9,7 @@
  */
 package br.com.Mateus.Brpp;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,19 +22,24 @@ public class BrppCompiler {
 
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
-
+	private static String file;
+	
 	public static boolean compile(String path) {
-		String file = path.substring(0, path.length() - 4);
-		file = file.concat("ino");
+		setFile("C:\\Arduino\\Brino");
+		setFile(getFile().concat(path.substring(path.lastIndexOf('\\'),
+				path.length() - 5)));
+		setFile(getFile().concat("\\"
+				+ path.substring(path.lastIndexOf('\\'), path.length() - 4)));
+		setFile(getFile().concat("ino"));
 		try {
 			// inputFile = new Scanner(input);
-			program = new Formatter(file);
+			program = new Formatter(getFile());
 			byte[] encoded = Files.readAllBytes(Paths.get(path));
 			String liness = new String(encoded);
 			String[] lines = liness.split("\n");
-			if (proccess(lines))
+			if (proccess(lines)) {
 				return true;
-			else
+			} else
 				return false;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -313,5 +319,13 @@ public class BrppCompiler {
 
 	public static void saveVar(String name, String value) {
 		variaveis.put(name, value);
+	}
+
+	public static String getFile() {
+		return file;
+	}
+
+	private static void setFile(String file) {
+		BrppCompiler.file = file;
 	}
 }
