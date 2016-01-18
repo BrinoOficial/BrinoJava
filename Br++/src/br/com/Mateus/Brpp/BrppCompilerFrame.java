@@ -1,7 +1,6 @@
 package br.com.Mateus.Brpp;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -28,7 +27,7 @@ public class BrppCompilerFrame extends JFrame {
 	private JComboBox<String> COM;
 	private String[] coms = { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6",
 			"COM7", "COM8", "COM9" };
-	private JTextArea IDE = new JTextArea(null,"Código-Fonte", getDefaultCloseOperation(), getDefaultCloseOperation());
+//	private JTextArea IDE = new JTextArea(null,"Código-Fonte", getDefaultCloseOperation(), getDefaultCloseOperation());
 	
 	public BrppCompilerFrame(String title) {
 		super(title);
@@ -68,7 +67,7 @@ public class BrppCompilerFrame extends JFrame {
 		constraints.gridy = row;
 		constraints.gridwidth = width;
 		constraints.gridheight = height;
-		constraints.fill = constraints.BOTH;
+//		constraints.fill = constraints.BOTH;
 		layout.setConstraints(component, constraints);
 		add(component);
 	}

@@ -1,7 +1,5 @@
 package br.com.Mateus.Brpp;
 
-import java.io.IOException;
-
 import javax.swing.JFrame;
 
 public class BrppCompilerMain {
@@ -12,10 +10,6 @@ public class BrppCompilerMain {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(600, 600);
 		frame.setVisible(true);
-		
-//		if (!(BrppCompiler
-//				.compile("C:/Users/Mateus Terra/OneDrive/Lua/Blink/Blink.Brpp")))
-//			System.out.println("Seu código contém erros");
 	}
 
 }

@@ -41,7 +41,6 @@ public class Uploader {
 	}
 
 	public static boolean compile(String file) throws IOException {
-		boolean erro = false;
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
 				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --verify "
 						+ file);
