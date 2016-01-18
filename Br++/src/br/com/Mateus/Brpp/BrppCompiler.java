@@ -21,6 +21,7 @@ public class BrppCompiler {
 
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
+	public static String version = "1.1.1";
 
 	public static boolean compile(String path) {
 		String file = path.substring(0, path.length() - 4);
@@ -67,6 +68,10 @@ public class BrppCompiler {
 				command = command.trim();
 				command = command.concat(".h>");
 			}
+			if (command.contains("LCD"))
+				command = command.replace("LCD", "LiquidCrystal");
+			if (command.contains("Memoria"))
+				command = command.replace("Memoria", "EEPROM");
 			if ((command.contains(";") || command.contains("{") || command
 					.contains("}")) && comment == false) {
 
@@ -127,11 +132,6 @@ public class BrppCompiler {
 						return false;
 					}
 				}
-				if (command.contains("USB.conectar()"))
-					command = command.replace("USB.conectar()",
-							"Serial.begin(9600)");
-				if (command.contains("USB.enviar"))
-					command = command.replace("USB.enviar", "Serial.print");
 
 				if (command.contains("Numero") || command.contains("Palavra")
 						|| command.contains("Condicao")
@@ -143,8 +143,7 @@ public class BrppCompiler {
 							|| command.contains("Verdadeiro")
 							|| command.contains("Falso")) {
 
-						command = addVar(command, command.contains("=") ? true
-								: false);
+						command = addVar(command, command.contains("="));
 						System.out.println(command);
 					}
 				}
@@ -161,6 +160,7 @@ public class BrppCompiler {
 					command = command.replace("Pino.ler", "digitalRead");
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 				}
 				if (command.contains("Pino.escrever(A")) {
 					command = command.replace("Pino.escrever", "analogWrite");
@@ -171,10 +171,12 @@ public class BrppCompiler {
 					command = command.replace("Pino.escrever", "digitalWrite");
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 				}
 				if (command.contains("Pino.ligar(")) {
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.ligar(" + pin + ")",
@@ -183,6 +185,7 @@ public class BrppCompiler {
 				if (command.contains("Pino.desligar(")) {
 					command = command.replace("Digital.", "");
 					command = command.replace("D.", "");
+					command = command.replace("D", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.desligar(" + pin + ")",
@@ -207,6 +210,42 @@ public class BrppCompiler {
 							command.substring(command.indexOf("//")),
 							line.substring(line.indexOf("//")));
 				}
+				if (command.contains(".conectar(D")) {
+					command = command.replace(".conectar(D", ".attach(");
+					command = command.replace(".conectar(D.", ".attach(");
+					command = command.replace(".conectar(Digital.", ".attach(");
+				}
+				if (command.contains("escreverAngulo"))
+					command = command.replace("escreverAngulo", "write");
+				if (command.contains("escreverMicros"))
+					command = command.replace("escreverMicros",
+							"writeMicroseconds");
+				if (command.contains("Servo.frente"))
+					command = command.replace("Servo.frente", "1700");
+				if (command.contains("Servo.tras"))
+					command = command.replace("Servo.tras", "1300");
+				if (command.contains("Servo.parar"))
+					command = command.replace("Servo.parar", "1500");
+				if (command.contains(".conectar("))
+					command = command.replace(".conectar(", ".begin(");
+				if (command.contains(".limpar"))
+					command = command.replace("limpar", "clear");
+				if (command.contains("USB"))
+					command = command.replace("USB", "Serial");
+				if (command.contains(".enviar"))
+					command = command.replace(".enviar", ".print");
+				if (command.contains(".posicao"))
+					command = command.replace("posicao", "serCursor");
+				if (command.contains(".escrever"))
+					command = command.replace("escrever", "write");
+				if (command.contains(".ler"))
+					command = command.replace("ler", "read");
+				if (command.contains(".tamanho"))
+					command = command.replace("tamanho", "length");
+				if (command.contains("Memoria.formatar()"))
+					command = command.replace("Memoria.formatar()",
+							"for (int i = 0 ; i < EEPROM.length() ; i++)"
+									+ " EEPROM.write(i, 0);");
 				program.format("%s\n", command);
 				System.out.println(command);
 				command = "";
@@ -233,7 +272,7 @@ public class BrppCompiler {
 	public static String addVar(String line, boolean contains) {
 
 		String name = "";
-		String value = "-";
+		// String value = "-";
 		String var = "";
 		if (line.contains("Constante"))
 			line = line.replace("Constante", "const");
@@ -246,14 +285,14 @@ public class BrppCompiler {
 
 			} else {
 
-				boolean co;
-				if (line.contains(".") || line.contains("+")
-						|| line.contains("-") || line.contains("/")
-						|| line.contains("%")) {
-					co = true;
-				} else {
-					co = false;
-				}
+				// boolean co;
+				// if (line.contains(".") || line.contains("+")
+				// || line.contains("-") || line.contains("/")
+				// || line.contains("%")) {
+				// co = true;
+				// } else {
+				// co = false;
+				// }
 				if (line.contains("Decimal"))
 					var = line.replace("NumeroDecimal", "float");
 				if (line.contains("Longo"))
