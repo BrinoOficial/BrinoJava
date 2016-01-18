@@ -46,8 +46,6 @@ public class BrppCompiler {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-
 		}
 		return false;
 

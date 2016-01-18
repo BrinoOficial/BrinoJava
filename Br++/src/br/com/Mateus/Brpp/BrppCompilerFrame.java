@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
 public class BrppCompilerFrame extends JFrame {
@@ -27,8 +28,10 @@ public class BrppCompilerFrame extends JFrame {
 	private JComboBox<String> COM;
 	private String[] coms = { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6",
 			"COM7", "COM8", "COM9" };
-//	private JTextArea IDE = new JTextArea(null,"Código-Fonte", getDefaultCloseOperation(), getDefaultCloseOperation());
-	
+
+	// private JTextArea IDE = new JTextArea(null,"Código-Fonte",
+	// getDefaultCloseOperation(), getDefaultCloseOperation());
+
 	public BrppCompilerFrame(String title) {
 		super(title);
 		layout = new GridBagLayout();
@@ -37,9 +40,9 @@ public class BrppCompilerFrame extends JFrame {
 		COM = new JComboBox<String>(coms);
 		COMP = new JButton("Compilar");
 		COMPUP = new JButton("Compilar e Carregar");
-//		addComponent(IDE, 1, 1, 6, 2);
-//		Dimension a = new Dimension(200,200);
-//		IDE.setPreferredSize(a);
+		// addComponent(IDE, 1, 1, 6, 2);
+		// Dimension a = new Dimension(200,200);
+		// IDE.setPreferredSize(a);
 		addComponent(COMP, 4, 1, 1, 1);
 		addComponent(COMPUP, 4, 2, 1, 1);
 		ButtonHandler handler = new ButtonHandler();
@@ -58,7 +61,11 @@ public class BrppCompilerFrame extends JFrame {
 	}
 
 	public static void setText(String line) {
-		LOG.setText(line + "\n");
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				LOG.append(line);
+			}
+		});
 	}
 
 	private void addComponent(Component component, int row, int column,
@@ -67,7 +74,7 @@ public class BrppCompilerFrame extends JFrame {
 		constraints.gridy = row;
 		constraints.gridwidth = width;
 		constraints.gridheight = height;
-//		constraints.fill = constraints.BOTH;
+		 constraints.fill = constraints.BOTH;
 		layout.setConstraints(component, constraints);
 		add(component);
 	}
