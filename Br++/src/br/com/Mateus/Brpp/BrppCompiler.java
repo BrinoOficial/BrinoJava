@@ -21,20 +21,27 @@ public class BrppCompiler {
 
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
-	public static String version = "1.1.1";
+	private static String file;
+	public static String version = "1.2.0";
 
 	public static boolean compile(String path) {
-		String file = path.substring(0, path.length() - 4);
-		file = file.concat("ino");
+		setFile("C:\\Arduino\\Brino");
+		setFile(getFile().concat(
+				path.substring(path.lastIndexOf('\\'), path.length() - 5)));
+		setFile(getFile().concat(
+				"\\"
+						+ path.substring(path.lastIndexOf('\\'),
+								path.length() - 4)));
+		setFile(getFile().concat("ino"));
 		try {
 			// inputFile = new Scanner(input);
-			program = new Formatter(file);
+			program = new Formatter(getFile());
 			byte[] encoded = Files.readAllBytes(Paths.get(path));
 			String liness = new String(encoded);
 			String[] lines = liness.split("\n");
-			if (proccess(lines))
+			if (proccess(lines)) {
 				return true;
-			else
+			} else
 				return false;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -42,8 +49,6 @@ public class BrppCompiler {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-
 		}
 		return false;
 
@@ -72,6 +77,8 @@ public class BrppCompiler {
 				command = command.replace("LCD", "LiquidCrystal");
 			if (command.contains("Memoria"))
 				command = command.replace("Memoria", "EEPROM");
+			if (command.contains("I2C"))
+				command = command.replace("I2C", "Wire");
 			if ((command.contains(";") || command.contains("{") || command
 					.contains("}")) && comment == false) {
 
@@ -230,8 +237,22 @@ public class BrppCompiler {
 					command = command.replace(".conectar(", ".begin(");
 				if (command.contains(".limpar"))
 					command = command.replace("limpar", "clear");
+				if (command.contains(".transmitir"))
+					command = command
+							.replace("transmitir", "beginTransmission");
+				if (command.contains(".pararTransmitir"))
+					command = command.replace("pararTransmitir",
+							"endTransmission");
+				if (command.contains(".solicitar"))
+					command = command.replace(".solicitar", ".requestFrom");
+				if (command.contains(".solicitado"))
+					command = command.replace("solicitado", "onRequest");
+				if (command.contains(".recebido"))
+					command = command.replace("recebido", "onReceive");
 				if (command.contains("USB"))
 					command = command.replace("USB", "Serial");
+				if (command.contains(".disponivel"))
+					command = command.replace("disponivel", "available");
 				if (command.contains(".enviar"))
 					command = command.replace(".enviar", ".print");
 				if (command.contains(".posicao"))
@@ -352,5 +373,13 @@ public class BrppCompiler {
 
 	public static void saveVar(String name, String value) {
 		variaveis.put(name, value);
+	}
+
+	public static String getFile() {
+		return file;
+	}
+
+	private static void setFile(String file) {
+		BrppCompiler.file = file;
 	}
 }

@@ -1,4 +1,4 @@
-#Brino
+﻿#Brino
 
 ##Tipos de Dados:    
  * `Numero`: valores númericos inteiros até +- 32767 (`int`)    
@@ -27,7 +27,9 @@
 ###USB    
  * `USB.conectar(Numero TaxaDeTransmissao)`: configura a comunicação serial pela porta USB com a a taxa de transmissão fornecida como argumento. Padrão 9600. (`Serial.begin(baudrate)`)    
  * `USB.enviar(Palavra mensagem)`:envia a Palavra fornecida para o monitor serial conectado (`.print(String message)`)    
- * `USB.enviarln(Palavra mensagem)`:envia a Palavra fornecida para o monitor serial conectado e pula uma linha (`.println(String message)`)    
+ * `USB.enviarln(Palavra mensagem)`:envia a Palavra fornecida para o monitor serial conectado e pula uma linha (`.println(String message)`)     
+ * `USB.disponivel()`:verifica se há dados disponíveis na porta serial(`.available()`)         
+ * `USB.ler()`:lê os dados disponíveis na porta serial(`.read()`)         
     
 
 ###Pino    
@@ -65,6 +67,17 @@
  * `<nome>.escreverAngulo(Numero angulo)`: posiciona o servo no ângulo fornecido(`<name>.write`)     
  * `<nome>.escreverMicros(Numero micros)`: define a duracao em microsegundos do pulso para controlar o servo de rotação contínua (`<name>.writeMicroseconds()`)      
  * `Servo.frente`(1700), `Servo.tras`(1300) e `Servo.parar`(1500): constantes de pulso para controle de servos de rotação contínua.     
+      
+###I2C    
+ * `I2C.conectar(Numero endereco)`: inicia a comunicação I2C(o endereço é opcional para o mestre)(`Wire.begin()`)      
+ * `I2C.transmitir(Numero endereco)`: abre uma transmissão para o escravo com o endereço fornecido(`Wire.beginTranmission`)        
+ * `I2C.pararTransmitir()`: fecha a transmissão que estava aberta(`Wire.endTransmission()`)
+ * `I2C.escrever(msg)`: envia a mensagem para a transmissão aberta(apenas o mestre pode mandar, mas esse método pode ser usado pelo escravo para enviar a resposta de um pedido)(`Wire.write()`)       
+ * `I2C.disponivel()`:verifica quantos dados estão disponíveis para o mestre após um pedido(`Wire.available()`)     
+ * `I2C.ler()`:lê os dados disponíveis na transmissão ou na resposta(`Wire.read()`)      
+ * `I2C.solicitar(Numero endereco, Numero quantBytes)`: solicita "quantBytes" bytes de escravo no endereço fornecido(`Wire.requestFrom()`)     
+ * `I2C.solicitado(metodo)`: registra o método fornecido como resposta à solicitação(`Wire.onRequest()`)     
+ * `I2C.recebido(metodo)`: registra o método fornecido como resposta ao recebimento de dados(`Wire.onReceive()`)               
     
 
 ##Outras palavras-chaves     
