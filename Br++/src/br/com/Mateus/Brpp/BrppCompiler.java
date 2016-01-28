@@ -126,8 +126,8 @@ public class BrppCompiler {
 						return false;
 					}
 				}
-				if (command.contains("enquanto (")
-						|| command.contains("enquanto(")) {
+				if (command.contains("enquanto")
+						|| command.contains("enquanto")) {
 					command = command.replace("enquanto ", "while ");
 					command = command.replace("faca", "");
 					if (command.contains("=")
