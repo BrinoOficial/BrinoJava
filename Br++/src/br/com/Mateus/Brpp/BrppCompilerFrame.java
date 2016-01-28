@@ -1,19 +1,22 @@
 package br.com.Mateus.Brpp;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
@@ -23,27 +26,36 @@ public class BrppCompilerFrame extends JFrame {
 	private JButton COMPUP;
 	private JButton CANCEL;
 	public JFileChooser FC;
+	private JScrollPane IDEScroll;
 	private GridBagLayout layout;
 	private GridBagConstraints constraints;
 	private JComboBox<String> COM;
 	private String[] coms = { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6",
-			"COM7", "COM8", "COM9" };
+			"COM7", "COM8", "COM9", "COM10", "COM11", "COM12", "COM13","COM14", "COM15"};
 
-	// private JTextArea IDE = new JTextArea(null,"Código-Fonte",
-	// getDefaultCloseOperation(), getDefaultCloseOperation());
+	private JTextArea IDE = new JTextArea(null, "Código-Fonte",
+			getDefaultCloseOperation(), getDefaultCloseOperation());
 
 	public BrppCompilerFrame(String title) {
 		super(title);
 		layout = new GridBagLayout();
 		setLayout(layout);
 		constraints = new GridBagConstraints();
+		IDEScroll=new JScrollPane();
 		COM = new JComboBox<String>(coms);
 		COMP = new JButton("Compilar");
 		COMPUP = new JButton("Compilar e Carregar");
-		// addComponent(IDE, 1, 1, 6, 2);
-		// Dimension a = new Dimension(200,200);
-		// IDE.setPreferredSize(a);
+		addComponent(IDEScroll, 1, 1, 6, 2);
+		IDEScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		IDEScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		ScrollPaneLayout b = new ScrollPaneLayout();
+		IDEScroll.setLayout(b);
+		Dimension a = new Dimension(200, 200);
+		IDE.setMinimumSize(a);
+		IDEScroll.setPreferredSize(a);
 		addComponent(COMP, 4, 1, 1, 1);
+		IDEScroll.add(IDE);
+		IDE.setVisible(true);
 		addComponent(COMPUP, 4, 2, 1, 1);
 		ButtonHandler handler = new ButtonHandler();
 		UploadHandler uphandler = new UploadHandler();
@@ -56,14 +68,13 @@ public class BrppCompilerFrame extends JFrame {
 		CANCEL.addActionListener(CanHandler);
 		addComponent(LOG, 6, 0, 6, 4);
 		LOG.setEditable(false);
-		// addComponent(FC,0,0,1,2);
 
 	}
 
 	public static void setText(String line) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				LOG.append(line);
+				LOG.setText(line);
 			}
 		});
 	}
@@ -74,7 +85,7 @@ public class BrppCompilerFrame extends JFrame {
 		constraints.gridy = row;
 		constraints.gridwidth = width;
 		constraints.gridheight = height;
-		 constraints.fill = constraints.BOTH;
+		//constraints.fill = constraints.BOTH;
 		layout.setConstraints(component, constraints);
 		add(component);
 	}
@@ -108,39 +119,27 @@ public class BrppCompilerFrame extends JFrame {
 
 	private class UploadHandler implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			if (BrppCompiler.getFile() != null) {
-				try {
-					Uploader.upload(BrppCompiler.getFile(), COM
-							.getSelectedItem().toString());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				JFileChooser FC = new JFileChooser();
-				int res = FC.showOpenDialog(null);
-				File diretorio = null;
-				if (res == JFileChooser.APPROVE_OPTION) {
-					diretorio = FC.getSelectedFile();
-					if (BrppCompiler.compile(diretorio.getAbsolutePath()))
-						try {
-							if (Uploader.upload(BrppCompiler.getFile(), COM
-									.getSelectedItem().toString()))
-								BrppCompilerFrame
-										.setText("Compilado e Carregado");
-							else
-								BrppCompilerFrame
-										.setText("Falha ao compilar e/ou carregar...");
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					// JOptionPane.showMessageDialog(null, diretorio.getName()
-					// + " compilado");
-				} else
-					JOptionPane.showMessageDialog(null,
-							"Voce nao selecionou nenhum diretorio.");
-			}
+
+			JFileChooser FC = new JFileChooser();
+			int res = FC.showOpenDialog(null);
+			File diretorio = null;
+			if (res == JFileChooser.APPROVE_OPTION) {
+				diretorio = FC.getSelectedFile();
+				if (BrppCompiler.compile(diretorio.getAbsolutePath()))
+					try {
+						if (Uploader.upload(BrppCompiler.getFile(), COM
+								.getSelectedItem().toString()))
+							BrppCompilerFrame.setText("Compilado e Carregado");
+						else
+							BrppCompilerFrame
+									.setText("Falha ao compilar e/ou carregar...");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			} else
+				JOptionPane.showMessageDialog(null,
+						"Voce nao selecionou nenhum diretorio.");
+
 		}
 	}
 
