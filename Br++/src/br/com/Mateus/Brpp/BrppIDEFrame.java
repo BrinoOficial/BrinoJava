@@ -290,10 +290,12 @@ public class BrppIDEFrame extends JFrame {
 									false);
 							txt.write(fw);
 							fw.close();
+							
 						} catch (IOException e2) {
 							e2.printStackTrace();
 						}
 					}
+					diretorio=f.getAbsoluteFile();
 				}
 			}
 		};

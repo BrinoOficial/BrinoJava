@@ -23,7 +23,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.1.1";
+	public static String version = "2.1.2";
 
 	public static boolean compile(String path) {
 		setFile("C:\\Arduino\\Brino");
@@ -108,12 +108,10 @@ public class BrppCompiler {
 					command = command.replace("SemRetorno", "void");
 				if (command.contains("senao")) {
 					command = command.replace("senao", "else");
-					command = command.replace("faca", "");
 				}
 				if (command.contains("se (") || command.contains("se(")) {
 					command = command.replace("se(", "if(");
 					command = command.replace("se (", "if(");
-					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains("==")
 									|| command.contains("<")
@@ -126,7 +124,6 @@ public class BrppCompiler {
 				if (command.contains("para (") || command.contains("para(")) {
 					command = command.replace("for(", "if(");
 					command = command.replace("for (", "if(");
-					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains(";")
 									|| command.contains("==")
@@ -139,7 +136,6 @@ public class BrppCompiler {
 				if (command.contains("enquanto")
 						|| command.contains("enquanto")) {
 					command = command.replace("enquanto ", "while ");
-					command = command.replace("faca", "");
 					if (command.contains("=")
 							&& !((command.contains("==")
 									|| command.contains("<")
@@ -267,8 +263,12 @@ public class BrppCompiler {
 					command = command.replace("Memoria.formatar()",
 							"for (int i = 0 ; i < EEPROM.length() ; i++)"
 									+ " EEPROM.write(i, 0);");
-				if (command.contains("\"")){
-					command = command.replace(command.substring(command.indexOf("\""), command.lastIndexOf("\"")), line.substring(command.indexOf("\""), command.lastIndexOf("\"")));
+				if (command.contains("\"")) {
+					command = command.replace(
+							command.substring(command.indexOf("\""),
+									command.lastIndexOf("\"")),
+							line.substring(line.indexOf("\""),
+									line.lastIndexOf("\"")));
 				}
 				program.format("%s\n", command);
 				System.out.println(command);
