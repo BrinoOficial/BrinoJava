@@ -58,6 +58,24 @@ public class BrppIDEFrame extends JFrame {
 		}
 		return index;
 	}
+	
+	private int findFirstCommentChar(String text, int index) {
+		while (index < text.length()) {
+			if (String.valueOf(text.charAt(index)).matches("\\")) {
+				break;
+			}
+			index++;
+		}
+		return index;
+	}
+	private int findLastCommentChar(String text, int index) {
+		while (--index >= 0) {
+			if (String.valueOf(text.charAt(index)).matches("\n")) {
+				break;
+			}
+		}
+		return index;
+	}
 
 	private int findFirstNonWordChar(String text, int index) {
 		while (index < text.length()) {
@@ -169,6 +187,7 @@ public class BrppIDEFrame extends JFrame {
 					}
 					wordR++;
 				}
+				//int
 			}
 
 			public void remove(int offs, int len) throws BadLocationException {
