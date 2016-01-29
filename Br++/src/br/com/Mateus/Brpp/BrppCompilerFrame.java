@@ -78,7 +78,7 @@ public class BrppCompilerFrame extends JFrame {
 	public static void setText(String line) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				LOG.setText(line);
+//				LOG.setText(line);
 			}
 		});
 	}

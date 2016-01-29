@@ -46,6 +46,7 @@ public class BrppCompilerBorderFrame extends JFrame {
 	private BorderLayout layout;
 	private JComboBox<String> COM;
 	private String[] coms;
+	private Highlight2 IDEHigh;
 
 	private JTextArea IDE;
 	File diretorio = null;
@@ -187,7 +188,10 @@ public class BrppCompilerBorderFrame extends JFrame {
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		IDEScroll
 				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+//		IDEHigh = new Highlight2();
+//		IDEHigh.setSize(200,400);
 		add(IDEScroll, BorderLayout.CENTER);
+		add(IDEHigh, BorderLayout.CENTER);
 		add(SouthPanel, BorderLayout.SOUTH);
 		SouthPanel.setVisible(true);
 		SouthPanel
