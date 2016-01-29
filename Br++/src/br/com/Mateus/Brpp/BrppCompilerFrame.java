@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -21,7 +23,7 @@ import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
 public class BrppCompilerFrame extends JFrame {
-	public static JTextArea LOG = new JTextArea();
+	public static JLabel LOG = new JLabel();
 	private JButton COMP;
 	private JButton COMPUP;
 	private JButton CANCEL;
@@ -31,7 +33,8 @@ public class BrppCompilerFrame extends JFrame {
 	private GridBagConstraints constraints;
 	private JComboBox<String> COM;
 	private String[] coms = { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6",
-			"COM7", "COM8", "COM9", "COM10", "COM11", "COM12", "COM13","COM14", "COM15"};
+			"COM7", "COM8", "COM9", "COM10", "COM11", "COM12", "COM13",
+			"COM14", "COM15" };
 
 	private JTextArea IDE = new JTextArea(null, "Código-Fonte",
 			getDefaultCloseOperation(), getDefaultCloseOperation());
@@ -41,13 +44,15 @@ public class BrppCompilerFrame extends JFrame {
 		layout = new GridBagLayout();
 		setLayout(layout);
 		constraints = new GridBagConstraints();
-		IDEScroll=new JScrollPane();
+		IDEScroll = new JScrollPane();
 		COM = new JComboBox<String>(coms);
 		COMP = new JButton("Compilar");
 		COMPUP = new JButton("Compilar e Carregar");
 		addComponent(IDEScroll, 1, 1, 6, 2);
-		IDEScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		IDEScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		IDEScroll
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		IDEScroll
+				.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		ScrollPaneLayout b = new ScrollPaneLayout();
 		IDEScroll.setLayout(b);
 		Dimension a = new Dimension(200, 200);
@@ -67,7 +72,6 @@ public class BrppCompilerFrame extends JFrame {
 		CanButtonHandler CanHandler = new CanButtonHandler();
 		CANCEL.addActionListener(CanHandler);
 		addComponent(LOG, 6, 0, 6, 4);
-		LOG.setEditable(false);
 
 	}
 
@@ -85,7 +89,7 @@ public class BrppCompilerFrame extends JFrame {
 		constraints.gridy = row;
 		constraints.gridwidth = width;
 		constraints.gridheight = height;
-		//constraints.fill = constraints.BOTH;
+		// constraints.fill = constraints.BOTH;
 		layout.setConstraints(component, constraints);
 		add(component);
 	}

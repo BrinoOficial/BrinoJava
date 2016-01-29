@@ -38,7 +38,7 @@
  * `Pino.ler(Pino)`: lê o valor da porta especificada (analogRead ou digitalRead)    
  * `Pino.ligar(Pino)`: liga o pino digital (digitalWrite(int pin, HIGH))    
  * `Pino.desligar(Pino)`: desliga o pino digital(digitalWrite(int pin, LOW))    
- * Pinos digitais: `D.num`, `Digital.num`, `Dnum` ou `num`    
+ * Pinos digitais: `Digital.num` ou `num`    
  * Pinos analógicos: `Anum`, `Analogico.num`
  * Valores Digitais: `Ligado` ou 1,`Desligado` ou 0.
      

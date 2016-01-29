@@ -9,6 +9,7 @@
  */
 package br.com.Mateus.Brpp;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,7 +23,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "1.2.0";
+	public static String version = "2.0.1";
 
 	public static boolean compile(String path) {
 		setFile("C:\\Arduino\\Brino");
@@ -33,6 +34,15 @@ public class BrppCompiler {
 						+ path.substring(path.lastIndexOf('\\'),
 								path.length() - 4)));
 		setFile(getFile().concat("ino"));
+		File ino = new File(getFile());
+		if (!ino.exists()) {
+			try {
+				ino.getParentFile().mkdirs();
+				ino.createNewFile();
+			} catch (IOException e) {
+
+			}
+		}
 		try {
 			// inputFile = new Scanner(input);
 			program = new Formatter(getFile());
@@ -166,8 +176,6 @@ public class BrppCompiler {
 				if (command.contains("Pino.ler(")) {
 					command = command.replace("Pino.ler", "digitalRead");
 					command = command.replace("Digital.", "");
-					command = command.replace("D.", "");
-					command = command.replace("D", "");
 				}
 				if (command.contains("Pino.escrever(A")) {
 					command = command.replace("Pino.escrever", "analogWrite");
@@ -177,13 +185,9 @@ public class BrppCompiler {
 				if (command.contains("Pino.escrever(")) {
 					command = command.replace("Pino.escrever", "digitalWrite");
 					command = command.replace("Digital.", "");
-					command = command.replace("D.", "");
-					command = command.replace("D", "");
 				}
 				if (command.contains("Pino.ligar(")) {
 					command = command.replace("Digital.", "");
-					command = command.replace("D.", "");
-					command = command.replace("D", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.ligar(" + pin + ")",
@@ -191,8 +195,6 @@ public class BrppCompiler {
 				}
 				if (command.contains("Pino.desligar(")) {
 					command = command.replace("Digital.", "");
-					command = command.replace("D.", "");
-					command = command.replace("D", "");
 					String pin = command.substring(command.indexOf('(') + 1,
 							command.indexOf(')'));
 					command = command.replace("Pino.desligar(" + pin + ")",
@@ -218,8 +220,6 @@ public class BrppCompiler {
 							line.substring(line.indexOf("//")));
 				}
 				if (command.contains(".conectar(D")) {
-					command = command.replace(".conectar(D", ".attach(");
-					command = command.replace(".conectar(D.", ".attach(");
 					command = command.replace(".conectar(Digital.", ".attach(");
 				}
 				if (command.contains("escreverAngulo"))
