@@ -23,7 +23,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.0.1";
+	public static String version = "2.1.1";
 
 	public static boolean compile(String path) {
 		setFile("C:\\Arduino\\Brino");
@@ -267,6 +267,9 @@ public class BrppCompiler {
 					command = command.replace("Memoria.formatar()",
 							"for (int i = 0 ; i < EEPROM.length() ; i++)"
 									+ " EEPROM.write(i, 0);");
+				if (command.contains("\"")){
+					command = command.replace(command.substring(command.indexOf("\""), command.lastIndexOf("\"")), line.substring(command.indexOf("\""), command.lastIndexOf("\"")));
+				}
 				program.format("%s\n", command);
 				System.out.println(command);
 				command = "";

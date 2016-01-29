@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 
 public class Uploader {
 	
-	public static boolean upload(String file, String com) throws IOException {
+	private static String[] boards = {"arduino:avr:uno","arduino:avr:mega","arduino:avr:mega:cpu=atmega2560","arduino:avr:nano", "arduino:avr:nano:cpu=atmega168","arduino:avr:diecimila"};
+	
+	public static boolean upload(String file, String com, int board) throws IOException {
 		boolean success=false;
 		boolean erro = false;
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
 				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --upload "
-						+ file + " --port "+com);
+						+ file + " -- board "+boards[board]+" --port "+com);
 		builder.redirectErrorStream(true);
 		Process p = builder.start();
 		BufferedReader r = new BufferedReader(new InputStreamReader(

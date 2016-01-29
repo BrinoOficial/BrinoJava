@@ -46,7 +46,6 @@ public class BrppCompilerBorderFrame extends JFrame {
 	private BorderLayout layout;
 	private JComboBox<String> COM;
 	private String[] coms;
-	private Highlight2 IDEHigh;
 
 	private JTextArea IDE;
 	File diretorio = null;
@@ -171,8 +170,8 @@ public class BrppCompilerBorderFrame extends JFrame {
 		COMP.addActionListener(handler);
 		COMPUP = new JButton("Compilar e Carregar");
 		NorthPanel.add(COMPUP);
-		UploadHandler uphandler = new UploadHandler();
-		COMPUP.addActionListener(uphandler);
+//		UploadHandler uphandler = new UploadHandler();
+//		COMPUP.addActionListener(uphandler);
 		COM = new JComboBox<String>(coms);
 		NorthPanel.add(COM);
 		CANCEL = new JButton("Abort");
@@ -191,7 +190,7 @@ public class BrppCompilerBorderFrame extends JFrame {
 //		IDEHigh = new Highlight2();
 //		IDEHigh.setSize(200,400);
 		add(IDEScroll, BorderLayout.CENTER);
-		add(IDEHigh, BorderLayout.CENTER);
+//		add(IDEHigh, BorderLayout.CENTER);
 		add(SouthPanel, BorderLayout.SOUTH);
 		SouthPanel.setVisible(true);
 		SouthPanel
@@ -262,86 +261,54 @@ public class BrppCompilerBorderFrame extends JFrame {
 
 	}
 
-	private class SaveHandler implements ActionListener {
-		public void actionPerformed(ActionEvent ae) {
-
-		}
-	}
-
-	private class UploadHandler implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			if (diretorio != null) {
-				FileWriter fw;
-				try {
-					fw = new FileWriter(diretorio.getAbsoluteFile(), false);
-					IDE.write(fw);
-					fw.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if (BrppCompiler.compile(diretorio.getAbsolutePath()))
-					try {
-						if (Uploader.upload(BrppCompiler.getFile(), COM
-								.getSelectedItem().toString()))
-							BrppCompilerBorderFrame
-									.setText("Compilado e Carregado");
-						else
-							BrppCompilerBorderFrame
-									.setText("Falha ao compilar e/ou carregar...");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-			} else {
-				JFileChooser FC = new JFileChooser();
-				int res = FC.showOpenDialog(null);
-				File diretorio = null;
-				if (res == JFileChooser.APPROVE_OPTION) {
-					diretorio = FC.getSelectedFile();
-					if (BrppCompiler.compile(diretorio.getAbsolutePath()))
-						try {
-							if (Uploader.upload(BrppCompiler.getFile(), COM
-									.getSelectedItem().toString()))
-								BrppCompilerBorderFrame
-										.setText("Compilado e Carregado");
-							else
-								BrppCompilerBorderFrame
-										.setText("Falha ao compilar e/ou carregar...");
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-				} else
-					JOptionPane.showMessageDialog(null,
-							"Voce nao selecionou nenhum diretorio.");
-			}
-		}
-	}
-
-	// private class UploadHandler implements ActionListener {
-	// public void actionPerformed(ActionEvent event) {
-	//
-	// JFileChooser FC = new JFileChooser();
-	// int res = FC.showOpenDialog(null);
-	// File diretorio = null;
-	// if (res == JFileChooser.APPROVE_OPTION) {
-	// diretorio = FC.getSelectedFile();
-	// if (BrppCompiler.compile(diretorio.getAbsolutePath()))
-	// try {
-	// if (Uploader.upload(BrppCompiler.getFile(), COM
-	// .getSelectedItem().toString()))
-	// BrppCompilerBorderFrame.setText("Compilado e Carregado");
-	// else
-	// BrppCompilerBorderFrame
-	// .setText("Falha ao compilar e/ou carregar...");
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// } else
-	// JOptionPane.showMessageDialog(null,
-	// "Voce nao selecionou nenhum diretorio.");
-	//
-	// }
-	// }
+//	private class UploadHandler implements ActionListener {
+//		public void actionPerformed(ActionEvent event) {
+//			if (diretorio != null) {
+//				FileWriter fw;
+//				try {
+//					fw = new FileWriter(diretorio.getAbsoluteFile(), false);
+//					IDE.write(fw);
+//					fw.close();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				if (BrppCompiler.compile(diretorio.getAbsolutePath()))
+//					try {
+//						if (Uploader.upload(BrppCompiler.getFile(), COM
+//								.getSelectedItem().toString()))
+//							BrppCompilerBorderFrame
+//									.setText("Compilado e Carregado");
+//						else
+//							BrppCompilerBorderFrame
+//									.setText("Falha ao compilar e/ou carregar...");
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//			} else {
+//				JFileChooser FC = new JFileChooser();
+//				int res = FC.showOpenDialog(null);
+//				File diretorio = null;
+//				if (res == JFileChooser.APPROVE_OPTION) {
+//					diretorio = FC.getSelectedFile();
+//					if (BrppCompiler.compile(diretorio.getAbsolutePath()))
+//						try {
+//							if (Uploader.upload(BrppCompiler.getFile(), COM
+//									.getSelectedItem().toString()))
+//								BrppCompilerBorderFrame
+//										.setText("Compilado e Carregado");
+//							else
+//								BrppCompilerBorderFrame
+//										.setText("Falha ao compilar e/ou carregar...");
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+//				} else
+//					JOptionPane.showMessageDialog(null,
+//							"Voce nao selecionou nenhum diretorio.");
+//			}
+//		}
+//	}
 
 	private class CanButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
