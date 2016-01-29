@@ -8,7 +8,7 @@ public class BrppCompilerMain {
 		// TODO Auto-generated method stub
 		BrppCompilerBorderFrame frame = new BrppCompilerBorderFrame("Compilador Brino"+BrppCompiler.version);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600, 600);
+		frame.setSize(800, 800);
 		frame.setVisible(true);
 	}
 

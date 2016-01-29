@@ -19,20 +19,22 @@ public class Uploader {
 		String line;
 		while (true) {
 			line = r.readLine();
+			
 			if (line == null) {
 				break;
 			}
 			System.out.println(line);
+			BrppCompilerBorderFrame.LOG.append(line+"\n");
 //			BrppCompilerFrame.setText(line);
-			if (line.contains("O sketch usa")) {
-				BrppCompilerFrame.setText("Compilado");
-				erro=false;
-			}
-			if (line.contains("can't open device")) {
-				success = false;
-				erro=true;
-				BrppCompilerFrame.setText("Compilado");
-			}
+//			if (line.contains("O sketch usa")) {
+//				BrppCompilerFrame.setText("Compilado");
+//				erro=false;
+//			}
+//			if (line.contains("can't open device")) {
+//				success = false;
+//				erro=true;
+//				BrppCompilerFrame.setText("Compilado");
+//			}
 			
 		}
 		if (!erro) {
@@ -56,6 +58,7 @@ public class Uploader {
 				break;
 			}
 			System.out.println(line);
+			BrppCompilerBorderFrame.LOG.append(line+"\n");
 			if (line.contains("O sketch usa"))
 				return true;
 

@@ -37,7 +37,7 @@ Configuracao() {
   Pino.definirModo(LED, Saida);
 
   // inicia o estado do LED
-  Pino.escrever(D.LED, estadoLED);
+  Pino.escrever(LED, estadoLED);
 }
 
 Principal() {
@@ -68,7 +68,7 @@ Principal() {
   }
 
   // Altera o LED:
-  Pino.escrever(D.LED, estadoLED);
+  Pino.escrever(LED, estadoLED);
 
   // Salva a ultima leitura
   ultimoEstadoBotao = leitura;
