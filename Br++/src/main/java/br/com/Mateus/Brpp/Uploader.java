@@ -27,7 +27,7 @@ public class Uploader {
 				break;
 			}
 			System.out.println(line);
-			BrppCompilerBorderFrame.LOG.append(line+"\n");
+			BrppIDEFrame.LOG.append(line+"\n");
 //			BrppCompilerFrame.setText(line);
 //			if (line.contains("O sketch usa")) {
 //				BrppCompilerFrame.setText("Compilado");

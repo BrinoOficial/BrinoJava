@@ -68,6 +68,9 @@ public class BrppIDEFrame extends JFrame {
 	private JRadioButtonMenuItem[] radioCOMS;
 	private ButtonGroup gpCom;
 	private JMenu subCOM;
+	private JButton NOVO;
+	private JButton ABR;
+	private JButton SAL;
 
 	private int findLastNonWordChar(String text, int index) {
 		while (--index >= 0) {
@@ -119,20 +122,46 @@ public class BrppIDEFrame extends JFrame {
 		NorthPanel = new JPanel();
 		NorthPanel.setBackground(GREEN);
 		NorthPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		COMP = new JButton("Compilar");
+		ImageIcon comp = new ImageIcon("resources/comButton.png");
+		COMP = new JButton(comp);
+		COMP.setBorderPainted(false);
+		COMP.setBorder(emptyBorder);
+		COMP.setContentAreaFilled(false);
+		COMP.setRolloverIcon(new ImageIcon("resources/comButtonFocus.png"));
 		NorthPanel.add(COMP);
 		CompHandler handler = new CompHandler();
 		COMP.addActionListener(handler);
-		ImageIcon comp = new ImageIcon("carrButton.png");
-		COMPUP = new JButton(comp);
+		ImageIcon compup = new ImageIcon("resources/carrButton.png");
+		COMPUP = new JButton(compup);
 		COMPUP.setBorderPainted(false);
 		COMPUP.setBorder(emptyBorder);
 		COMPUP.setContentAreaFilled(false);
-		COMPUP.setRolloverIcon(new ImageIcon("carrButtonFocus.png"));
-		COMPUP.setRolloverSelectedIcon(new ImageIcon("carrButtonClicked.png"));
+		COMPUP.setRolloverIcon(new ImageIcon("resources/carrButtonFocus.png"));
+		COMPUP.setRolloverSelectedIcon(new ImageIcon("resources/carrButtonClicked.png"));
 		NorthPanel.add(COMPUP);
 		UploadHandler uphandler = new UploadHandler();
 		COMPUP.addActionListener(uphandler);
+		ImageIcon novo = new ImageIcon("resources/novoButton.png");
+		NOVO = new JButton(novo);
+		NOVO.setBorderPainted(false);
+		NOVO.setBorder(emptyBorder);
+		NOVO.setContentAreaFilled(false);
+		NOVO.setRolloverIcon(new ImageIcon("resources/novoButtonFocus.png"));
+		NorthPanel.add(NOVO);
+		ImageIcon abr = new ImageIcon("resources/opButton.png");
+		ABR = new JButton(abr);
+		ABR.setBorderPainted(false);
+		ABR.setBorder(emptyBorder);
+		ABR.setContentAreaFilled(false);
+		ABR.setRolloverIcon(new ImageIcon("resources/opButtonFocus.png"));
+		NorthPanel.add(ABR);
+		ImageIcon sal = new ImageIcon("resources/saveButton.png");
+		SAL = new JButton(sal);
+		SAL.setBorderPainted(false);
+		SAL.setBorder(emptyBorder);
+		SAL.setContentAreaFilled(false);
+		SAL.setRolloverIcon(new ImageIcon("resources/opButtonFocus.png"));
+		NorthPanel.add(SAL);
 		coms = new String[15];
 		for (int x = 0; x < coms.length; x++) {
 			coms[x] = "COM" + (x + 1);
@@ -251,6 +280,26 @@ public class BrppIDEFrame extends JFrame {
 		novoAction.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
 		novoItem.setAction(novoAction);
+		NOVO.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				createFile();
+				txt.setText(min);
+			}
+			
+		});
+		ABR.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				abrirFile();
+				txt.setText(min);
+			}
+			
+		});
 		fileMenu.add(novoItem);
 
 		ferrMenu = new JMenu("Ferramentas");
@@ -282,31 +331,7 @@ public class BrppIDEFrame extends JFrame {
 		Action abrirAction = new AbstractAction("Abrir") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				txt.setText(null);
-				JFileChooser FC = new JFileChooser();
-				int res = FC.showOpenDialog(null);
-
-				if (res == JFileChooser.APPROVE_OPTION) {
-					diretorio = FC.getSelectedFile();
-					try {
-						String f = "";
-						Scanner in = new Scanner(new File(
-								diretorio.getAbsolutePath()));
-						while (in.hasNext()) {
-							String line = in.nextLine();
-							// Highlight
-							f += (line + "\n");
-						}
-						txt.setText(f);
-						in.close();
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-				} else
-					JOptionPane.showMessageDialog(null,
-							"Voce nao selecionou nenhum diretorio.");
+				abrirFile();
 			}
 		};
 		abrirAction.putValue(Action.ACCELERATOR_KEY,
@@ -327,6 +352,20 @@ public class BrppIDEFrame extends JFrame {
 
 			}
 		};
+		SAL.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (diretorio == null) {
+					createFile();
+				} else {
+					saveFile();
+				}
+			}
+			
+			
+		});
 		salvarAction.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 		salvarItem.setAction(salvarAction);
@@ -345,9 +384,9 @@ public class BrppIDEFrame extends JFrame {
 			if (BrppCompiler.compile(diretorio.getAbsolutePath()))
 				try {
 					if (Uploader.compile(BrppCompiler.getFile()))
-						BrppCompilerBorderFrame.setText("Compilado");
+						BrppIDEFrame.LOG.append("Compilado");
 					else
-						BrppCompilerBorderFrame.setText("Falha ao compilar...");
+						BrppIDEFrame.LOG.append("Falha ao compilar...");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -367,11 +406,10 @@ public class BrppIDEFrame extends JFrame {
 				try {
 					if (Uploader.upload(BrppCompiler.getFile(),
 							getSelectedIndexCOM(), getSelectedIndex()))
-						BrppCompilerBorderFrame
-								.setText("Compilado e Carregado");
+						BrppIDEFrame.LOG.append("Compilado e Carregado");
 					else
-						BrppCompilerBorderFrame
-								.setText("Falha ao compilar e/ou carregar...");
+						BrppIDEFrame.LOG
+								.append("Falha ao compilar e/ou carregar...");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -424,5 +462,32 @@ public class BrppIDEFrame extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	private void abrirFile(){
+		txt.setText(null);
+		JFileChooser FC = new JFileChooser();
+		int res = FC.showOpenDialog(null);
+
+		if (res == JFileChooser.APPROVE_OPTION) {
+			diretorio = FC.getSelectedFile();
+			try {
+				String f = "";
+				Scanner in = new Scanner(new File(
+						diretorio.getAbsolutePath()));
+				while (in.hasNext()) {
+					String line = in.nextLine();
+					// Highlight
+					f += (line + "\n");
+				}
+				txt.setText(f);
+				in.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		} else
+			JOptionPane.showMessageDialog(null,
+					"Voce nao selecionou nenhum diretorio.");
 	}
 }
