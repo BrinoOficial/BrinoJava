@@ -13,7 +13,8 @@ public class Uploader {
 		boolean erro = false;
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
 				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --upload "
-						+ file + " -- board "+boards[board]+" --port "+com);
+						+ file + " --board "+boards[board]+" --port "+com);
+		System.out.println(com);
 		builder.redirectErrorStream(true);
 		Process p = builder.start();
 		BufferedReader r = new BufferedReader(new InputStreamReader(
@@ -60,7 +61,9 @@ public class Uploader {
 				break;
 			}
 			System.out.println(line);
-			BrppCompilerBorderFrame.LOG.append(line+"\n");
+			BrppIDEFrame.LOG.append(line+"\n");
+			BrppIDEFrame.LOG.invalidate();
+			BrppIDEFrame.LOG.repaint();
 			if (line.contains("O sketch usa"))
 				return true;
 

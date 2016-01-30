@@ -31,6 +31,7 @@ import javax.swing.SwingUtilities;
 @SuppressWarnings("serial")
 public class BrppCompilerBorderFrame extends JFrame {
 	public static JTextArea LOG = new JTextArea(5, 10);
+	private JScrollPane SouthPanel = new JScrollPane(LOG);
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
 	private JMenuItem novoItem;
@@ -40,7 +41,6 @@ public class BrppCompilerBorderFrame extends JFrame {
 	private JButton COMPUP;
 	private JButton CANCEL;
 	private JPanel NorthPanel = new JPanel();
-	private JScrollPane SouthPanel = new JScrollPane(LOG);
 	public JFileChooser FC;
 	private JScrollPane IDEScroll;
 	private BorderLayout layout;
@@ -52,6 +52,7 @@ public class BrppCompilerBorderFrame extends JFrame {
 
 	public BrppCompilerBorderFrame(String title) {
 		super(title);
+		
 		coms=new String[50];
 		for (int x = 0; x<50; x++){
 			coms[x]="COM"+(x+1);
@@ -60,7 +61,6 @@ public class BrppCompilerBorderFrame extends JFrame {
 		fileMenu = new JMenu("Arquivo");
 		fileMenu.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(fileMenu);
-
 		novoItem = new JMenuItem("Novo");
 		Action novoAction = new AbstractAction("Novo") {
 			@Override
