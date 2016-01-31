@@ -1,19 +1,19 @@
 /*
   LeituraAnalogicaSerial
-  Lê a entrada analogica do pino 0 e apresenta o valor no monitor serial.
-  conecte o pino central de um potenciometro a porta A0 e os pinos externos dele as portas de alimentaçao 5V e ao GND.
+  Le a entrada analogica do pino 0 e apresenta o valor no monitor serial.
+  conecte o pino central de um potenciometro a porta A0 e os pinos externos dele as portas de alimentacao 5V e ao GND.
 
- Esse codigo de exemplo esta em domínio público.
+ Esse codigo de exemplo esta em dominio publico.
  */
 // Parte do codigo de configuração
 Configuracao() {
-  // Inicia a comunicação serial padrão pelo USB.
+  // Inicia a comunicação serial padrao pelo USB.
   USB.conectar();
 }
 
 // Loop que se repete indefinidamente
 Principal() {
-  // Lê a entrada da porta analogica A0:
+  // Le a entrada da porta analogica A0:
   Numero leitura= Pino.ler(A0);
   // Apresenta no monitor serial o valor lido:
   USB.enviar(leitura);

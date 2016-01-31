@@ -1,9 +1,9 @@
 /*
   LerVoltagemAnalogica
-  Lê a entrada analogica do pino 0 e apresenta a voltagem no monitor serial.
+  Le a entrada analogica do pino 0 e apresenta a voltagem no monitor serial.
   conecte o pino central de um potenciometro a porta A0 e os pinos externos dele as portas de alimentaçao 5V e ao GND.
 
- Esse codigo de exemplo esta em domínio público.
+ Esse codigo de exemplo esta em dominio publico.
  */
 // Parte do codigo de configuração
 Configuracao() {
