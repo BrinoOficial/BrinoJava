@@ -1,26 +1,26 @@
 /*
   LeituraDigitalSerial
- Lê a entrada digital do pino 2 e apresenta o valor no monitor serial.
+ Le a entrada digital do pino 2 e apresenta o valor no monitor serial.
 
- Esse codigo de exemplo esta em domínio público.
+ Esse codigo de exemplo esta em dominio publico.
  */
 
-// possui um botão conectado a porta digital 2. Vamos dar um nome a ele:
+// possui um botao conectado a porta digital 2. Vamos dar um nome a ele:
 Numero botao = 2;
 
-// Parte do codigo de configuração
+// Parte do codigo de configuracao
 Configuracao() {
-  // Inicia a comunicação serial padrão
+  // Inicia a comunicacao serial padrao
   USB.conectar();
-  // define o botão como uma entrada:
+  // define o botao como uma entrada:
   Pino.definirModo(botao, Entrada);
 }
 
 // Loop que se repete indefinidamente
 Principal() {
-  // Lê o pino de entrada
+  // Le o pino de entrada
   Numero estadoBotao = Pino.ler(botao);
-  // Apresenta no monitor serial o estado do botão:
+  // Apresenta no monitor serial o estado do botao:
   USB.enviar(estadoBotao);
   esperar(200);        //tempo entre uma medida e outra
 }
