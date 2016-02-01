@@ -1,12 +1,12 @@
 /*
   Piscada
   Acende um LED por um segundo e o apaga, repetidamente.
- 
+
   A maioria dos Arduinos possuem um LED on-board que pode ser controlado. No UNO e no Leonardo,
-  ele está conectado a porta digital 13. Se você não sabe em qual porta ele está conectado em seu Arduino, leia
+  ele esta conectado a porta digital 13. Se voce nao sabe em qual porta ele esta conectado em seu Arduino, leia
   a documentação no site: arduino.cc
 
-  Esse codigo de exemplo esta em domínio público.
+  Esse codigo de exemplo esta em dominio publico.
  */
 
 

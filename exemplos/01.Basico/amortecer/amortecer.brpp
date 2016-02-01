@@ -5,7 +5,7 @@
  fazendo com que ele se acenda e apague lentamente
  usando a função Pino.escrever(APD ).
 
- Esse codigo de exemplo esta em domínio público.
+ Esse codigo de exemplo esta em dominio publico.
 */
 
 Numero LED = 9;           // A porta em que o Led esta ligado
@@ -26,7 +26,7 @@ Principal() {
   // Muda o brilho para a proxima passagem do loop
   brilho = brilho + mudanca;
 
-  // Muda o "sentido" da mudança quando ela chega em um dos extremos
+  // Muda o "sentido" da mudanca quando ela chega em um dos extremos
   se (brilho == 0 ou brilho == 255) faca{
     mudanca = -mudanca ;
   }
