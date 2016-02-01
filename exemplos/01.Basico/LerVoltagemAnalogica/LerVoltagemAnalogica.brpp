@@ -1,19 +1,19 @@
 /*
   LerVoltagemAnalogica
-  Lê a entrada analogica do pino 0 e apresenta a voltagem no monitor serial.
+  Le a entrada analogica do pino 0 e apresenta a voltagem no monitor serial.
   conecte o pino central de um potenciometro a porta A0 e os pinos externos dele as portas de alimentaçao 5V e ao GND.
 
  Esse codigo de exemplo esta em domínio público.
  */
 // Parte do codigo de configuração
 Configuracao() {
-  // Inicia a comunicação serial padrão pelo USB.
+  // Inicia a comunicacao serial padrao pelo USB.
   USB.conectar();
 }
 
 // Loop que se repete indefinidamente
 Principal() {
-  // Lê a entrada da porta analogica A0:
+  // Le a entrada da porta analogica A0:
   Numero leitura= Pino.ler(A0);
   // Converte a entrada analogica(que vai de 0 a 1023) na voltagem que esta entrando (0 - 5V): 
   NumeroDecimal voltagem = leitura * (5.0 / 1023.0);

@@ -18,7 +18,7 @@
  http://arduino.cc/en/Tutorial/AnalogInput
  */
 Numero sensor = A0;    // entrada do sensor
-Numero LED = 13;      // porta onde o LED está ligado
+Numero LED = 13;      // porta onde o LED esta ligado
 Numero leitura = 0;  // variavel para armazenar a leitura do sensor
 
 Configuracao() {
@@ -27,7 +27,7 @@ Configuracao() {
 }
 
 Principal() {
-  // Lê o sensor e armazena o valor:
+  // Le o sensor e armazena o valor:
   leitura = Pino.ler(sensor);    
   // Acende o LED
   Pino.ligar(LED);  
