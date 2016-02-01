@@ -16,7 +16,7 @@ public class FileUtils {
 
 	public static void createFile(JTextPane txt) {
 		String name = JOptionPane.showInputDialog("Qual o nome do rascunho?");
-		File f = new File("C://Arduino/Brino/" + name + "/" + name + ".brpp");
+		File f = new File("C://Brino/" + name + "/" + name + ".brpp");
 		if (f.getParentFile().mkdirs()) {
 
 			try {
