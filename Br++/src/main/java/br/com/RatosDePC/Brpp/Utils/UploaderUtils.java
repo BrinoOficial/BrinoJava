@@ -1,5 +1,13 @@
 package br.com.RatosDePC.Brpp.Utils;
 
+/**
+ * Classe utilizada para realizar a interface com a IDE do Arduino para compilação e upload
+ * 
+ * @author Mateus Berardo de Souza Terra
+ * @contributors Rafael Mascarenhas Dal Moro
+ * @version 5/2/2016
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

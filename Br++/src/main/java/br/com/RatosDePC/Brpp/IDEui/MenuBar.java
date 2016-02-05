@@ -1,5 +1,13 @@
 package br.com.RatosDePC.Brpp.IDEui;
 
+/**
+ * Barra de Menu do IDE
+ * 
+ * @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
+ * @contributors 
+ * @version 5/2/2016
+ */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 

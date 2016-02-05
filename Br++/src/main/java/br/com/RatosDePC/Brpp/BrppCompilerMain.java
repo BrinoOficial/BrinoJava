@@ -1,5 +1,14 @@
 package br.com.RatosDePC.Brpp;
 
+/**
+ * 
+ * Classe principal do programa
+ * 
+ * @author Mateus Berardo de Souza Terra
+ * @contributors 
+ * @version 5/2/2016
+ */
+
 import java.io.File;
 import javax.swing.JFrame;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;

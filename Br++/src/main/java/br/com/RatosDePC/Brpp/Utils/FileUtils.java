@@ -1,5 +1,13 @@
 package br.com.RatosDePC.Brpp.Utils;
 
+/**
+ * Classe utilizada para interfaciar o acesso ao disco de memória
+ * 
+ * @author Mateus Berardo de Souza Terra
+ * @contributors Rafael Mascarenhas Dal Moro
+ * @version 5/2/2016
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

@@ -1,5 +1,13 @@
 package br.com.RatosDePC.Brpp.IDEui;
 
+/**
+ * Janela do IDE e construção da área de edição de código
+ * 
+ * @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
+ * @contributors 
+ * @version 5/2/2016
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
