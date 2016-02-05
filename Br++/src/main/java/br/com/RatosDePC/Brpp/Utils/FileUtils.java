@@ -13,10 +13,11 @@ import javax.swing.JTextPane;
 public class FileUtils {
 	
 	private static File diretorio = null;
+	private static final String BrinoDirectory = System.getProperty("user.home")+ System.getProperty("file.separator")+"Brino"; 
 
 	public static void createFile(JTextPane txt) {
 		String name = JOptionPane.showInputDialog("Qual o nome do rascunho?");
-		File f = new File("C://Brino/" + name + "/" + name + ".brpp");
+		File f = new File(BrinoDirectory+System.getProperty("file.separator")+ name +System.getProperty("file.separator")+ name + ".brpp");
 		if (f.getParentFile().mkdirs()) {
 
 			try {
@@ -45,7 +46,7 @@ public class FileUtils {
 	}
 	public static void abrirFile(JTextPane txt){
 		txt.setText(null);
-		JFileChooser FC = new JFileChooser();
+		JFileChooser FC = new JFileChooser(BrinoDirectory);
 		int res = FC.showOpenDialog(null);
 
 		if (res == JFileChooser.APPROVE_OPTION) {
@@ -77,6 +78,10 @@ public class FileUtils {
 
 	public static void setDiretorio(File diretorio) {
 		FileUtils.diretorio = diretorio;
+	}
+
+	public static String getBrinodirectory() {
+		return BrinoDirectory;
 	}
 
 }

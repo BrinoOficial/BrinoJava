@@ -23,7 +23,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.1.2";
+	public static String version = "2.1.3";
 
 	public static boolean compile(String path) {
 		setFile("C:\\Arduino\\Brino");

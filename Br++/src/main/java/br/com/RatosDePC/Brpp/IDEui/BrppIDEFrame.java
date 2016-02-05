@@ -109,6 +109,7 @@ public class BrppIDEFrame extends JFrame {
 			private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|faca|e|ou|responder)";
 			private String KEYWORDS_3 = "(\\W)*(soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido)";
 			private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo)";
+			private String KEYWORDS_5 = "(\\W)*(//)";
 
 			public void insertString(int offset, String str,
 					javax.swing.text.AttributeSet a)
@@ -121,23 +122,29 @@ public class BrppIDEFrame extends JFrame {
 				int after = findFirstNonWordChar(text, offset + str.length());
 				int wordL = before;
 				int wordR = before;
+				boolean comment = false;
 				while (wordR <= after) {
 					if (wordR == after
 							|| String.valueOf(text.charAt(wordR))
 									.matches("\\W")) {
-						if (text.substring(wordL, wordR).matches(KEYWORDS_1))
+						if (text.substring(wordL, wordR).matches(KEYWORDS_1) && comment==false)
 							setCharacterAttributes(wordL, wordR - wordL, attr,
 									false);
+						else if (text.substring(wordL, wordR).matches(KEYWORDS_5)){
+							setCharacterAttributes(wordL, wordR - wordL, attrBlack,
+									false);
+							comment=true;
+						}
 						else if (text.substring(wordL, wordR).matches(
-								KEYWORDS_2))
+								KEYWORDS_2)&&comment==false)
 							setCharacterAttributes(wordL, wordR - wordL, attri,
 									false);
 						else if (text.substring(wordL, wordR).matches(
-								KEYWORDS_3))
+								KEYWORDS_3) && comment == false)
 							setCharacterAttributes(wordL, wordR - wordL,
 									attrib, false);
 						else if (text.substring(wordL, wordR).matches(
-								KEYWORDS_4)) {
+								KEYWORDS_4) && comment == false) {
 							setCharacterAttributes(wordL, wordR - wordL,
 									attrib, false);
 							setCharacterAttributes(wordL, wordR - wordL,

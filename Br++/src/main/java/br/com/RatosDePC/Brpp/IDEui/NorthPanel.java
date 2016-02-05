@@ -7,7 +7,9 @@ import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.border.Border;
 
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
@@ -41,8 +43,8 @@ public class NorthPanel extends JPanel {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
 					FileUtils.createFile(BrppIDEFrame.getTextPane());
-					FileUtils.saveFile(BrppIDEFrame.getTextPane());
 				}
+				FileUtils.saveFile(BrppIDEFrame.getTextPane());
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
@@ -70,8 +72,8 @@ public class NorthPanel extends JPanel {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
 					FileUtils.createFile(BrppIDEFrame.getTextPane());
-					FileUtils.saveFile(BrppIDEFrame.getTextPane());
 				}
+				FileUtils.saveFile(BrppIDEFrame.getTextPane());
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
@@ -98,7 +100,18 @@ public class NorthPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				FileUtils.createFile(BrppIDEFrame.getTextPane());
+				int choice = JOptionPane.showConfirmDialog(null, "Você quer salvar o rascunho antes de criar um novo?");
+				JTextPane txt = BrppIDEFrame.getTextPane();
+				switch (choice){
+				case 0:
+					FileUtils.saveFile(txt);
+				case 1:
+					BrppIDEFrame.getTextPane().setText(BrppIDEFrame.getMin());
+					FileUtils.createFile(txt);
+					break;
+				case 2:
+					break;
+				}
 			}
 		});
 		// cria e adiciona botao abrir arquivo

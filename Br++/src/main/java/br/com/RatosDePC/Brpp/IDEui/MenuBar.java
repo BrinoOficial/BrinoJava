@@ -9,7 +9,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
@@ -46,8 +48,20 @@ public class MenuBar extends JMenuBar {
 		novoItem = new JMenuItem("Novo");
 		Action novoAction = new AbstractAction("Novo") {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				FileUtils.createFile(BrppIDEFrame.getTextPane());
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int choice = JOptionPane.showConfirmDialog(null, "Você quer salvar o rascunho antes de criar um novo?");
+				JTextPane txt = BrppIDEFrame.getTextPane();
+				switch (choice){
+				case 0:
+					FileUtils.saveFile(txt);
+				case 1:
+					BrppIDEFrame.getTextPane().setText(BrppIDEFrame.getMin());
+					FileUtils.createFile(txt);
+					break;
+				case 2:
+					break;
+				}
 			}
 		};
 		novoAction.putValue(Action.ACCELERATOR_KEY,
