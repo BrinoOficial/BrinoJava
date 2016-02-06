@@ -113,8 +113,8 @@ public class BrppIDEFrame extends JFrame {
 				cont.getEmptySet(), StyleConstants.Bold, false);
 		DefaultStyledDocument doc = new DefaultStyledDocument() {
 			private static final long serialVersionUID = 1L;
-			private String KEYWORDS_1 = "(\\W)*(Ligado|Desligado|Numero|NumeroDecimal|Longo|Palavra|Condicao|Modulo|Constante|Verdadeiro|Falso|SemRetorno|Entrada|Saida)";
-			private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|faca|e|ou|responder)";
+			private String KEYWORDS_1 = "(\\W)*(Ligado|Desligado|Numero|NumeroDecimal|Letra|Longo|Palavra|Condicao|Modulo|Constante|Verdadeiro|Falso|SemRetorno|Entrada|Saida)";
+			private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|e|ou|responder)";
 			private String KEYWORDS_3 = "(\\W)*(soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido)";
 			private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo)";
 			private String KEYWORDS_5 = "(\\W)*(//)";

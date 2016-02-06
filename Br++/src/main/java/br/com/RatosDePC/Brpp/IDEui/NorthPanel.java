@@ -56,7 +56,8 @@ public class NorthPanel extends JPanel {
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
-						if (UploaderUtils.compile(BrppCompiler.getFile()))
+						System.out.println(BrppCompiler.getFile());
+						if (UploaderUtils.compile("\""+BrppCompiler.getFile()+"\""))
 							BrppIDEFrame.LOG.append("Compilado");
 						else
 							BrppIDEFrame.LOG.append("Falha ao compilar...");
@@ -85,7 +86,7 @@ public class NorthPanel extends JPanel {
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
-						if (UploaderUtils.upload(BrppCompiler.getFile(),
+						if (UploaderUtils.upload("\""+BrppCompiler.getFile()+"\"",
 								MenuBar.getSelectedIndexCOM(),
 								MenuBar.getSelectedIndex()))
 							BrppIDEFrame.LOG.append("Compilado e Carregado");

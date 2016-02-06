@@ -17,20 +17,20 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.RatosDePC.Brpp.Utils.FileUtils;
+
 public class BrppCompiler {
 
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.1.3";
+	public static String version = "2.2.0";
 
 	public static boolean compile(String path) {
-		setFile("C:\\Arduino\\Brino");
+		setFile(FileUtils.getBrinodirectory()+System.getProperty("file.separator")+"Arduino");
 		setFile(getFile().concat(
-				path.substring(path.lastIndexOf('\\'), path.length() - 5)));
-		setFile(getFile().concat(
-				"\\"
-						+ path.substring(path.lastIndexOf('\\'),
+				path.substring(path.lastIndexOf(System.getProperty("file.separator")), path.length() - 5)));
+		setFile(getFile().concat(path.substring(path.lastIndexOf(System.getProperty("file.separator")),
 								path.length() - 4)));
 		setFile(getFile().concat("ino"));
 		File ino = new File(getFile());
@@ -43,7 +43,6 @@ public class BrppCompiler {
 			}
 		}
 		try {
-			// inputFile = new Scanner(input);
 			program = new Formatter(getFile());
 			byte[] encoded = Files.readAllBytes(Paths.get(path));
 			String liness = new String(encoded);
@@ -148,12 +147,14 @@ public class BrppCompiler {
 				if (command.contains("Numero") || command.contains("Palavra")
 						|| command.contains("Condicao")
 						|| command.contains("Verdadeiro")
-						|| command.contains("Falso")) {
+						|| command.contains("Falso")
+						|| command.contains("Letra")) {
 					while (command.contains("Numero")
 							|| command.contains("Palavra")
 							|| command.contains("Condicao")
 							|| command.contains("Verdadeiro")
-							|| command.contains("Falso")) {
+							|| command.contains("Falso")
+							|| command.contains("Letra")) {
 
 						command = addVar(command, command.contains("="));
 						System.out.println(command);
@@ -363,7 +364,9 @@ public class BrppCompiler {
 			// value = contains ? value : "-";
 
 		}
-
+		if (line.contains("Letra")){
+			var=line.replace("Letra", "char");
+		}
 		if (!variaveis.containsKey(name)) {
 			// saveVar(name, value);
 
