@@ -1,4 +1,4 @@
-/* PiscarSemAtraso
+/* PiscarSemEsperar
 
  Liga/ desliga um LED conectado ao pino digital, sem o uso de esperar().
  Ou seja, outro programa pode ser processado simultaneamente sem ser 
@@ -6,11 +6,10 @@
 
  O circuito:
  * LED conectado na porta 13 e no ground.
- * Nota: A maioria dos arduinos já possuem um LED on-board 
+ * Nota: A maioria dos arduinos ja possuem um LED on-board 
  instalado na porta 13.
  
  
- Esse codigo de exemplo esta em domínio público.
  Codigo original para o Arduino:
  http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
  */
@@ -18,13 +17,13 @@
 // constantes nao mudam. Usada para definir a porta do LED:
 Constante Numero LED = 13;      
 
-// Variables will change :
+// Variaveis mudam :
 Condicao estadoLED = Falso;             // Usado para quardar o estado do LED
 
-NumeroLongo tempoAnterior = 0;        // salva a ultima mudança no estado do LED(ligado/desligado)
+NumeroLongo tempoAnterior = 0;        // salva a ultima mudanca no estado do LED(ligado/desligado)
 
-// constants won't change :
-Constante Numero intervalo = 1000;    // intervalo entre as mudanças (milissegundos)
+// constantes nao vao mudar :
+Constante Numero intervalo = 1000;    // intervalo entre as mudancas (milissegundos)
 
 Configuracao() {
   // define o LED como uma saida:
@@ -35,17 +34,17 @@ Principal(){
   // Aqui você pode por o seu codigo.
 
 
-  //confira se o tempo para pisca-lo é viavel, uma vez que o tempo
-  //no circuito pode divergir do tempo teorico no código.
+  //confira se o tempo para pisca-lo e viavel, uma vez que o tempo
+  //no circuito pode divergir do tempo teorico no codigo.
   
   Modulo NumeroLongo tempoAtual = <native> millis();
  
-  se(tempoAtual - tempoAnterior >= intervalo) faca{
+  se(tempoAtual - tempoAnterior >= intervalo) {
     // salva o tempo da ultima alteração do LED
     tempoAnterior = tempoAtual;   
 
     // inverte o estado do LED:
-    se (estadoLED == Desligado)	faca{
+    se (estadoLED == Desligado)	{
       estadoLED = Ligado;
 	  }
     senao{
@@ -53,6 +52,6 @@ Principal(){
 	  }
 
     // Muda o LED de acordo com a variavel:
-    Pino.escrever(D.LED, estadoLED);
+    Pino.escrever(Digital.LED, estadoLED);
   }
 }

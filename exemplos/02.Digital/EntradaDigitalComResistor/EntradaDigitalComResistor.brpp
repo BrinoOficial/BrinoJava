@@ -1,25 +1,25 @@
 /*
  EntradaDigitalComResistor
 
- Esse exemplo faz a leitura de um botão ligado a porta 2 usando a funsao Entrada_PULLUP.
+ Esse exemplo faz a leitura de um botao ligado a porta 2 usando a funcao Entrada_PULLUP.
 
  O circuito:
- * botão digado entre a porta 2 e o GND
+ * botao digado entre a porta 2 e o GND
  * LED on-board da porta 13
 
- Diferente da entrada normal, não é necessario o uso de um resistor externo.
- Um resistor de 20K-ohm é ligado aos 5V quando usamos Entrada_PULLUP. 
- Isso faz com que a leitura normal do leitor seja de ligado e quando ele é
+ Diferente da entrada normal, nao e necessario o uso de um resistor externo.
+ Um resistor de 20K-ohm e ligado aos 5V quando usamos Entrada_PULLUP. 
+ Isso faz com que a leitura normal do leitor seja de ligado e quando ele e
  pressionado ele apresenta valor desligado
  
- Esse codigo de exemplo esta em domínio público.
+ 
  Codigo original para o Arduino:
  http://www.arduino.cc/en/Tutorial/InputPullupSerial
  */
 
 Configuracao() {
-  //inicia a comunicação serial
-  USB.conectar();
+  //inicia a comunicacao serial
+  USB.conectar(9600);
   //define a porta 2 como uma entrada e habilita seu resistor
   Pino.definirModo(2, Entrada_PULLUP);
   Pino.definirModo(13, Saida);
@@ -27,19 +27,19 @@ Configuracao() {
 }
 
 Principal() {
-  //Lê o estado do botão
-  Numero leitura = Pino.ler(D.2);
+  //Le o estado do botao
+  Numero leitura = Pino.ler(Digital.2);
   //Apresenta a leitura no monitor serial
   USB.enviarln(leitura);
 
   // Tenha em mente que o resultado de saida estara invertido.
   // isso quer dizer que ele estara ligado normalmente,
   // e desligado quando for apertado.
-  // Controle do LED em função disso:
-  se (leitura == Ligado) faca{
-    Pino.desligar(13);
+  // Controle do LED em funcao disso:
+  se (leitura == Ligado){
+    Pino.desligar(Digital.13);
   }
   senao {
-    Pino.ligar(13);
+    Pino.ligar(Digital.13);
   }
 }
