@@ -17,7 +17,7 @@ import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 public class UploaderUtils {
 
 	private static String[] boards = { "arduino:avr:uno", "arduino:avr:mega",
-			"arduino:avr:mega:cpu=atmega2560", "arduino:avr:nano",
+			"arduino:avr:mega:cpu=atmega2560", "arduino:avr:nano:cpu=atmega328",
 			"arduino:avr:nano:cpu=atmega168", "arduino:avr:diecimila" };
 
 	public static boolean upload(String file, String com, int board)
