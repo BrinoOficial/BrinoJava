@@ -66,6 +66,7 @@ public class UploaderUtils {
 			System.out.println(line);
 			BrppIDEFrame.LOG.append(line + "\n");
 			BrppIDEFrame.LOG.invalidate();
+			BrppIDEFrame.LOG.revalidate();
 			BrppIDEFrame.LOG.repaint();
 			if (line.contains("O sketch usa"))
 				return true;
