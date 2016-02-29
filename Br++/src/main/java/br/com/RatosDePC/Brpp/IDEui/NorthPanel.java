@@ -58,9 +58,9 @@ public class NorthPanel extends JPanel {
 					try {
 						System.out.println(BrppCompiler.getFile());
 						if (UploaderUtils.compile("\""+BrppCompiler.getFile()+"\""))
-							BrppIDEFrame.LOG.append("Compilado");
+							System.out.println("Compilado");
 						else
-							BrppIDEFrame.LOG.append("Falha ao compilar...");
+							System.out.println("Falha ao compilar...");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -88,11 +88,7 @@ public class NorthPanel extends JPanel {
 					try {
 						if (UploaderUtils.upload("\""+BrppCompiler.getFile()+"\"",
 								MenuBar.getSelectedIndexCOM(),
-								MenuBar.getSelectedIndex()))
-							BrppIDEFrame.LOG.append("Compilado e Carregado");
-						else
-							BrppIDEFrame.LOG
-									.append("Falha ao compilar e/ou carregar...");
+								MenuBar.getSelectedIndex()))System.out.println("ok");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

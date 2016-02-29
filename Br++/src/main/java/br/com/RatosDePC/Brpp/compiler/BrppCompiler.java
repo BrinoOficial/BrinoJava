@@ -24,7 +24,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.2.1";
+	public static String version = "2.2.2";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()+System.getProperty("file.separator")+"Arduino");
@@ -81,6 +81,14 @@ public class BrppCompiler {
 				command = command.trim();
 				command = command.concat(".h>");
 			}
+			if (command.contains("usar") && linecomment) {
+				command = command.replace("usar ", "#include <");
+				String lib = command.substring(command.indexOf('<'),command.indexOf('/'));
+				lib=lib.trim();
+				String comentario = command.substring(command.indexOf('/'), command.length());
+				command = command.substring(0, command.indexOf('<'));
+				command = command.concat(lib+".h>"+" "+comentario);
+			}
 			if (command.contains("LCD"))
 				command = command.replace("LCD", "LiquidCrystal");
 			if (command.contains("Memoria"))
@@ -120,8 +128,8 @@ public class BrppCompiler {
 					}
 				}
 				if (command.contains("para (") || command.contains("para(")) {
-					command = command.replace("for(", "if(");
-					command = command.replace("for (", "if(");
+					command = command.replace("para(", "for(");
+					command = command.replace("para (", "for(");
 					if (command.contains("=")
 							&& !((command.contains(";")
 									|| command.contains("==")
