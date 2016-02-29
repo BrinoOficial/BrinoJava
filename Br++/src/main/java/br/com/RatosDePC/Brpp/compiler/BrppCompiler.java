@@ -24,14 +24,19 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.2.2";
+	public static String version = "2.2.3";
 
 	public static boolean compile(String path) {
-		setFile(FileUtils.getBrinodirectory()+System.getProperty("file.separator")+"Arduino");
+		setFile(FileUtils.getBrinodirectory()
+				+ System.getProperty("file.separator") + "Arduino");
 		setFile(getFile().concat(
-				path.substring(path.lastIndexOf(System.getProperty("file.separator")), path.length() - 5)));
-		setFile(getFile().concat(path.substring(path.lastIndexOf(System.getProperty("file.separator")),
-								path.length() - 4)));
+				path.substring(
+						path.lastIndexOf(System.getProperty("file.separator")),
+						path.length() - 5)));
+		setFile(getFile().concat(
+				path.substring(
+						path.lastIndexOf(System.getProperty("file.separator")),
+						path.length() - 4)));
 		setFile(getFile().concat("ino"));
 		File ino = new File(getFile());
 		if (!ino.exists()) {
@@ -74,20 +79,24 @@ public class BrppCompiler {
 				comment = true;
 			if (command.contains("*/"))
 				comment = false;
-			if (command.contains("definir ") && !linecomment)
-				command = command.replace("definir ", "#define ");
-			if (command.contains("usar") && !linecomment) {
+			if (command.contains("definir "))
+				if(command.indexOf("definir")<command.indexOf("//"))command = command.replace("definir ", "#define ");
+			if (command.contains("usar")
+					&& (command.indexOf("usar") < command.indexOf("//"))) {
 				command = command.replace("usar ", "#include <");
-				command = command.trim();
-				command = command.concat(".h>");
-			}
-			if (command.contains("usar") && linecomment) {
-				command = command.replace("usar ", "#include <");
-				String lib = command.substring(command.indexOf('<'),command.indexOf('/'));
-				lib=lib.trim();
-				String comentario = command.substring(command.indexOf('/'), command.length());
-				command = command.substring(0, command.indexOf('<'));
-				command = command.concat(lib+".h>"+" "+comentario);
+				if (linecomment) {
+					String lib = command.substring(command.indexOf('<'),
+							command.indexOf('/'));
+					lib = lib.trim();
+					String comentario = command.substring(command.indexOf('/'),
+							command.length());
+					command = command.substring(0, command.indexOf('<'));
+					command = command.concat(lib + ".h>" + " " + comentario);
+				} else {
+					command = command.replace("usar ", "#include <");
+					command = command.trim();
+					command = command.concat(".h>");
+				}
 			}
 			if (command.contains("LCD"))
 				command = command.replace("LCD", "LiquidCrystal");
@@ -372,8 +381,8 @@ public class BrppCompiler {
 			// value = contains ? value : "-";
 
 		}
-		if (line.contains("Letra")){
-			var=line.replace("Letra", "char");
+		if (line.contains("Letra")) {
+			var = line.replace("Letra", "char");
 		}
 		if (!variaveis.containsKey(name)) {
 			// saveVar(name, value);
