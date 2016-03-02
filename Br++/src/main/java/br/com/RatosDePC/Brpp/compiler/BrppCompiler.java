@@ -24,7 +24,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.2.3";
+	public static String version = "2.3.0";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()
@@ -80,9 +80,11 @@ public class BrppCompiler {
 			if (command.contains("*/"))
 				comment = false;
 			if (command.contains("definir "))
-				if(command.indexOf("definir")<command.indexOf("//"))command = command.replace("definir ", "#define ");
+				if (command.indexOf("definir") < command.indexOf("//")
+						|| !linecomment)
+					command = command.replace("definir ", "#define ");
 			if (command.contains("usar")
-					&& (command.indexOf("usar") < command.indexOf("//"))) {
+					&& (command.indexOf("usar") < command.indexOf("//") || !linecomment)) {
 				command = command.replace("usar ", "#include <");
 				if (linecomment) {
 					String lib = command.substring(command.indexOf('<'),
@@ -186,12 +188,21 @@ public class BrppCompiler {
 					command = command.replace("Pino.ler", "analogRead");
 					command = command.replace("Analogico.", "A");
 				}
+				if (command.contains("Pino.lerAnalogico(")) {
+					command = command.replace("Pino.lerAnalogico", "analogRead");
+					command = command.replace("Analogico.", "A");
+				}
 				if (command.contains("Pino.ler(")) {
 					command = command.replace("Pino.ler", "digitalRead");
 					command = command.replace("Digital.", "");
 				}
 				if (command.contains("Pino.escrever(A")) {
 					command = command.replace("Pino.escrever", "analogWrite");
+					command = command.replace("Analogico.", "A");
+					command = command.replace("APD.", "");
+				}
+				if (command.contains("Pino.escreverAnalogico(")) {
+					command = command.replace("Pino.escreverAnalogico", "analogWrite");
 					command = command.replace("Analogico.", "A");
 					command = command.replace("APD.", "");
 				}
