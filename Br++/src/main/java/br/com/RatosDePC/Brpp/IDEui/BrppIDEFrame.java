@@ -37,8 +37,8 @@ public class BrppIDEFrame extends JFrame {
 	private Color GREEN = new Color(11, 125, 73);
 	private Color WHITE = new Color(255, 255, 255);
 	private Color azul = new Color(66, 119, 255);
-	private Color laranja = new Color(255, 56, 0);
-	private Color vermelho = new Color(252, 145, 20);
+	private Color vermelho = new Color(255, 56, 0);
+	private Color laranja = new Color(252, 145, 20);
 	private static final String min = "Configuracao() {\n"
 			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\n"
 			+ "\n" + "}\n" + "Principal(){\n"
@@ -53,25 +53,6 @@ public class BrppIDEFrame extends JFrame {
 		}
 		return index;
 	}
-
-//	private int findFirstCommentChar(String text, int index) {
-//		while (index < text.length()) {
-//			if (String.valueOf(text.charAt(index)).matches("\\")) {
-//				break;
-//			}
-//			index++;
-//		}
-//		return index;
-//	}
-//
-//	private int findLastCommentChar(String text, int index) {
-//		while (--index >= 0) {
-//			if (String.valueOf(text.charAt(index)).matches("\n")) {
-//				break;
-//			}
-//		}
-//		return index;
-//	}
 
 	private int findFirstNonWordChar(String text, int index) {
 		while (index < text.length()) {
@@ -99,18 +80,20 @@ public class BrppIDEFrame extends JFrame {
 		add(SouthPanel, BorderLayout.SOUTH);
 		SouthPanel.setBackground(WHITE);
 		final StyleContext cont = StyleContext.getDefaultStyleContext();
-		final AttributeSet attr = cont.addAttribute(
-				cont.getEmptySet(), StyleConstants.Foreground, azul);
-		final AttributeSet attri = cont.addAttribute(
-				cont.getEmptySet(), StyleConstants.Foreground, vermelho);
-		final AttributeSet attrib = cont.addAttribute(
-				cont.getEmptySet(), StyleConstants.Foreground, laranja);
-		final AttributeSet attrBlack = cont.addAttribute(
-				cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
-		final AttributeSet attrBold = cont.addAttribute(
-				cont.getEmptySet(), StyleConstants.Bold, true);
-		final AttributeSet attrNoBold = cont.addAttribute(
-				cont.getEmptySet(), StyleConstants.Bold, false);
+		final AttributeSet attrAzul = cont.addAttribute(cont.getEmptySet(),
+				StyleConstants.Foreground, azul);
+		final AttributeSet attrVerde = cont.addAttribute(cont.getEmptySet(),
+				StyleConstants.Foreground, GREEN);
+		final AttributeSet attrLaranja = cont.addAttribute(cont.getEmptySet(),
+				StyleConstants.Foreground, laranja);
+		final AttributeSet attrVermelho = cont.addAttribute(cont.getEmptySet(),
+				StyleConstants.Foreground, vermelho);
+		final AttributeSet attrBlack = cont.addAttribute(cont.getEmptySet(),
+				StyleConstants.Foreground, Color.BLACK);
+		final AttributeSet attrBold = cont.addAttribute(cont.getEmptySet(),
+				StyleConstants.Bold, true);
+		final AttributeSet attrNoBold = cont.addAttribute(cont.getEmptySet(),
+				StyleConstants.Bold, false);
 		DefaultStyledDocument doc = new DefaultStyledDocument() {
 			private static final long serialVersionUID = 1L;
 			private String KEYWORDS_1 = "(\\W)*(Ligado|Desligado|Numero|NumeroDecimal|Letra|Longo|Palavra|Condicao|Modulo|Constante|Verdadeiro|Falso|SemRetorno|Entrada|Saida)";
@@ -135,26 +118,30 @@ public class BrppIDEFrame extends JFrame {
 					if (wordR == after
 							|| String.valueOf(text.charAt(wordR))
 									.matches("\\W")) {
-						if (text.substring(wordL, wordR).matches(KEYWORDS_1) && comment==false)
-							setCharacterAttributes(wordL, wordR - wordL, attr,
-									false);
-						else if (text.substring(wordL, wordR).matches(KEYWORDS_5)){
-							setCharacterAttributes(wordL, wordR - wordL, attrBlack,
-									false);
-							comment=true;
-						}
-						else if (text.substring(wordL, wordR).matches(
-								KEYWORDS_2)&&comment==false)
-							setCharacterAttributes(wordL, wordR - wordL, attri,
+						if (text.substring(wordL, wordR).matches(KEYWORDS_1)
+								&& comment == false)
+							setCharacterAttributes(wordL, wordR - wordL, attrAzul,
 									false);
 						else if (text.substring(wordL, wordR).matches(
-								KEYWORDS_3) && comment == false)
+								KEYWORDS_5)) {
 							setCharacterAttributes(wordL, wordR - wordL,
-									attrib, false);
-						else if (text.substring(wordL, wordR).matches(
-								KEYWORDS_4) && comment == false) {
+									attrBlack, false);
+							comment = true;
+						} else if (text.substring(wordL, wordR).matches(
+								KEYWORDS_2)
+								&& comment == false)
 							setCharacterAttributes(wordL, wordR - wordL,
-									attrib, false);
+									attrLaranja, false);
+						else if (text.substring(wordL, wordR).matches(
+								KEYWORDS_3)
+								&& comment == false)
+							setCharacterAttributes(wordL, wordR - wordL,
+									attrVermelho, false);
+						else if (text.substring(wordL, wordR).matches(
+								KEYWORDS_4)
+								&& comment == false) {
+							setCharacterAttributes(wordL, wordR - wordL,
+									attrVermelho, false);
 							setCharacterAttributes(wordL, wordR - wordL,
 									attrBold, false);
 						} else {
@@ -167,6 +154,27 @@ public class BrppIDEFrame extends JFrame {
 					}
 					wordR++;
 				}
+
+				int beforeC = 0;
+				int afterC = 0;
+				int off = 0;
+				do {
+					beforeC = text.indexOf("//", beforeC + off);
+					afterC = text.indexOf("\n", beforeC);
+					if (beforeC != -1)
+						setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
+					off = 2;
+				} while (beforeC != -1);
+				beforeC = 0;
+				afterC = 0;
+				off = 0;
+				do {
+					beforeC = text.indexOf("/", beforeC + off);
+					afterC = text.indexOf("*/", beforeC)+2;
+					if (beforeC != -1)
+						setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
+					off = 2;
+				} while (beforeC != -1);
 			}
 
 			public void remove(int offs, int len) throws BadLocationException {
@@ -180,7 +188,7 @@ public class BrppIDEFrame extends JFrame {
 
 				if (text.substring(before, after).matches(
 						"(\\W)*(private|public|protected)")) {
-					setCharacterAttributes(before, after - before, attr, false);
+					setCharacterAttributes(before, after - before, attrAzul, false);
 				} else {
 					setCharacterAttributes(before, after - before, attrBlack,
 							false);
@@ -196,8 +204,6 @@ public class BrppIDEFrame extends JFrame {
 		setJMenuBar(menuBar);
 		setVisible(true);
 	}
-
-
 
 	public static JTextPane getTextPane() {
 		return txt;
