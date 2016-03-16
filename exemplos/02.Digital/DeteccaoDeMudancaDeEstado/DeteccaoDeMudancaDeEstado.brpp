@@ -1,30 +1,30 @@
 /*
-  Detecção de mudança de estado (contador botão)
+  Deteccao de mudanca de estado (contador botao)
  
- Normalmente, não é necessário saber o estado do pino digital o tempo todo,
- basta saber quando a mudança de estado (ligado/ deligado).
- Por exemplo, deseja-se saber quando e quantas vezes um botão é acionado,
- isso é chamado detecção de mudança de estado.
+ Normalmente, nao e necessario saber o estado do pino digital o tempo todo,
+ basta saber quando ha mudanca de estado (ligado/ deligado).
+ Por exemplo, deseja-se saber quando e quantas vezes um botao e acionado,
+ isso e chamado deteccao de mudanca de estado.
 
- Esse exemplo mostra como detectar quando um botão é precionado
+ Esse exemplo mostra como detectar quando um botao e pressionado
 
  Circuito:
- * Botão de pressionar, da porta 2 para +5V
+ * Botao de pressionar, da porta 2 para +5V
  * Resistor de 10k, da porta 2 para o ground 
  * LED, da porta 13 para o ground ou LED acoplado na placa(presente na maioria dos arduinos)
 
-Esse cofdigo está em dominio público em:
+Esse codigo esta em dominio publico em:
  http://www.arduino.cc/en/Tutorial/ButtonStateChange
 
  */
 
- //Essas são as constantes, como o nome sugere, elas não mudam
-Constante Numero  botao = 2;    // porta em que o botão deve ser conectado
+ //Essas sao as constantes, como o nome sugere, elas nao mudam
+Constante Numero  botao = 2;    // porta em que o botao deve ser conectado
 Constante Numero LED = 13;      // porta em que o LED deve ser conectado
 
-// Essas são as variaveis, como o nome sugere, elas irão mudar
+// Essas sao as variaveis, como o nome sugere, elas irao mudar
 Numero contadorBotao = 0;   //conta quantas vezes o botão foi acionado
-Numero estadoBotao = 0;         // verifica se o estado do botão (ligado/deligado)
+Numero estadoBotao = 0;         // verifica se o estado do botao (ligado/deligado)
 Numero ultimoEstado = 0;     // armazena o ultimo estado do botao (ligado/deligado)
 
 Configuracao() {
@@ -32,28 +32,28 @@ Configuracao() {
   Pino.definirModo(botao, Entrada);
   // Define o LED como uma saida:
   Pino.definirModo(LED, Saida);
-  // Inicia uma comunicação serial:
-  USB.conectar();
+  // Inicia uma comunicacao serial:
+  USB.conectar(9600);
 }
 
 
 Principal() {
-  // lê a entrada do botão:
-  estadoBotao = Pino.ler(botao);
+  // le a entrada do botao:
+  estadoBotao = Pino.ler(Digital.botao);
 
-  // compara o estado do botão com o seu último estado
-  se (estadoBotao != ultimoEstado) faca{
+  // compara o estado do botao com o seu ultimo estado
+  se (estadoBotao != ultimoEstado){
     // Se o estado ter mudado, soma um ao medidor)
-    se (estadoBotao == Ligado) faca{
-      // Se o estado do botão for ligado ele
+    se (estadoBotao == Ligado){
+      // Se o estado do botao for ligado ele
 	  // muda do "desligado" pro "ligado"
       contadorBotao++;
       USB.enviarln("ligado");
-      USB.enviarln("o botão foi acionado:  ");
+      USB.enviarln("o botao foi acionado:  ");
       USB.enviarln(contadorBotao);
     }
-    senao faca{
-      // Se o estado do botão for desligado, ele
+    senao{
+      // Se o estado do botao for desligado, ele
 	  // muda do "desligado" pro "ligado"
       USB.enviarln("desligado");
     }
@@ -61,25 +61,17 @@ Principal() {
     esperar(50);
   }
   // Salva o estado atual como o ultimo estado do botao
-  // para o próximo loop a ser executado
+  // para o proximo loop a ser executado
   ultimoEstado = estadoBotao;
 
 
-  // Liga o LED a cada 4 vezes que o botão for precionado 
-  // verificando o modulo do contador do botão
+  // Liga o LED a cada 4 vezes que o botao for precionado 
+  // verificando o modulo do contador do botao
 
-  se (contadorBotao % 4 == 0) faca {
-    Pino.escrever(LED, Ligado);
-  } senao faca{
-    Pino.escrever(LED, Desligado);
+  se (contadorBotao % 4 == 0) {
+    Pino.escrever(Digital.LED, Ligado);
+  } senao {
+    Pino.escrever(Digital.LED, Desligado);
   }
 
 }
-
-
-
-
-
-
-
-

@@ -11,14 +11,13 @@
  * LED conectado a porta 13 e ao GND
 
  * Nota: A maioria dos Arduinos possuem um LED on-board que pode ser controlado. No UNO e no Leonardo,
-  ele está conectado a porta digital 13.
+  ele esta conectado a porta digital 13.
 
- Esse codigo de exemplo esta em domínio público.
  Codigo original para Arduino:
  http://arduino.cc/en/Tutorial/AnalogInput
  */
 Numero sensor = A0;    // entrada do sensor
-Numero LED = 13;      // porta onde o LED está ligado
+Numero LED = 13;      // porta onde o LED esta ligado
 Numero leitura = 0;  // variavel para armazenar a leitura do sensor
 
 Configuracao() {
@@ -27,14 +26,14 @@ Configuracao() {
 }
 
 Principal() {
-  // Lê o sensor e armazena o valor:
-  leitura = Pino.ler(sensor);    
+  // Le o sensor e armazena o valor:
+  leitura = Pino.ler(Analogico.sensor);    
   // Acende o LED
   Pino.ligar(LED);  
   // espera <leitura> millisegundos:
   delay(leitura);          
   // turn the ledPin off:        
-  Pino.desligar(LED);   
+  Pino.desligar(Digital.LED);   
   // espera <leitura> millisegundos:
   esperar(leitura);                  
 }

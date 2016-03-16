@@ -1,7 +1,7 @@
 /*
   Botão
 
- Liga e desliga um LED ligado a porta 13 em função do botão ligado a porta 2.
+ Liga e desliga um LED ligado a porta 13 em funcao do botao ligado a porta 2.
 
 
  O circuito:
@@ -9,33 +9,32 @@
  * botão ligado a porta 2 e ao +5V
  * resistor de 10k ligado da porta 2 ao ground
 
- * Nota: A maioria dos arduinos já possuem um LED on-board instalado na porta 13.
+ * Nota: A maioria dos arduinos ja possuem um LED on-board instalado na porta 13.
 
- Esse codigo de exemplo esta em domínio público.
  Codigo original para o Arduino:
  http://www.arduino.cc/en/Tutorial/Button
  */
 
-Constante Numero botao = 2;      // A porta onde o botão esta ligado
+Constante Numero botao = 2;      // A porta onde o botao esta ligado
 Constante Numero LED =  13;      // A porta onde o LED esta ligado
 
-Numero estadoBotao = 0;         // variavel do estado do botão
+Numero estadoBotao = 0;         // variavel do estado do botao
 
 Configuracao() {
   // declara o LED como uma saida
   Pino.definirModo(LED, Saida);
-  // declara o botão como uma entrada
+  // declara o botao como uma entrada
   Pino.definirModo(botao, Entrada);
 }
 
 Principal() {
-  // Lê e armazena a entrada do botão:
-  estadoBotao = Pino.ler(botao);
+  // Le e armazena a entrada do botao:
+  estadoBotao = Pino.ler(Digital.botao);
 
-  // Verifica se o botão esta pressionado
-  se (estadoBotao == Ligado) faca{
+  // Verifica se o botao esta pressionado
+  se (estadoBotao == Ligado) {
     // Liga o LED
-    Pino.ligar(LED);
+    Pino.ligar(Digital.LED);
   }
   senao {
     // Desliga o LED

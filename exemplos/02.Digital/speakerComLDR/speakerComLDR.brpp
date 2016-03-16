@@ -7,10 +7,9 @@ Toca um speaker baseado na estrada analogica de um LDR
  * 8-ohm speaker na porta digital 9
  * LDR, da porta analogica 0 para a +5V
  * resistor de 4.7K, do analogico 0 para o ground
- circuit:
  
  
-Esse exemplo está em dominio público em:
+Esse exemplo esta em dominio publico em:
 
  http://www.arduino.cc/en/Tutorial/Tone2
 
@@ -18,19 +17,19 @@ Esse exemplo está em dominio público em:
 
 
 Configuracao() {
-  // initialize serial communications (for debugging only):
-  Serial.begin(9600);
+  // inicializa a comunicacao serial(apenas para debugar):
+  USB.conectar(9600);
 }
 
 Principal() {
-  // Lê a entrada do LDR:
-  Numero leituraLDR = analogRead(A0);
-  // mostra na serial o seu valor, para você saber a sua variação
+  // Le a entrada do LDR:
+  Numero leituraLDR = Pino.ler(A0);
+  // mostra na serial o seu valor, para voce saber a sua variacao
   USB.enviarln(leituraLDR);
-  // Verifica a variação da entrada analogica, (no caso, 400 - 1000 do LDR)
+  // Verifica a variacao da entrada analogica, (no caso, 400 - 1000 do LDR)
   // A saida do speacker varia de 120 a 1500Hz
-  // Modifica os numeros máximo e mínimo para os abaixo dependendo
-  // da variaçao medida pelo sensor.
+  // Modifica os numeros maximo e minimo para os abaixo dependendo
+  // da variacao medida pelo sensor.
   Numero nota = proporcionar(leituraLDR, 400, 1000, 120, 1500);
 
   // toca a nota:
