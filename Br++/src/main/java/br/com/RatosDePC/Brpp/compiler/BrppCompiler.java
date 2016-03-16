@@ -26,7 +26,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.3.1";
+	public static String version = "2.3.2-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()
