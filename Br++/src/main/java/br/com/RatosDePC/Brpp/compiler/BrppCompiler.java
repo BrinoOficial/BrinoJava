@@ -16,6 +16,8 @@ import java.nio.file.Paths;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
