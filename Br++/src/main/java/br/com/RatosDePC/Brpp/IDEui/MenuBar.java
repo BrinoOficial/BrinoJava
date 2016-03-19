@@ -49,10 +49,10 @@ public class MenuBar extends JMenuBar {
 
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
-		// coms = new String[15];
-		// for (int x = 0; x < coms.length; x++) {
-		// coms[x] = "COM" + (x + 1);
-		// }
+//		 coms = new String[15];
+//		 for (int x = 0; x < coms.length; x++) {
+//		 coms[x] = "COM" + (x + 1);
+//		 }
 		setComs();
 		fileMenu = new JMenu("Arquivo");
 		fileMenu.setMnemonic(KeyEvent.VK_A);

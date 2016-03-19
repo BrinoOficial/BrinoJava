@@ -11,36 +11,45 @@ package br.com.RatosDePC.Brpp.Utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
+
+import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.Brpp.IDEui.JTextAreaOutputStream;
 
 public class UploaderUtils {
+	static JTextArea out = BrppIDEFrame.LOG;
+	
+	private static String[] boards = { "arduino:avr:uno", "arduino:avr:mega", "arduino:avr:mega:cpu=atmega2560",
+			"arduino:avr:nano:cpu=atmega328", "arduino:avr:nano:cpu=atmega168", "arduino:avr:diecimila" };
 
-	private static String[] boards = { "arduino:avr:uno", "arduino:avr:mega",
-			"arduino:avr:mega:cpu=atmega2560", "arduino:avr:nano:cpu=atmega328",
-			"arduino:avr:nano:cpu=atmega168", "arduino:avr:diecimila" };
+	
 
-	public static boolean upload(String file, String com, int board)
-			throws IOException {
+	public static boolean upload(String file, String com, int board) throws IOException {
 		boolean success = false;
 		boolean erro = false;
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --upload "
-						+ file + " --board " + boards[board] + " --port " + com);
+				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --upload " + file + " --board "
+						+ boards[board] + " --port " + com);
 		System.out.println(com);
 		builder.redirectErrorStream(true);
 		Process p = builder.start();
-		BufferedReader r = new BufferedReader(new InputStreamReader(
-				p.getInputStream()));
+		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
+		
+
 		while (true) {
 			line = r.readLine();
 
 			if (line == null) {
 				break;
 			}
-			System.out.println(line);
-			BrppIDEFrame.LOG.append(line + "\n");
+			out.append(line + "\n");
+			out.update(out.getGraphics());
 
 		}
 		if (!erro) {
@@ -51,23 +60,19 @@ public class UploaderUtils {
 
 	public static boolean compile(String file) throws IOException {
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --verify "
-						+ file);
+				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --verify " + file);
 		builder.redirectErrorStream(true);
 		Process p = builder.start();
-		BufferedReader r = new BufferedReader(new InputStreamReader(
-				p.getInputStream()));
+		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
 		while (true) {
 			line = r.readLine();
 			if (line == null) {
 				break;
 			}
-			System.out.println(line);
-			BrppIDEFrame.LOG.append(line + "\n");
-			BrppIDEFrame.LOG.invalidate();
-			BrppIDEFrame.LOG.revalidate();
-			BrppIDEFrame.LOG.repaint();
+
+			out.append(line + "\n");
+			out.update(out.getGraphics());
 			if (line.contains("O sketch usa"))
 				return true;
 
