@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.Brpp.Utils.CompilerUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 public class BrppCompiler {
@@ -29,16 +31,11 @@ public class BrppCompiler {
 	public static String version = "2.3.2-beta";
 
 	public static boolean compile(String path) {
-		setFile(FileUtils.getBrinodirectory()
-				+ System.getProperty("file.separator") + "Arduino");
-		setFile(getFile().concat(
-				path.substring(
-						path.lastIndexOf(System.getProperty("file.separator")),
-						path.length() - 5)));
-		setFile(getFile().concat(
-				path.substring(
-						path.lastIndexOf(System.getProperty("file.separator")),
-						path.length() - 4)));
+		setFile(FileUtils.getBrinodirectory() + System.getProperty("file.separator") + "Arduino");
+		setFile(getFile()
+				.concat(path.substring(path.lastIndexOf(System.getProperty("file.separator")), path.length() - 5)));
+		setFile(getFile()
+				.concat(path.substring(path.lastIndexOf(System.getProperty("file.separator")), path.length() - 4)));
 		setFile(getFile().concat("ino"));
 		File ino = new File(getFile());
 		if (!ino.exists()) {
@@ -54,10 +51,15 @@ public class BrppCompiler {
 			byte[] encoded = Files.readAllBytes(Paths.get(path));
 			String liness = new String(encoded);
 			String[] lines = liness.split("\n");
-			if (proccess(lines)) {
-				return true;
-			} else
-				return false;
+			if (CompilerUtils.metodosObrigatorios(liness)) {
+				if (proccess(lines)) {
+					return true;
+				} else
+					return false;
+			} else {
+				BrppIDEFrame.LOG.append("\nHá um erro em seu código!");
+				BrppIDEFrame.LOG.update(BrppIDEFrame.LOG.getGraphics());
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,18 +84,14 @@ public class BrppCompiler {
 			if (command.contains("*/"))
 				comment = false;
 			if (command.contains("definir "))
-				if (command.indexOf("definir") < command.indexOf("//")
-						|| !linecomment)
+				if (command.indexOf("definir") < command.indexOf("//") || !linecomment)
 					command = command.replace("definir ", "#define ");
-			if (command.contains("usar")
-					&& (command.indexOf("usar") < command.indexOf("//") || !linecomment)) {
+			if (command.contains("usar") && (command.indexOf("usar") < command.indexOf("//") || !linecomment)) {
 				command = command.replace("usar ", "#include <");
 				if (linecomment) {
-					String lib = command.substring(command.indexOf('<'),
-							command.indexOf('/'));
+					String lib = command.substring(command.indexOf('<'), command.indexOf('/'));
 					lib = lib.trim();
-					String comentario = command.substring(command.indexOf('/'),
-							command.length());
+					String comentario = command.substring(command.indexOf('/'), command.length());
 					command = command.substring(0, command.indexOf('<'));
 					command = command.concat(lib + ".h>" + " " + comentario);
 				} else {
@@ -108,8 +106,7 @@ public class BrppCompiler {
 				command = command.replace("Memoria", "EEPROM");
 			if (command.contains("I2C"))
 				command = command.replace("I2C", "Wire");
-			if ((command.contains(";") || command.contains("{") || command
-					.contains("}")) && comment == false) {
+			if ((command.contains(";") || command.contains("{") || command.contains("}")) && comment == false) {
 
 				if (command.contains("Configuracao"))
 					command = command.replace("Configuracao", "void setup");
@@ -131,11 +128,8 @@ public class BrppCompiler {
 				if (command.contains("se (") || command.contains("se(")) {
 					command = command.replace("se(", "if(");
 					command = command.replace("se (", "if(");
-					if (command.contains("=")
-							&& !((command.contains("==")
-									|| command.contains("<")
-									|| command.contains(">") || command
-										.contains("!")))) {
+					if (command.contains("=") && !((command.contains("==") || command.contains("<")
+							|| command.contains(">") || command.contains("!")))) {
 						System.out.println(line);
 						return false;
 					}
@@ -143,38 +137,25 @@ public class BrppCompiler {
 				if (command.contains("para (") || command.contains("para(")) {
 					command = command.replace("para(", "for(");
 					command = command.replace("para (", "for(");
-					if (command.contains("=")
-							&& !((command.contains(";")
-									|| command.contains("==")
-									|| command.contains("<") || command
-										.contains(">")))) {
+					if (command.contains("=") && !((command.contains(";") || command.contains("==")
+							|| command.contains("<") || command.contains(">")))) {
 						System.out.println(line);
 						return false;
 					}
 				}
-				if (command.contains("enquanto")
-						|| command.contains("enquanto")) {
+				if (command.contains("enquanto") || command.contains("enquanto")) {
 					command = command.replace("enquanto ", "while ");
-					if (command.contains("=")
-							&& !((command.contains("==")
-									|| command.contains("<")
-									|| command.contains(">") || command
-										.contains("!")))) {
+					if (command.contains("=") && !((command.contains("==") || command.contains("<")
+							|| command.contains(">") || command.contains("!")))) {
 						System.out.println(line);
 						return false;
 					}
 				}
 
-				if (command.contains("Numero") || command.contains("Palavra")
-						|| command.contains("Condicao")
-						|| command.contains("Verdadeiro")
-						|| command.contains("Falso")
-						|| command.contains("Letra")) {
-					while (command.contains("Numero")
-							|| command.contains("Palavra")
-							|| command.contains("Condicao")
-							|| command.contains("Verdadeiro")
-							|| command.contains("Falso")
+				if (command.contains("Numero") || command.contains("Palavra") || command.contains("Condicao")
+						|| command.contains("Verdadeiro") || command.contains("Falso") || command.contains("Letra")) {
+					while (command.contains("Numero") || command.contains("Palavra") || command.contains("Condicao")
+							|| command.contains("Verdadeiro") || command.contains("Falso")
 							|| command.contains("Letra")) {
 
 						command = addVar(command, command.contains("="));
@@ -214,17 +195,13 @@ public class BrppCompiler {
 				}
 				if (command.contains("Pino.ligar(")) {
 					command = command.replace("Digital.", "");
-					String pin = command.substring(command.indexOf('(') + 1,
-							command.indexOf(')'));
-					command = command.replace("Pino.ligar(" + pin + ")",
-							"digitalWrite(" + pin.trim() + ",HIGH)");
+					String pin = command.substring(command.indexOf('(') + 1, command.indexOf(')'));
+					command = command.replace("Pino.ligar(" + pin + ")", "digitalWrite(" + pin.trim() + ",HIGH)");
 				}
 				if (command.contains("Pino.desligar(")) {
 					command = command.replace("Digital.", "");
-					String pin = command.substring(command.indexOf('(') + 1,
-							command.indexOf(')'));
-					command = command.replace("Pino.desligar(" + pin + ")",
-							"digitalWrite(" + pin.trim() + ",LOW)");
+					String pin = command.substring(command.indexOf('(') + 1, command.indexOf(')'));
+					command = command.replace("Pino.desligar(" + pin + ")", "digitalWrite(" + pin.trim() + ",LOW)");
 				}
 				if (command.contains("Ligado"))
 					command = command.replace("Ligado", "HIGH");
@@ -237,12 +214,10 @@ public class BrppCompiler {
 				if (command.contains("responder"))
 					command = command.replace("responder", "return");
 				if (command.contains("<native>"))
-					command = command.replace(
-							command.substring(command.indexOf("<native>")),
+					command = command.replace(command.substring(command.indexOf("<native>")),
 							line.substring(line.indexOf("e>") + 2));
 				if (command.contains("//")) {
-					command = command.replace(
-							command.substring(command.indexOf("//")),
+					command = command.replace(command.substring(command.indexOf("//")),
 							line.substring(line.indexOf("//")));
 				}
 				if (command.contains(".conectar(D")) {
@@ -251,8 +226,7 @@ public class BrppCompiler {
 				if (command.contains("escreverAngulo"))
 					command = command.replace("escreverAngulo", "write");
 				if (command.contains("escreverMicros"))
-					command = command.replace("escreverMicros",
-							"writeMicroseconds");
+					command = command.replace("escreverMicros", "writeMicroseconds");
 				if (command.contains("Servo.frente"))
 					command = command.replace("Servo.frente", "1700");
 				if (command.contains("Servo.tras"))
@@ -264,11 +238,9 @@ public class BrppCompiler {
 				if (command.contains(".limpar"))
 					command = command.replace("limpar", "clear");
 				if (command.contains(".transmitir"))
-					command = command
-							.replace("transmitir", "beginTransmission");
+					command = command.replace("transmitir", "beginTransmission");
 				if (command.contains(".pararTransmitir"))
-					command = command.replace("pararTransmitir",
-							"endTransmission");
+					command = command.replace("pararTransmitir", "endTransmission");
 				if (command.contains(".solicitar"))
 					command = command.replace(".solicitar", ".requestFrom");
 				if (command.contains(".solicitado"))
@@ -291,22 +263,16 @@ public class BrppCompiler {
 					command = command.replace("tamanho", "length");
 				if (command.contains("Memoria.formatar()"))
 					command = command.replace("Memoria.formatar()",
-							"for (int i = 0 ; i < EEPROM.length() ; i++)"
-									+ " EEPROM.write(i, 0);");
+							"for (int i = 0 ; i < EEPROM.length() ; i++)" + " EEPROM.write(i, 0);");
 				if (command.contains("\"")) {
-					command = command.replace(
-							command.substring(command.indexOf("\""),
-									command.lastIndexOf("\"")),
-							line.substring(line.indexOf("\""),
-									line.lastIndexOf("\"")));
+					command = command.replace(command.substring(command.indexOf("\""), command.lastIndexOf("\"")),
+							line.substring(line.indexOf("\""), line.lastIndexOf("\"")));
 				}
 				program.format("%s\n", command);
 				System.out.println(command);
 				command = "";
-			} else if (line.length() > 3 && linecomment == false
-					&& line.contains("definir") == false && comment == false
-					&& line.contains("*/") == false
-					&& line.contains("usar") == false) {
+			} else if (line.length() > 3 && linecomment == false && line.contains("definir") == false
+					&& comment == false && line.contains("*/") == false && line.contains("usar") == false) {
 				System.out.println(line);
 				System.out.println(linecomment);
 				program.flush();
@@ -368,23 +334,18 @@ public class BrppCompiler {
 			// value = contains ? var.substring(var.indexOf('\"') + 1,
 			// var.lastIndexOf('\"')) : "-";
 		}
-		if (line.contains("Condicao") || line.contains("Verdadeiro")
-				|| line.contains("Falso")) {
+		if (line.contains("Condicao") || line.contains("Verdadeiro") || line.contains("Falso")) {
 			/*
 			 * if (line.contains("Verdadeiro")) { // value = "true"; } else if
 			 * (line.contains("Falso")) { // value = "false"; } else if
 			 * (!line.contains("=")) { // value = "-"; } else
 			 */
-			if (line.contains("=")
-					&& !(line.contains("<") || line.contains("<=")
-							|| line.contains(">") || line.contains(">=")
-							|| line.contains("==") || line.contains("!="))) {
+			if (line.contains("=") && !(line.contains("<") || line.contains("<=") || line.contains(">")
+					|| line.contains(">=") || line.contains("==") || line.contains("!="))) {
 
-				System.out
-						.println("há um erro na declaração desta variável..."
-								+ line.substring(line.indexOf('o', 'a') + 2,
-										line.indexOf(';') + 1)
-								+ " ela só pode assumir como valores Verdadeiro ou Falso.");
+				System.out.println("há um erro na declaração desta variável..."
+						+ line.substring(line.indexOf('o', 'a') + 2, line.indexOf(';') + 1)
+						+ " ela só pode assumir como valores Verdadeiro ou Falso.");
 			}
 			var = line.replace("Condicao", "boolean");
 			var = var.replace("Falso", "false");
