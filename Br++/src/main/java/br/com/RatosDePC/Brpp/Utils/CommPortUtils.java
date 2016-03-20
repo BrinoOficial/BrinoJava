@@ -1,6 +1,6 @@
 package br.com.RatosDePC.Brpp.Utils;
 
-import gnu.io.CommPortIdentifier;
+//import gnu.io.CommPortIdentifier;
 
 import java.util.Enumeration;
 
@@ -10,11 +10,11 @@ import java.util.Enumeration;
  */
 public class CommPortUtils {
 
-	public static Enumeration getComPorts() {
-		String port_type;
-		@SuppressWarnings("unchecked")
-		Enumeration<CommPortIdentifier> enu_ports = CommPortIdentifier
-				.getPortIdentifiers();
-		return enu_ports;
-	}
+//	public static Enumeration getComPorts() {
+//		String port_type;
+//		@SuppressWarnings("unchecked")
+//		Enumeration<CommPortIdentifier> enu_ports = CommPortIdentifier
+//				.getPortIdentifiers();
+//		return enu_ports;
+//	}
 }

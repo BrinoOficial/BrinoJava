@@ -16,8 +16,8 @@ import java.nio.file.Paths;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.Brpp.Utils.CompilerUtils;
@@ -28,7 +28,8 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	public static String version = "2.3.2-beta";
+	private static JTextArea out = BrppIDEFrame.LOG;
+	public static String version = "2.3.3-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory() + System.getProperty("file.separator") + "Arduino");
@@ -57,8 +58,8 @@ public class BrppCompiler {
 				} else
 					return false;
 			} else {
-				BrppIDEFrame.LOG.append("\nHá um erro em seu código!");
-				BrppIDEFrame.LOG.update(BrppIDEFrame.LOG.getGraphics());
+				out.append("\nHá um erro em seu código!");
+				out.update(out.getGraphics());
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -131,6 +132,8 @@ public class BrppCompiler {
 					if (command.contains("=") && !((command.contains("==") || command.contains("<")
 							|| command.contains(">") || command.contains("!")))) {
 						System.out.println(line);
+						out.append("\nHá um erro em seu código!\n"+line);
+						out.update(out.getGraphics());
 						return false;
 					}
 				}
@@ -140,6 +143,8 @@ public class BrppCompiler {
 					if (command.contains("=") && !((command.contains(";") || command.contains("==")
 							|| command.contains("<") || command.contains(">")))) {
 						System.out.println(line);
+						out.append("\nHá um erro em seu código!\n"+line);
+						out.update(out.getGraphics());
 						return false;
 					}
 				}
@@ -148,6 +153,8 @@ public class BrppCompiler {
 					if (command.contains("=") && !((command.contains("==") || command.contains("<")
 							|| command.contains(">") || command.contains("!")))) {
 						System.out.println(line);
+						out.append("\nHá um erro em seu código!\n"+line);
+						out.update(out.getGraphics());
 						return false;
 					}
 				}
@@ -159,7 +166,6 @@ public class BrppCompiler {
 							|| command.contains("Letra")) {
 
 						command = addVar(command, command.contains("="));
-						System.out.println(command);
 					}
 				}
 				if (command.contains("Pino.definirModo")) {
@@ -277,6 +283,8 @@ public class BrppCompiler {
 				System.out.println(linecomment);
 				program.flush();
 				program.close();
+				out.append("\nHá um erro em seu código!\n"+line);
+				out.update(out.getGraphics());
 				return false;
 			} else {
 				program.format("%s\n", command);

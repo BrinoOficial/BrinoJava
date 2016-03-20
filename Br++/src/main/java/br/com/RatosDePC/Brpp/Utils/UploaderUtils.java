@@ -11,15 +11,12 @@ package br.com.RatosDePC.Brpp.Utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
-import br.com.RatosDePC.Brpp.IDEui.JTextAreaOutputStream;
 
 public class UploaderUtils {
 	static JTextArea out = BrppIDEFrame.LOG;
@@ -65,18 +62,39 @@ public class UploaderUtils {
 		Process p = builder.start();
 		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
+		Timer t = new Timer();
 		while (true) {
+			UploaderUtils b = new UploaderUtils();
 			line = r.readLine();
 			if (line == null) {
 				break;
 			}
-
-			out.append(line + "\n");
+			
+			if (line.contains("Verificando...")){
+				out.append(line + " Isso pode levar algum tempo...\n");
+				t.schedule(b.new ResponseTask(),0, 500);
+			}
+			else out.append(line+"\n");
 			out.update(out.getGraphics());
-			if (line.contains("O sketch usa"))
+			if (line.contains("O sketch usa")){
+				t.cancel();
 				return true;
-
+				
+			}
+				
+			
 		}
+		t.cancel();
 		return false;
+	}
+	class ResponseTask extends TimerTask{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			out.append(".");
+			out.update(out.getGraphics());
+		}
+		
 	}
 }

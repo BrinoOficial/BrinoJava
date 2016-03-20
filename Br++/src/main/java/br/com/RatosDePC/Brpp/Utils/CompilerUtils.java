@@ -4,8 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CompilerUtils {
-	private static String line = "(\n*.*[;}{]\n)|(\n*//.*\n)";
-	private static Pattern Rascunho = Pattern.compile("Configuracao\\Q()\\E\\s*\\Q{\\E("+line+")*\n*\\Q}\\E("+line+")*\n*Principal\\Q()\\E\\s*\\Q{\\E("+line+")*\n*\\Q}\\E");
+	private static String line = "(\r*\n*.*[;}{]\r*\n)|(\r*\n*//.*\r*\n)";
+	private static Pattern Rascunho = Pattern.compile("Configuracao\\Q()\\E\\s*\\Q{\\E("+line+")*\r*\n*\\Q}\\E("+line+")*\r*\n*Principal\\Q()\\E\\s*\\Q{\\E("+line+")*\r*\n*\\Q}\\E");
 
 	public static void main(String[] args) {
 		Matcher matcher = Rascunho.matcher( "Configuracao() {\n"

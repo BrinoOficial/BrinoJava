@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
@@ -32,18 +33,18 @@ public class BrppIDEFrame extends JFrame {
 	private JMenuBar menuBar;
 	private JPanel NorthPanel;
 	public static JTextArea LOG = new JTextArea(5, 10);
-	private JScrollPane SouthPanel = new JScrollPane(LOG);
+	public static JScrollPane SouthPanel = new JScrollPane(LOG);
 	Border emptyBorder = BorderFactory.createEmptyBorder();
 	private Color GREEN = new Color(11, 125, 73);
 	private Color WHITE = new Color(255, 255, 255);
 	private Color azul = new Color(66, 119, 255);
 	private Color vermelho = new Color(255, 56, 0);
 	private Color laranja = new Color(252, 145, 20);
-	private static final String min = "Configuracao() {\n"
-			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\n"
-			+ "\n" + "}\n" + "Principal(){\n"
-			+ "//Coloque aqui seu codigo Principal, para rodar repetidamente\n"
-			+ "\n" + "}\n";
+	private static final String min = "Configuracao() {\r\n"
+			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\r\n"
+			+ "\r\n" + "}\r\n" + "Principal(){\r\n"
+			+ "//Coloque aqui seu codigo Principal, para rodar repetidamente\r\n"
+			+ "\r\n" + "}\r\n";
 
 	private int findLastNonWordChar(String text, int index) {
 		while (--index >= 0) {
@@ -66,6 +67,8 @@ public class BrppIDEFrame extends JFrame {
 
 	public BrppIDEFrame(String title) {
 		super(title);
+		DefaultCaret caret = (DefaultCaret)LOG.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(400, 400);
 		setLocationRelativeTo(null);
