@@ -30,11 +30,11 @@ public class NorthPanel extends JPanel {
 	private static JButton COMP;
 	private static JButton COMPUP;
 	Border emptyBorder = BorderFactory.createEmptyBorder();
-	ImageIcon novo = new ImageIcon("resources/novoButton.png");
-	ImageIcon compup = new ImageIcon("resources/carrButton.png");
-	ImageIcon comp = new ImageIcon("resources/comButton.png");
-	ImageIcon abr = new ImageIcon("resources/opButton.png");
-	ImageIcon sal = new ImageIcon("resources/saveButton.png");
+	ImageIcon novo = new ImageIcon(getClass().getClassLoader().getResource("resources/novoButton.png"));
+	ImageIcon compup = new ImageIcon(getClass().getClassLoader().getResource("resources/carrButton.png"));
+	ImageIcon comp = new ImageIcon(getClass().getClassLoader().getResource("resources/comButton.png"));
+	ImageIcon abr = new ImageIcon(getClass().getClassLoader().getResource("resources/opButton.png"));
+	ImageIcon sal = new ImageIcon(getClass().getClassLoader().getResource("resources/saveButton.png"));
 	private JButton NOVO;
 	private JButton ABR;
 	private JButton SAL;
@@ -46,7 +46,7 @@ public class NorthPanel extends JPanel {
 		COMP.setBorderPainted(false);
 		COMP.setBorder(emptyBorder);
 		COMP.setContentAreaFilled(false);
-		COMP.setRolloverIcon(new ImageIcon("resources/comButtonFocus.png"));
+		COMP.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/comButtonFocus.png")));
 		COMP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
@@ -73,9 +73,9 @@ public class NorthPanel extends JPanel {
 		COMPUP.setBorderPainted(false);
 		COMPUP.setBorder(emptyBorder);
 		COMPUP.setContentAreaFilled(false);
-		COMPUP.setRolloverIcon(new ImageIcon("resources/carrButtonFocus.png"));
-		COMPUP.setRolloverSelectedIcon(new ImageIcon(
-				"resources/carrButtonClicked.png"));
+		COMPUP.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/carrButtonFocus.png")));
+		COMPUP.setRolloverSelectedIcon(new ImageIcon(getClass().getClassLoader().getResource(
+				"resources/carrButtonClicked.png")));
 		add(COMPUP);
 		COMPUP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -99,7 +99,7 @@ public class NorthPanel extends JPanel {
 		NOVO.setBorderPainted(false);
 		NOVO.setBorder(emptyBorder);
 		NOVO.setContentAreaFilled(false);
-		NOVO.setRolloverIcon(new ImageIcon("resources/novoButtonFocus.png"));
+		NOVO.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/novoButtonFocus.png")));
 		add(NOVO);
 		NOVO.addActionListener(new ActionListener() {
 			@Override
@@ -124,7 +124,7 @@ public class NorthPanel extends JPanel {
 		ABR.setBorderPainted(false);
 		ABR.setBorder(emptyBorder);
 		ABR.setContentAreaFilled(false);
-		ABR.setRolloverIcon(new ImageIcon("resources/opButtonFocus.png"));
+		ABR.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/opButtonFocus.png")));
 		add(ABR);
 		ABR.addActionListener(new ActionListener() {
 			@Override
@@ -138,7 +138,7 @@ public class NorthPanel extends JPanel {
 		SAL.setBorderPainted(false);
 		SAL.setBorder(emptyBorder);
 		SAL.setContentAreaFilled(false);
-		SAL.setRolloverIcon(new ImageIcon("resources/saveButtonFocus.png"));
+		SAL.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/saveButtonFocus.png")));
 		add(SAL);
 		SAL.addActionListener(new ActionListener() {
 			@Override
