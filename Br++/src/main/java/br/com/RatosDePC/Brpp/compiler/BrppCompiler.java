@@ -20,7 +20,6 @@ import java.util.Map;
 import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
-import br.com.RatosDePC.Brpp.Utils.CompilerUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 public class BrppCompiler {
