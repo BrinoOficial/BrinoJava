@@ -28,7 +28,7 @@ public class BrppCompiler {
 	private static Formatter program;
 	private static String file;
 	private static JTextArea out = BrppIDEFrame.LOG;
-	public static String version = "2.3.4-beta";
+	public static String version = "2.3.5-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory() + System.getProperty("file.separator") + "Arduino");
