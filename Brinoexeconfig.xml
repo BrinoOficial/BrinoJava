@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
-  <dontWrapJar>true</dontWrapJar>
+  <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>.\BrinoIDE.jar</jar>
+  <jar>C:\Users\Mateus Terra\Documents\GitHub\Brino\BrinoIDE.jar</jar>
   <outfile>C:\Users\Mateus Terra\Documents\installer\BrinoIDE.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
@@ -23,4 +23,16 @@
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
   </jre>
+  <versionInfo>
+    <fileVersion>2.3.5.0</fileVersion>
+    <txtFileVersion>2.3.5-beta</txtFileVersion>
+    <fileDescription>IDE do Brino</fileDescription>
+    <copyright>Creative Commons</copyright>
+    <productVersion>2.3.5.0</productVersion>
+    <txtProductVersion>2.3.5-beta</txtProductVersion>
+    <productName>Brino</productName>
+    <companyName></companyName>
+    <internalName>BrinoIDE-2.3.5-beta</internalName>
+    <originalFilename>BrinoIDE.exe</originalFilename>
+  </versionInfo>
 </launch4jConfig>
