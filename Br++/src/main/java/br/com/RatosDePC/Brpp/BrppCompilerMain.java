@@ -23,7 +23,7 @@ public class BrppCompilerMain {
 		f.mkdirs();
 		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "+BrppCompiler.version);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(700, 700);
+		frame.setSize(500, 600);
 		frame.setVisible(true);
 	}
 

@@ -34,8 +34,10 @@
 
 ###Pino    
  * `Pino.definirModo(Numero pino, Modo)`: define o modo da porta digital fornecida(apenas o número) para o modo fornecido (**Entrada** ou **Saida**) (`pinMode(int pin, [OUTPUT ou INPUT])`)      
- * `Pino.escrever(Pino, saida)`: escreve o valor fornecido na porta fornecida (`analogWrite(int pin, int value)` ou `digitalWrite(int pin, [HIGH ou LOW])`)        
- * `Pino.ler(Pino)`: lê o valor da porta especificada (analogRead ou digitalRead)    
+ * `Pino.escrever(Pino, saida)`: escreve o valor fornecido na porta fornecida (`analogWrite(int pin, int value)` ou `digitalWrite(int pin, [HIGH ou LOW])`)      
+ * `Pino.escreverAnalogico(Pino, saida)`: escreve o valor fornecido na porta analógica fornecida (`analogWrite(int pin, int value)`)           
+ * `Pino.ler(Pino)`: lê o valor da porta especificada (analogRead ou digitalRead)      
+ * `Pino.lerAnalogico(Pino)`: lê o valor da porta analógica especificada (analogRead)        
  * `Pino.ligar(Pino)`: liga o pino digital (digitalWrite(int pin, HIGH))    
  * `Pino.desligar(Pino)`: desliga o pino digital(digitalWrite(int pin, LOW))    
  * Pinos digitais: `Digital.num` ou `num`    

@@ -8,7 +8,7 @@ package br.com.RatosDePC.Brpp.IDEui;
  * @version 5/2/2016
  */
 
-import gnu.io.CommPortIdentifier;
+//import gnu.io.CommPortIdentifier;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -26,7 +26,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
-import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
+//import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 @SuppressWarnings("serial")
@@ -49,11 +49,11 @@ public class MenuBar extends JMenuBar {
 
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
-		// coms = new String[15];
-		// for (int x = 0; x < coms.length; x++) {
-		// coms[x] = "COM" + (x + 1);
-		// }
-		setComs();
+		 coms = new String[15];
+		 for (int x = 0; x < coms.length; x++) {
+		 coms[x] = "COM" + (x + 1);
+		 }
+//		setComs();
 		fileMenu = new JMenu("Arquivo");
 		fileMenu.setMnemonic(KeyEvent.VK_A);
 		add(fileMenu);
@@ -141,11 +141,6 @@ public class MenuBar extends JMenuBar {
 
 	}
 
-	public void repaint() {
-		super.repaint();
-		setComs();
-	}
-
 	public static int getSelectedIndex() {
 
 		for (int i = 0; i < boards.length; i++) {
@@ -164,26 +159,26 @@ public class MenuBar extends JMenuBar {
 		return "COM1";
 	}
 
-	public void setComs() {
-		@SuppressWarnings("rawtypes")
-		Enumeration comm = CommPortUtils.getComPorts();
-		ArrayList<String> comList = new ArrayList<String>();
-		while (comm.hasMoreElements()) {
-			CommPortIdentifier port_identifier = (CommPortIdentifier) comm
-					.nextElement();
-			if (port_identifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				comList.add(port_identifier.getName());
-			}
-		}
-		if (comList.size() > 0) {
-			coms = new String[comList.size()];
-			int cont = 0;
-			for (String c : comList) {
-				this.coms[cont] = c;
-			}
-		} else {
-			coms = new String[1];
-			coms[0] = "Não há portas disponíveis";
-		}
-	}
+//	public void setComs() {
+//		@SuppressWarnings("rawtypes")
+//		Enumeration comm = CommPortUtils.getComPorts();
+//		ArrayList<String> comList = new ArrayList<String>();
+//		while (comm.hasMoreElements()) {
+//			CommPortIdentifier port_identifier = (CommPortIdentifier) comm
+//					.nextElement();
+//			if (port_identifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+//				comList.add(port_identifier.getName());
+//			}
+//		}
+//		if (comList.size() > 0) {
+//			coms = new String[comList.size()];
+//			int cont = 0;
+//			for (String c : comList) {
+//				this.coms[cont] = c;
+//			}
+//		} else {
+//			coms = new String[1];
+//			coms[0] = "Não há portas disponíveis";
+//		}
+//	}
 }

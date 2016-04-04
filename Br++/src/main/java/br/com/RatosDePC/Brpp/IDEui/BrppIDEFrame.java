@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.Border;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
@@ -32,18 +33,18 @@ public class BrppIDEFrame extends JFrame {
 	private JMenuBar menuBar;
 	private JPanel NorthPanel;
 	public static JTextArea LOG = new JTextArea(5, 10);
-	private JScrollPane SouthPanel = new JScrollPane(LOG);
+	public static JScrollPane SouthPanel = new JScrollPane(LOG);
 	Border emptyBorder = BorderFactory.createEmptyBorder();
 	private Color GREEN = new Color(11, 125, 73);
 	private Color WHITE = new Color(255, 255, 255);
 	private Color azul = new Color(66, 119, 255);
 	private Color vermelho = new Color(255, 56, 0);
 	private Color laranja = new Color(252, 145, 20);
-	private static final String min = "Configuracao() {\n"
-			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\n"
-			+ "\n" + "}\n" + "Principal(){\n"
-			+ "//Coloque aqui seu codigo Principal, para rodar repetidamente\n"
-			+ "\n" + "}\n";
+	private static final String min = "Configuracao() {\r\n"
+			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\r\n"
+			+ "\r\n" + "}\r\n" + "Principal(){\r\n"
+			+ "//Coloque aqui seu codigo Principal, para rodar repetidamente\r\n"
+			+ "\r\n" + "}\r\n";
 
 	private int findLastNonWordChar(String text, int index) {
 		while (--index >= 0) {
@@ -66,6 +67,8 @@ public class BrppIDEFrame extends JFrame {
 
 	public BrppIDEFrame(String title) {
 		super(title);
+		DefaultCaret caret = (DefaultCaret)LOG.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(400, 400);
 		setLocationRelativeTo(null);
@@ -100,7 +103,7 @@ public class BrppIDEFrame extends JFrame {
 			private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|e|ou|responder)";
 			private String KEYWORDS_3 = "(\\W)*(soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido)";
 			private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo)";
-			private String KEYWORDS_5 = "(\\W)*(//)";
+			private String KEYWORDS_5 = "(/r/n)*(//).*/r/n";
 
 			public void insertString(int offset, String str,
 					javax.swing.text.AttributeSet a)
@@ -154,27 +157,30 @@ public class BrppIDEFrame extends JFrame {
 					}
 					wordR++;
 				}
-
-				int beforeC = 0;
-				int afterC = 0;
-				int off = 0;
-				do {
-					beforeC = text.indexOf("//", beforeC + off);
-					afterC = text.indexOf("\n", beforeC);
-					if (beforeC != -1)
-						setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
-					off = 2;
-				} while (beforeC != -1);
-				beforeC = 0;
-				afterC = 0;
-				off = 0;
-				do {
-					beforeC = text.indexOf("/", beforeC + off);
-					afterC = text.indexOf("*/", beforeC)+2;
-					if (beforeC != -1)
-						setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
-					off = 2;
-				} while (beforeC != -1);
+				try{
+					int beforeC = 0;
+					int afterC = 0;
+					int off = 0;
+					do {
+						beforeC = text.indexOf("//", beforeC + off);
+						afterC = text.indexOf("\n", beforeC);
+						if (beforeC != -1)
+							setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
+						off = 2;
+					} while (beforeC != -1);
+					beforeC = 0;
+					afterC = 0;
+					off = 0;
+					do {
+						beforeC = text.indexOf("/* ", beforeC + off);
+						afterC = text.indexOf("*/", beforeC) + 2;
+						if (beforeC != -1)
+							setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
+						off = 2;
+					} while (beforeC != -1);
+				} catch (Exception e){
+					System.out.println("e");
+				}
 			}
 
 			public void remove(int offs, int len) throws BadLocationException {
