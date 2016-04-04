@@ -26,7 +26,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 
-import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
+//import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 @SuppressWarnings("serial")

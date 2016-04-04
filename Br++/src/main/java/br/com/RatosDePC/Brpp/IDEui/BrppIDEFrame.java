@@ -103,7 +103,7 @@ public class BrppIDEFrame extends JFrame {
 			private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|e|ou|responder)";
 			private String KEYWORDS_3 = "(\\W)*(soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido)";
 			private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo)";
-			private String KEYWORDS_5 = "(\\W)*(//)";
+			private String KEYWORDS_5 = "(/r/n)*(//).*/r/n";
 
 			public void insertString(int offset, String str,
 					javax.swing.text.AttributeSet a)
@@ -157,27 +157,30 @@ public class BrppIDEFrame extends JFrame {
 					}
 					wordR++;
 				}
-
-				int beforeC = 0;
-				int afterC = 0;
-				int off = 0;
-				do {
-					beforeC = text.indexOf("//", beforeC + off);
-					afterC = text.indexOf("\n", beforeC);
-					if (beforeC != -1)
-						setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
-					off = 2;
-				} while (beforeC != -1);
-				beforeC = 0;
-				afterC = 0;
-				off = 0;
-				do {
-					beforeC = text.indexOf("/", beforeC + off);
-					afterC = text.indexOf("*/", beforeC)+2;
-					if (beforeC != -1)
-						setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
-					off = 2;
-				} while (beforeC != -1);
+				try{
+					int beforeC = 0;
+					int afterC = 0;
+					int off = 0;
+					do {
+						beforeC = text.indexOf("//", beforeC + off);
+						afterC = text.indexOf("\n", beforeC);
+						if (beforeC != -1)
+							setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
+						off = 2;
+					} while (beforeC != -1);
+					beforeC = 0;
+					afterC = 0;
+					off = 0;
+					do {
+						beforeC = text.indexOf("/* ", beforeC + off);
+						afterC = text.indexOf("*/", beforeC) + 2;
+						if (beforeC != -1)
+							setCharacterAttributes(beforeC, afterC - beforeC, attrVerde, true);
+						off = 2;
+					} while (beforeC != -1);
+				} catch (Exception e){
+					System.out.println("e");
+				}
 			}
 
 			public void remove(int offs, int len) throws BadLocationException {

@@ -20,7 +20,6 @@ import java.util.Map;
 import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
-import br.com.RatosDePC.Brpp.Utils.CompilerUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 public class BrppCompiler {
@@ -29,7 +28,7 @@ public class BrppCompiler {
 	private static Formatter program;
 	private static String file;
 	private static JTextArea out = BrppIDEFrame.LOG;
-	public static String version = "2.3.3-beta";
+	public static String version = "2.3.5-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory() + System.getProperty("file.separator") + "Arduino");
@@ -52,15 +51,15 @@ public class BrppCompiler {
 			byte[] encoded = Files.readAllBytes(Paths.get(path));
 			String liness = new String(encoded);
 			String[] lines = liness.split("\n");
-			if (CompilerUtils.metodosObrigatorios(liness)) {
+//			if (CompilerUtils.metodosObrigatorios(liness)) {
 				if (proccess(lines)) {
 					return true;
 				} else
 					return false;
-			} else {
-				out.append("\nHá um erro em seu código!");
-				out.update(out.getGraphics());
-			}
+//			} else {
+//				out.append("\nHá um erro em seu código!");
+//				out.update(out.getGraphics());
+//			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
