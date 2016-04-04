@@ -15,8 +15,8 @@
   <manifest></manifest>
   <icon>C:\Users\Mateus Terra\Documents\installer\favicon.ico</icon>
   <jre>
-    <path></path>
-    <bundledJre64Bit>false</bundledJre64Bit>
+    <path>.</path>
+    <bundledJre64Bit>true</bundledJre64Bit>
     <bundledJreAsFallback>false</bundledJreAsFallback>
     <minVersion>1.7.0</minVersion>
     <maxVersion></maxVersion>
