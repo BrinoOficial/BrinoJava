@@ -30,7 +30,7 @@ public class UploaderUtils {
 		boolean success = false;
 		boolean erro = false;
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --upload " + file + " --board "
+				"cd Arduino && arduino_debug --upload " + file + " --board "
 						+ boards[board] + " --port " + com);
 		System.out.println(com);
 		builder.redirectErrorStream(true);
@@ -57,7 +57,7 @@ public class UploaderUtils {
 
 	public static boolean compile(String file) throws IOException {
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-				"cd \"C:\\Program Files (x86)\\Arduino\" && arduino_debug --verify " + file);
+				"cd Arduino && arduino_debug --verify " + file);
 		builder.redirectErrorStream(true);
 		Process p = builder.start();
 		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
