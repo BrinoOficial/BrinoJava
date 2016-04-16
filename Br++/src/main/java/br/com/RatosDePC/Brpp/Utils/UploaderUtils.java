@@ -37,13 +37,17 @@ public class UploaderUtils {
 		Process p = builder.start();
 		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
-		
-
+		Timer t = new Timer();
 		while (true) {
+			UploaderUtils b = new UploaderUtils();
 			line = r.readLine();
 
 			if (line == null) {
 				break;
+			}
+			if (line.contains("Verificando...") || line.contains("Verifying...")){
+				out.append(line + " Isso pode levar algum tempo...\n");
+				t.schedule(b.new ResponseTask(),0, 500);
 			}
 			out.append(line + "\n");
 			out.update(out.getGraphics());
@@ -70,7 +74,7 @@ public class UploaderUtils {
 				break;
 			}
 			
-			if (line.contains("Verificando...")){
+			if (line.contains("Verificando...") || line.contains("Verifying...")){
 				out.append(line + " Isso pode levar algum tempo...\n");
 				t.schedule(b.new ResponseTask(),0, 500);
 			}
