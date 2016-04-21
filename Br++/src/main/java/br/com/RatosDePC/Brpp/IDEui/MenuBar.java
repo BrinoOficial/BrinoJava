@@ -41,8 +41,10 @@ public class MenuBar extends JMenuBar {
 	private static String[] boards = { "Uno", "Mega 1280", "Mega 2560",
 			"Mega ADK", "Nano", "Nano 168", "Diecimila ou Duemilanove 328",
 			"Diecimila ou Duemilanove 168", "Leonardo", "Micro", "Esplora",
-			"Mini 328", "Mini 168", "Ethernet", "Fio", "BT 328", "BT168",
-			"LilyPad USB", "LilyPad 328", "LilyPad 168" };
+			"Mini 328", "Mini 168", "Ethernet", "Fio", "BT 328", "BT 168",
+			"LilyPad USB", "LilyPad 328", "LilyPad 168",
+			"Pro ou Pro Mini 328 5V", "Pro ou Pro Mini 328 3V3",
+			"Pro ou Pro Mini 168 5V", "Pro ou Pro Mini 168 3V3", "Gemma" };
 	private JMenu subBoard;
 	private static JRadioButtonMenuItem[] radioBoards;
 	private ButtonGroup gp;

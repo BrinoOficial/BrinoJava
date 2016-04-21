@@ -33,7 +33,11 @@ public class UploaderUtils {
 			"arduino:avr:ethernet", "arduino:avr:fio",
 			"arduino:avr:bt:cpu=atmega328", "arduino:avr:bt:cpu=atmega168",
 			"arduino:avr:LilyPadUSB", "arduino:avr:lilypad:cpu=atmega328",
-			"arduino:avr:lilypad:cpu=atmega168" };
+			"arduino:avr:lilypad:cpu=atmega168",
+			"arduino:avr:pro:cpu=16MHzatmega328",
+			"arduino:avr:pro:cpu=8MHzatmega328",
+			"arduino:avr:pro:cpu=16MHzatmega168",
+			"arduino:avr:pro:cpu=8MHzatmega168", "arduino:avr:gemma" };
 
 	public static void upload(String file, String com, int board)
 			throws IOException {
