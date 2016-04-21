@@ -305,6 +305,8 @@ public class BrppCompiler {
 					command = command.replace("descarregar", "flush");
 				if (command.contains("ArquivoGravar"))
 					command = command.replace("ArquivoGravar", "FILE_WRITE");
+				if (command.contains("enviarBinario"))
+					command = command.replace("enviarBinario", "shiftOut");
 				if (command.contains("escreverAngulo"))
 					command = command.replace("escreverAngulo", "write");
 				if (command.contains("escreverMicros"))

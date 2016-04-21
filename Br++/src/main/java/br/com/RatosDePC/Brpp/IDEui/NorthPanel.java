@@ -8,13 +8,16 @@ package br.com.RatosDePC.Brpp.IDEui;
  * @version 5/2/2016
  */
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.TooManyListenersException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -23,12 +26,17 @@ import javax.swing.border.Border;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 import br.com.RatosDePC.Brpp.Utils.UploaderUtils;
 import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
+import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 
 @SuppressWarnings("serial")
 public class NorthPanel extends JPanel {
 
-	private static JButton COMP;
-	private static JButton COMPUP;
+	private JButton COMP;
+	private JButton COMPUP;
+	private JButton NOVO;
+	private JButton ABR;
+	private JButton SAL;
+	private JButton SERIAL;
 	Border emptyBorder = BorderFactory.createEmptyBorder();
 	ImageIcon novo = new ImageIcon(getClass().getClassLoader().getResource(
 			"resources/novoButton.png"));
@@ -40,14 +48,14 @@ public class NorthPanel extends JPanel {
 			"resources/opButton.png"));
 	ImageIcon sal = new ImageIcon(getClass().getClassLoader().getResource(
 			"resources/saveButton.png"));
-	private JButton NOVO;
-	private JButton ABR;
-	private JButton SAL;
-
+	ImageIcon ser = new ImageIcon(getClass().getClassLoader().getResource(
+			"resources/serButton.png"));
+	
 	public NorthPanel() {
 		// TODO Auto-generated constructor stub
 		// cria e adiciona o botao compilar
 		COMP = new JButton(comp);
+		COMP.setToolTipText("Compilar");
 		COMP.setBorderPainted(false);
 		COMP.setBorder(emptyBorder);
 		COMP.setContentAreaFilled(false);
@@ -71,9 +79,9 @@ public class NorthPanel extends JPanel {
 					}
 			}
 		});
-		add(COMP);
 		// cria e adiciona o botao carregar
 		COMPUP = new JButton(compup);
+		COMPUP.setToolTipText("Compilar e carregar");
 		COMPUP.setBorderPainted(false);
 		COMPUP.setBorder(emptyBorder);
 		COMPUP.setContentAreaFilled(false);
@@ -82,7 +90,6 @@ public class NorthPanel extends JPanel {
 		COMPUP.setRolloverSelectedIcon(new ImageIcon(getClass()
 				.getClassLoader()
 				.getResource("resources/carrButtonClicked.png")));
-		add(COMPUP);
 		COMPUP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
@@ -102,12 +109,12 @@ public class NorthPanel extends JPanel {
 		});
 		// cria e adiciona botao arquivo novo
 		NOVO = new JButton(novo);
+		NOVO.setToolTipText("Novo");
 		NOVO.setBorderPainted(false);
 		NOVO.setBorder(emptyBorder);
 		NOVO.setContentAreaFilled(false);
 		NOVO.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
 				.getResource("resources/novoButtonFocus.png")));
-		add(NOVO);
 		NOVO.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -129,12 +136,12 @@ public class NorthPanel extends JPanel {
 		});
 		// cria e adiciona botao abrir arquivo
 		ABR = new JButton(abr);
+		ABR.setToolTipText("Abrir");
 		ABR.setBorderPainted(false);
 		ABR.setBorder(emptyBorder);
 		ABR.setContentAreaFilled(false);
 		ABR.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
 				.getResource("resources/opButtonFocus.png")));
-		add(ABR);
 		ABR.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -144,12 +151,12 @@ public class NorthPanel extends JPanel {
 		});
 		// cria e adiciona botao salvar aquivo
 		SAL = new JButton(sal);
+		SAL.setToolTipText("Salvar");
 		SAL.setBorderPainted(false);
 		SAL.setBorder(emptyBorder);
 		SAL.setContentAreaFilled(false);
 		SAL.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
 				.getResource("resources/saveButtonFocus.png")));
-		add(SAL);
 		SAL.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -161,5 +168,49 @@ public class NorthPanel extends JPanel {
 				}
 			}
 		});
+		//cria e adiciona o botao do serial monitor
+		SERIAL = new JButton(ser);
+		SERIAL.setToolTipText("Monitor Serial");
+		SERIAL.setBorderPainted(false);
+		SERIAL.setBorder(emptyBorder);
+		SERIAL.setContentAreaFilled(false);
+		SERIAL.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
+				.getResource("resources/serButtonFocus.png")));
+		SERIAL.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				try {
+					SerialMonitor serial = new SerialMonitor(
+							MenuBar.getSelectedIndexCOM());
+					serial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					serial.setSize(500, 600);
+					if (serial.getConnected())
+						serial.setVisible(true);
+					else
+						serial.dispose();
+
+				} catch (TooManyListenersException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		add(COMP);
+		add(COMPUP);
+		add(NOVO);
+		add(ABR);
+		add(SAL);
+		add(SERIAL);
+		
 	}
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+//		add(COMP);
+//		add(COMPUP);
+//		add(NOVO);
+//		add(ABR);
+//		add(SAL);
+//		add(SERIAL);
+		SERIAL.setLocation(getWidth()-42, 5);
+	}
+	
 }

@@ -22,10 +22,18 @@ import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 public class UploaderUtils {
 	static JTextArea out = BrppIDEFrame.LOG;
 
-	private static String[] boards = { "arduino:avr:uno", "arduino:avr:mega",
-			"arduino:avr:mega:cpu=atmega2560",
+	private static String[] boards = { "arduino:avr:uno",
+			"arduino:avr:mega:cpu=atmega1280",
+			"arduino:avr:mega:cpu=atmega2560", "arduino:avr:megaADK",
 			"arduino:avr:nano:cpu=atmega328", "arduino:avr:nano:cpu=atmega168",
-			"arduino:avr:diecimila" };
+			"arduino:avr:diecimila:cpu=atmega328",
+			"arduino:avr:diecimila:cpu=atmega168", "arduino:avr:leonardo",
+			"arduino:avr:micro", "arduino:avr:esplora",
+			"arduino:avr:mini:cpu=atmega328", "arduino:avr:mini:cpu=atmega168",
+			"arduino:avr:ethernet", "arduino:avr:fio",
+			"arduino:avr:bt:cpu=atmega328", "arduino:avr:bt:cpu=atmega168",
+			"arduino:avr:LilyPadUSB", "arduino:avr:lilypad:cpu=atmega328",
+			"arduino:avr:lilypad:cpu=atmega168" };
 
 	public static void upload(String file, String com, int board)
 			throws IOException {

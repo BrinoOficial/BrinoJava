@@ -11,6 +11,7 @@ package br.com.RatosDePC.Brpp.IDEui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,7 +32,8 @@ import javax.swing.text.StyleContext;
 public class BrppIDEFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	static JTextPane txt = null;
-	private ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("resources/logo.png"));
+	private ImageIcon logo = new ImageIcon(getClass().getClassLoader()
+			.getResource("resources/logo.png"));
 	private JMenuBar menuBar;
 	private JPanel NorthPanel;
 	public static JTextArea LOG = new JTextArea(5, 10);
@@ -76,6 +78,7 @@ public class BrppIDEFrame extends JFrame {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(400, 400);
+		pack();
 		setLocationRelativeTo(null);
 		BorderLayout bl = new BorderLayout();
 		setLayout(bl);
@@ -104,11 +107,10 @@ public class BrppIDEFrame extends JFrame {
 				StyleConstants.Bold, false);
 		DefaultStyledDocument doc = new DefaultStyledDocument() {
 			private static final long serialVersionUID = 1L;
-			private String KEYWORDS_1 = "(\\W)*(Ligado|Desligado|Numero|NumeroDecimal|Letra|Longo|Palavra|Condicao|Modulo|Constante|Verdadeiro|Falso|SemRetorno|Entrada|Saida)";
+			private String KEYWORDS_1 = "(\\W)*(Mudando|Ligando|Desligando|ArquivoGravar|Ligado|Desligado|Numero|NumeroDecimal|Letra|Longo|Palavra|Condicao|Modulo|Constante|Verdadeiro|Falso|SemRetorno|Entrada|Saida)";
 			private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|e|ou|responder)";
-			private String KEYWORDS_3 = "(\\W)*(soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido)";
-			private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo)";
-//			private String KEYWORDS_5 = "(/r/n)*(//).*/r/n";
+			private String KEYWORDS_3 = "(\\W)*(fechar|gravar|descarregar|enviarBinario|Arquivo|existe|criarPasta|abrir|remover|removerPasta|soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido|conectarInterruptor|desconectarInterruptor|ligarInterruptores|desligarInterruptores)";
+			private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo|SD)";
 
 			public void insertString(int offset, String str,
 					javax.swing.text.AttributeSet a)
@@ -196,8 +198,37 @@ public class BrppIDEFrame extends JFrame {
 									attrVerde, true);
 						off = 2;
 					} while (beforeC != -1);
+					beforeC = 0;
+					afterC = 0;
+					off = 0;
+					do {
+						beforeC = text.indexOf("\"", afterC+off);
+						afterC = text.indexOf("\"", beforeC+1);
+						if (afterC != -1){
+							afterC += 1;
+							System.out.println("entrei");
+						}
+						String string = text.substring(beforeC, afterC);
+						if (beforeC != -1 && afterC != -1 && !string.contains("\n"))
+							setCharacterAttributes(beforeC, afterC - beforeC,
+									attrAzul, true);
+						off = 1;
+					} while (beforeC > 0 && afterC > 0);
+					beforeC = 0;
+					afterC = 0;
+					off = 0;
+					do {
+						beforeC = text.indexOf("'", beforeC + off);
+						afterC = text.indexOf("'", beforeC + 1);
+						if (afterC != -1)
+							afterC += 1;
+						if (beforeC != -1 && afterC != -1)
+							setCharacterAttributes(beforeC, afterC - beforeC,
+									attrAzul, true);
+						off = 2;
+					} while (beforeC > 0 && afterC > 0);
 				} catch (Exception e) {
-					System.out.println("e");
+					e.printStackTrace();
 				}
 			}
 
