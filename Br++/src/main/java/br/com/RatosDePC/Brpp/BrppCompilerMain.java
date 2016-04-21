@@ -10,9 +10,11 @@ package br.com.RatosDePC.Brpp;
  */
 
 import java.io.File;
+
 import javax.swing.JFrame;
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
+
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.Brpp.Utils.FileUtils;
 import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
 
 public class BrppCompilerMain {

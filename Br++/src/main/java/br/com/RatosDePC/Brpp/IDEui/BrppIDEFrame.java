@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -30,6 +31,7 @@ import javax.swing.text.StyleContext;
 public class BrppIDEFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	static JTextPane txt = null;
+	private ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("resources/logo.png"));
 	private JMenuBar menuBar;
 	private JPanel NorthPanel;
 	public static JTextArea LOG = new JTextArea(5, 10);
@@ -69,6 +71,7 @@ public class BrppIDEFrame extends JFrame {
 
 	public BrppIDEFrame(String title) {
 		super(title);
+		this.setIconImage(logo.getImage());
 		DefaultCaret caret = (DefaultCaret) LOG.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -17,55 +17,48 @@ import java.util.TimerTask;
 import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 
 public class UploaderUtils {
 	static JTextArea out = BrppIDEFrame.LOG;
-	
-	private static String[] boards = { "arduino:avr:uno", "arduino:avr:mega", "arduino:avr:mega:cpu=atmega2560",
-			"arduino:avr:nano:cpu=atmega328", "arduino:avr:nano:cpu=atmega168", "arduino:avr:diecimila" };
 
-	
+	private static String[] boards = { "arduino:avr:uno", "arduino:avr:mega",
+			"arduino:avr:mega:cpu=atmega2560",
+			"arduino:avr:nano:cpu=atmega328", "arduino:avr:nano:cpu=atmega168",
+			"arduino:avr:diecimila" };
 
-	public static boolean upload(String file, String com, int board) throws IOException {
-		boolean success = false;
-		boolean erro = false;
+	public static void upload(String file, String com, int board)
+			throws IOException {
+		if (SerialMonitor.isOpen)
+			try {
+				CommPortUtils.closePort();
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			}
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
 				"cd Arduino && arduino_debug --upload " + file + " --board "
 						+ boards[board] + " --port " + com);
-		System.out.println(com);
 		builder.redirectErrorStream(true);
-		Process p = builder.start();
-		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		String line;
-		Timer t = new Timer();
-		while (true) {
-			UploaderUtils b = new UploaderUtils();
-			line = r.readLine();
-
-			if (line == null) {
-				break;
-			}
-			if (line.contains("Verificando...") || line.contains("Verifying...")){
-				out.append(line + " Isso pode levar algum tempo...\n");
-				t.schedule(b.new ResponseTask(),0, 500);
-			}
-			out.append(line + "\n");
-			out.update(out.getGraphics());
-
-		}
-		if (!erro) {
-			success = true;
-		}
-		return success;
+		processar(builder);
+		if (SerialMonitor.isOpen)
+			CommPortUtils.openPort(com);
 	}
 
-	public static boolean compile(String file) throws IOException {
+	public static void compile(String file) throws IOException {
 		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
 				"cd Arduino && arduino_debug --verify " + file);
 		builder.redirectErrorStream(true);
+		processar(builder);
+	}
+
+	private static void processar(ProcessBuilder builder) throws IOException {
 		Process p = builder.start();
-		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		BufferedReader r = new BufferedReader(new InputStreamReader(
+				p.getInputStream()));
 		String line;
+		out.setText("");
+		BrppIDEFrame.SouthPanel.getVerticalScrollBar().setValue(0);
+		out.update(out.getGraphics());
 		Timer t = new Timer();
 		while (true) {
 			UploaderUtils b = new UploaderUtils();
@@ -73,32 +66,25 @@ public class UploaderUtils {
 			if (line == null) {
 				break;
 			}
-			
-			if (line.contains("Verificando...") || line.contains("Verifying...")){
+			if (line.contains("Verificando") || line.contains("Verifying")) {
 				out.append(line + " Isso pode levar algum tempo...\n");
-				t.schedule(b.new ResponseTask(),0, 500);
-			}
-			else out.append(line+"\n");
-			out.update(out.getGraphics());
-			if (line.contains("O sketch usa")){
+				t.schedule(b.new ResponseTask(), 0, 500);
+			} else
+				out.append(line + "\n");
+			if (line.contains("O sketch usa") | line.contains("The sketch")) {
 				t.cancel();
-				return true;
-				
 			}
-				
-			
+			out.update(out.getGraphics());
 		}
 		t.cancel();
-		return false;
 	}
-	class ResponseTask extends TimerTask{
 
+	class ResponseTask extends TimerTask {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			out.append(".");
 			out.update(out.getGraphics());
 		}
-		
 	}
 }

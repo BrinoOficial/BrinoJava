@@ -16,10 +16,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.TooManyListenersException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,6 +29,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+
+import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
@@ -46,14 +50,16 @@ public class MenuBar extends JMenuBar {
 	private JMenu ferrMenu;
 	private JMenuItem novoItem;
 	private JMenuItem salvarItem;
+	private JMenuItem salvarComoItem;
 	private JMenuItem abrirItem;
+	private JMenuItem serialMonitor;
 
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
-		 coms = new String[15];
-//		 for (int x = 0; x < coms.length; x++) {
-//		 coms[x] = "COM" + (x + 1);
-//		 }
+		coms = new String[15];
+		// for (int x = 0; x < coms.length; x++) {
+		// coms[x] = "COM" + (x + 1);
+		// }
 		setComs();
 		fileMenu = new JMenu("Arquivo");
 		fileMenu.setMnemonic(KeyEvent.VK_A);
@@ -108,7 +114,34 @@ public class MenuBar extends JMenuBar {
 			subCOM.add(radioCOMS[x]);
 			x++;
 		}
+		serialMonitor = new JMenuItem("Monitor Serial");
+		Action serialAction = new AbstractAction("Monitor Serial") {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try {
+					SerialMonitor serial = new SerialMonitor(
+							getSelectedIndexCOM());
+					serial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					serial.setSize(500, 600);
+					if (serial.getConnected())
+						serial.setVisible(true);
+					else
+						serial.dispose();
 
+				} catch (TooManyListenersException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		serialAction.putValue(
+				Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK
+						| KeyEvent.SHIFT_DOWN_MASK));
+		serialMonitor.setAction(serialAction);
+		ferrMenu.addSeparator();
+		ferrMenu.add(serialMonitor);
 		abrirItem = new JMenuItem("Abrir");
 		Action abrirAction = new AbstractAction("Abrir") {
 			@Override
@@ -139,6 +172,22 @@ public class MenuBar extends JMenuBar {
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 		salvarItem.setAction(salvarAction);
 		fileMenu.add(salvarItem);
+
+		salvarComoItem = new JMenuItem("Salvar como");
+		Action salvarComoAction = new AbstractAction("SalvarComo") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FileUtils.createFile(BrppIDEFrame.getTextPane());
+			}
+		};
+
+		salvarComoAction.putValue(
+				Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK
+						| KeyEvent.SHIFT_DOWN_MASK));
+		salvarComoItem.setAction(salvarComoAction);
+		fileMenu.add(salvarComoItem);
 
 	}
 
