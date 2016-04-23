@@ -13,10 +13,12 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
@@ -45,7 +47,7 @@ public class BrppIDEFrame extends JFrame {
 	public BrppIDEFrame(String title) {
 		super(title);
 		this.setIconImage(logo.getImage());
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setSize(400, 400);
 		pack();
 		setLocationRelativeTo(null);
@@ -69,6 +71,25 @@ public class BrppIDEFrame extends JFrame {
 		menuBar = new MenuBar();
 		setJMenuBar(menuBar);
 		setVisible(true);
+		
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				int dialogResult = JOptionPane.showConfirmDialog(BrppIDEFrame.this,
+						"Você deseja salvar seu rascunho antes de sair?",
+						"Salvar", JOptionPane.YES_NO_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+				if(dialogResult == JOptionPane.YES_OPTION){
+					if (FileUtils.getDiretorio() == null) {
+						FileUtils.createFile(BrppIDEFrame.getTextPane());
+					} else {
+						FileUtils.saveFile(BrppIDEFrame.getTextPane());
+					}
+				}
+				System.exit(0);
+
+			}
+		});
 	}
 
 	public static JTextPane getTextPane() {

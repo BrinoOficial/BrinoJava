@@ -146,7 +146,21 @@ public class NorthPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				FileUtils.abrirFile(BrppIDEFrame.getTextPane());
+				
+				int choice = JOptionPane.showConfirmDialog(null,
+						"Você quer salvar o rascunho antes de abrir um novo?");
+				JTextPane txt = BrppIDEFrame.getTextPane();
+				switch (choice) {
+				case 0:
+					FileUtils.saveFile(txt);
+				case 1:
+					FileUtils.abrirFile(BrppIDEFrame.getTextPane());
+					break;
+				case 2:
+					break;
+				}
+				
+				
 			}
 		});
 		// cria e adiciona botao salvar aquivo

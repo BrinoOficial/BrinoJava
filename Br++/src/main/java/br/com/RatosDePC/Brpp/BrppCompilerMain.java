@@ -23,10 +23,12 @@ public class BrppCompilerMain {
 		// TODO Auto-generated method stub
 		File f = new File(FileUtils.getBrinodirectory());
 		f.mkdirs();
-		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "+BrppCompiler.version);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "
+				+ BrppCompiler.version);
 		frame.setSize(500, 600);
 		frame.setVisible(true);
+		frame.setLocation(100, 30);
+
 	}
 
 }

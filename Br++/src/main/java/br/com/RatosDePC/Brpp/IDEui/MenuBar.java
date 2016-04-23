@@ -164,7 +164,18 @@ public class MenuBar extends JMenuBar {
 		Action abrirAction = new AbstractAction("Abrir") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				FileUtils.abrirFile(BrppIDEFrame.getTextPane());
+				int choice = JOptionPane.showConfirmDialog(null,
+						"Você quer salvar o rascunho antes de abrir um novo?");
+				JTextPane txt = BrppIDEFrame.getTextPane();
+				switch (choice) {
+				case 0:
+					FileUtils.saveFile(txt);
+				case 1:
+					FileUtils.abrirFile(BrppIDEFrame.getTextPane());
+					break;
+				case 2:
+					break;
+				}
 			}
 		};
 		abrirAction.putValue(Action.ACCELERATOR_KEY,
