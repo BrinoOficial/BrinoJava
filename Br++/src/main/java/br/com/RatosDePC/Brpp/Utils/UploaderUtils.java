@@ -16,11 +16,12 @@ import java.util.TimerTask;
 
 import javax.swing.JTextArea;
 
+import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 
 public class UploaderUtils {
-	static JTextArea out = BrppIDEFrame.LOG;
+	static JTextArea out = SouthPanel.LOG;
 
 	private static String[] boards = { "arduino:avr:uno",
 			"arduino:avr:mega:cpu=atmega1280",
@@ -69,7 +70,7 @@ public class UploaderUtils {
 				p.getInputStream()));
 		String line;
 		out.setText("");
-		BrppIDEFrame.SouthPanel.getVerticalScrollBar().setValue(0);
+		SouthPanel.LogPanel.getVerticalScrollBar().setValue(0);
 		out.update(out.getGraphics());
 		Timer t = new Timer();
 		while (true) {

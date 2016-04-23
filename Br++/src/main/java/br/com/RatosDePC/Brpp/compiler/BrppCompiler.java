@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 public class BrppCompiler {
@@ -27,7 +28,7 @@ public class BrppCompiler {
 	private static Map<String, String> variaveis = new HashMap<String, String>();
 	private static Formatter program;
 	private static String file;
-	private static JTextArea out = BrppIDEFrame.LOG;
+	private static JTextArea out = SouthPanel.LOG;
 	public static String version = "2.3.11-beta";
 
 	public static boolean compile(String path) {

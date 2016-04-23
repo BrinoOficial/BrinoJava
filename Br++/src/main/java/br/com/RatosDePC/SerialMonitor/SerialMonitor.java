@@ -20,6 +20,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
 import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 
 @SuppressWarnings("serial")
@@ -41,7 +42,7 @@ public class SerialMonitor extends JFrame {
 		this.setLayout(main);
 		if (!CommPortUtils.openPort(com)) {
 			System.out.println("A porta selecionada não está disponível!");
-			BrppIDEFrame.LOG
+			SouthPanel.LOG
 					.append("A porta selecionada não está disponível!\r\n");
 			dispatchEvent(new WindowEvent(this,
 					WindowEvent.WINDOW_CLOSING));
