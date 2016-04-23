@@ -87,9 +87,6 @@ public class NorthPanel extends JPanel {
 		COMPUP.setContentAreaFilled(false);
 		COMPUP.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
 				.getResource("resources/carrButtonFocus.png")));
-//		COMPUP.setRolloverSelectedIcon(new ImageIcon(getClass()
-//				.getClassLoader()
-//				.getResource("resources/carrButtonClicked.png")));
 		COMPUP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {

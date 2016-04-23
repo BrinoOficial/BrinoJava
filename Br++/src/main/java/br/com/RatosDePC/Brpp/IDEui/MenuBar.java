@@ -70,6 +70,7 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem serialMonitor;
 	private JMenuItem verifyItem;
 	private JMenuItem loadItem;
+
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
 		coms = new String[15];
@@ -162,8 +163,8 @@ public class MenuBar extends JMenuBar {
 		};
 		sketchMenu = new JMenu("Rascunho");
 		verifyItem = new JMenuItem("Compilar/Verificar");
-		Action verifyAction = new AbstractAction("Compilar/Verificar"){
-			public void actionPerformed(ActionEvent event){
+		Action verifyAction = new AbstractAction("Compilar/Verificar") {
+			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
 					FileUtils.createFile(BrppIDEFrame.getTextPane());
 				}
@@ -180,28 +181,31 @@ public class MenuBar extends JMenuBar {
 					}
 			}
 		};
-		verifyAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
-		verifyItem.setAction(verifyAction);	
+		verifyAction.putValue(Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+		verifyItem.setAction(verifyAction);
 		loadItem = new JMenuItem("Carregar");
-		Action loadAction = new AbstractAction("Carregar"){
-				public void actionPerformed(ActionEvent event){
-					if (FileUtils.getDiretorio() == null) {
-						FileUtils.createFile(BrppIDEFrame.getTextPane());
-					}
-					FileUtils.saveFile(BrppIDEFrame.getTextPane());
-					if (BrppCompiler.compile(FileUtils.getDiretorio()
-							.getAbsolutePath()))
-						try {
-							UploaderUtils.upload("\"" + BrppCompiler.getFile()
-									+ "\"", MenuBar.getSelectedIndexCOM(),
-									MenuBar.getSelectedIndex());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					
+		Action loadAction = new AbstractAction("Compilar e Carregar") {
+			public void actionPerformed(ActionEvent event) {
+				if (FileUtils.getDiretorio() == null) {
+					FileUtils.createFile(BrppIDEFrame.getTextPane());
 				}
+				FileUtils.saveFile(BrppIDEFrame.getTextPane());
+				if (BrppCompiler.compile(FileUtils.getDiretorio()
+						.getAbsolutePath()))
+					try {
+						UploaderUtils.upload("\"" + BrppCompiler.getFile()
+								+ "\"", MenuBar.getSelectedIndexCOM(),
+								MenuBar.getSelectedIndex());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+			}
 		};
-		loadAction.putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
+		loadAction.putValue(Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
+		loadItem.setAction(loadAction);
 		serialAction.putValue(
 				Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK
@@ -347,12 +351,12 @@ public class MenuBar extends JMenuBar {
 				comList.add(port_identifier.getName());
 			}
 		}
-		if (comList.isEmpty()){
+		if (comList.isEmpty()) {
 			addCom("Não há portas disponíveis");
 		} else {
 			addCom(comList);
 		}
-		
+
 	}
 
 	public void addCom(ArrayList<String> comsN) {
@@ -370,7 +374,7 @@ public class MenuBar extends JMenuBar {
 							getSelectedIndexCOM());
 				}
 			});
-			coms[x]=a;
+			coms[x] = a;
 			x++;
 
 		}
