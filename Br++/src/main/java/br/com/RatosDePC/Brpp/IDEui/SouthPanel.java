@@ -17,7 +17,7 @@ public class SouthPanel extends JPanel {
 	private static JLabel placaCom;
 	private static final long serialVersionUID = 1L;
 	private Color branco = new Color(255, 255, 255);
-	private Color verde = new Color(11, 125, 73);
+	private Color verde = new Color(72, 155, 0);//11, 125, 73
 	public static JTextArea LOG = new JTextArea(5, 10);
 	public static JScrollPane LogPanel = new JScrollPane(LOG);
 	

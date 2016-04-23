@@ -49,7 +49,7 @@ public class NorthPanel extends JPanel {
 	ImageIcon sal = new ImageIcon(getClass().getClassLoader().getResource(
 			"resources/saveButton.png"));
 	ImageIcon ser = new ImageIcon(getClass().getClassLoader().getResource(
-			"resources/serButton.png"));
+			"resources/serialButton.png"));
 	
 	public NorthPanel() {
 		// TODO Auto-generated constructor stub
@@ -87,9 +87,9 @@ public class NorthPanel extends JPanel {
 		COMPUP.setContentAreaFilled(false);
 		COMPUP.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
 				.getResource("resources/carrButtonFocus.png")));
-		COMPUP.setRolloverSelectedIcon(new ImageIcon(getClass()
-				.getClassLoader()
-				.getResource("resources/carrButtonClicked.png")));
+//		COMPUP.setRolloverSelectedIcon(new ImageIcon(getClass()
+//				.getClassLoader()
+//				.getResource("resources/carrButtonClicked.png")));
 		COMPUP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
@@ -189,7 +189,7 @@ public class NorthPanel extends JPanel {
 		SERIAL.setBorder(emptyBorder);
 		SERIAL.setContentAreaFilled(false);
 		SERIAL.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
-				.getResource("resources/serButtonFocus.png")));
+				.getResource("resources/serialButtonFocus.png")));
 		SERIAL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {

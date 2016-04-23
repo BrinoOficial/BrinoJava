@@ -35,7 +35,7 @@ public class BrppIDEFrame extends JFrame {
 	private NorthPanel NorthPanel;
 	private SouthPanel SouthPanel;
 	Border emptyBorder = BorderFactory.createEmptyBorder();
-	private Color verde = new Color(11, 125, 73);
+	private Color verde = new Color(72, 155, 0);//11, 125, 73
 	private static final String min = "Configuracao() {\r\n"
 			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\r\n"
 			+ "\r\n"

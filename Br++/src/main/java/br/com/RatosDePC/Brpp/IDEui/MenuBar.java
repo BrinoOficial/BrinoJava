@@ -4,7 +4,7 @@ package br.com.RatosDePC.Brpp.IDEui;
  * Barra de Menu do IDE
  * 
  * @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
- * @contributors 
+ * @contributors  
  * @version 5/2/2016
  */
 
@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
@@ -36,6 +37,8 @@ import javax.swing.event.MenuListener;
 
 import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import br.com.RatosDePC.Brpp.Utils.UploaderUtils;
+import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
 import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 
 @SuppressWarnings("serial")
@@ -59,12 +62,14 @@ public class MenuBar extends JMenuBar {
 	private JMenu subCOM;
 	private JMenu fileMenu;
 	private JMenu ferrMenu;
+	private JMenu sketchMenu;
 	private JMenuItem novoItem;
 	private JMenuItem salvarItem;
 	private JMenuItem salvarComoItem;
 	private JMenuItem abrirItem;
 	private JMenuItem serialMonitor;
-
+	private JMenuItem verifyItem;
+	private JMenuItem loadItem;
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
 		coms = new String[15];
@@ -155,6 +160,48 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		};
+		sketchMenu = new JMenu("Rascunho");
+		verifyItem = new JMenuItem("Compilar/Verificar");
+		Action verifyAction = new AbstractAction("Compilar/Verificar"){
+			public void actionPerformed(ActionEvent event){
+				if (FileUtils.getDiretorio() == null) {
+					FileUtils.createFile(BrppIDEFrame.getTextPane());
+				}
+				FileUtils.saveFile(BrppIDEFrame.getTextPane());
+				if (BrppCompiler.compile(FileUtils.getDiretorio()
+						.getAbsolutePath()))
+					try {
+						System.out.println(BrppCompiler.getFile());
+						UploaderUtils.compile("\"" + BrppCompiler.getFile()
+								+ "\"");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+		};
+		verifyAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+		verifyItem.setAction(verifyAction);	
+		loadItem = new JMenuItem("Carregar");
+		Action loadAction = new AbstractAction("Carregar"){
+				public void actionPerformed(ActionEvent event){
+					if (FileUtils.getDiretorio() == null) {
+						FileUtils.createFile(BrppIDEFrame.getTextPane());
+					}
+					FileUtils.saveFile(BrppIDEFrame.getTextPane());
+					if (BrppCompiler.compile(FileUtils.getDiretorio()
+							.getAbsolutePath()))
+						try {
+							UploaderUtils.upload("\"" + BrppCompiler.getFile()
+									+ "\"", MenuBar.getSelectedIndexCOM(),
+									MenuBar.getSelectedIndex());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					
+				}
+		};
+		loadAction.putValue(Action.ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
 		serialAction.putValue(
 				Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK
@@ -212,6 +259,8 @@ public class MenuBar extends JMenuBar {
 		ferrMenu.addSeparator();
 		ferrMenu.add(serialMonitor);
 		setComs();
+		sketchMenu.add(verifyItem);
+		sketchMenu.add(loadItem);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -219,6 +268,7 @@ public class MenuBar extends JMenuBar {
 		add(fileMenu);
 		fileMenu.add(novoItem);
 		add(ferrMenu);
+		add(sketchMenu);
 		fileMenu.add(abrirItem);
 		fileMenu.add(salvarItem);
 		fileMenu.add(salvarComoItem);

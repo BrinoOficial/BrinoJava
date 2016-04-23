@@ -5,7 +5,7 @@ package br.com.RatosDePC.Brpp.compiler;
  * código arduino.
  * @author Mateus Berardo de Souza Terra
  * @contributors 
- * @version 2.1.3
+ * @version 2.3.13-beta
  */
 
 import java.io.File;
