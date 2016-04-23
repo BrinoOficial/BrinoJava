@@ -10,8 +10,9 @@ package br.com.RatosDePC.Brpp;
  */
 
 import java.io.File;
-
-import javax.swing.JFrame;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
@@ -23,6 +24,19 @@ public class BrppCompilerMain {
 		// TODO Auto-generated method stub
 		File f = new File(FileUtils.getBrinodirectory());
 		f.mkdirs();
+		File l = new File(FileUtils.getBrinodirectory() + "/bibliotecas");
+		l.mkdirs();
+		Path currentRelativePath = Paths.get("");
+		String s = currentRelativePath.toAbsolutePath().toString();
+		File destDir = new File(s + System.getProperty("file.separator")
+				+ "Arduino" + System.getProperty("file.separator")
+				+ "libraries");
+		try {
+			FileUtils.copyFolder(l,destDir);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "
 				+ BrppCompiler.version);
 		frame.setSize(500, 600);
