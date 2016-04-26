@@ -342,7 +342,7 @@ public class MenuBar extends JMenuBar {
 
 	public void setComs() {
 		ArrayList<String> comList = new ArrayList<String>();
-		Enumeration comm = CommPortUtils.getComPorts();
+		Enumeration<CommPortIdentifier> comm = CommPortUtils.getComPorts();
 		while (comm.hasMoreElements()) {
 			CommPortIdentifier port_identifier = (CommPortIdentifier) comm
 					.nextElement();
@@ -381,14 +381,12 @@ public class MenuBar extends JMenuBar {
 	}
 
 	public void addCom(String comsN) {
-		int x = 0;
 		radioCOMS = new JRadioButtonMenuItem[1];
 		subCOM.removeAll();
 		radioCOMS[0] = new JRadioButtonMenuItem(comsN);
 		gpCom.add(radioCOMS[0]);
 		subCOM.add(radioCOMS[0]);
 		coms[0] = comsN;
-		x++;
 
 	}
 }

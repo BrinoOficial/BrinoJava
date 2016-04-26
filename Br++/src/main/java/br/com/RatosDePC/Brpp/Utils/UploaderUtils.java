@@ -17,7 +17,6 @@ import java.util.TimerTask;
 import javax.swing.JTextArea;
 
 import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
-import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 
 public class UploaderUtils {

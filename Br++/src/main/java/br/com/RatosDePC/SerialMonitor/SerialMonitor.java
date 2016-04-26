@@ -19,7 +19,6 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
-import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
 import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 

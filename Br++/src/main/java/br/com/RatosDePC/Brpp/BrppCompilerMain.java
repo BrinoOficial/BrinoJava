@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
 import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
 
 public class BrppCompilerMain {
@@ -33,6 +34,7 @@ public class BrppCompilerMain {
 				+ "libraries");
 		try {
 			FileUtils.copyFolder(l,destDir);
+			KeywordManagerUtils.processLibraries();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

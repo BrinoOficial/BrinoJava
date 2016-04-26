@@ -13,17 +13,14 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
 
-import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 public class BrppIDEFrame extends JFrame {

@@ -8,6 +8,8 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
+import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
+
 public class CodeDocument extends DefaultStyledDocument {
 	private static final long serialVersionUID = 1L;
 	private Color verde = new Color(11, 125, 73);
@@ -16,8 +18,8 @@ public class CodeDocument extends DefaultStyledDocument {
 	private Color laranja = new Color(252, 145, 20);
 	private String KEYWORDS_1 = "(\\W)*(Mudando|Ligando|Desligando|ArquivoGravar|Ligado|Desligado|Numero|NumeroDecimal|Letra|Longo|Palavra|Condicao|Modulo|Constante|Verdadeiro|Falso|SemRetorno|Entrada|Saida)";
 	private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|e|ou|responder)";
-	private String KEYWORDS_3 = "(\\W)*(fechar|gravar|descarregar|enviarBinario|Arquivo|existe|criarPasta|abrir|remover|removerPasta|soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido|conectarInterruptor|desconectarInterruptor|ligarInterruptores|desligarInterruptores)";
-	private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo|SD)";
+	private String KEYWORDS_3 = "(\\W)*(fechar|gravar|descarregar|enviarBinario|Arquivo|existe|criarPasta|abrir|remover|removerPasta|soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido|conectarInterruptor|desconectarInterruptor|ligarInterruptores|desligarInterruptores";
+	private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo|SD";
 	final StyleContext cont = StyleContext.getDefaultStyleContext();
 	final AttributeSet attrAzul = cont.addAttribute(cont.getEmptySet(),
 			StyleConstants.Foreground, azul);
@@ -33,6 +35,14 @@ public class CodeDocument extends DefaultStyledDocument {
 			StyleConstants.Bold, true);
 	final AttributeSet attrNoBold = cont.addAttribute(cont.getEmptySet(),
 			StyleConstants.Bold, false);
+	
+	public CodeDocument(){
+		KEYWORDS_4=KEYWORDS_4.concat(KeywordManagerUtils.getKey());
+		KEYWORDS_4=KEYWORDS_4.concat(")");
+		KEYWORDS_3=KEYWORDS_3.concat(KeywordManagerUtils.getKeyTwo());
+		KEYWORDS_3=KEYWORDS_3.concat(")");
+		System.out.println(KEYWORDS_4);
+	}
 
 	private int findLastNonWordChar(String text, int index) {
 		while (--index >= 0) {
@@ -81,7 +91,7 @@ public class CodeDocument extends DefaultStyledDocument {
 		int after = findFirstNonWordChar(text, offset + str.length());
 		int wordL = before;
 		int wordR = before;
-		boolean comment = false;
+//		boolean comment = false;
 		while (wordR <= after) {
 			if (wordR == after
 					|| String.valueOf(text.charAt(wordR)).matches("\\W")) {
