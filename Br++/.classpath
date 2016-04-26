@@ -4,6 +4,6 @@
 	<classpathentry excluding="java/" kind="src" path="src/main"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Rubens/Documents/GitHub/Brino/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.7.0_71/rxtx-2.1-7-bins-r2/RXTXcomm.jar" sourcepath="C:/Users/Rafael_do_Morro/Google Drive/Br.ino/RXTXcomm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

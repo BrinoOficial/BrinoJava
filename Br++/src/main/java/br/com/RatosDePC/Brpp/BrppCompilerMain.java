@@ -10,9 +10,13 @@ package br.com.RatosDePC.Brpp;
  */
 
 import java.io.File;
-import javax.swing.JFrame;
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
 import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
 
 public class BrppCompilerMain {
@@ -21,10 +25,28 @@ public class BrppCompilerMain {
 		// TODO Auto-generated method stub
 		File f = new File(FileUtils.getBrinodirectory());
 		f.mkdirs();
-		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "+BrppCompiler.version);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		File l = new File(FileUtils.getBrinodirectory() + "/bibliotecas");
+		l.mkdirs();
+		Path currentRelativePath = Paths.get("");
+		String s = currentRelativePath.toAbsolutePath().toString();
+		File destDir = new File(s + System.getProperty("file.separator")
+				+ "Arduino" + System.getProperty("file.separator")
+				+ "libraries");
+		try {
+			FileUtils.copyFolder(l,destDir);
+			KeywordManagerUtils.processLibraries();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e){
+			e.printStackTrace();
+		}
+		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "
+				+ BrppCompiler.version);
 		frame.setSize(500, 600);
 		frame.setVisible(true);
+		frame.setLocation(100, 30);
+
 	}
 
 }
