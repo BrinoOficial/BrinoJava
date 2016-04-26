@@ -38,6 +38,8 @@ public class BrppCompilerMain {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e){
+			e.printStackTrace();
 		}
 		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "
 				+ BrppCompiler.version);

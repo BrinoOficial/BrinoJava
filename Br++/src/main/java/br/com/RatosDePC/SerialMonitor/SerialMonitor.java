@@ -38,9 +38,10 @@ public class SerialMonitor extends JFrame {
 		// TODO Auto-generated constructor stub
 		super("Monitor Serial");
 		isOpen = true;
+		OUT.setText("");
 		this.setLayout(main);
 		if (!CommPortUtils.openPort(com)) {
-			System.out.println("A porta selecionada não está disponível!");
+//			System.out.println("A porta selecionada não está disponível!");
 			SouthPanel.LOG
 					.append("A porta selecionada não está disponível!\r\n");
 			dispatchEvent(new WindowEvent(this,
@@ -88,7 +89,7 @@ public class SerialMonitor extends JFrame {
 				try {
 					CommPortUtils.closePort();
 				} catch (NullPointerException e) {
-					System.out.println("Não há portas abertas!");
+//					System.out.println("Não há portas abertas!");
 				} finally {
 					isOpen = false;
 				}
@@ -105,5 +106,6 @@ public class SerialMonitor extends JFrame {
 		// TODO Auto-generated method stub
 		return connected;
 	}
+
 
 }

@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KeywordManagerUtils {
-//	private static String libraryString;
+	// private static String libraryString;
 	private static StringBuilder wholekw = new StringBuilder(); // | keyword
 																// |keyword |
 																// ...
@@ -21,19 +21,20 @@ public class KeywordManagerUtils {
 	static ArrayList<String> keywords1 = new ArrayList<String>();
 	static ArrayList<String> keywords2 = new ArrayList<String>();
 	static ArrayList<String> libraries = new ArrayList<String>();
-	static File f = new File(
-			"C:\\Program Files (x86)\\Brino\\Arduino\\libraries");
+	static Path currentRelativePath = Paths.get("");
+	static String s = currentRelativePath.toAbsolutePath().toString();
+	static String libs = s + System.getProperty("file.separator") + "Arduino"
+			+ System.getProperty("file.separator") + "libraries";
+	static File f = new File(libs);
 
-	public static void processLibraries() {
-		Path currentRelativePath = Paths.get("");
-		String s = currentRelativePath.toAbsolutePath().toString();
+	public static void processLibraries() throws NullPointerException {
 		for (String a : f.list()) {
-			File lib = new File(s + "\\Arduino\\libraries\\" + a
-					+ "\\keywords.txt");
+			String keyPath = libs + System.getProperty("file.separator") + a
+					+ System.getProperty("file.separator") + "keywords.txt";
+			File lib = new File(keyPath);
 			if (lib.exists()) {
 				try {
-					byte[] encoded = Files.readAllBytes(Paths.get(s
-							+ "\\Arduino\\libraries\\" + a + "\\keywords.txt"));
+					byte[] encoded = Files.readAllBytes(Paths.get(keyPath));
 					String keys = new String(encoded);
 					sortKeywords(keys);
 				} catch (FileNotFoundException e) {
@@ -45,9 +46,9 @@ public class KeywordManagerUtils {
 				}
 				libraries.add(a);
 			}
-//			for (String libraries : libraries) {
-//				libraryString += "|" + libraries;
-//			}
+			// for (String libraries : libraries) {
+			// libraryString += "|" + libraries;
+			// }
 		}
 	}
 
@@ -58,8 +59,9 @@ public class KeywordManagerUtils {
 		while (m.find()) {
 			String k = m.group();
 			String[] K = k.split("\t");
-			if (K[1].contains("1")){
-				if(!keywords1.contains(K[0]))keywords1.add(K[0]);
+			if (K[1].contains("1")) {
+				if (!keywords1.contains(K[0]))
+					keywords1.add(K[0]);
 			}
 			if (K[1].contains("2"))
 				keywords2.add(K[0]);

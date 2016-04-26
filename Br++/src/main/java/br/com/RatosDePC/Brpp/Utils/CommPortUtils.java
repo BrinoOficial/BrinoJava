@@ -20,26 +20,26 @@ import br.com.RatosDePC.SerialMonitor.SerialMonitor;
  * @author JSupport http://javasrilankansupport.blogspot.com/
  */
 public class CommPortUtils implements SerialPortEventListener {
-	
+
 	static CommPortIdentifier portId;
 	static SerialPort serialPort;
 	static InputStream inStream;
 	static OutputStream outputStream;
-	
+
 	public static Enumeration<CommPortIdentifier> getComPorts() {
 		@SuppressWarnings("unchecked")
 		Enumeration<CommPortIdentifier> enu_ports = CommPortIdentifier
 				.getPortIdentifiers();
 		return enu_ports;
 	}
-	
+
 	public static boolean openPort(String com) {
 		Enumeration<CommPortIdentifier> portList = getComPorts();
 		while (portList.hasMoreElements()) {
 			portId = (CommPortIdentifier) portList.nextElement();
 			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
 				if (portId.getName().equals(com)) {
-//				if (portId.getName().equals("/dev/term/a")) {
+					// if (portId.getName().equals("/dev/term/a")) {
 					try {
 						serialPort = (SerialPort) portId.open("Arduino", 9600);
 						serialPort.setSerialPortParams(9600,
@@ -48,16 +48,16 @@ public class CommPortUtils implements SerialPortEventListener {
 						inStream = serialPort.getInputStream();
 						serialPort.addEventListener(new CommPortUtils());
 						serialPort.notifyOnDataAvailable(true);
-						serialPort.notifyOnBreakInterrupt(true);
-						serialPort.notifyOnCarrierDetect(true);
-						serialPort.notifyOnCTS(true);
-						serialPort.notifyOnDataAvailable(true);
-						serialPort.notifyOnDSR(true);
-						serialPort.notifyOnFramingError(true);
-						serialPort.notifyOnOutputEmpty(true);
-						serialPort.notifyOnOverrunError(true);
-						serialPort.notifyOnParityError(true);
-						serialPort.notifyOnRingIndicator(true);
+						// serialPort.notifyOnBreakInterrupt(true);
+						// serialPort.notifyOnCarrierDetect(true);
+						// serialPort.notifyOnCTS(true);
+						// serialPort.notifyOnDataAvailable(true);
+						// serialPort.notifyOnDSR(true);
+						// serialPort.notifyOnFramingError(true);
+						// serialPort.notifyOnOutputEmpty(true);
+						// serialPort.notifyOnOverrunError(true);
+						// serialPort.notifyOnParityError(true);
+						// serialPort.notifyOnRingIndicator(true);
 						return true;
 					} catch (PortInUseException e) {
 						System.out.println("PortInUse");
@@ -79,7 +79,7 @@ public class CommPortUtils implements SerialPortEventListener {
 		}
 		return false;
 	}
-	
+
 	public static void send(String msg) {
 
 		try {
@@ -91,20 +91,18 @@ public class CommPortUtils implements SerialPortEventListener {
 	}
 
 	public void serialEvent(SerialPortEvent event) {
-		if (event.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-			byte[] readBuffer = new byte[20];
-			try {
-				while (inStream.available() > 0) {
-					inStream.read(readBuffer);
-				}
-				System.out.print(new String(readBuffer));
-				SerialMonitor.display(new String(readBuffer));
-			} catch (IOException ioe) {
-				System.out.println("Exception " + ioe);
-				ioe.printStackTrace();
+//		byte[] readBuffer = new byte[2000];
+		try {
+			while (inStream.available() > 0) {
+//				inStream.read(readBuffer);
+				SerialMonitor.display(String.valueOf((char) inStream.read()));
 			}
+//			SerialMonitor.display(new String(readBuffer));
+		} catch (IOException ioe) {
+			System.out.println("Exception " + ioe);
+			ioe.printStackTrace();
 		}
-	}	
+	}
 
 	public static void closePort() throws NullPointerException {
 		serialPort.close();
