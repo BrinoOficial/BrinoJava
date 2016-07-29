@@ -27,7 +27,6 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 public class SouthPanel extends JPanel {
-	private UndoManager undoManager;
 	private static JLabel placaCom;
 	private static final long serialVersionUID = 1L;
 	private Color branco = new Color(255, 255, 255);
@@ -50,32 +49,6 @@ public class SouthPanel extends JPanel {
 		Font boldFont = new Font(font.getFontName(), Font.ITALIC, font.getSize()-2);
 		placaCom.setFont(boldFont);
 		add(placaCom,BorderLayout.SOUTH);
-		undoManager = new UndoManager();
-	    Document doc = LOG.getDocument();
-	    doc.addUndoableEditListener(new UndoableEditListener() {
-	        @Override
-	        public void undoableEditHappened(UndoableEditEvent e) {
-	            undoManager.addEdit(e.getEdit());
-
-	        }
-	    });
-
-	    InputMap im = LOG.getInputMap(JComponent.WHEN_FOCUSED);
-	    ActionMap am = LOG.getActionMap();
-
-	    im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
-	    am.put("Undo", new AbstractAction() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            try {
-	                if (undoManager.canUndo()) {
-	                    undoManager.undo();
-	                }
-	            } catch (CannotUndoException exp) {
-	                exp.printStackTrace();
-	            }
-	        }
-	    });
 	}
 	
 	public void paintComponent(Graphics g){
