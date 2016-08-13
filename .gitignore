@@ -58,3 +58,4 @@ Temporary Items
 .metadata/version.ini
 .metadata/.log
 .metadata/.plugins/org.eclipse.cdt.core/.log
+.Br++/bin
