@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
 import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
 import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
 
@@ -41,7 +41,7 @@ public class BrppCompilerMain {
 		} catch (NullPointerException e){
 			e.printStackTrace();
 		}
-		BrppIDEFrame frame = new BrppIDEFrame("Compilador Brino "
+		BrppIDEFrame frame = new BrppIDEFrame("Brino "
 				+ BrppCompiler.version);
 		frame.setSize(500, 600);
 		frame.setVisible(true);

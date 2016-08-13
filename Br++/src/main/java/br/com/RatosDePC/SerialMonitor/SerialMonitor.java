@@ -11,6 +11,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,6 +32,7 @@ public class SerialMonitor extends JFrame {
 	private JTextPane Jp;
 	private static JTextArea OUT = new JTextArea(600, 500);
 	private JScrollPane out = new JScrollPane(OUT);
+	private static JCheckBox autorolagem = new JCheckBox("Auto-rolagem");
 	private JButton Enviar = new JButton("Enviar");
 	static String messageString = "Hello, world!\n";
 
@@ -73,6 +75,7 @@ public class SerialMonitor extends JFrame {
 		out.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		out.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		add(out, BorderLayout.CENTER);
+		add(autorolagem, BorderLayout.SOUTH);
 		OUT.setEditable(false);
 		JPanel NorthPanel = new JPanel();
 		BorderLayout NLayout = new BorderLayout();
@@ -100,6 +103,9 @@ public class SerialMonitor extends JFrame {
 	public static void display(String string) {
 		// TODO Auto-generated method stub
 		OUT.append(string);
+		if(autorolagem.isSelected()){
+			OUT.setCaretPosition(OUT.getDocument().getLength());
+		}
 	}
 
 	public boolean getConnected() {
