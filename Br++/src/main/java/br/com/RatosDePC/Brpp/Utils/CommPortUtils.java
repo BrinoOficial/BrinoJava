@@ -73,7 +73,7 @@ public class CommPortUtils implements SerialPortEventListener {
 					} catch (TooManyListenersException e) {
 						e.printStackTrace();
 						return false;
-					}
+					} 
 				}
 			}
 		}
@@ -101,7 +101,7 @@ public class CommPortUtils implements SerialPortEventListener {
 		} catch (IOException ioe) {
 			System.out.println("Exception " + ioe);
 			ioe.printStackTrace();
-		}
+		} 
 	}
 
 	public static void closePort() throws NullPointerException {
