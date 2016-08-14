@@ -1,13 +1,22 @@
 package br.com.RatosDePC.Brpp.IDEui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.Element;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
+import br.com.RatosDePC.Brpp.Utils.FileUtils;
 import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
 
 public class CodeDocument extends DefaultStyledDocument {
@@ -35,13 +44,20 @@ public class CodeDocument extends DefaultStyledDocument {
 			StyleConstants.Bold, true);
 	final AttributeSet attrNoBold = cont.addAttribute(cont.getEmptySet(),
 			StyleConstants.Bold, false);
-	
-	public CodeDocument(){
-		KEYWORDS_4=KEYWORDS_4.concat(KeywordManagerUtils.getKey());
-		KEYWORDS_4=KEYWORDS_4.concat(")");
-		KEYWORDS_3=KEYWORDS_3.concat(KeywordManagerUtils.getKeyTwo());
-		KEYWORDS_3=KEYWORDS_3.concat(")");
+	private Element rootElement;
+	private CodeDocument doc;
+	private JTextPane container;
+
+	public CodeDocument() {
+		KEYWORDS_4 = KEYWORDS_4.concat(KeywordManagerUtils.getKey());
+		KEYWORDS_4 = KEYWORDS_4.concat(")");
+		KEYWORDS_3 = KEYWORDS_3.concat(KeywordManagerUtils.getKeyTwo());
+		KEYWORDS_3 = KEYWORDS_3.concat(")");
 		System.out.println(KEYWORDS_4);
+		container = BrppIDEFrame.getTextPane();
+		doc = this;
+		rootElement = doc.getDefaultRootElement();
+
 	}
 
 	private int findLastNonWordChar(String text, int index) {
@@ -62,36 +78,52 @@ public class CodeDocument extends DefaultStyledDocument {
 		}
 		return index;
 	}
+
 	public void remove(int offs, int len) throws BadLocationException {
 		super.remove(offs, len);
-
-		String text = getText(0, getLength());
-		int before = findLastNonWordChar(text, offs);
-		if (before < 0)
-			before = 0;
-		int after = findFirstNonWordChar(text, offs);
-
-		if (text.substring(before, after).matches(
-				"(\\W)*(private|public|protected)")) {
-			setCharacterAttributes(before, after - before, attrAzul,
-					false);
-		} else {
-			setCharacterAttributes(before, after - before, attrBlack,
-					false);
-		}
+		highlight(offs, "");
 	}
-	
+
 	public void insertString(int offset, String str,
 			javax.swing.text.AttributeSet a) throws BadLocationException {
+		boolean car = false;
+		if (str.equals("{")) {
+			str = addCloseBrace(offset);
+			car = true;
+		}
+		if (str.equals("(")) {
+			str = addCloseParenthesis(offset);
+			car = true;
+		}
+		if (str.equals("\"")) {
+			str = addCloseAspas(offset);
+			car = true;
+		}
 		super.insertString(offset, str, a);
-		String text = getText(0, getLength());
+		if (car) {
+			BrppIDEFrame.posicionarCaret(offset + str.length()
+					- (str.contains("{") ? 2 : 1));
+		}
+		highlight(offset, str);
+
+	}
+
+	public void highlight(int offset, String str) {
+		String text = "";
+		try {
+			text = getText(0, getLength());
+		} catch (BadLocationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		int before = findLastNonWordChar(text, offset);
 		if (before < 0)
 			before = 0;
 		int after = findFirstNonWordChar(text, offset + str.length());
 		int wordL = before;
 		int wordR = before;
-//		boolean comment = false;
+		// boolean comment = false;
 		while (wordR <= after) {
 			if (wordR == after
 					|| String.valueOf(text.charAt(wordR)).matches("\\W")) {
@@ -131,14 +163,15 @@ public class CodeDocument extends DefaultStyledDocument {
 					}
 				} else {
 					setCharacterAttributes(wordL, wordR - wordL, attrBlack,
-							false);
+							true);
 					setCharacterAttributes(wordL, wordR - wordL, attrNoBold,
-							false);
+							true);
 				}
 				wordL = wordR;
 			}
 			wordR++;
 		}
+
 		try {
 			int beforeC = 0;
 			int afterC = 0;
@@ -198,4 +231,54 @@ public class CodeDocument extends DefaultStyledDocument {
 		}
 
 	}
+
+	protected String addCloseBrace(int offset) throws BadLocationException {
+		StringBuffer wSpace = new StringBuffer();
+		int line = rootElement.getElementIndex(offset);
+		int i = rootElement.getElement(line).getStartOffset();
+
+		while (true) {
+			String temp = doc.getText(i, 1);
+			if (temp.equals(" ") || temp.equals("\t")) {
+				wSpace.append(temp);
+				i++;
+			} else
+				break;
+		}
+		return "{\n" + wSpace.toString() + "\t\n" + wSpace.toString() + "}";
+	}
+
+	protected String addCloseAspas(int offset) throws BadLocationException {
+		StringBuffer wSpace = new StringBuffer();
+		int line = rootElement.getElementIndex(offset);
+		int i = rootElement.getElement(line).getStartOffset();
+
+		while (true) {
+			String temp = doc.getText(i, 1);
+			if (temp.equals(" ") || temp.equals("\t")) {
+				wSpace.append(temp);
+				i++;
+			} else
+				break;
+		}
+		return "\"" + wSpace.toString() + "\"";
+	}
+
+	protected String addCloseParenthesis(int offset)
+			throws BadLocationException {
+		StringBuffer wSpace = new StringBuffer();
+		int line = rootElement.getElementIndex(offset);
+		int i = rootElement.getElement(line).getStartOffset();
+
+		while (true) {
+			String temp = doc.getText(i, 1);
+			if (temp.equals(" ") || temp.equals("\t")) {
+				wSpace.append(temp);
+				i++;
+			} else
+				break;
+		}
+		return "(" + wSpace.toString() + ")";
+	}
+
 }

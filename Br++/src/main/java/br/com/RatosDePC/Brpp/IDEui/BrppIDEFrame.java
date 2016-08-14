@@ -30,7 +30,10 @@ import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.Element;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
@@ -39,22 +42,24 @@ import br.com.RatosDePC.Brpp.Utils.FileUtils;
 public class BrppIDEFrame extends JFrame {
 	private UndoManager undoManager;
 	private static final long serialVersionUID = 1L;
-	private static JTextPane code;
+	private static JTextPane CODE;
 	private ImageIcon logo = new ImageIcon(getClass().getClassLoader()
 			.getResource("resources/logo.png"));
 	private JMenuBar menuBar;
 	private NorthPanel NorthPanel;
 	private SouthPanel SouthPanel;
 	Border emptyBorder = BorderFactory.createEmptyBorder();
-	private Color verde = new Color(72, 155, 0);//11, 125, 73
+	private Color verde = new Color(72, 155, 0);// 11, 125, 73
 	private static final String min = "Configuracao() {\r\n"
 			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\r\n"
 			+ "\r\n"
 			+ "}\r\n"
 			+ "Principal(){\r\n"
 			+ "//Coloque aqui seu codigo Principal, para rodar repetidamente\r\n"
-			+ "\r\n" + "}\r\n";
+			+ "\r\n" + "}";
+	private static CodeDocument code = new CodeDocument();
 
+	@SuppressWarnings("serial")
 	public BrppIDEFrame(String title) {
 		super(title);
 		this.setIconImage(logo.getImage());
@@ -72,51 +77,53 @@ public class BrppIDEFrame extends JFrame {
 		NorthPanel.setVisible(true);
 		SouthPanel = new SouthPanel();
 		add(SouthPanel, BorderLayout.SOUTH);
-		code = new JTextPane(new CodeDocument());
-		code.setSize(200, 400);
-		code.setText(getMin());
-		JScrollPane CentralPane = new JScrollPane(code);
-		code.setBorder(emptyBorder);
+		CODE = new JTextPane(code);
+		CODE.setSize(200, 400);
+		CODE.setText(getMin());
+		JScrollPane CentralPane = new JScrollPane(CODE);
+		CODE.setBorder(emptyBorder);
 		add(CentralPane, BorderLayout.CENTER);
-		// txt.setBackground(WHITE);
 		menuBar = new MenuBar();
 		setJMenuBar(menuBar);
 		setVisible(true);
 		undoManager = new UndoManager();
-	    Document doc = code.getDocument();
-	    doc.addUndoableEditListener(new UndoableEditListener() {
-	        @Override
-	        public void undoableEditHappened(UndoableEditEvent e) {
-	            undoManager.addEdit(e.getEdit());
+		Document doc = CODE.getDocument();
+		doc.addUndoableEditListener(new UndoableEditListener() {
+			@Override
+			public void undoableEditHappened(UndoableEditEvent e) {
+				undoManager.addEdit(e.getEdit());
 
-	        }
-	    });
+			}
+		});
 
-	    InputMap im = code.getInputMap(JComponent.WHEN_FOCUSED);
-	    ActionMap am = code.getActionMap();
+//		InputMap im = CODE.getInputMap(JComponent.WHEN_FOCUSED);
+//		ActionMap am = CODE.getActionMap();
+//
+//		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit
+//				.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
+//		am.put("Undo", new AbstractAction() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				try {
+//					if (undoManager.canUndo()) {
+//						undoManager.undo();
+//						undoManager.undo();
+//					}
+//				} catch (CannotUndoException exp) {
+//					exp.printStackTrace();
+//				}
+//			}
+//		});
 
-	    im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
-	    am.put("Undo", new AbstractAction() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            try {
-	                if (undoManager.canUndo()) {
-	                    undoManager.undo();
-	                }
-	            } catch (CannotUndoException exp) {
-	                exp.printStackTrace();
-	            }
-	        }
-	    });
-		
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				int dialogResult = JOptionPane.showConfirmDialog(BrppIDEFrame.this,
+				int dialogResult = JOptionPane.showConfirmDialog(
+						BrppIDEFrame.this,
 						"Você deseja salvar seu rascunho antes de sair?",
 						"Salvar", JOptionPane.YES_NO_OPTION,
 						JOptionPane.PLAIN_MESSAGE);
-				if(dialogResult == JOptionPane.YES_OPTION){
+				if (dialogResult == JOptionPane.YES_OPTION) {
 					if (FileUtils.getDiretorio() == null) {
 						FileUtils.createFile(BrppIDEFrame.getTextPane());
 					} else {
@@ -130,10 +137,30 @@ public class BrppIDEFrame extends JFrame {
 	}
 
 	public static JTextPane getTextPane() {
-		return code;
+		return CODE;
 	}
 
 	public static String getMin() {
 		return min;
+	}
+
+	public static void posicionarCaret(int off) {
+		CODE.setCaretPosition(off);
+	}
+
+	protected static void comentar() throws BadLocationException {
+		// TODO Auto-generated method stub
+		int car = CODE.getCaretPosition();
+		AttributeSet a = null;
+		Element lineElement = code.getParagraphElement(car);
+		if (!code
+				.getText(
+						lineElement.getStartOffset(),
+						lineElement.getEndOffset()
+								- lineElement.getStartOffset()).trim()
+				.contains("//"))
+			code.insertString(lineElement.getStartOffset(), "//", a);
+		else
+			code.remove(lineElement.getStartOffset(), 2);
 	}
 }

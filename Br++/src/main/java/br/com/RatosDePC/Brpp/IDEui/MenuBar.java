@@ -34,6 +34,7 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.text.BadLocationException;
 
 import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
@@ -61,6 +62,7 @@ public class MenuBar extends JMenuBar {
 	private ButtonGroup gpCom;
 	private JMenu subCOM;
 	private JMenu fileMenu;
+	private JMenu editMenu;
 	private JMenu ferrMenu;
 	private JMenu sketchMenu;
 	private JMenuItem novoItem;
@@ -70,6 +72,7 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem serialMonitor;
 	private JMenuItem verifyItem;
 	private JMenuItem loadItem;
+	private JMenuItem comentarItem;
 
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
@@ -77,6 +80,7 @@ public class MenuBar extends JMenuBar {
 		// for (int x = 0; x < coms.length; x++) {
 		// coms[x] = "COM" + (x + 1);
 		// }
+		//Menu Arquivo
 		fileMenu = new JMenu("Arquivo");
 		fileMenu.setMnemonic(KeyEvent.VK_A);
 		novoItem = new JMenuItem("Novo");
@@ -102,6 +106,26 @@ public class MenuBar extends JMenuBar {
 		novoAction.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
 		novoItem.setAction(novoAction);
+		//Menu Editar
+		editMenu = new JMenu("Editar");
+		comentarItem = new JMenuItem("Comentar/Descomentar");
+		Action commentAction = new AbstractAction("Comentar Linha") {
+			private static final long serialVersionUID = 2474949258335385702L;
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					BrppIDEFrame.comentar();
+				} catch (BadLocationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("Comentar");
+			}
+		};
+		commentAction.putValue(Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, KeyEvent.CTRL_DOWN_MASK));
+		comentarItem.setAction(commentAction);
+		//menu Ferramentas
 		ferrMenu = new JMenu("Ferramentas");
 		ferrMenu.addMenuListener(new MenuListener() {
 
@@ -161,6 +185,7 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		};
+		//Menu Rascunho
 		sketchMenu = new JMenu("Rascunho");
 		verifyItem = new JMenuItem("Compilar/Verificar");
 		Action verifyAction = new AbstractAction("Compilar/Verificar") {
@@ -262,20 +287,23 @@ public class MenuBar extends JMenuBar {
 		ferrMenu.add(subCOM);
 		ferrMenu.addSeparator();
 		ferrMenu.add(serialMonitor);
+		editMenu.add(comentarItem);
 		setComs();
 		sketchMenu.add(verifyItem);
 		sketchMenu.add(loadItem);
+		fileMenu.add(novoItem);
+		fileMenu.add(abrirItem);
+		fileMenu.add(salvarItem);
+		fileMenu.add(salvarComoItem);
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		add(fileMenu);
-		fileMenu.add(novoItem);
+		add(editMenu);
 		add(ferrMenu);
 		add(sketchMenu);
-		fileMenu.add(abrirItem);
-		fileMenu.add(salvarItem);
-		fileMenu.add(salvarComoItem);
+		
 	}
 
 	public static int getSelectedIndex() {
