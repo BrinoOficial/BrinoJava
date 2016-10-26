@@ -1,0 +1,17 @@
+target_package=arduino
+target_platform=avr
+board=uno
+software=ARDUINO
+build.warn_data_percentage=75
+programmer=arduino:avrispmkii
+upload.using=bootloader
+upload.verify=true
+serial.port=COM10
+serial.databits=8
+serial.stopbits=1
+serial.parity=N
+serial.debug_rate=9600
+editor.languages.current=
+runtime.ide.path=/home/mateus/Downloads/arduino/arduino-1.6.8
+runtime.ide.version=10608
+custom_cpu=mega_atmega2560
