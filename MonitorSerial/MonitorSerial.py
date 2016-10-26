@@ -23,7 +23,7 @@ import threading
 import serial
 from tkinter import *
 
-f = open('brino.pref','r')
+f = open('./brino.pref','r')
 pref = f.read()
 f.close()
 ca = pref.split("\n")
@@ -66,6 +66,7 @@ class App(threading.Thread):
 
         self.envio = Entry(self.fr2)
         self.envio.focus_force()
+        self.envio.bind("<Return>", self.enviar)
         self.envio.pack(side = LEFT, fill = BOTH, expand = True)
 
         self.texto = Text(self.root)
@@ -78,13 +79,22 @@ class App(threading.Thread):
         '''
         evento para enviar
         '''
-        ser.write(self.envio.get().encode())
-        self.envio.delete(0, 'end')
-
+        try:
+            ser.write(self.envio.get().encode())
+            self.envio.delete(0, 'end')
+        except UnicodeEncodeError:
+            print("Ooops")
 
 app = App()
 print('Now we can continue running code while mainloop runs!')
 
 while True:
-    if ser.inWaiting() > 0:
-        app.texto.insert(END, ser.readline().decode('utf-8'))
+    try:
+        if ser.inWaiting() > 0:
+            try:
+                app.texto.insert(END, ser.readline().decode('utf-8'))
+            except UnicodeDecodeError:
+                print("Ooops")
+    except serial.serialutil.SerialException:
+        break
+        
