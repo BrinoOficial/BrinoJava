@@ -64,8 +64,14 @@ public class UploaderUtils {
 	}
 
 	public static void compile(String file) throws IOException {
-		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-				"cd Arduino && arduino_debug --verify " + file);
+		ProcessBuilder builder;
+		if (System.getProperty("os.name").contains("[Ww]indows")) {
+			builder = new ProcessBuilder("cmd.exe", "/c",
+					"cd Arduino && arduino_debug --verify " + file);
+		} else {
+			builder = new ProcessBuilder("/bin/bash", "-c",
+					"cd Arduino && ./arduino --verify " + file);
+		}
 		builder.redirectErrorStream(true);
 		processar(builder);
 	}
