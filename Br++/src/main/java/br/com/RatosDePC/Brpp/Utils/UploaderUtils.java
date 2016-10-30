@@ -55,7 +55,7 @@ public class UploaderUtils {
 							+ " --board " + boards[board] + " --port " + com);
 		} else {
 			builder = new ProcessBuilder("/bin/bash", "-c",
-					"ls && cd ./Arduino && arduino_debug --upload " + file
+					"pwd && cd ./Arduino && arduino --upload " + file
 							+ " --board " + boards[board] + " --port " + com);
 		}
 		builder.redirectErrorStream(true);
