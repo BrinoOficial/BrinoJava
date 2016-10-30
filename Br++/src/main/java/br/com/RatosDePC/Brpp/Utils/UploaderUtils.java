@@ -48,12 +48,13 @@ public class UploaderUtils {
 				e.printStackTrace();
 			}
 		ProcessBuilder builder;
+		System.out.println(System.getProperty("os.name"));
 		if (System.getProperty("os.name").contains("[Ww]indows")) {
 			builder = new ProcessBuilder("cmd.exe", "/c",
 					"cd Arduino && arduino_debug --upload " + file
 							+ " --board " + boards[board] + " --port " + com);
 		} else {
-			builder = new ProcessBuilder("/bin/bash", "/c",
+			builder = new ProcessBuilder("/bin/bash", "-c",
 					"cd Arduino && arduino_debug --upload " + file
 							+ " --board " + boards[board] + " --port " + com);
 		}
