@@ -59,7 +59,6 @@ public class BrppIDEFrame extends JFrame {
 			+ "\r\n" + "}";
 	private static CodeDocument code = new CodeDocument();
 
-	@SuppressWarnings("serial")
 	public BrppIDEFrame(String title) {
 		super(title);
 		this.setIconImage(logo.getImage());
