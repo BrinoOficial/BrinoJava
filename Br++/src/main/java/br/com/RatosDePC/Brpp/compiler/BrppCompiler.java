@@ -28,7 +28,7 @@ public class BrppCompiler {
 	private static Formatter program;
 	private static String file;
 	private static JTextArea out = SouthPanel.LOG;
-	public static String version = "2.4.1";
+	public static String version = "2.4.2";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()
