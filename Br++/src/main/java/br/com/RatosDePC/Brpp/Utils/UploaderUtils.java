@@ -47,9 +47,16 @@ public class UploaderUtils {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
-		ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c",
-				"cd Arduino && arduino_debug --upload " + file + " --board "
-						+ boards[board] + " --port " + com);
+		ProcessBuilder builder;
+		if (System.getProperty("os.name").contains("[Ww]indows")) {
+			builder = new ProcessBuilder("cmd.exe", "/c",
+					"cd Arduino && arduino_debug --upload " + file
+							+ " --board " + boards[board] + " --port " + com);
+		} else {
+			builder = new ProcessBuilder("/bin/bash", "/c",
+					"cd Arduino && arduino_debug --upload " + file
+							+ " --board " + boards[board] + " --port " + com);
+		}
 		builder.redirectErrorStream(true);
 		processar(builder);
 		if (SerialMonitor.isOpen)
