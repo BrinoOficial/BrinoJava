@@ -3,6 +3,11 @@
   Le a entrada analogica do pino 0 e apresenta o valor no monitor serial.
   conecte o pino central de um potenciometro a porta A0 e os pinos externos 
   dele as portas de alimentacao 5V e ao GND.
+  
+  Esse codigo e de dominio publico
+
+  Escrito por Gabriel e Victor Pacheco, 2016
+  Revisao Mateus Berardo, 2016
 
  */
 // Parte do codigo de configuracao
