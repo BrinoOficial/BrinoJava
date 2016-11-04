@@ -16,10 +16,17 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.TooManyListenersException;
+import java.util.stream.Stream;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -44,7 +51,8 @@ import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
-
+	private String fileSeparator = System.getProperty("file.separator");
+	private HashMap<String,String> listaExemplos = new HashMap<String,String>();
 	private static String[] coms = new String[1]; // fix
 	boolean first = true;
 	ArrayList<String> comOldList = new ArrayList<String>();
@@ -64,6 +72,7 @@ public class MenuBar extends JMenuBar {
 	private JMenu fileMenu;
 	private JMenu editMenu;
 	private JMenu ferrMenu;
+	private JMenu exemplosMenu;
 	private JMenu sketchMenu;
 	private JMenuItem novoItem;
 	private JMenuItem salvarItem;
@@ -77,13 +86,14 @@ public class MenuBar extends JMenuBar {
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
 		coms = new String[15];
-		// for (int x = 0; x < coms.length; x++) {
-		// coms[x] = "COM" + (x + 1);
-		// }
-		//Menu Arquivo
+		
+//		Menu Arquivo
 		fileMenu = new JMenu("Arquivo");
+//		Adiciona A como atalho
 		fileMenu.setMnemonic(KeyEvent.VK_A);
+//		Adicona o item "novo"  
 		novoItem = new JMenuItem("Novo");
+//		Cria a acao do item
 		Action novoAction = new AbstractAction("Novo") {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -103,12 +113,108 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		};
+//		Adiciona o atalho CTRL+N
 		novoAction.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
+//		Adiciona a acao ao item
 		novoItem.setAction(novoAction);
+//		Adiciona o item abrir
+		abrirItem = new JMenuItem("Abrir");
+//		Cria a acao do item
+		Action abrirAction = new AbstractAction("Abrir") {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int choice = JOptionPane.showConfirmDialog(null,
+						"Você quer salvar o rascunho antes de abrir um novo?");
+				JTextPane txt = BrppIDEFrame.getTextPane();
+				switch (choice) {
+				case 0:
+					FileUtils.saveFile(txt);
+				case 1:
+					FileUtils.abrirFile(BrppIDEFrame.getTextPane());
+					break;
+				case 2:
+					break;
+				}
+			}
+		};
+//		Adiciona o atalho CTRL+O
+		abrirAction.putValue(Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+//		Adiciona a acao ao item
+		abrirItem.setAction(abrirAction);
+//		Cria o submenu exemplos
+		exemplosMenu = new JMenu("Exemplos");
+//		Percorre a pasta exemplos
+//		try {
+//			long n = Files.list(Paths.get("."+System.getProperty("file.separator")+"exemplos")).count();
+//			System.out.println(n);
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		try (Stream<Path> paths = Files.walk(Paths.get("."+fileSeparator+"exemplos"+fileSeparator),1)) {
+		      Iterator<Path> files = paths.iterator();
+		      files.next();
+		      while(files.hasNext()){
+		    	  File f = new File(files.next().toString());
+		    	  Stream<Path> path = Files.walk(Paths.get(f.getCanonicalPath()),2);
+		    	  JMenu tipoDeExemplo = new JMenu(f.getName());
+		    	  Iterator<Path> exemplos = path.iterator();
+		    	  while (exemplos.hasNext()){
+		    		  File exemplo = new File(exemplos.next().toString());
+		    		  if(!exemplo.isDirectory()){
+		    			  JMenuItem exemploItem = new JMenuItem(exemplo.getName().replace(".brpp",""));
+		    			  listaExemplos.put(exemplo.getName().replace(".brpp",""), exemplo.getAbsolutePath());
+		    			  tipoDeExemplo.add(exemploItem);
+		    		  }
+		    	  }
+		    	  exemplosMenu.add(tipoDeExemplo);
+		    	  path.close();
+		      }
+		      paths.close();
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    } 
+//		Adiciona o item salvar
+		salvarItem = new JMenuItem("Salvar");
+//		Cria a acao do item
+		Action salvarAction = new AbstractAction("Salvar") {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (FileUtils.getDiretorio() == null) {
+					FileUtils.createFile(BrppIDEFrame.getTextPane());
+				} else {
+					FileUtils.saveFile(BrppIDEFrame.getTextPane());
+				}
+			}
+		};
+//		Adiciona o atalho CTRL+S
+		salvarAction.putValue(Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+//		Adiciona a acao ao item
+		salvarItem.setAction(salvarAction);
+//		Adiciona o item salvar como
+		salvarComoItem = new JMenuItem("Salvar como");
+//		Cria a acao do item
+		Action salvarComoAction = new AbstractAction("SalvarComo") {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FileUtils.createFile(BrppIDEFrame.getTextPane());
+			}
+		};
+//		Adiciona o atalho CTRL+SHIFT+S
+		salvarComoAction.putValue(
+				Action.ACCELERATOR_KEY,
+				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK
+						| KeyEvent.SHIFT_DOWN_MASK));
+//		Adiciona a acao ao item
+		salvarComoItem.setAction(salvarComoAction);
+		
 		//Menu Editar
 		editMenu = new JMenu("Editar");
 		comentarItem = new JMenuItem("Comentar/Descomentar");
+//		Cria a acao do item
 		Action commentAction = new AbstractAction("Comentar Linha") {
 			private static final long serialVersionUID = 2474949258335385702L;
 			@Override
@@ -236,53 +342,7 @@ public class MenuBar extends JMenuBar {
 				KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK
 						| KeyEvent.SHIFT_DOWN_MASK));
 		serialMonitor.setAction(serialAction);
-		abrirItem = new JMenuItem("Abrir");
-		Action abrirAction = new AbstractAction("Abrir") {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int choice = JOptionPane.showConfirmDialog(null,
-						"Você quer salvar o rascunho antes de abrir um novo?");
-				JTextPane txt = BrppIDEFrame.getTextPane();
-				switch (choice) {
-				case 0:
-					FileUtils.saveFile(txt);
-				case 1:
-					FileUtils.abrirFile(BrppIDEFrame.getTextPane());
-					break;
-				case 2:
-					break;
-				}
-			}
-		};
-		abrirAction.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-		abrirItem.setAction(abrirAction);
-		salvarItem = new JMenuItem("Salvar");
-		Action salvarAction = new AbstractAction("Salvar") {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (FileUtils.getDiretorio() == null) {
-					FileUtils.createFile(BrppIDEFrame.getTextPane());
-				} else {
-					FileUtils.saveFile(BrppIDEFrame.getTextPane());
-				}
-			}
-		};
-		salvarAction.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-		salvarItem.setAction(salvarAction);
-		salvarComoItem = new JMenuItem("Salvar como");
-		Action salvarComoAction = new AbstractAction("SalvarComo") {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				FileUtils.createFile(BrppIDEFrame.getTextPane());
-			}
-		};
-		salvarComoAction.putValue(
-				Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK
-						| KeyEvent.SHIFT_DOWN_MASK));
-		salvarComoItem.setAction(salvarComoAction);
+		
 		ferrMenu.add(subBoard);
 		ferrMenu.add(subCOM);
 		ferrMenu.addSeparator();
@@ -293,6 +353,7 @@ public class MenuBar extends JMenuBar {
 		sketchMenu.add(loadItem);
 		fileMenu.add(novoItem);
 		fileMenu.add(abrirItem);
+		fileMenu.add(exemplosMenu);
 		fileMenu.add(salvarItem);
 		fileMenu.add(salvarComoItem);
 	}
