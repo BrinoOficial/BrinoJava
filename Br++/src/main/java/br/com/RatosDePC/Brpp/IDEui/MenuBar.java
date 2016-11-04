@@ -46,13 +46,14 @@ import javax.swing.text.BadLocationException;
 import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 import br.com.RatosDePC.Brpp.Utils.UploaderUtils;
+import br.com.RatosDePC.Brpp.Utils.abrirExemploAction;
 import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
 import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
 	private String fileSeparator = System.getProperty("file.separator");
-	private HashMap<String,String> listaExemplos = new HashMap<String,String>();
+	private static HashMap<String,String> listaExemplos = new HashMap<String,String>();
 	private static String[] coms = new String[1]; // fix
 	boolean first = true;
 	ArrayList<String> comOldList = new ArrayList<String>();
@@ -166,6 +167,7 @@ public class MenuBar extends JMenuBar {
 		    		  if(!exemplo.isDirectory()){
 		    			  JMenuItem exemploItem = new JMenuItem(exemplo.getName().replace(".brpp",""));
 		    			  listaExemplos.put(exemplo.getName().replace(".brpp",""), exemplo.getAbsolutePath());
+		    			  exemploItem.setAction(new abrirExemploAction(exemplo.getName().replace(".brpp","")));
 		    			  tipoDeExemplo.add(exemploItem);
 		    		  }
 		    	  }
@@ -365,6 +367,10 @@ public class MenuBar extends JMenuBar {
 		add(ferrMenu);
 		add(sketchMenu);
 		
+	}
+	
+	public static HashMap getMap(){
+		return listaExemplos;
 	}
 
 	public static int getSelectedIndex() {
