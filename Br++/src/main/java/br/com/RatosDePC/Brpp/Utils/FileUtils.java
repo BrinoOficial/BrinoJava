@@ -125,6 +125,26 @@ public class FileUtils {
 			JOptionPane.showMessageDialog(null,
 					"Voce nao selecionou nenhum diretorio.");
 	}
+	public static void abrirFile(String string, JTextPane txt) {
+		// TODO Auto-generated method stub
+		System.out.println(string);
+		setDiretorio(new File(string));
+		try {
+			String f = "";
+			Scanner in = new Scanner(new File(getDiretorio()
+					.getAbsolutePath()));
+			while (in.hasNext()) {
+				String line = in.nextLine();
+				// Highlight
+				f += (line + "\n");
+			}
+			txt.setText(f);
+			in.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	public static File getDiretorio() {
 		return diretorio;
