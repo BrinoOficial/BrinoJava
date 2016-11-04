@@ -11,22 +11,14 @@ package br.com.RatosDePC.Brpp.IDEui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
@@ -34,7 +26,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
-import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
@@ -94,25 +85,6 @@ public class BrppIDEFrame extends JFrame {
 
 			}
 		});
-
-//		InputMap im = CODE.getInputMap(JComponent.WHEN_FOCUSED);
-//		ActionMap am = CODE.getActionMap();
-//
-//		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit
-//				.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
-//		am.put("Undo", new AbstractAction() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				try {
-//					if (undoManager.canUndo()) {
-//						undoManager.undo();
-//						undoManager.undo();
-//					}
-//				} catch (CannotUndoException exp) {
-//					exp.printStackTrace();
-//				}
-//			}
-//		});
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override

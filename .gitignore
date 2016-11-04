@@ -58,4 +58,13 @@ Temporary Items
 .metadata/version.ini
 .metadata/.log
 .metadata/.plugins/org.eclipse.cdt.core/.log
-.Br++/bin
+Br++/bin
+BrinoIDE_lib/RXTXcomm.jar
+Br++/.settings/*
+.classpath
+BrinoIDE.jar
+Br++/.classpath
+Br++/.settings/org.eclipse.jdt.core.prefs
+BrinoIDE.jar
+Br++/.classpath
+BrinoIDE.jar
