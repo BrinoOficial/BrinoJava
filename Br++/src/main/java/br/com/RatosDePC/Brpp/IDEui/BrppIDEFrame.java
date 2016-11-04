@@ -16,6 +16,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,7 +24,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
@@ -32,6 +32,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
+
 import javax.swing.undo.UndoManager;
 
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
@@ -98,6 +99,7 @@ public class BrppIDEFrame extends JFrame {
 		redoAction = new RedoAction();
 		CODE.getInputMap().put(redoKeystroke, "redoKeystroke");
 		CODE.getActionMap().put("redoKeystroke", redoAction);
+
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
