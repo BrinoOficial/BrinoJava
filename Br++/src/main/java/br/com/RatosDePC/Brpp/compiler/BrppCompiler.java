@@ -4,8 +4,8 @@ package br.com.RatosDePC.Brpp.compiler;
  * Compilador Brino criado para transformar código Brpp em 
  * código arduino.
  * @author Mateus Berardo de Souza Terra
- * @contributors 
- * @version 2.3.13-beta
+ * @contributors Rafael Mascarenhas Dal Moro
+ * @version 2.4.3-beta
  */
 
 import java.io.File;
@@ -28,7 +28,7 @@ public class BrppCompiler {
 	private static Formatter program;
 	private static String file;
 	private static JTextArea out = SouthPanel.LOG;
-	public static String version = "2.4.2";
+	public static String version = "2.4.3-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()
@@ -265,9 +265,6 @@ public class BrppCompiler {
 							command.substring(command.indexOf("//")),
 							line.substring(line.indexOf("//")));
 				}
-				if (command.contains(".conectar(D")) {
-					command = command.replace(".conectar(Digital.", ".attach(");
-				}
 				if (command.contains("conectarInterruptor")) {
 					command = command.replace("conectarInterruptor(",
 							"attachInterrupt(digitalPinToInterrupt(");
@@ -275,6 +272,9 @@ public class BrppCompiler {
 					command = command.replace("Mudando", "CHANGE");
 					command = command.replace("Ligando", "RISING");
 					command = command.replace("Desligando", "FALLING");
+				}
+				if (command.contains(".conectar(D")) {
+					command = command.replace(".conectar(Digital.", ".attach(");
 				}
 				if (command.contains("desconectarInterruptor"))
 					command = command.replace("desconectarInterruptor(",
