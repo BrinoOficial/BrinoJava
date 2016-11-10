@@ -11,6 +11,11 @@ package br.com.RatosDePC.Brpp.IDEui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,14 +29,19 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 import javax.swing.text.Element;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+
 import javax.swing.undo.UndoManager;
 
 import br.com.RatosDePC.Brpp.Utils.FileUtils;
 
 public class BrppIDEFrame extends JFrame {
-	private UndoManager undoManager;
+	protected UndoHandler undoHandler;
+	protected UndoManager undoManager;
+	private UndoAction undoAction = null;
+	private RedoAction redoAction = null;
 	private static final long serialVersionUID = 1L;
 	private static JTextPane CODE;
 	private ImageIcon logo = new ImageIcon(getClass().getClassLoader()
@@ -77,14 +87,18 @@ public class BrppIDEFrame extends JFrame {
 		setJMenuBar(menuBar);
 		setVisible(true);
 		undoManager = new UndoManager();
-		Document doc = CODE.getDocument();
-		doc.addUndoableEditListener(new UndoableEditListener() {
-			@Override
-			public void undoableEditHappened(UndoableEditEvent e) {
-				undoManager.addEdit(e.getEdit());
-
-			}
-		});
+		undoHandler = new UndoHandler();
+		code.addUndoableEditListener(undoHandler);
+		KeyStroke undoKeystroke = KeyStroke.getKeyStroke(KeyEvent.VK_Z,
+				KeyEvent.CTRL_DOWN_MASK);
+		KeyStroke redoKeystroke = KeyStroke.getKeyStroke(KeyEvent.VK_Y,
+				KeyEvent.CTRL_DOWN_MASK);
+		undoAction = new UndoAction();
+		CODE.getInputMap().put(undoKeystroke, "undoKeystroke");
+		CODE.getActionMap().put("undoKeystroke", undoAction);
+		redoAction = new RedoAction();
+		CODE.getInputMap().put(redoKeystroke, "redoKeystroke");
+		CODE.getActionMap().put("redoKeystroke", redoAction);
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
@@ -133,5 +147,78 @@ public class BrppIDEFrame extends JFrame {
 			code.insertString(lineElement.getStartOffset(), "//", a);
 		else
 			code.remove(lineElement.getStartOffset(), 2);
+	}
+
+	// java undo and redo action classes
+
+	class UndoHandler implements UndoableEditListener {
+
+		/**
+		 * Messaged when the Document has created an edit, the edit is added to
+		 * <code>undoManager</code>, an instance of UndoManager.
+		 */
+		public void undoableEditHappened(UndoableEditEvent e) {
+			undoManager.addEdit(e.getEdit());
+			undoAction.update();
+			redoAction.update();
+		}
+	}
+
+	@SuppressWarnings("serial")
+	class UndoAction extends AbstractAction {
+		public UndoAction() {
+			super("Undo");
+			setEnabled(false);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			try {
+				undoManager.undo();
+			} catch (CannotUndoException ex) {
+				// TODO deal with this
+				// ex.printStackTrace();
+			}
+			update();
+			redoAction.update();
+		}
+
+		protected void update() {
+			if (undoManager.canUndo()) {
+				setEnabled(true);
+				putValue(Action.NAME, undoManager.getUndoPresentationName());
+			} else {
+				setEnabled(false);
+				putValue(Action.NAME, "Undo");
+			}
+		}
+	}
+
+	@SuppressWarnings("serial")
+	class RedoAction extends AbstractAction {
+		public RedoAction() {
+			super("Redo");
+			setEnabled(false);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			try {
+				undoManager.redo();
+			} catch (CannotRedoException ex) {
+				// TODO deal with this
+				ex.printStackTrace();
+			}
+			update();
+			undoAction.update();
+		}
+
+		protected void update() {
+			if (undoManager.canRedo()) {
+				setEnabled(true);
+				putValue(Action.NAME, undoManager.getRedoPresentationName());
+			} else {
+				setEnabled(false);
+				putValue(Action.NAME, "Redo");
+			}
+		}
 	}
 }
