@@ -9,9 +9,9 @@ Toca um speaker baseado na estrada analogica de um LDR
  * resistor de 4.7K, do analogico 0 para o ground
  
  
-Esse exemplo esta em dominio publico em:
+Esse codigo esta em dominio publico
 
- http://www.arduino.cc/en/Tutorial/Tone2
+Alterado por Giulia Fricke (10/11/2016)
 
  */
 
@@ -23,9 +23,11 @@ Configuracao() {
 
 Principal() {
   // Le a entrada do LDR:
-  Numero leituraLDR = Pino.ler(A0);
-  // mostra na serial o seu valor, para voce saber a sua variacao
+  Numero leituraLDR = Pino.lerAnalogico(A0);
+  /
+  / mostra na serial o seu valor, para voce saber a sua variacao
   USB.enviarln(leituraLDR);
+  
   // Verifica a variacao da entrada analogica, (no caso, 400 - 1000 do LDR)
   // A saida do speacker varia de 120 a 1500Hz
   // Modifica os numeros maximo e minimo para os abaixo dependendo
@@ -34,6 +36,7 @@ Principal() {
 
   // toca a nota:
   soar(9, nota, 10);
+  
   // Espera entre as leituras para aumentar a estabilidade
   esperar(1);
 }

@@ -13,14 +13,15 @@
  * Resistor de 10k, da porta 2 para o ground 
  * LED, da porta 13 para o ground ou LED acoplado na placa(presente na maioria dos arduinos)
 
-Esse codigo esta em dominio publico em:
- http://www.arduino.cc/en/Tutorial/ButtonStateChange
+Esse codigo esta disponivel em dominio publico
+
+Alterado por Giulia Fricke (10/11/2016)
 
  */
 
  //Essas sao as constantes, como o nome sugere, elas nao mudam
-Constante Numero  botao = 2;    // porta em que o botao deve ser conectado
-Constante Numero LED = 13;      // porta em que o LED deve ser conectado
+ Constante Numero  botao = 2;    // porta em que o botao deve ser conectado
+ Constante Numero LED = 13;      // porta em que o LED deve ser conectado
 
 // Essas sao as variaveis, como o nome sugere, elas irao mudar
 Numero contadorBotao = 0;   //conta quantas vezes o botão foi acionado
@@ -30,8 +31,10 @@ Numero ultimoEstado = 0;     // armazena o ultimo estado do botao (ligado/deliga
 Configuracao() {
   // Define o botao como uma entrada:
   Pino.definirModo(botao, Entrada);
+  
   // Define o LED como uma saida:
   Pino.definirModo(LED, Saida);
+  
   // Inicia uma comunicacao serial:
   USB.conectar(9600);
 }
@@ -39,7 +42,7 @@ Configuracao() {
 
 Principal() {
   // le a entrada do botao:
-  estadoBotao = Pino.ler(Digital.botao);
+  estadoBotao = Pino.ler(botao);
 
   // compara o estado do botao com o seu ultimo estado
   se (estadoBotao != ultimoEstado){
@@ -69,9 +72,9 @@ Principal() {
   // verificando o modulo do contador do botao
 
   se (contadorBotao % 4 == 0) {
-    Pino.escrever(Digital.LED, Ligado);
+    Pino.escrever(LED, Ligado);
   } senao {
-    Pino.escrever(Digital.LED, Desligado);
+    Pino.escrever(LED, Desligado);
   }
 
 }

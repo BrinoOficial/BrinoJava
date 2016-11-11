@@ -4,7 +4,12 @@
   conecte o pino central de um potenciometro a porta A0 e os pinos externos 
   dele as portas de alimentacao 5V e ao GND.
   
+  Esse codigo esta disponivel em dominio publico
+ 
+  Alterado por Mateus Berardo(10/11/2016)
+  
  */
+ 
 // Parte do codigo de configuracao
 Configuracao() {
   // Inicia a comunicacao serial padrao pelo USB com a taxa de transmissao em 9600.
@@ -14,12 +19,16 @@ Configuracao() {
 // Loop que se repete indefinidamente
 Principal() {
   // Le a entrada da porta analogica A0:
-  Numero leitura= Pino.ler(A0);
+  Numero leitura= Pino.lerAnalogico(A0);
+  
   // Converte a entrada analogica(que vai de 0 a 1023) na voltagem que esta entrando (0 - 5V): 
   NumeroDecimal voltagem = leitura * (5.0 / 1023.0);
+  
   // Apresenta no monitor serial a voltagem:
   USB.enviar(voltagem);
   USB.enviar(" V");
   USB.enviarln("-----------------------");
-  esperar(200); //tempo entre uma medida e outra
+  
+  //tempo entre uma medida e outra
+  esperar(200); 
 }
