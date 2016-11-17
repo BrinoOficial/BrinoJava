@@ -1,0 +1,251 @@
+{
+	"Keywords": [
+		{
+			"highlight": "KEY1",
+			"arduino": "void setup",
+			"arg": "false",
+			"translate": "Configuracao"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "void loop",
+			"arg": "false",
+			"translate": "Principal"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "delay",
+			"arg": "false",
+			"translate": "esperar"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "void",
+			"arg": "false",
+			"translate": "SemRetorno"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "private",
+			"arg": "false",
+			"translate": "Restrito"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "return",
+			"arg": "false",
+			"translate": "responder"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "if(",
+			"arg": "false",
+			"translate": "se[ ]*\\("
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "while(",
+			"arg": "false",
+			"translate": "enquanto[ ]*\\("
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "Serial.begin",
+			"arg": "false",
+			"translate": "USB.conectar"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "Serial.print",
+			"arg": "false",
+			"translate": "USB.enviar"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "Serial.read",
+			"arg": "false",
+			"translate": "USB.ler"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "",
+			"arg": "false",
+			"translate": "Pino."
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "pinMode",
+			"arg": "false",
+			"translate": "definirModo"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "analogWrite",
+			"arg": "false",
+			"translate": "escreverAnalogico"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "digitalWrite",
+			"arg": "false",
+			"translate": "escrever"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": ".attach(",
+			"arg": "false",
+			"translate": ".conectar(Digital."
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "analogRead",
+			"arg": "false",
+			"translate": "lerAnalogico"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "digitalRead",
+			"arg": "false",
+			"translate": "ler"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "int ",
+			"arg": "false",
+			"translate": "Numero "
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "float",
+			"arg": "false",
+			"translate": "NumeroDecimal"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "String",
+			"arg": "false",
+			"translate": "Palavra"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "boolean",
+			"arg": "false",
+			"translate": "Condicao"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "true",
+			"arg": "false",
+			"translate": "Verdadeiro"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "false",
+			"arg": "false",
+			"translate": "Falso"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "HIGH",
+			"arg": "false",
+			"translate": "Ligado"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "LOW",
+			"arg": "false",
+			"translate": "Desligado"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": " && ",
+			"arg": "false",
+			"translate": " e "
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": " || ",
+			"arg": "false",
+			"translate": " ou "
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "else",
+			"arg": "false",
+			"translate": "senao"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "#define",
+			"arg": "false",
+			"translate": "definir"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "const",
+			"arg": "false",
+			"translate": "Constante"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "OUTPUT",
+			"arg": "false",
+			"translate": "Saida"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "INPUT",
+			"arg": "false",
+			"translate": "Entrada"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "long",
+			"arg": "false",
+			"translate": "NumeroLongo"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "unsigned",
+			"arg": "false",
+			"translate": "Modulo"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "tone",
+			"arg": "false",
+			"translate": "soar"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "noTone",
+			"arg": "false",
+			"translate": "pararSoar"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "for",
+			"arg": "false",
+			"translate": "para"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "map",
+			"arg": "false",
+			"translate": "proporcionar"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "digitalWrite($1,HIGH)",
+			"arg": "d",
+			"translate": "[^\\w]ligar\\(\\s*([0-9]+)\\s*\\)"
+		},
+		{
+			"highlight": "KEY1",
+			"arduino": "digitalWrite($1,LOW)",
+			"arg": "d",
+			"translate": "desligar\\(\\s*([0-9]+)\\s*\\)"
+		}
+	],
+	"language": "pt-br"
+}

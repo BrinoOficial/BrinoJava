@@ -62,3 +62,4 @@ Temporary Items
 BrinoIDE_lib/RXTXcomm.jar
 BrinoIDE.jar
 *.class
+*.prefs
