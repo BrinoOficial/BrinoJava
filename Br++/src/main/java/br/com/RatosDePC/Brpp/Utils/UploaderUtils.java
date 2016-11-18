@@ -54,8 +54,8 @@ public class UploaderUtils {
 							+ " --board " + boards[board] + " --port " + com);
 		} else {
 			builder = new ProcessBuilder("/bin/bash", "-c",
-					"cd Arduino && ./arduino --upload " + file
-							+ " --board " + boards[board] + " --port " + com);
+					"cd Arduino && ./arduino --upload " + file + " --board "
+							+ boards[board] + " --port " + com);
 		}
 		builder.redirectErrorStream(true);
 		processar(builder);
@@ -65,7 +65,8 @@ public class UploaderUtils {
 
 	public static void compile(String file) throws IOException {
 		ProcessBuilder builder;
-		if (System.getProperty("os.name").contains("[Ww]indows")) {
+		System.out.println(System.getProperty("os.name"));
+		if (System.getProperty("os.name").contains("Windows")) {
 			builder = new ProcessBuilder("cmd.exe", "/c",
 					"cd Arduino && arduino_debug --verify " + file);
 		} else {

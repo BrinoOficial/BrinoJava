@@ -5,5 +5,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="C:/Users/Mateus Terra/Documents/GitHub/Brino/lib/RXTXcomm.jar" sourcepath="C:/Users/Rafael_do_Morro/Google Drive/Br.ino/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Mateus Terra/Documents/GitHub/Brino/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
