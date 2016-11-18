@@ -36,7 +36,7 @@ public class BrppCompilerMain {
 				+ "Arduino" + System.getProperty("file.separator")
 				+ "libraries");
 		try {
-			JSONUtils.config();
+			JSONUtils.config(s);
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

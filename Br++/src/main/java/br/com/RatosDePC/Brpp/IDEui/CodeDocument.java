@@ -90,6 +90,8 @@ public class CodeDocument extends DefaultStyledDocument {
 				")");
 		KEYWORDS_2 = KEYWORDS_2.substring(0, KEYWORDS_2.length() - 1).concat(
 				")");
+		if(KEYWORDS_3.contains("||")) KEYWORDS_3 = KEYWORDS_3.replace("||", "|");
+		if(KEYWORDS_4.contains("||")) KEYWORDS_4 = KEYWORDS_4.replace("||", "|");
 		KEYWORDS_3 = KEYWORDS_3.endsWith("|") ? KEYWORDS_3.substring(0,
 				KEYWORDS_3.length() - 1).concat(")") : KEYWORDS_3.concat(")");
 		KEYWORDS_4 = KEYWORDS_4.endsWith("|") ? KEYWORDS_4.substring(0,
