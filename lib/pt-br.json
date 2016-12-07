@@ -64,6 +64,13 @@
 			"translate": "USB.enviar"
 		},
 		{
+			"highlight": "enviarln",
+			"arduino": "Serial.println",
+			"arg": "false",
+			"highlight-type": "3",
+			"translate": "USB.enviarln"
+		},
+		{
 			"highlight": "ler",
 			"arduino": "Serial.read",
 			"arg": "false",
@@ -76,6 +83,13 @@
 			"arg": "false",
 			"highlight-type": "4",
 			"translate": "Pino."
+		},
+		{
+			"highlight": "USB",
+			"arduino": "Serial.",
+			"arg": "false",
+			"highlight-type": "4",
+			"translate": "USB."
 		},
 		{
 			"highlight": "definirModo",
@@ -93,10 +107,10 @@
 		},
 		{
 			"highlight": "escrever",
-			"arduino": "digitalWrite",
-			"arg": "false",
+			"arduino": "digitalWrite(",
+			"arg": "s",
 			"highlight-type": "3",
-			"translate": "escrever"
+			"translate": "escrever\\("
 		},
 		{
 			"highlight": "Digital",
@@ -477,7 +491,7 @@
 			"translate":"enviarBinario"
 		},
 		{
-			"highlight":"esreverAngulo",
+			"highlight":"escreverAngulo",
 			"arduino":"write",
 			"arg":"false",
 			"highlight-type":"3",
