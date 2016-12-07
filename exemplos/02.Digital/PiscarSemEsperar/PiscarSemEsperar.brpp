@@ -10,8 +10,10 @@
  instalado na porta 13.
  
  
- Codigo original para o Arduino:
- http://www.arduino.cc/en/Tutorial/BlinkWithoutDelay
+ Esse codigo esta disponivel em dominio publico
+ 
+ Alterado por Giulia Fricke (10/11/2016)
+ 
  */
 
 // constantes nao mudam. Usada para definir a porta do LED:
@@ -19,7 +21,6 @@ Constante Numero LED = 13;
 
 // Variaveis mudam :
 Condicao estadoLED = Falso;             // Usado para quardar o estado do LED
-
 NumeroLongo tempoAnterior = 0;        // salva a ultima mudanca no estado do LED(ligado/desligado)
 
 // constantes nao vao mudar :
@@ -37,7 +38,7 @@ Principal(){
   //confira se o tempo para pisca-lo e viavel, uma vez que o tempo
   //no circuito pode divergir do tempo teorico no codigo.
   
-  Modulo NumeroLongo tempoAtual = <native> millis();
+  Modulo NumeroLongo tempoAtual =  millis();
  
   se(tempoAtual - tempoAnterior >= intervalo) {
     // salva o tempo da ultima alteração do LED
@@ -52,6 +53,6 @@ Principal(){
 	  }
 
     // Muda o LED de acordo com a variavel:
-    Pino.escrever(Digital.LED, estadoLED);
+    Pino.escrever(LED, estadoLED);
   }
 }

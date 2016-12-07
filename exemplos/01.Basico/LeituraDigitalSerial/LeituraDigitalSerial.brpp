@@ -1,6 +1,10 @@
 /*
-  LeituraDigitalSerial
+ LeituraDigitalSerial
  Le a entrada digital do pino 2 e apresenta o valor no monitor serial.
+ 
+ Esse codigo esta disponivel em dominio publico
+ 
+ Alterado por Mateus Berardo(10/11/2016)
 
  */
 
@@ -11,6 +15,7 @@ Numero botao = 2;
 Configuracao() {
   // Inicia a comunicacao serial padrao com a taxa de transmissao em 9600
   USB.conectar(9600);
+  
   // define o botao como uma entrada:
   Pino.definirModo(botao, Entrada);
 }
@@ -19,9 +24,12 @@ Configuracao() {
 Principal() {
   // Le o pino de entrada
   Numero estadoBotao = Pino.ler(Digital.botao);
+  
   // Apresenta no monitor serial o estado do botao:
   USB.enviar(estadoBotao);
-  esperar(200);        //tempo entre uma medida e outra
+  
+  //tempo entre uma medida e outra
+  esperar(200);        
 }
 
 

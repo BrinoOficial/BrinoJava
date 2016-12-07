@@ -13,8 +13,10 @@
  * Nota: A maioria dos arduinos ja possuem um LED na placa 
  instalado na porta 13.
  
- Codigo original para o Arduino:
- http://www.arduino.cc/en/Tutorial/Debounce
+ Esse codigo esta disponivel em dominio publico
+ 
+ Alterado por Giulia Fricke(10/11/2016)
+ 
  */
 
 // contantes nao mudam, elas estao aqui para
@@ -36,12 +38,12 @@ Configuracao() {
   Pino.definirModo(LED, Saida);
 
   // inicia o estado do LED
-  Pino.escrever(Digital.LED, estadoLED);
+  Pino.escrever(LED, estadoLED);
 }
 
 Principal() {
   // le o estado da porta e armazena na variavel
-  Numero leitura = Pino.ler(Digital.botao);
+  Numero leitura = Pino.ler(botao);
 
   // verifique se o botao ja foi precionado
   // (a entrada vai de desligado para ligado), e voce tem que esperar
@@ -50,10 +52,10 @@ Principal() {
   // se o estado mudar , durante o ruido ou precionamento
   se (leitura != ultimoEstadoBotao){
     // marca a contagem de tempo
-    demoraUltimaTroca  = <native> millis();
+    demoraUltimaTroca  = millis();
   }
 
-  se (( <native> millis() - demoraUltimaTroca ) > UltimaTrocaEsperar) {
+  se ((  millis() - demoraUltimaTroca ) > UltimaTrocaEsperar) {
 
     // se o estado do botao mudou
     se (leitura != estadoBotao) {
@@ -67,7 +69,7 @@ Principal() {
   }
 
   // Altera o LED:
-  Pino.escrever(Digital.LED, estadoLED);
+  Pino.escrever(LED, estadoLED);
 
   // Salva a ultima leitura
   ultimoEstadoBotao = leitura;

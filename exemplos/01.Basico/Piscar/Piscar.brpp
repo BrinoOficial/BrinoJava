@@ -5,13 +5,16 @@
   A maioria dos Arduinos possuem um LED on-board que pode ser controlado. No UNO e no Leonardo,
   ele esta conectado a porta digital 13. Se voce nao sabe em qual porta ele esta conectado em seu 
   Arduino, leia a documentacao no site: arduino.cc
+  
+  Esse codigo esta disponivel em dominio publico
+  
+  Alterado por Mateus Berardo(10/11/2016)
 
  */
 
-
 // Parte do codigo de configuracao
 Configuracao() {
-  // inicia a porta digital 13 como uma saida(OUTPUT)
+  // inicia a porta digital 13 como uma Saida
   Pino.definirModo(13, Saida);
 }
 

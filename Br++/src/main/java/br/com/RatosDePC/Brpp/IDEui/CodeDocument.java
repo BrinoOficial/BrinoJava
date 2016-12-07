@@ -1,14 +1,30 @@
 package br.com.RatosDePC.Brpp.IDEui;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+/*
+Copyright (c) 2016 StarFruitBrasil
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JOptionPane;
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+import java.awt.Color;
+import java.util.Iterator;
+
 import javax.swing.JTextPane;
-import javax.swing.KeyStroke;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
@@ -16,7 +32,10 @@ import javax.swing.text.Element;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import br.com.RatosDePC.Brpp.Utils.JSONUtils;
 import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
 
 public class CodeDocument extends DefaultStyledDocument {
@@ -25,10 +44,10 @@ public class CodeDocument extends DefaultStyledDocument {
 	private Color azul = new Color(66, 119, 255);
 	private Color vermelho = new Color(255, 56, 0);
 	private Color laranja = new Color(252, 145, 20);
-	private String KEYWORDS_1 = "(\\W)*(Mudando|Ligando|Desligando|ArquivoGravar|Ligado|Desligado|Numero|NumeroDecimal|Letra|Longo|Palavra|Condicao|Modulo|Constante|Verdadeiro|Falso|SemRetorno|Entrada|Saida)";
-	private String KEYWORDS_2 = "(\\W)*(Configuracao|Principal|usar|definir|para|se|enquanto|senao|e|ou|responder)";
-	private String KEYWORDS_3 = "(\\W)*(fechar|gravar|descarregar|enviarBinario|Arquivo|existe|criarPasta|abrir|remover|removerPasta|soar|pararSoar|esperar|proporcionar|definirModo|usar|conectar|enviar|enviarln|disponivel|ler|escrever|ler|ligar|desligar|tamanho|formatar|posicao|limpar|conectar|escreverAngulo|escreverMicros|frente|tras|parar|transmitir|pararTransitir|solicitar|solicitado|recebido|conectarInterruptor|desconectarInterruptor|ligarInterruptores|desligarInterruptores|escreverAnalogico|lerAnalogico";
-	private String KEYWORDS_4 = "(\\W)*(Memoria|Pino|LCD|USB|I2C|Servo|SD";
+	private String KEYWORDS_1 = "(\\W)*(";
+	private String KEYWORDS_2 = "(\\W)*(";
+	private String KEYWORDS_3 = "(\\W)*(";
+	private String KEYWORDS_4 = "(\\W)*(";
 	final StyleContext cont = StyleContext.getDefaultStyleContext();
 	final AttributeSet attrAzul = cont.addAttribute(cont.getEmptySet(),
 			StyleConstants.Foreground, azul);
@@ -49,15 +68,55 @@ public class CodeDocument extends DefaultStyledDocument {
 	private JTextPane container;
 
 	public CodeDocument() {
-		KEYWORDS_4 = KEYWORDS_4.concat(KeywordManagerUtils.getKey());
-		KEYWORDS_4 = KEYWORDS_4.concat(")");
-		KEYWORDS_3 = KEYWORDS_3.concat(KeywordManagerUtils.getKeyTwo());
-		KEYWORDS_3 = KEYWORDS_3.concat(")");
-		System.out.println(KEYWORDS_4);
+		processKeywords();
 		container = BrppIDEFrame.getTextPane();
 		doc = this;
 		rootElement = doc.getDefaultRootElement();
 
+	}
+
+	private void processKeywords() {
+		JSONArray Keywords = JSONUtils.getKeywords();
+		@SuppressWarnings("unchecked")
+		Iterator<JSONObject> iterator = Keywords.iterator();
+		while (iterator.hasNext()) {
+			JSONObject key = iterator.next();
+			String highType = (String) key.get("highlight-type");
+			if (!highType.equals("null")) {
+				int type = Integer.parseInt(highType);
+				switch (type) {
+				case 1:
+					KEYWORDS_1 = KEYWORDS_1.concat(((String) key
+							.get("highlight")).trim() + "|");
+					break;
+				case 2:
+					KEYWORDS_2 = KEYWORDS_2.concat(((String) key
+							.get("highlight")).trim() + "|");
+					break;
+				case 3:
+					KEYWORDS_3 = KEYWORDS_3.concat(((String) key
+							.get("highlight")).trim() + "|");
+					break;
+				case 4:
+					KEYWORDS_4 = KEYWORDS_4.concat(((String) key
+							.get("highlight")).trim() + "|");
+					break;
+				}
+			}
+		}
+
+		KEYWORDS_4 = KEYWORDS_4.concat(KeywordManagerUtils.getKey());
+		KEYWORDS_3 = KEYWORDS_3.concat(KeywordManagerUtils.getKeyTwo());
+		KEYWORDS_1 = KEYWORDS_1.substring(0, KEYWORDS_1.length() - 1).concat(
+				")");
+		KEYWORDS_2 = KEYWORDS_2.substring(0, KEYWORDS_2.length() - 1).concat(
+				")");
+		if(KEYWORDS_3.contains("||")) KEYWORDS_3 = KEYWORDS_3.replace("||", "|");
+		if(KEYWORDS_4.contains("||")) KEYWORDS_4 = KEYWORDS_4.replace("||", "|");
+		KEYWORDS_3 = KEYWORDS_3.endsWith("|") ? KEYWORDS_3.substring(0,
+				KEYWORDS_3.length() - 1).concat(")") : KEYWORDS_3.concat(")");
+		KEYWORDS_4 = KEYWORDS_4.endsWith("|") ? KEYWORDS_4.substring(0,
+				KEYWORDS_4.length() - 1).concat(")") : KEYWORDS_4.concat(")");
 	}
 
 	private int findLastNonWordChar(String text, int index) {
