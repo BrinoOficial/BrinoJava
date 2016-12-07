@@ -1,0 +1,80 @@
+/*
+	Tabela ASCII
+	
+	Envia para a porta USB os valores em bytes 
+	em todos os formatos possiveis
+	* valores binarios puros
+	* como um decimal, hexadecimal, octadecimal e binarios
+	codificado em ASCII
+	
+	Para mais informacoes sobre ASCII, visite  http://www.asciitable.com 
+	e http://pt.wikipedia.org/wiki/ASCII
+	
+	O circuito: Nao e necessario hardware adicional
+	
+	Esse codigo esta disponivel em dominio publico
+	
+	Criado por Giulia Fricke(10/11/2016)
+	
+*/
+
+Configuracao() {
+	//Conecta a porta USB e espera a porta abrir:
+	USB.conectar(9600);
+	
+	enquanto(!USB){
+		;// Espera a porta USB conectar. Necessario apenas para o Leonardo.
+	}
+	
+	//Envia o titulo com quebra de linha:
+	USB.enviarln("Tabela ASCII ~ Mapa de caracteres");
+ }
+ 
+ //primeiro caracter visivel do ASCII '!' e o numero 33:
+ Numero esseByte = 33;
+ //voce tambem pode escrever os caracteres do ASCII entre aspas simples
+ //por exemplo. '!' e o mesmo que 33, ou seja, voce pode optar pelo uso de:
+ //Numero esseByte = '!';
+ 
+ Principal(){
+	//envia valores inalterados, por exemplo a versao em binario do byte.
+	//o monitor serial interpreta todos os bytes como ASCII.
+	//ou seja ,33, o primeiro numero, aparecera como '!'
+	USB.escrever(esseByte);
+	
+	USB.enviar(",dec: ");
+	//envia o valor da palavra como um decimal codificado ASCII(base10).
+	//Decimal e o formato padrao para USB.enviar e USB.enviarln,
+	//nenhuma modificacao e necessaria:
+	USB.enviar(esseByte);
+	//Entretanto voce pode declarar para decimal se quiser.
+	//isso tambem funciona se voce descomentar isso:
+	
+	//USB.enviar(esseByte, DEC);
+	
+	
+	USB.enviar(", hex: ");
+	// envia o valor da palavra em hexadecimal (base 16):
+	USB.enviar(esseByte, HEX);
+	
+	USB.enviar(", oct: ");
+	// envia o valor da palavra em octadecimal (base 8);
+	USB.enviar(esseByte, OCT);
+	
+	USB.enviar(", bin: ");
+	//envia o valor da palavra em binario (base 2)
+	//tambem envia o final da quebra de linha:
+	USB.enviar(esseByte, BIN);
+	
+	//se enviou o ultimo caracter visivel '~' ou 126, pare:
+	se (esseByte == 126) {		//voce tambem pode usar se (esseByte == '~'){
+	 //esse comando se repete infinitamente e nao faz nada
+	 enquanto(verdadeiro){
+			continue;
+		}	
+	}
+ //va para o proximo caracter
+ esseByte++;
+ 
+ }
+	

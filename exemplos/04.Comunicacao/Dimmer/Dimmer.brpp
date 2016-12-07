@@ -1,0 +1,68 @@
+/*
+	Dimmer
+	
+	Demonstra os dados enviados do computador para a placa Arduino,
+	nesse caso para controlar o brilho de um LED. Os dados sao enviados em bytes 
+	individuais, que variam de 0 a 255. O arduino le esses bites e os usa para definir o brilho do LED.
+	
+	O circuito:
+	LED conectado de uma porta digital 9 para o GND.
+	Para processar uma conexao serial, MAX/MSP, ou outra aplicacao serial
+	
+	Esse codigo esta disponivel em dominio publico
+	
+	Criado por Giulia Fricke (10/11/2016)
+	
+*/
+	
+	Constante Numero pinoLED = 9;		//o pino o qual o LED esta conectado
+	
+	Configuracao()
+	{
+	 //inicialize a comunicacao serial:
+	 USB.conectar(9600);
+	 
+	 //inicialize o pinoLED como saida:
+	 pino.definir(pinoLED, SAIDA);
+	 }
+	
+	Principal() {
+	byte brilhante;
+	
+	//checar se os dados foram enviados do computador:
+	se (USB.disponivel())  {
+		//leia o byte mais recente (o qual estara entre 0 a 255):
+		brilhante = USB.ler();
+		//envia o quao brilhoso esta o LED:
+		Pino.escreverAnalogico(pinoLED, brilhante);
+		
+		}
+	}
+	
+	/*Processar codigo para esse exemplo
+	 //Dimmer - envia bytes sobre uma porta serial
+	 //Criado por Giulia Fricke
+	 //Esse codigo esta disponivel em dominio publico.
+	 
+	 importar processador serial.*;
+	 porta USB;
+	 
+	 Configuracao() {
+	 tamanho(256, 150);
+	 
+	 enviarln ("Portas seriais disponiveis:");
+	 //se estiver usando um processador 2.1 ou um mais antigo, use USB.enviarArray()
+	 enviarln(USB.list());
+	 
+	 //Use a primeira posrta nessa lista ( numero 0 ).
+	 //Mude para selecionar a porta correspondente em sua placa Arduino.
+	 //O ultimo parametro (e.g. 9600) e a velocidade da comunicacao.
+	 //Isso corresponde ao valor informado ao USB.conectar() em seu Arduino.
+	 porta = novo USB(esse, USB.lista()[0], 9600);
+	 
+	 //Se voce souber o nome da porta usada pelo Arduino, voce pode especificar diretamente, por exemplo:
+	 //porta = novo USB(esse, "COM1", 9600);
+	 }
+	 
+	 
+	 

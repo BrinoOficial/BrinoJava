@@ -1,41 +1,42 @@
 /*
   keyboard
 
-  toca notas que mudam baseados na midança nas portas de entrada analogica
+  toca notas que mudam baseados na mudança nas portas de entrada analogica.
 
   Circuito:
-  * 3 potenciometros, todos ligados a 5V e ground em ssuas extremidades e
+  * 3 potenciometros, todos ligados a 5V e ground em suas extremidades e
   o pino do meio as portas analogicas 0, 1 e 2.
   * 3 resistores de 10k do ground para as portas analogicas 0, 1 e 2.
   * 1 8-ohm speaker na porta digital 8
 
   
-  esse exemplo está em dominio público em:
+  Esse codigo esta disponivel em dominio publico
   
- http://www.arduino.cc/en/Tutorial/Tone3
-
+  Alterado por Giulia Fricke (10/11/2016)
+  
  */
 
-#usar "pitches.h"
+usar "pitches.h"
 
 Constante Numero leitura = 10;    // leitura mínima para gerar uma nota
 
 // notas que soam, correspondentes aos 3 potenciometros:
-Numero notes[] = {NOTE_A4, NOTE_B4, NOTE_C3};
+Numero notas[] = {NOTE_A4, NOTE_B4, NOTE_C3};
 
 Configuracao() {
-
+// nao e necessaria configuracao
 }
 
 Principal() {
-  para (Numero thisSensor = 0; thisSensor < 3; thisSensor++) {
+  para (Numero sensor = 0; sensor < 3; sensor++) {
     // recebe uma leitura do potenciometro:
-    Numero leituraSensor = Pino.ler(thisSensor);
+    Numero leituraSensor = Pino.lerAnalogico(sensor);
 
     // se o potenciometro for corretamente acionado indica uma nota:
-    if (leituraSensor > leitura) {
-      // toca a nota indicada pelo sensor:
-      tone(8, notes[thisSensor], 20);
+    se (leituraSensor > leitura) {
+     
+	 // toca a nota indicada pelo sensor:
+      soar(8, notas[sensor], 20);
     }
   }
 }

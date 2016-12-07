@@ -10,6 +10,9 @@
   pino central na porta analogica 0.
   * LED, da porta digital 9 para o ground.
 
+Esse codigo esta disponivel em dominio publico
+
+Alterado por Giulia Fricke (10/11/2016)
 
  */
 
@@ -28,11 +31,13 @@ Configuracao() {
 
 Principal() {
   // le o valor potenciometro:
-  medidaSensor = Pino.ler(entradaPortaAnalogica);
+  medidaSensor = Pino.lerAnalogico(entradaPortaAnalogica);
+  
   // faz uma regra de 3 com os possiveis valores de saida da porta PWM:
   saidaPWM = proporcionar(medidaSensor, 0, 1023, 0, 255);
+  
   // muda o valor da saida PWM:
-  Pino.escrever(APD.saidaPortaAnalogica, saidaPWM);
+  Pino.escreverAnalogico(saidaPortaAnalogica, saidaPWM);
 
   // mostra os resultados pela serial:
   USB.enviarln("sensor = " );

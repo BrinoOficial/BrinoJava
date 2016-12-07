@@ -147,13 +147,6 @@ public class MenuBar extends JMenuBar {
 //		Cria o submenu exemplos
 		exemplosMenu = new JMenu("Exemplos");
 //		Percorre a pasta exemplos
-//		try {
-//			long n = Files.list(Paths.get("."+System.getProperty("file.separator")+"exemplos")).count();
-//			System.out.println(n);
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
 		try (Stream<Path> paths = Files.walk(Paths.get("."+fileSeparator+"exemplos"+fileSeparator),1)) {
 		      Iterator<Path> files = paths.iterator();
 		      files.next();

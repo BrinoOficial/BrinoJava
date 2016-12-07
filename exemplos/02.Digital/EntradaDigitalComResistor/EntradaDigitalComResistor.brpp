@@ -13,14 +13,17 @@
  pressionado ele apresenta valor desligado
  
  
- Codigo original para o Arduino:
- http://www.arduino.cc/en/Tutorial/InputPullupSerial
+ Esse codigo esta disponivel em dominio publico
+ 
+ Alterado por Giulia Fricke (10/11/2016)
+ 
  */
 
 Configuracao() {
   //inicia a comunicacao serial
   USB.conectar(9600);
-  //define a porta 2 como uma entrada e habilita seu resistor
+ 
+ //define a porta 2 como uma entrada e habilita seu resistor
   Pino.definirModo(2, Entrada_PULLUP);
   Pino.definirModo(13, Saida);
 
@@ -28,7 +31,8 @@ Configuracao() {
 
 Principal() {
   //Le o estado do botao
-  Numero leitura = Pino.ler(Digital.2);
+  Numero leitura = Pino.ler(2);
+
   //Apresenta a leitura no monitor serial
   USB.enviarln(leitura);
 
@@ -37,9 +41,9 @@ Principal() {
   // e desligado quando for apertado.
   // Controle do LED em funcao disso:
   se (leitura == Ligado){
-    Pino.desligar(Digital.13);
+    Pino.desligar(13);
   }
   senao {
-    Pino.ligar(Digital.13);
+    Pino.ligar(13);
   }
 }

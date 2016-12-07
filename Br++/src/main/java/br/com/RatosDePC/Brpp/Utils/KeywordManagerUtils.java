@@ -11,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class KeywordManagerUtils {
-	// private static String libraryString;
 	private static StringBuilder wholekw = new StringBuilder(); // | keyword
 																// |keyword |
 																// ...
@@ -76,6 +75,11 @@ public class KeywordManagerUtils {
 		}
 	}
 
+	public static boolean generalKeywords(){
+		
+		return true;
+	}
+	
 	public static String getKey() {
 		return wholekw.toString();
 	}

@@ -13,9 +13,12 @@
  * Nota: A maioria dos Arduinos possuem um LED on-board que pode ser controlado. No UNO e no Leonardo,
   ele esta conectado a porta digital 13.
 
- Codigo original para Arduino:
- http://arduino.cc/en/Tutorial/AnalogInput
+ Esse codigo esta disponivel em dominio publico
+ 
+ Alterado por Giulia Fricke(10/11/2016)
+ 
  */
+
 Numero sensor = A0;    // entrada do sensor
 Numero LED = 13;      // porta onde o LED esta ligado
 Numero leitura = 0;  // variavel para armazenar a leitura do sensor
@@ -27,13 +30,17 @@ Configuracao() {
 
 Principal() {
   // Le o sensor e armazena o valor:
-  leitura = Pino.ler(Analogico.sensor);    
+  leitura = Pino.lerAnalogico(sensor);    
+  
   // Acende o LED
   Pino.ligar(LED);  
+  
   // espera <leitura> millisegundos:
-  delay(leitura);          
-  // turn the ledPin off:        
-  Pino.desligar(Digital.LED);   
+  esperar(leitura);          
+  
+  // desliga o pino do LED:        
+  Pino.desligar(LED);   
+  
   // espera <leitura> millisegundos:
   esperar(leitura);                  
 }

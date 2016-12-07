@@ -3,7 +3,11 @@
 
  Esse exemplo mostra como "graduar"  um LED ligado a porta 9 
  fazendo com que ele se acenda e apague lentamente
- usando a funcao Pino.escrever(APD ).
+ usando a funcao Pino.escreverAnalogico().
+ 
+ Esse codigo esta disponivel em dominio publico.
+ 
+ alterado por Mateus Berardo(10/11/2016)
 
 */
 
@@ -20,7 +24,7 @@ Configuracao() {
 // Loop que se repete indefinidamente
 Principal() {
   // escreve o brilho do LED
-  Pino.escrever(APD.LED, brilho);
+  Pino.escreverAnalogico(LED, brilho);
 
   // Muda o brilho para a proxima passagem do loop
   brilho = brilho + mudanca;

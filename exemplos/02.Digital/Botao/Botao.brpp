@@ -10,9 +10,11 @@
  * resistor de 10k ligado da porta 2 ao ground
 
  * Nota: A maioria dos arduinos ja possuem um LED on-board instalado na porta 13.
-
- Codigo original para o Arduino:
- http://www.arduino.cc/en/Tutorial/Button
+ 
+ Esse codigo esta disponivel em dominio publico
+ 
+ Alterado por Giulia Fricke (10/11/2016)
+ 
  */
 
 Constante Numero botao = 2;      // A porta onde o botao esta ligado
@@ -23,6 +25,7 @@ Numero estadoBotao = 0;         // variavel do estado do botao
 Configuracao() {
   // declara o LED como uma saida
   Pino.definirModo(LED, Saida);
+  
   // declara o botao como uma entrada
   Pino.definirModo(botao, Entrada);
 }
