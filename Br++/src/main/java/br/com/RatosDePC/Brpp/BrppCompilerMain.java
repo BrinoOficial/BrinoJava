@@ -14,8 +14,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import org.json.simple.parser.ParseException;
+
 import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
+import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import br.com.RatosDePC.Brpp.Utils.JSONUtils;
 import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
 import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
 
@@ -33,16 +36,22 @@ public class BrppCompilerMain {
 				+ "Arduino" + System.getProperty("file.separator")
 				+ "libraries");
 		try {
-			FileUtils.copyFolder(l,destDir);
+			JSONUtils.config(s);
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+
+			FileUtils.copyFolder(l, destDir);
 			KeywordManagerUtils.processLibraries();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		BrppIDEFrame frame = new BrppIDEFrame("Brino "
-				+ BrppCompiler.version);
+		BrppIDEFrame frame = new BrppIDEFrame("Brino " + BrppCompiler.version);
 		frame.setSize(500, 600);
 		frame.setVisible(true);
 		frame.setLocation(100, 30);
