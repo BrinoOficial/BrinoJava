@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * Classe utilizada para realizar a interface com a IDE do Arduino para compilação e upload
+ * Classe utilizada para realizar a interface com a IDE do Arduino para compilaï¿½ï¿½o e upload
  * 
  * @author Mateus Berardo de Souza Terra
  * @contributors Rafael Mascarenhas Dal Moro
@@ -43,43 +43,39 @@ import br.com.RatosDePC.SerialMonitor.SerialMonitor;
 public class UploaderUtils {
 	static JTextArea out = SouthPanel.LOG;
 
-	private static String[] boards = { "arduino:avr:uno",
-			"arduino:avr:mega:cpu=atmega1280",
-			"arduino:avr:mega:cpu=atmega2560", "arduino:avr:megaADK",
-			"arduino:avr:nano:cpu=atmega328", "arduino:avr:nano:cpu=atmega168",
-			"arduino:avr:diecimila:cpu=atmega328",
-			"arduino:avr:diecimila:cpu=atmega168", "arduino:avr:leonardo",
-			"arduino:avr:micro", "arduino:avr:esplora",
-			"arduino:avr:mini:cpu=atmega328", "arduino:avr:mini:cpu=atmega168",
-			"arduino:avr:ethernet", "arduino:avr:fio",
-			"arduino:avr:bt:cpu=atmega328", "arduino:avr:bt:cpu=atmega168",
-			"arduino:avr:LilyPadUSB", "arduino:avr:lilypad:cpu=atmega328",
-			"arduino:avr:lilypad:cpu=atmega168",
-			"arduino:avr:pro:cpu=16MHzatmega328",
-			"arduino:avr:pro:cpu=8MHzatmega328",
-			"arduino:avr:pro:cpu=16MHzatmega168",
-			"arduino:avr:pro:cpu=8MHzatmega168", "arduino:avr:gemma" };
+	private static String[] boards = { "arduino:avr:uno", "arduino:avr:mega:cpu=atmega1280",
+			"arduino:avr:mega:cpu=atmega2560", "arduino:avr:megaADK", "arduino:avr:nano:cpu=atmega328",
+			"arduino:avr:nano:cpu=atmega168", "arduino:avr:diecimila:cpu=atmega328",
+			"arduino:avr:diecimila:cpu=atmega168", "arduino:avr:leonardo", "arduino:avr:micro", "arduino:avr:esplora",
+			"arduino:avr:mini:cpu=atmega328", "arduino:avr:mini:cpu=atmega168", "arduino:avr:ethernet",
+			"arduino:avr:fio", "arduino:avr:bt:cpu=atmega328", "arduino:avr:bt:cpu=atmega168", "arduino:avr:LilyPadUSB",
+			"arduino:avr:lilypad:cpu=atmega328", "arduino:avr:lilypad:cpu=atmega168",
+			"arduino:avr:pro:cpu=16MHzatmega328", "arduino:avr:pro:cpu=8MHzatmega328",
+			"arduino:avr:pro:cpu=16MHzatmega168", "arduino:avr:pro:cpu=8MHzatmega168", "arduino:avr:gemma",
+			"odb:avr:odb" };
 
-	public static void upload(String file, String com, int board)
-			throws IOException {
+	public static void upload(String file, String com, int board) throws IOException {
 		if (SerialMonitor.isOpen)
 			try {
 				CommPortUtils.closePort();
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
+		String port = " --port " + com;
 		ProcessBuilder builder;
-		if (System.getProperty("os.name").contains("[Ww]indows")) {
-			builder = new ProcessBuilder("cmd.exe", "/c",
-					"cd Arduino && arduino_debug --upload " + file
-							+ " --board " + boards[board] + " --port " + com);
+		if (System.getProperty("os.name").contains("Windows")) {
+			String proc = "cd Arduino && arduino_debug --upload " + file + " --board " + boards[board]
+					+ (com == null ? "" : port);
+			System.out.println(proc);
+			builder = new ProcessBuilder("cmd.exe", "/c", proc);
 		} else {
-			builder = new ProcessBuilder("/bin/bash", "-c",
-					"cd Arduino && ./arduino --upload " + file + " --board "
-							+ boards[board] + " --port " + com);
+			String proc = "cd Arduino && ./arduino --upload " + file + " --board " + boards[board]
+					+ (com == null ? "" : port);
+			System.out.println(proc);
+			builder = new ProcessBuilder("/bin/bash", "-c", proc);
 		}
 		builder.redirectErrorStream(true);
-		processar(builder);
+		processar(builder,board);
 		if (SerialMonitor.isOpen)
 			CommPortUtils.openPort(com);
 	}
@@ -88,25 +84,23 @@ public class UploaderUtils {
 		ProcessBuilder builder;
 		System.out.println(System.getProperty("os.name"));
 		if (System.getProperty("os.name").contains("Windows")) {
-			builder = new ProcessBuilder("cmd.exe", "/c",
-					"cd Arduino && arduino_debug --verify " + file);
+			builder = new ProcessBuilder("cmd.exe", "/c", "cd Arduino && arduino_debug --verify " + file);
 		} else {
-			builder = new ProcessBuilder("/bin/bash", "-c",
-					"cd Arduino && ./arduino --verify " + file);
+			builder = new ProcessBuilder("/bin/bash", "-c", "cd Arduino && ./arduino --verify " + file);
 		}
 		builder.redirectErrorStream(true);
-		processar(builder);
+		processar(builder,-1);
 	}
 
-	private static void processar(ProcessBuilder builder) throws IOException {
+	private static void processar(ProcessBuilder builder,int board) throws IOException {
 		Process p = builder.start();
-		BufferedReader r = new BufferedReader(new InputStreamReader(
-				p.getInputStream()));
+		BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
 		out.setText("");
 		SouthPanel.LogPanel.getVerticalScrollBar().setValue(0);
 		out.update(out.getGraphics());
 		Timer t = new Timer();
+		
 		while (true) {
 			UploaderUtils b = new UploaderUtils();
 			line = r.readLine();
@@ -114,6 +108,9 @@ public class UploaderUtils {
 				break;
 			}
 			if (line.contains("Verificando") || line.contains("Verifying")) {
+				if(board!=-1){
+					if (boards[board].contains("odb")) out.append("Reinicie ou conecte sua placa");
+				}
 				out.append(line + " Isso pode levar algum tempo...\n");
 				t.schedule(b.new ResponseTask(), 0, 500);
 			} else

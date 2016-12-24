@@ -77,6 +77,7 @@ public class MenuBar extends JMenuBar {
 	private static HashMap<String,String> listaExemplos = new HashMap<String,String>();
 	private static String[] coms = new String[1]; // fix
 	boolean first = true;
+	static boolean hasCom=false;
 	ArrayList<String> comOldList = new ArrayList<String>();
 	private static String[] boards = { "Uno", "Mega 1280", "Mega 2560",
 			"Mega ADK", "Nano", "Nano 168", "Diecimila ou Duemilanove 328",
@@ -84,7 +85,7 @@ public class MenuBar extends JMenuBar {
 			"Mini 328", "Mini 168", "Ethernet", "Fio", "BT 328", "BT 168",
 			"LilyPad USB", "LilyPad 328", "LilyPad 168",
 			"Pro ou Pro Mini 328 5V", "Pro ou Pro Mini 328 3V3",
-			"Pro ou Pro Mini 168 5V", "Pro ou Pro Mini 168 3V3", "Gemma" };
+			"Pro ou Pro Mini 168 5V", "Pro ou Pro Mini 168 3V3", "Gemma", "One Dollar Board" };
 	private JMenu subBoard;
 	private static JRadioButtonMenuItem[] radioBoards;
 	private ButtonGroup gp;
@@ -121,7 +122,7 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				int choice = JOptionPane.showConfirmDialog(null,
-						"Você quer salvar o rascunho antes de criar um novo?");
+						"VocÃª quer salvar o rascunho antes de criar um novo?");
 				JTextPane txt = BrppIDEFrame.getTextPane();
 				switch (choice) {
 				case 0:
@@ -147,7 +148,7 @@ public class MenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int choice = JOptionPane.showConfirmDialog(null,
-						"Você quer salvar o rascunho antes de abrir um novo?");
+						"Vocï¿½ quer salvar o rascunho antes de abrir um novo?");
 				JTextPane txt = BrppIDEFrame.getTextPane();
 				switch (choice) {
 				case 0:
@@ -277,8 +278,8 @@ public class MenuBar extends JMenuBar {
 			radioBoards[x].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					SouthPanel.updatePlacaCom(getSelectedIndexBoardName(),
-							getSelectedIndexCOM());
+					SouthPanel.updatePlacaCom(getSelectedIndexBoardName()==null?"Uno":getSelectedIndexBoardName(),
+							getSelectedIndexCOM()==null?"COM1":getSelectedIndexCOM());
 				}
 			});
 			gp.add(radioBoards[x]);
@@ -402,52 +403,13 @@ public class MenuBar extends JMenuBar {
 	}
 
 	public static String getSelectedIndexCOM() {
-		System.out.println("chamado");
+		if (hasCom==false) return null;
 		for (int i = 0; i < coms.length; i++) {
 			if (radioCOMS[i].isSelected())
 				return radioCOMS[i].getText();
 		}
-		return "COM1";
+		return null;
 	}
-
-	// public void setComs() {
-	// Enumeration comm = CommPortUtils.getComPorts();
-	// ArrayList<String> comList = new ArrayList<String>();
-	// for (String a : coms) {
-	// comOldList.add(a);
-	// }
-	// while (comm.hasMoreElements()) {
-	// CommPortIdentifier port_identifier = (CommPortIdentifier) comm
-	// .nextElement();
-	// if (port_identifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-	// if (!comOldList.contains(port_identifier.getName()))
-	// comList.add(port_identifier.getName());
-	// }
-	// }
-	// if (comList.size() > 0) {
-	// String[] temp = new String[coms.length];
-	// int size = temp.length;
-	// int cont = 0;
-	// if (!first) if (temp[0].equals("Não há portas disponíveis")) size-=1;
-	// coms = new String[comList.size() + size];
-	// for (String c : temp) {
-	// if (!first) if(temp[0].equals("Não há portas disponíveis")) cont--;
-	// if(cont>=0) coms[cont] = c;
-	// cont++;
-	// }
-	// for (String c : comList) {
-	// this.coms[cont] = c;
-	// cont++;
-	// }
-	// } else if (first){
-	// coms[0] = "Não há portas disponíveis";
-	// comList.add("Não há portas disponíveis");
-	// first = false;
-	// }
-	// radioCOMS = new JRadioButtonMenuItem[coms.length];
-	// addCom(comList);
-	//
-	// }
 
 	public void setComs() {
 		ArrayList<String> comList = new ArrayList<String>();
@@ -461,9 +423,11 @@ public class MenuBar extends JMenuBar {
 			}
 		}
 		if (comList.isEmpty()) {
-			addCom("Não há portas disponíveis");
+			addCom("NÃ£o hÃ¡ portas disponÃ­veis");
+			hasCom = false;
 		} else {
 			addCom(comList);
+			hasCom = true;
 		}
 
 	}
@@ -479,7 +443,7 @@ public class MenuBar extends JMenuBar {
 			radioCOMS[x].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					SouthPanel.updatePlacaCom(getSelectedIndexBoardName(),
+					SouthPanel.updatePlacaCom(getSelectedIndexBoardName()==null?"Uno":getSelectedIndexBoardName(),
 							getSelectedIndexCOM());
 				}
 			});

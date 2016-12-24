@@ -1,6 +1,5 @@
 package br.com.RatosDePC.Brpp.Utils;
 
-
 /*
 Copyright (c) 2016 StarFruitBrasil
 
