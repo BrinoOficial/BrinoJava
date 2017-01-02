@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.Utils;
+package cc.brino.Brpp.Utils;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -34,7 +34,7 @@ import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
-import br.com.RatosDePC.SerialMonitor.SerialMonitor;
+import cc.brino.SerialMonitor.SerialMonitor;
 
 /**
  *

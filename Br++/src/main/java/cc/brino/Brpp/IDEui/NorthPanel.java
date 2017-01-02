@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.IDEui;
+package cc.brino.Brpp.IDEui;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -44,10 +44,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
 
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
-import br.com.RatosDePC.Brpp.Utils.UploaderUtils;
-import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
-import br.com.RatosDePC.SerialMonitor.SerialMonitor;
+import cc.brino.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.UploaderUtils;
+import cc.brino.Brpp.compiler.BrppCompiler;
+import cc.brino.SerialMonitor.SerialMonitor;
 
 @SuppressWarnings("serial")
 public class NorthPanel extends JPanel {

@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp;
+package cc.brino.Brpp;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -37,15 +37,18 @@ import java.nio.file.Paths;
 
 import org.json.simple.parser.ParseException;
 
-import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
-import br.com.RatosDePC.Brpp.Utils.JSONUtils;
-import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
-import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
+import cc.brino.Brpp.IDEui.BrppIDEFrame;
+import cc.brino.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.JSONUtils;
+import cc.brino.Brpp.Utils.KeywordManagerUtils;
+import cc.brino.Brpp.compiler.BrppCompiler;
 
 public class BrppCompilerMain {
 
 	public static void main(String[] args) {
+		for (String arg : args){
+			System.out.println(arg);
+		}
 		// TODO Auto-generated method stub
 		File f = new File(FileUtils.getBrinodirectory());
 		f.mkdirs();
@@ -58,17 +61,15 @@ public class BrppCompilerMain {
 				+ "libraries");
 		try {
 			JSONUtils.config(s);
-		} catch (IOException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			FileUtils.copyFolder(l, destDir);
 			KeywordManagerUtils.processLibraries();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		BrppIDEFrame frame = new BrppIDEFrame("Brino " + BrppCompiler.version);

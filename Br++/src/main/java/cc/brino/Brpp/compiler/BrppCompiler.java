@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.compiler;
+package cc.brino.Brpp.compiler;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -42,9 +42,9 @@ import javax.swing.JTextArea;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
-import br.com.RatosDePC.Brpp.Utils.JSONUtils;
+import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.JSONUtils;
 
 public class BrppCompiler {
 

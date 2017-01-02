@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.IDEui;
+package cc.brino.Brpp.IDEui;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -49,7 +49,7 @@ import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.undo.UndoManager;
 
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.FileUtils;
 
 public class BrppIDEFrame extends JFrame {
 	private UndoManager undoManager;

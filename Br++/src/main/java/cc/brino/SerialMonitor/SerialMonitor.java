@@ -1,4 +1,4 @@
-package br.com.RatosDePC.SerialMonitor;
+package cc.brino.SerialMonitor;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -41,8 +41,8 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
-import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
-import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
+import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.Brpp.Utils.CommPortUtils;
 
 @SuppressWarnings("serial")
 public class SerialMonitor extends JFrame {

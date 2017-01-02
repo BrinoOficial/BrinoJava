@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.IDEui;
+package cc.brino.Brpp.IDEui;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -64,12 +64,12 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
 
-import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
-import br.com.RatosDePC.Brpp.Utils.UploaderUtils;
-import br.com.RatosDePC.Brpp.Utils.abrirExemploAction;
-import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
-import br.com.RatosDePC.SerialMonitor.SerialMonitor;
+import cc.brino.Brpp.Utils.CommPortUtils;
+import cc.brino.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.UploaderUtils;
+import cc.brino.Brpp.Utils.abrirExemploAction;
+import cc.brino.Brpp.compiler.BrppCompiler;
+import cc.brino.SerialMonitor.SerialMonitor;
 
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {

@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.compiler;
+package cc.brino.Brpp.compiler;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -40,8 +40,8 @@ import java.util.Map;
 
 import javax.swing.JTextArea;
 
-import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.Brpp.Utils.FileUtils;
 
 public class CppCompiler {
 
