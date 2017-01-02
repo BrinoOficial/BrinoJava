@@ -46,9 +46,6 @@ import cc.brino.Brpp.compiler.BrppCompiler;
 public class BrppCompilerMain {
 
 	public static void main(String[] args) {
-		for (String arg : args){
-			System.out.println(arg);
-		}
 		// TODO Auto-generated method stub
 		File f = new File(FileUtils.getBrinodirectory());
 		f.mkdirs();
@@ -74,8 +71,13 @@ public class BrppCompilerMain {
 		}
 		BrppIDEFrame frame = new BrppIDEFrame("Brino " + BrppCompiler.version);
 		frame.setSize(500, 600);
-		frame.setVisible(true);
 		frame.setLocation(100, 30);
+		frame.setVisible(true);
+		if (args.length>0){
+			String filePath = args[0];
+			FileUtils.abrirFile(filePath, BrppIDEFrame.getTextPane());
+		}
+		
 		
 
 	}

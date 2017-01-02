@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * Classe utilizada para interfaciar o acesso ao disco de memória
+ * Classe utilizada para interfaciar o acesso ao disco de memï¿½ria
  * 
  * @author Mateus Berardo de Souza Terra
  * @contributors Rafael Mascarenhas Dal Moro
@@ -146,6 +146,7 @@ public class FileUtils {
 			JOptionPane.showMessageDialog(null,
 					"Voce nao selecionou nenhum diretorio.");
 	}
+	
 	public static void abrirFile(String string, JTextPane txt) {
 		// TODO Auto-generated method stub
 		System.out.println(string);
