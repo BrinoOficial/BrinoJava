@@ -1,38 +1,5 @@
 package cc.brino.Brpp.IDEui;
 
-/*
-Copyright (c) 2016 StarFruitBrasil
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
-/**
- * Barra de Menu do IDE
- * 
- * @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
- * @contributors  
- * @version 5/2/2016
- */
-
-//import gnu.io.CommPortIdentifier;
-
-import gnu.io.CommPortIdentifier;
-
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +36,41 @@ import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.UploaderUtils;
 import cc.brino.Brpp.Utils.abrirExemploAction;
 import cc.brino.Brpp.compiler.BrppCompiler;
+import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.SerialMonitor.SerialMonitor;
+
+/*
+Copyright (c) 2016 StarFruitBrasil
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/**
+ * Barra de Menu do IDE
+ * 
+ * @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
+ * @contributors  
+ * @version 5/2/2016
+ */
+
+//import gnu.io.CommPortIdentifier;
+
+import gnu.io.CommPortIdentifier;
 
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
@@ -279,7 +280,7 @@ public class MenuBar extends JMenuBar {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					SouthPanel.updatePlacaCom(getSelectedIndexBoardName()==null?"Uno":getSelectedIndexBoardName(),
-							getSelectedIndexCOM()==null?"COM1":getSelectedIndexCOM());
+							getSelectedIndexCOM());
 				}
 			});
 			gp.add(radioBoards[x]);
@@ -389,8 +390,9 @@ public class MenuBar extends JMenuBar {
 	}
 
 	public static int getSelectedIndex() {
-		for (int i = 0; i < boards.length; i++) {
+		for (int i = 0; i < boards.length;) {
 			if (radioBoards[i].isSelected())
+				PrefManager.setPref("placa.index", String.valueOf(i));
 				return i;
 		}
 		return 0;
@@ -405,8 +407,10 @@ public class MenuBar extends JMenuBar {
 	public static String getSelectedIndexCOM() {
 		if (hasCom==false) return null;
 		for (int i = 0; i < coms.length; i++) {
-			if (radioCOMS[i].isSelected())
+			if (radioCOMS[i].isSelected()){
+				PrefManager.setPref("porta",radioCOMS[i].getText());
 				return radioCOMS[i].getText();
+			}
 		}
 		return null;
 	}

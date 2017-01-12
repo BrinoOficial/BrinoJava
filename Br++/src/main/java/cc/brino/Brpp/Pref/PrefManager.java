@@ -1,5 +1,11 @@
 package cc.brino.Brpp.Pref;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Formatter;
+
 /*
 Copyright (c) 2016 StarFruitBrasil
 
@@ -32,15 +38,40 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import java.util.TreeMap;
 
-public class PrefManager{
+public class PrefManager {
+
+	private static String[] keys = { "placa.index", "porta" };
 
 	private static TreeMap<String, String> preferences = new TreeMap<String, String>();
 
-	public String getPref(String key){
+	public static String getPref(String key) {
 		return preferences.get(key);
 	}
 
-	public void setPref(String key, String value){
+	public static void setPref(String key, String value) {
 		preferences.put(key, value);
+	}
+
+	public void setPrefs() throws IOException {
+		if (new File("." + System.getProperty("file.separator") + ".prefs").exists()) {
+			byte[] encoded = Files.readAllBytes(Paths.get("." + System.getProperty("file.separator") + ".prefs"));
+			String file = new String(encoded);
+			String[] list = file.split("\n");
+			for (String prefs : list) {
+				String[] pref = prefs.split("=");
+				pref[0].trim();
+				pref[1].trim();
+				preferences.put(pref[0], pref[1]);
+			}
+		} else {
+			// TODO criar o arquivo de preferencias
+			String prefs;
+			Formatter output = new Formatter("." + System.getProperty("file.separator") + ".prefs");
+			for (String key : keys) {
+				String value="null";
+				output.format("%s=%s\r\n",key,value);
+			}
+		}
+
 	}
 }

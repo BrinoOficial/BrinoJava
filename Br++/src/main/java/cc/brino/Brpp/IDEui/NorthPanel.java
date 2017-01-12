@@ -48,6 +48,7 @@ import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.UploaderUtils;
 import cc.brino.Brpp.compiler.BrppCompiler;
 import cc.brino.SerialMonitor.SerialMonitor;
+import cc.brino.Brpp.Pref.PrefManager;
 
 @SuppressWarnings("serial")
 public class NorthPanel extends JPanel {
@@ -59,86 +60,71 @@ public class NorthPanel extends JPanel {
 	private JButton SAL;
 	private JButton SERIAL;
 	Border emptyBorder = BorderFactory.createEmptyBorder();
-	ImageIcon novo = new ImageIcon(getClass().getClassLoader().getResource(
-			"resources/novoButton.png"));
-	ImageIcon compup = new ImageIcon(getClass().getClassLoader().getResource(
-			"resources/carrButton.png"));
-	ImageIcon comp = new ImageIcon(getClass().getClassLoader().getResource(
-			"resources/comButton.png"));
-	ImageIcon abr = new ImageIcon(getClass().getClassLoader().getResource(
-			"resources/opButton.png"));
-	ImageIcon sal = new ImageIcon(getClass().getClassLoader().getResource(
-			"resources/saveButton.png"));
-	ImageIcon ser = new ImageIcon(getClass().getClassLoader().getResource(
-			"resources/serialButton.png"));
-	
+	ImageIcon novo = new ImageIcon(getClass().getClassLoader().getResource("resources/novoButton.png"));
+	ImageIcon compup = new ImageIcon(getClass().getClassLoader().getResource("resources/carrButton.png"));
+	ImageIcon comp = new ImageIcon(getClass().getClassLoader().getResource("resources/comButton.png"));
+	ImageIcon abr = new ImageIcon(getClass().getClassLoader().getResource("resources/opButton.png"));
+	ImageIcon sal = new ImageIcon(getClass().getClassLoader().getResource("resources/saveButton.png"));
+	ImageIcon ser = new ImageIcon(getClass().getClassLoader().getResource("resources/serialButton.png"));
+
 	public NorthPanel() {
-		// TODO Auto-generated constructor stub
 		// cria e adiciona o botao compilar
 		COMP = new JButton(comp);
 		COMP.setToolTipText("Compilar");
 		COMP.setBorderPainted(false);
 		COMP.setBorder(emptyBorder);
 		COMP.setContentAreaFilled(false);
-		COMP.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
-				.getResource("resources/comButtonFocus.png")));
+		COMP.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/comButtonFocus.png")));
 		COMP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
 					FileUtils.createFile(BrppIDEFrame.getTextPane());
 				}
 				FileUtils.saveFile(BrppIDEFrame.getTextPane());
-				if (BrppCompiler.compile(FileUtils.getDiretorio()
-						.getAbsolutePath()))
+				if (BrppCompiler.compile(FileUtils.getDiretorio().getAbsolutePath()))
 					try {
 						System.out.println(BrppCompiler.getFile());
-						UploaderUtils.compile("\"" + BrppCompiler.getFile()
-								+ "\"");
+						UploaderUtils.compile("\"" + BrppCompiler.getFile() + "\"");
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			}
 		});
-		// cria e adiciona o botao carregar
+
+		// cria o botao carregar
 		COMPUP = new JButton(compup);
 		COMPUP.setToolTipText("Compilar e carregar");
 		COMPUP.setBorderPainted(false);
 		COMPUP.setBorder(emptyBorder);
 		COMPUP.setContentAreaFilled(false);
-		COMPUP.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
-				.getResource("resources/carrButtonFocus.png")));
+		COMPUP.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/carrButtonFocus.png")));
 		COMPUP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
 					FileUtils.createFile(BrppIDEFrame.getTextPane());
 				}
 				FileUtils.saveFile(BrppIDEFrame.getTextPane());
-				if (BrppCompiler.compile(FileUtils.getDiretorio()
-						.getAbsolutePath()))
+				if (BrppCompiler.compile(FileUtils.getDiretorio().getAbsolutePath()))
 					try {
-						UploaderUtils.upload("\"" + BrppCompiler.getFile()
-								+ "\"", MenuBar.getSelectedIndexCOM(),
-								MenuBar.getSelectedIndex());
+						UploaderUtils.upload("\"" + BrppCompiler.getFile() + "\"", PrefManager.getPref("porta"),
+								Integer.parseInt(PrefManager.getPref("placa.index")));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 			}
 		});
-		// cria e adiciona botao arquivo novo
+
+		// cria botao arquivo novo
 		NOVO = new JButton(novo);
 		NOVO.setToolTipText("Novo");
 		NOVO.setBorderPainted(false);
 		NOVO.setBorder(emptyBorder);
 		NOVO.setContentAreaFilled(false);
-		NOVO.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
-				.getResource("resources/novoButtonFocus.png")));
+		NOVO.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/novoButtonFocus.png")));
 		NOVO.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				int choice = JOptionPane.showConfirmDialog(null,
-						"Você quer salvar o rascunho antes de criar um novo?");
+				int choice = JOptionPane.showConfirmDialog(null, "Vocï¿½ quer salvar o rascunho antes de criar um novo?");
 				JTextPane txt = BrppIDEFrame.getTextPane();
 				switch (choice) {
 				case 0:
@@ -152,21 +138,18 @@ public class NorthPanel extends JPanel {
 				}
 			}
 		});
-		// cria e adiciona botao abrir arquivo
+
+		// cria botao abrir arquivo
 		ABR = new JButton(abr);
 		ABR.setToolTipText("Abrir");
 		ABR.setBorderPainted(false);
 		ABR.setBorder(emptyBorder);
 		ABR.setContentAreaFilled(false);
-		ABR.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
-				.getResource("resources/opButtonFocus.png")));
+		ABR.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/opButtonFocus.png")));
 		ABR.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				int choice = JOptionPane.showConfirmDialog(null,
-						"Você quer salvar o rascunho antes de abrir um novo?");
+				int choice = JOptionPane.showConfirmDialog(null, "Vocï¿½ quer salvar o rascunho antes de abrir um novo?");
 				JTextPane txt = BrppIDEFrame.getTextPane();
 				switch (choice) {
 				case 0:
@@ -177,22 +160,20 @@ public class NorthPanel extends JPanel {
 				case 2:
 					break;
 				}
-				
-				
+
 			}
 		});
-		// cria e adiciona botao salvar aquivo
+
+		// cria botao salvar aquivo
 		SAL = new JButton(sal);
 		SAL.setToolTipText("Salvar");
 		SAL.setBorderPainted(false);
 		SAL.setBorder(emptyBorder);
 		SAL.setContentAreaFilled(false);
-		SAL.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
-				.getResource("resources/saveButtonFocus.png")));
+		SAL.setRolloverIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/saveButtonFocus.png")));
 		SAL.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if (FileUtils.getDiretorio() == null) {
 					FileUtils.createFile(BrppIDEFrame.getTextPane());
 				} else {
@@ -200,19 +181,19 @@ public class NorthPanel extends JPanel {
 				}
 			}
 		});
-		//cria e adiciona o botao do serial monitor
+
+		// cria o botao do serial monitor
 		SERIAL = new JButton(ser);
 		SERIAL.setToolTipText("Monitor Serial");
 		SERIAL.setBorderPainted(false);
 		SERIAL.setBorder(emptyBorder);
 		SERIAL.setContentAreaFilled(false);
-		SERIAL.setRolloverIcon(new ImageIcon(getClass().getClassLoader()
-				.getResource("resources/serialButtonFocus.png")));
+		SERIAL.setRolloverIcon(
+				new ImageIcon(getClass().getClassLoader().getResource("resources/serialButtonFocus.png")));
 		SERIAL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				try {
-					SerialMonitor serial = new SerialMonitor(
-							MenuBar.getSelectedIndexCOM());
+					SerialMonitor serial = new SerialMonitor(MenuBar.getSelectedIndexCOM());
 					serial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					serial.setSize(500, 600);
 					if (serial.getConnected())
@@ -221,28 +202,30 @@ public class NorthPanel extends JPanel {
 						serial.dispose();
 
 				} catch (TooManyListenersException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
+
+		// adiciona os botï¿½es
 		add(COMP);
 		add(COMPUP);
 		add(NOVO);
 		add(ABR);
 		add(SAL);
 		add(SERIAL);
-		
+
 	}
-	public void paintComponent(Graphics g){
+
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-//		add(COMP);
-//		add(COMPUP);
-//		add(NOVO);
-//		add(ABR);
-//		add(SAL);
-//		add(SERIAL);
-		SERIAL.setLocation(getWidth()-42, 5);
+		// add(COMP);
+		// add(COMPUP);
+		// add(NOVO);
+		// add(ABR);
+		// add(SAL);
+		// add(SERIAL);
+		SERIAL.setLocation(getWidth() - 42, 5);
 	}
-	
+
 }
