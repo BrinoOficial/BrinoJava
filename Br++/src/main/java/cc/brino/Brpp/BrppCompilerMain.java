@@ -32,6 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import java.io.File;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -42,6 +43,7 @@ import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.JSONUtils;
 import cc.brino.Brpp.Utils.KeywordManagerUtils;
+import cc.brino.Brpp.Utils.LanguageVersionUtils;
 import cc.brino.Brpp.compiler.BrppCompiler;
 
 public class BrppCompilerMain {
@@ -62,7 +64,10 @@ public class BrppCompilerMain {
 			FileUtils.copyFolder(l, destDir);
 			KeywordManagerUtils.processLibraries();
 			PrefManager.setPrefs();
-		} catch (IOException e) {
+			LanguageVersionUtils.updateLanguages(s);
+		}catch (UnknownHostException e) {
+			System.out.print("Sem internet para atualizar!");
+		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NullPointerException e) {
