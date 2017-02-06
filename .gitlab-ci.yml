@@ -1,11 +1,19 @@
 before_script:
   - apt-get update -qq && apt-get install -y -qq openjdk-8-jdk
   - apt-get install ant
-
-staging:
-  type: deploy
   - apt-get install tar
-  - ant /home/pi/build.xml
+  - apt-get install ncftp
+  
+stages:
+  - compile
+  - package
+
+compile:
+  stage: compile
+  artifacts:
+    paths:
+      - BrinoIDE.jar
+  script:
+    - ant
   only:
   - master
-
