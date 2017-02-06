@@ -1,11 +1,11 @@
 image: ubuntu
-
 before_script:
-  - apt-get update -qq && apt-get install -qq openjdk-8-jdk ant tar ncftp
+  - apt-get update -qq && apt-get install -qq openjdk-8-jdk ant ncftp
   
 stages:
   - compile
-
+  - deploy
+  
 compile:
   stage: compile
   artifacts:
@@ -13,5 +13,11 @@ compile:
       - BrinoIDE.jar
   script:
     - ant
-    
 
+dpl:
+  script:
+    - ncftpput -u $USER -p $PASS ftp.lignum.eti.br downloads/staging BrinoIDE.jar
+    - ncftpbatch -d
+  stage: deploy
+  only:
+    - master
