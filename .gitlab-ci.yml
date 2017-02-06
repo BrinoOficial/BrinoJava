@@ -17,7 +17,6 @@ compile:
 dpl:
   script:
     - ncftpput -u $USER -p $PASS ftp.lignum.eti.br downloads/staging BrinoIDE.jar
-    - ncftpbatch -d
   stage: deploy
   only:
     - master
