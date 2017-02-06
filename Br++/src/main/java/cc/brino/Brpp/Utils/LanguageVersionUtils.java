@@ -40,6 +40,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Iterator;
@@ -123,10 +124,13 @@ public class LanguageVersionUtils {
 				int remoteVersion = content.get(lang);
 				// compara as versoes
 				if (version < remoteVersion) {
-					String url ="http://brino.cc/brino/lib/ling/"+lang+"/"+a;
-					URL website=new URL(url);
-					String outputFileName = path + System.getProperty("file.separator") + "lib" + System.getProperty("file.separator")+a;
-					// baixa a versão mais nova do site
+					String url = "http://brino.cc/brino/lib/ling/" + lang + "/"
+							+ a;
+					URL website = new URL(url);
+					String outputFileName = path
+							+ System.getProperty("file.separator") + "lib"
+							+ System.getProperty("file.separator") + a;
+					// baixa a versão mais nova do site e salva
 					try (InputStream inputStream = website.openStream();
 							ReadableByteChannel readableByteChannel = Channels
 									.newChannel(inputStream);
@@ -136,12 +140,11 @@ public class LanguageVersionUtils {
 								readableByteChannel, 0, 1 << 24);
 					}
 				}
-				System.out.print(version);
+				JSONUtils.config(path);
 			}
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
-		updateLanguages("/home/mateus/Documents/GitHub/Brino");
 	}
 }
