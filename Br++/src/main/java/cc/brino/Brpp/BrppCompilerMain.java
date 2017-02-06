@@ -38,6 +38,7 @@ import java.nio.file.Paths;
 import org.json.simple.parser.ParseException;
 
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
+import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.JSONUtils;
 import cc.brino.Brpp.Utils.KeywordManagerUtils;
@@ -60,6 +61,7 @@ public class BrppCompilerMain {
 			JSONUtils.config(s);
 			FileUtils.copyFolder(l, destDir);
 			KeywordManagerUtils.processLibraries();
+			PrefManager.setPrefs();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

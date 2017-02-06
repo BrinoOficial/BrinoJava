@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * Janela do IDE e construção da área de edição de código
+ * Janela do IDE e construcao da area de edicao de codigo
  * 
  * @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
  * @contributors 
@@ -112,7 +112,7 @@ public class BrppIDEFrame extends JFrame {
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				int dialogResult = JOptionPane.showConfirmDialog(
 						BrppIDEFrame.this,
-						"Você deseja salvar seu rascunho antes de sair?",
+						"VocÃª deseja salvar seu rascunho antes de sair?",
 						"Salvar", JOptionPane.YES_NO_OPTION,
 						JOptionPane.PLAIN_MESSAGE);
 				if (dialogResult == JOptionPane.YES_OPTION) {

@@ -48,7 +48,7 @@ public class abrirExemploAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		int choice = JOptionPane.showConfirmDialog(null,
-				"Você quer salvar o rascunho antes de abrir um novo?");
+				"Voce quer salvar o rascunho antes de abrir um novo?");
 		JTextPane txt = BrppIDEFrame.getTextPane();
 		switch (choice) {
 		case 0:

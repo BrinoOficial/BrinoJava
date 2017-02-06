@@ -1,5 +1,34 @@
 package cc.brino.Brpp.IDEui;
 
+/*
+Copyright (c) 2016 StarFruitBrasil
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/**
+* Barra de menu da IDE
+* 
+* @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
+* @contributors 
+* @version 5/2/2016
+*/
+
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,25 +69,25 @@ import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.SerialMonitor.SerialMonitor;
 
 /*
-Copyright (c) 2016 StarFruitBrasil
+ Copyright (c) 2016 StarFruitBrasil
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+ the Software without restriction, including without limitation the rights to
+ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ the Software, and to permit persons to whom the Software is furnished to do so,
+ subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 /**
  * Barra de Menu do IDE
@@ -75,10 +104,10 @@ import gnu.io.CommPortIdentifier;
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
 	private String fileSeparator = System.getProperty("file.separator");
-	private static HashMap<String,String> listaExemplos = new HashMap<String,String>();
+	private static HashMap<String, String> listaExemplos = new HashMap<String, String>();
 	private static String[] coms = new String[1]; // fix
 	boolean first = true;
-	static boolean hasCom=false;
+	static boolean hasCom = false;
 	ArrayList<String> comOldList = new ArrayList<String>();
 	private static String[] boards = { "Uno", "Mega 1280", "Mega 2560",
 			"Mega ADK", "Nano", "Nano 168", "Diecimila ou Duemilanove 328",
@@ -86,7 +115,8 @@ public class MenuBar extends JMenuBar {
 			"Mini 328", "Mini 168", "Ethernet", "Fio", "BT 328", "BT 168",
 			"LilyPad USB", "LilyPad 328", "LilyPad 168",
 			"Pro ou Pro Mini 328 5V", "Pro ou Pro Mini 328 3V3",
-			"Pro ou Pro Mini 168 5V", "Pro ou Pro Mini 168 3V3", "Gemma", "One Dollar Board" };
+			"Pro ou Pro Mini 168 5V", "Pro ou Pro Mini 168 3V3", "Gemma",
+			"One Dollar Board" };
 	private JMenu subBoard;
 	private static JRadioButtonMenuItem[] radioBoards;
 	private ButtonGroup gp;
@@ -110,14 +140,14 @@ public class MenuBar extends JMenuBar {
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
 		coms = new String[15];
-		
-//		Menu Arquivo
+
+		// Menu Arquivo
 		fileMenu = new JMenu("Arquivo");
-//		Adiciona A como atalho
+		// Adiciona A como atalho
 		fileMenu.setMnemonic(KeyEvent.VK_A);
-//		Adicona o item "novo"  
+		// Adicona o item "novo"
 		novoItem = new JMenuItem("Novo");
-//		Cria a acao do item
+		// Cria a acao do item
 		Action novoAction = new AbstractAction("Novo") {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -137,14 +167,14 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		};
-//		Adiciona o atalho CTRL+N
+		// Adiciona o atalho CTRL+N
 		novoAction.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-//		Adiciona a acao ao item
+		// Adiciona a acao ao item
 		novoItem.setAction(novoAction);
-//		Adiciona o item abrir
+		// Adiciona o item abrir
 		abrirItem = new JMenuItem("Abrir");
-//		Cria a acao do item
+		// Cria a acao do item
 		Action abrirAction = new AbstractAction("Abrir") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -162,41 +192,47 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		};
-//		Adiciona o atalho CTRL+O
+		// Adiciona o atalho CTRL+O
 		abrirAction.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-//		Adiciona a acao ao item
+		// Adiciona a acao ao item
 		abrirItem.setAction(abrirAction);
-//		Cria o submenu exemplos
+		// Cria o submenu exemplos
 		exemplosMenu = new JMenu("Exemplos");
-//		Percorre a pasta exemplos
-		try (Stream<Path> paths = Files.walk(Paths.get("."+fileSeparator+"exemplos"+fileSeparator),1)) {
-		      Iterator<Path> files = paths.iterator();
-		      files.next();
-		      while(files.hasNext()){
-		    	  File f = new File(files.next().toString());
-		    	  Stream<Path> path = Files.walk(Paths.get(f.getCanonicalPath()),2);
-		    	  JMenu tipoDeExemplo = new JMenu(f.getName());
-		    	  Iterator<Path> exemplos = path.iterator();
-		    	  while (exemplos.hasNext()){
-		    		  File exemplo = new File(exemplos.next().toString());
-		    		  if(!exemplo.isDirectory()){
-		    			  JMenuItem exemploItem = new JMenuItem(exemplo.getName().replace(".brpp",""));
-		    			  listaExemplos.put(exemplo.getName().replace(".brpp",""), exemplo.getAbsolutePath());
-		    			  exemploItem.setAction(new abrirExemploAction(exemplo.getName().replace(".brpp","")));
-		    			  tipoDeExemplo.add(exemploItem);
-		    		  }
-		    	  }
-		    	  exemplosMenu.add(tipoDeExemplo);
-		    	  path.close();
-		      }
-		      paths.close();
-		    } catch (IOException e) {
-		      e.printStackTrace();
-		    } 
-//		Adiciona o item salvar
+		// Percorre a pasta exemplos
+		try (Stream<Path> paths = Files.walk(
+				Paths.get("." + fileSeparator + "exemplos" + fileSeparator), 1)) {
+			Iterator<Path> files = paths.iterator();
+			files.next();
+			while (files.hasNext()) {
+				File f = new File(files.next().toString());
+				Stream<Path> path = Files.walk(Paths.get(f.getCanonicalPath()),
+						2);
+				JMenu tipoDeExemplo = new JMenu(f.getName());
+				Iterator<Path> exemplos = path.iterator();
+				while (exemplos.hasNext()) {
+					File exemplo = new File(exemplos.next().toString());
+					if (!exemplo.isDirectory()) {
+						JMenuItem exemploItem = new JMenuItem(exemplo.getName()
+								.replace(".brpp", ""));
+						listaExemplos.put(exemplo.getName()
+								.replace(".brpp", ""), exemplo
+								.getAbsolutePath());
+						exemploItem.setAction(new abrirExemploAction(exemplo
+								.getName().replace(".brpp", "")));
+						tipoDeExemplo.add(exemploItem);
+					}
+				}
+				exemplosMenu.add(tipoDeExemplo);
+				path.close();
+			}
+			paths.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// Adiciona o item salvar
 		salvarItem = new JMenuItem("Salvar");
-//		Cria a acao do item
+		// Cria a acao do item
 		Action salvarAction = new AbstractAction("Salvar") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -207,34 +243,35 @@ public class MenuBar extends JMenuBar {
 				}
 			}
 		};
-//		Adiciona o atalho CTRL+S
+		// Adiciona o atalho CTRL+S
 		salvarAction.putValue(Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-//		Adiciona a acao ao item
+		// Adiciona a acao ao item
 		salvarItem.setAction(salvarAction);
-//		Adiciona o item salvar como
+		// Adiciona o item salvar como
 		salvarComoItem = new JMenuItem("Salvar como");
-//		Cria a acao do item
+		// Cria a acao do item
 		Action salvarComoAction = new AbstractAction("SalvarComo") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				FileUtils.createFile(BrppIDEFrame.getTextPane());
 			}
 		};
-//		Adiciona o atalho CTRL+SHIFT+S
+		// Adiciona o atalho CTRL+SHIFT+S
 		salvarComoAction.putValue(
 				Action.ACCELERATOR_KEY,
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK
 						| KeyEvent.SHIFT_DOWN_MASK));
-//		Adiciona a acao ao item
+		// Adiciona a acao ao item
 		salvarComoItem.setAction(salvarComoAction);
-		
-		//Menu Editar
+
+		// Menu Editar
 		editMenu = new JMenu("Editar");
 		comentarItem = new JMenuItem("Comentar/Descomentar");
-//		Cria a acao do item
+		// Cria a acao do item
 		Action commentAction = new AbstractAction("Comentar Linha") {
 			private static final long serialVersionUID = 2474949258335385702L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -246,10 +283,10 @@ public class MenuBar extends JMenuBar {
 				System.out.println("Comentar");
 			}
 		};
-		commentAction.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_SLASH, KeyEvent.CTRL_DOWN_MASK));
+		commentAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+				KeyEvent.VK_SLASH, KeyEvent.CTRL_DOWN_MASK));
 		comentarItem.setAction(commentAction);
-		//menu Ferramentas
+		// menu Ferramentas
 		ferrMenu = new JMenu("Ferramentas");
 		ferrMenu.addMenuListener(new MenuListener() {
 
@@ -279,8 +316,11 @@ public class MenuBar extends JMenuBar {
 			radioBoards[x].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					SouthPanel.updatePlacaCom(getSelectedIndexBoardName()==null?"Uno":getSelectedIndexBoardName(),
-							getSelectedIndexCOM());
+					setSelectedBoard();
+					SouthPanel.updatePlacaCom(
+							PrefManager.getPref("placa.nome"), PrefManager
+									.getPref("porta").equals("null") ? "--"
+									: PrefManager.getPref("porta"));
 				}
 			});
 			gp.add(radioBoards[x]);
@@ -294,22 +334,24 @@ public class MenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				try {
-					SerialMonitor serial = new SerialMonitor(
-							getSelectedIndexCOM());
-					serial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					serial.setSize(500, 600);
-					if (serial.getConnected())
-						serial.setVisible(true);
-					else
-						serial.dispose();
-				} catch (TooManyListenersException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (!PrefManager.getPref("porta").equals("null")) {
+					try {
+						SerialMonitor serial = new SerialMonitor(
+								PrefManager.getPref("porta"));
+						serial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						serial.setSize(500, 600);
+						if (serial.getConnected())
+							serial.setVisible(true);
+						else
+							serial.dispose();
+					} catch (TooManyListenersException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		};
-		//Menu Rascunho
+		// Menu Rascunho
 		sketchMenu = new JMenu("Rascunho");
 		verifyItem = new JMenuItem("Compilar/Verificar");
 		Action verifyAction = new AbstractAction("Compilar/Verificar") {
@@ -344,8 +386,8 @@ public class MenuBar extends JMenuBar {
 						.getAbsolutePath()))
 					try {
 						UploaderUtils.upload("\"" + BrppCompiler.getFile()
-								+ "\"", MenuBar.getSelectedIndexCOM(),
-								MenuBar.getSelectedIndex());
+								+ "\"", PrefManager.getPref("porta"), Integer
+								.parseInt(PrefManager.getPref("placa.index")));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -360,7 +402,7 @@ public class MenuBar extends JMenuBar {
 				KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK
 						| KeyEvent.SHIFT_DOWN_MASK));
 		serialMonitor.setAction(serialAction);
-		
+
 		ferrMenu.add(subBoard);
 		ferrMenu.add(subCOM);
 		ferrMenu.addSeparator();
@@ -382,37 +424,30 @@ public class MenuBar extends JMenuBar {
 		add(editMenu);
 		add(ferrMenu);
 		add(sketchMenu);
-		
+
 	}
-	
-	public static HashMap getMap(){
+
+	@SuppressWarnings("rawtypes")
+	public static HashMap getMap() {
 		return listaExemplos;
 	}
 
-	public static int getSelectedIndex() {
+	public static void setSelectedBoard() {
 		for (int i = 0; i < boards.length;) {
 			if (radioBoards[i].isSelected())
 				PrefManager.setPref("placa.index", String.valueOf(i));
-				return i;
+			PrefManager.setPref("placa.nome", boards[i]);
 		}
-		return 0;
-
 	}
 
-	public static String getSelectedIndexBoardName() {
-		int a = getSelectedIndex();
-		return boards[a];
-	}
-
-	public static String getSelectedIndexCOM() {
-		if (hasCom==false) return null;
+	public static void setSelectedIndexCOM() {
+		if (hasCom == false)
+			PrefManager.setPref("porta", "null");
 		for (int i = 0; i < coms.length; i++) {
-			if (radioCOMS[i].isSelected()){
-				PrefManager.setPref("porta",radioCOMS[i].getText());
-				return radioCOMS[i].getText();
+			if (radioCOMS[i].isSelected()) {
+				PrefManager.setPref("porta", radioCOMS[i].getText());
 			}
 		}
-		return null;
 	}
 
 	public void setComs() {
@@ -447,8 +482,12 @@ public class MenuBar extends JMenuBar {
 			radioCOMS[x].addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					SouthPanel.updatePlacaCom(getSelectedIndexBoardName()==null?"Uno":getSelectedIndexBoardName(),
-							getSelectedIndexCOM());
+					setSelectedIndexCOM();
+					if (!PrefManager.getPref("porta").equals("null")) {
+						SouthPanel.updatePlacaCom(
+								PrefManager.getPref("placa.nome"),
+								PrefManager.getPref("porta"));
+					}
 				}
 			});
 			coms[x] = a;

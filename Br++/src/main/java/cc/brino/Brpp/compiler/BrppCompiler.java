@@ -22,8 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * Compilador Brino criado para transformar código Brpp em 
- * código arduino.
+ * Compilador Brino criado para transformar codigo Brpp em 
+ * codigo arduino.
  * @author Mateus Berardo de Souza Terra
  * @contributors Rafael Mascarenhas Dal Moro
  * @version 2.5.0-beta
@@ -50,7 +50,7 @@ public class BrppCompiler {
 
 	private static String file;
 	private static JTextArea out = SouthPanel.LOG;
-	public static String version = "2.5.0-beta";
+	public static String version = "2.5.1-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()
