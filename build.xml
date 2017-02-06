@@ -7,7 +7,7 @@
 	</path>
 
 	<target name="compile" description="Compile source">
-        <javac srcdir="Br++/src" includes="**" destdir="Br++/bin">
+        <javac srcdir="Br++/src" includes="**" destdir="Br++/bin" encoding="UTF-8">
 		    <classpath refid="master-classpath"/>
 	    </javac>
     </target>
