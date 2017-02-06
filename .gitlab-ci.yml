@@ -1,10 +1,10 @@
 image: alpine
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq openjdk-8-jdk
-  - apt-get install ant
-  - apt-get install tar
-  - apt-get install ncftp
+  - apk update -qq && apk install -y -qq openjdk-8-jdk
+  - apk install ant
+  - apk install tar
+  - apk install ncftp
   
 stages:
   - compile
