@@ -16,4 +16,4 @@ compile:
   script:
     - ant
   only:
-  - master
+  - ODB
