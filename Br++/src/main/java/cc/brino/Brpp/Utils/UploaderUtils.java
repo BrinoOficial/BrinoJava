@@ -1,28 +1,28 @@
-package br.com.RatosDePC.Brpp.Utils;
+package cc.brino.Brpp.Utils;
 
 /*
-Copyright (c) 2016 StarFruitBrasil
+ Copyright (c) 2016 StarFruitBrasil
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+ the Software without restriction, including without limitation the rights to
+ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ the Software, and to permit persons to whom the Software is furnished to do so,
+ subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 /**
- * Classe utilizada para realizar a interface com a IDE do Arduino para compilação e upload
+ * Classe utilizada para realizar a interface com a IDE do Arduino para compilaï¿½ï¿½o e upload
  * 
  * @author Mateus Berardo de Souza Terra
  * @contributors Rafael Mascarenhas Dal Moro
@@ -37,8 +37,8 @@ import java.util.TimerTask;
 
 import javax.swing.JTextArea;
 
-import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
-import br.com.RatosDePC.SerialMonitor.SerialMonitor;
+import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.SerialMonitor.SerialMonitor;
 
 public class UploaderUtils {
 	static JTextArea out = SouthPanel.LOG;
@@ -58,7 +58,8 @@ public class UploaderUtils {
 			"arduino:avr:pro:cpu=16MHzatmega328",
 			"arduino:avr:pro:cpu=8MHzatmega328",
 			"arduino:avr:pro:cpu=16MHzatmega168",
-			"arduino:avr:pro:cpu=8MHzatmega168", "arduino:avr:gemma" };
+			"arduino:avr:pro:cpu=8MHzatmega168", "arduino:avr:gemma",
+			"odb:avr:odb" };
 
 	public static void upload(String file, String com, int board)
 			throws IOException {
@@ -68,18 +69,21 @@ public class UploaderUtils {
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
+		String port = " --port " + com;
 		ProcessBuilder builder;
-		if (System.getProperty("os.name").contains("[Ww]indows")) {
-			builder = new ProcessBuilder("cmd.exe", "/c",
-					"cd Arduino && arduino_debug --upload " + file
-							+ " --board " + boards[board] + " --port " + com);
+		if (System.getProperty("os.name").contains("Windows")) {
+			String proc = "cd Arduino && arduino_debug --upload " + file
+					+ " --board " + boards[board] + (com == null ? "" : port);
+			System.out.println(proc);
+			builder = new ProcessBuilder("cmd.exe", "/c", proc);
 		} else {
-			builder = new ProcessBuilder("/bin/bash", "-c",
-					"cd Arduino && ./arduino --upload " + file + " --board "
-							+ boards[board] + " --port " + com);
+			String proc = "cd Arduino && ./arduino --upload " + file
+					+ " --board " + boards[board] + (com == null ? "" : port);
+			System.out.println(proc);
+			builder = new ProcessBuilder("/bin/bash", "-c", proc);
 		}
 		builder.redirectErrorStream(true);
-		processar(builder);
+		processar(builder, board);
 		if (SerialMonitor.isOpen)
 			CommPortUtils.openPort(com);
 	}
@@ -95,10 +99,11 @@ public class UploaderUtils {
 					"cd Arduino && ./arduino --verify " + file);
 		}
 		builder.redirectErrorStream(true);
-		processar(builder);
+		processar(builder, -1);
 	}
 
-	private static void processar(ProcessBuilder builder) throws IOException {
+	private static void processar(ProcessBuilder builder, int board)
+			throws IOException {
 		Process p = builder.start();
 		BufferedReader r = new BufferedReader(new InputStreamReader(
 				p.getInputStream()));
@@ -107,6 +112,7 @@ public class UploaderUtils {
 		SouthPanel.LogPanel.getVerticalScrollBar().setValue(0);
 		out.update(out.getGraphics());
 		Timer t = new Timer();
+
 		while (true) {
 			UploaderUtils b = new UploaderUtils();
 			line = r.readLine();
@@ -114,6 +120,10 @@ public class UploaderUtils {
 				break;
 			}
 			if (line.contains("Verificando") || line.contains("Verifying")) {
+				if (board != -1) {
+					if (boards[board].contains("odb"))
+						out.append("Reinicie ou conecte sua placa");
+				}
 				out.append(line + " Isso pode levar algum tempo...\n");
 				t.schedule(b.new ResponseTask(), 0, 500);
 			} else

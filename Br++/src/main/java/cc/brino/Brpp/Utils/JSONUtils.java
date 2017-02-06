@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.Utils;
+package cc.brino.Brpp.Utils;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -21,46 +21,42 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-import java.awt.event.ActionEvent;
-import java.util.HashMap;
+/**
+ * 
+ * Classe para controle dos JSON's
+ * 
+ * @author Mateus Berardo de Souza Terra
+ * @contributors 
+ * @version 10/1/2017
+ */
 
-import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
-import br.com.RatosDePC.Brpp.IDEui.BrppIDEFrame;
-import br.com.RatosDePC.Brpp.IDEui.MenuBar;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-public class abrirExemploAction extends AbstractAction {
+public class JSONUtils {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private static HashMap listaExemplos = MenuBar.getMap();
+	private static JSONArray Keywords;
 
-	public abrirExemploAction(String replace) {
-		// TODO Auto-generated constructor stub
-		super(replace);
+	public static void config(String path) throws FileNotFoundException, IOException,
+			ParseException {
+		System.out.println("chamado");
+		JSONParser parser = new JSONParser();
+
+		Object obj = parser.parse(new FileReader(path + System.getProperty("file.separator")
+				+ "lib" + System.getProperty("file.separator")
+				+ "pt-br.json"));
+		JSONObject jsonObject = (JSONObject) obj;
+		Keywords = (JSONArray) jsonObject.get("Keywords");
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		int choice = JOptionPane.showConfirmDialog(null,
-				"Você quer salvar o rascunho antes de abrir um novo?");
-		JTextPane txt = BrppIDEFrame.getTextPane();
-		switch (choice) {
-		case 0:
-			FileUtils.saveFile(txt);
-		case 1:
-			FileUtils.abrirFile(listaExemplos.get(e.getActionCommand())
-					.toString(), BrppIDEFrame.getTextPane());
-			break;
-		case 2:
-			break;
-		}
-
+	public static JSONArray getKeywords() {
+		return Keywords;
 	}
 
 }

@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.Utils;
+package cc.brino.Brpp.Utils;
 
 /*
 Copyright (c) 2016 StarFruitBrasil

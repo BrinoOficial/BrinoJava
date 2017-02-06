@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.IDEui;
+package cc.brino.Brpp.IDEui;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -35,8 +35,8 @@ import javax.swing.text.StyleContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import br.com.RatosDePC.Brpp.Utils.JSONUtils;
-import br.com.RatosDePC.Brpp.Utils.KeywordManagerUtils;
+import cc.brino.Brpp.Utils.JSONUtils;
+import cc.brino.Brpp.Utils.KeywordManagerUtils;
 
 public class CodeDocument extends DefaultStyledDocument {
 	private static final long serialVersionUID = 1L;

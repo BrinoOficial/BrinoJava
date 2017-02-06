@@ -1,4 +1,4 @@
-package br.com.RatosDePC.SerialMonitor;
+package cc.brino.SerialMonitor;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -41,8 +41,8 @@ import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 
-import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
-import br.com.RatosDePC.Brpp.Utils.CommPortUtils;
+import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.Brpp.Utils.CommPortUtils;
 
 @SuppressWarnings("serial")
 public class SerialMonitor extends JFrame {
@@ -64,9 +64,8 @@ public class SerialMonitor extends JFrame {
 		OUT.setText("");
 		this.setLayout(main);
 		if (!CommPortUtils.openPort(com)) {
-//			System.out.println("A porta selecionada não está disponível!");
 			SouthPanel.LOG
-					.append("A porta selecionada não está disponível!\r\n");
+					.append("A porta selecionada nÃ£o estÃ¡ disponÃ­vel!\r\n");
 			dispatchEvent(new WindowEvent(this,
 					WindowEvent.WINDOW_CLOSING));
 			setVisible(false);
@@ -113,7 +112,7 @@ public class SerialMonitor extends JFrame {
 				try {
 					CommPortUtils.closePort();
 				} catch (NullPointerException e) {
-//					System.out.println("Não há portas abertas!");
+//					System.out.println("Nï¿½o hï¿½ portas abertas!");
 				} finally {
 					isOpen = false;
 				}

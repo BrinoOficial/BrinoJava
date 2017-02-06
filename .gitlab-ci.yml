@@ -1,0 +1,17 @@
+image: ubuntu
+
+before_script:
+  - apt-get update -qq && apt-get install -qq openjdk-8-jdk ant tar ncftp
+  
+stages:
+  - compile
+
+compile:
+  stage: compile
+  artifacts:
+    paths:
+      - BrinoIDE.jar
+  script:
+    - ant
+    
+

@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.compiler;
+package cc.brino.Brpp.compiler;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
@@ -22,8 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 /**
- * Compilador Brino criado para transformar código Brpp em 
- * código arduino.
+ * Compilador Brino criado para transformar codigo Brpp em 
+ * codigo arduino.
  * @author Mateus Berardo de Souza Terra
  * @contributors Rafael Mascarenhas Dal Moro
  * @version 2.5.0-beta
@@ -42,15 +42,15 @@ import javax.swing.JTextArea;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import br.com.RatosDePC.Brpp.IDEui.SouthPanel;
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
-import br.com.RatosDePC.Brpp.Utils.JSONUtils;
+import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.JSONUtils;
 
 public class BrppCompiler {
 
 	private static String file;
 	private static JTextArea out = SouthPanel.LOG;
-	public static String version = "2.5.0-beta";
+	public static String version = "2.5.1-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()

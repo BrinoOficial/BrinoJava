@@ -1,25 +1,25 @@
-package br.com.RatosDePC.Brpp.IDEui;
+package cc.brino.Brpp.IDEui;
 
 /*
-Copyright (c) 2016 StarFruitBrasil
+ Copyright (c) 2016 StarFruitBrasil
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+ the Software without restriction, including without limitation the rights to
+ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ the Software, and to permit persons to whom the Software is furnished to do so,
+ subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 /**
  * Painel localizado ao norte da IDE
@@ -44,10 +44,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.Border;
 
-import br.com.RatosDePC.Brpp.Utils.FileUtils;
-import br.com.RatosDePC.Brpp.Utils.UploaderUtils;
-import br.com.RatosDePC.Brpp.compiler.BrppCompiler;
-import br.com.RatosDePC.SerialMonitor.SerialMonitor;
+import cc.brino.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.UploaderUtils;
+import cc.brino.Brpp.compiler.BrppCompiler;
+import cc.brino.SerialMonitor.SerialMonitor;
+import cc.brino.Brpp.Pref.PrefManager;
 
 @SuppressWarnings("serial")
 public class NorthPanel extends JPanel {
@@ -71,9 +72,8 @@ public class NorthPanel extends JPanel {
 			"resources/saveButton.png"));
 	ImageIcon ser = new ImageIcon(getClass().getClassLoader().getResource(
 			"resources/serialButton.png"));
-	
+
 	public NorthPanel() {
-		// TODO Auto-generated constructor stub
 		// cria e adiciona o botao compilar
 		COMP = new JButton(comp);
 		COMP.setToolTipText("Compilar");
@@ -95,12 +95,12 @@ public class NorthPanel extends JPanel {
 						UploaderUtils.compile("\"" + BrppCompiler.getFile()
 								+ "\"");
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			}
 		});
-		// cria e adiciona o botao carregar
+
+		// cria o botao carregar
 		COMPUP = new JButton(compup);
 		COMPUP.setToolTipText("Compilar e carregar");
 		COMPUP.setBorderPainted(false);
@@ -118,14 +118,15 @@ public class NorthPanel extends JPanel {
 						.getAbsolutePath()))
 					try {
 						UploaderUtils.upload("\"" + BrppCompiler.getFile()
-								+ "\"", MenuBar.getSelectedIndexCOM(),
-								MenuBar.getSelectedIndex());
+								+ "\"", PrefManager.getPref("porta"), Integer
+								.parseInt(PrefManager.getPref("placa.index")));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 			}
 		});
-		// cria e adiciona botao arquivo novo
+
+		// cria botao arquivo novo
 		NOVO = new JButton(novo);
 		NOVO.setToolTipText("Novo");
 		NOVO.setBorderPainted(false);
@@ -136,9 +137,8 @@ public class NorthPanel extends JPanel {
 		NOVO.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				int choice = JOptionPane.showConfirmDialog(null,
-						"Você quer salvar o rascunho antes de criar um novo?");
+						"VocÃª quer salvar o rascunho antes de criar um novo?");
 				JTextPane txt = BrppIDEFrame.getTextPane();
 				switch (choice) {
 				case 0:
@@ -152,7 +152,8 @@ public class NorthPanel extends JPanel {
 				}
 			}
 		});
-		// cria e adiciona botao abrir arquivo
+
+		// cria botao abrir arquivo
 		ABR = new JButton(abr);
 		ABR.setToolTipText("Abrir");
 		ABR.setBorderPainted(false);
@@ -163,10 +164,8 @@ public class NorthPanel extends JPanel {
 		ABR.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
 				int choice = JOptionPane.showConfirmDialog(null,
-						"Você quer salvar o rascunho antes de abrir um novo?");
+						"VocÃª quer salvar o rascunho antes de abrir um novo?");
 				JTextPane txt = BrppIDEFrame.getTextPane();
 				switch (choice) {
 				case 0:
@@ -177,11 +176,11 @@ public class NorthPanel extends JPanel {
 				case 2:
 					break;
 				}
-				
-				
+
 			}
 		});
-		// cria e adiciona botao salvar aquivo
+
+		// cria botao salvar aquivo
 		SAL = new JButton(sal);
 		SAL.setToolTipText("Salvar");
 		SAL.setBorderPainted(false);
@@ -192,7 +191,6 @@ public class NorthPanel extends JPanel {
 		SAL.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if (FileUtils.getDiretorio() == null) {
 					FileUtils.createFile(BrppIDEFrame.getTextPane());
 				} else {
@@ -200,7 +198,8 @@ public class NorthPanel extends JPanel {
 				}
 			}
 		});
-		//cria e adiciona o botao do serial monitor
+
+		// cria o botao do serial monitor
 		SERIAL = new JButton(ser);
 		SERIAL.setToolTipText("Monitor Serial");
 		SERIAL.setBorderPainted(false);
@@ -210,39 +209,37 @@ public class NorthPanel extends JPanel {
 				.getResource("resources/serialButtonFocus.png")));
 		SERIAL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				try {
-					SerialMonitor serial = new SerialMonitor(
-							MenuBar.getSelectedIndexCOM());
-					serial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					serial.setSize(500, 600);
-					if (serial.getConnected())
-						serial.setVisible(true);
-					else
-						serial.dispose();
+				if (!PrefManager.getPref("porta").equals("null")) {
+					try {
+						SerialMonitor serial = new SerialMonitor(PrefManager
+								.getPref("porta"));
+						serial.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						serial.setSize(500, 600);
+						if (serial.getConnected())
+							serial.setVisible(true);
+						else
+							serial.dispose();
 
-				} catch (TooManyListenersException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					} catch (TooManyListenersException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
+
+		// adiciona os botoes
 		add(COMP);
 		add(COMPUP);
 		add(NOVO);
 		add(ABR);
 		add(SAL);
 		add(SERIAL);
-		
+
 	}
-	public void paintComponent(Graphics g){
+
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-//		add(COMP);
-//		add(COMPUP);
-//		add(NOVO);
-//		add(ABR);
-//		add(SAL);
-//		add(SERIAL);
-		SERIAL.setLocation(getWidth()-42, 5);
+		SERIAL.setLocation(getWidth() - 42, 5);
 	}
-	
+
 }

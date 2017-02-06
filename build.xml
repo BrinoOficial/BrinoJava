@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Br++ with libraries in sub-folder">
+	<path id="master-classpath">
+  		<fileset dir="lib">
+    			<include name="*.jar"/>
+  		</fileset>
+	</path>
+
+	<target name="compile" description="Compile source">
+        <javac srcdir="Br++/src" includes="**" destdir="Br++/bin" encoding="UTF-8">
+		    <classpath refid="master-classpath"/>
+	    </javac>
+    </target>
+
+    <!--this file was created by Eclipse Runnable JAR Export Wizard and modified by Mateus Berardo-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar" depends="compile">
+        <jar destfile="BrinoIDE.jar">
+            <manifest>
+                <attribute name="Main-Class" value="cc.brino.Brpp.BrppCompilerMain"/>
+                <attribute name="Class-Path" value=". BrinoIDE_lib/RXTXcomm.jar BrinoIDE_lib/json-simple-1.1.1.jar"/>
+            </manifest>
+            <fileset dir="Br++/bin"/>
+        </jar>
+    </target>
+
+</project>

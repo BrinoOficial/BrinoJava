@@ -1,4 +1,4 @@
-package br.com.RatosDePC.Brpp.IDEui;
+package cc.brino.Brpp.IDEui;
 
 /*
 Copyright (c) 2016 StarFruitBrasil
