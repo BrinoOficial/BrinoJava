@@ -652,5 +652,6 @@
 			"translate":"formatar"
 		}
 	],
-	"language": "pt-br"
+	"language": "pt-br",
+	"version": "0"
 }
