@@ -433,10 +433,12 @@ public class MenuBar extends JMenuBar {
 	}
 
 	public static void setSelectedBoard() {
-		for (int i = 0; i < boards.length;) {
-			if (radioBoards[i].isSelected())
+		for (int i = 0; i < boards.length;i++) {
+			if (radioBoards[i].isSelected()){
 				PrefManager.setPref("placa.index", String.valueOf(i));
-			PrefManager.setPref("placa.nome", boards[i]);
+				PrefManager.setPref("placa.nome", boards[i]);
+				i=boards.length;
+			}
 		}
 	}
 
