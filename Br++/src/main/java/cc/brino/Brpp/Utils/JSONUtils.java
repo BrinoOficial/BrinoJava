@@ -45,7 +45,6 @@ public class JSONUtils {
 
 	public static void config(String path) throws FileNotFoundException, IOException,
 			ParseException {
-		System.out.println("chamado");
 		JSONParser parser = new JSONParser();
 
 		Object obj = parser.parse(new FileReader(path + System.getProperty("file.separator")

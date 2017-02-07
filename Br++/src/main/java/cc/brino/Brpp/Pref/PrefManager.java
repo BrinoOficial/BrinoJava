@@ -30,6 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -92,15 +93,16 @@ public class PrefManager {
 				pref[1].trim();
 				preferences.put(pref[0], pref[1]);
 			}
-		} else {
-			// TODO criar o arquivo de preferencias
-			String prefs;
-			Formatter output = new Formatter("." + System.getProperty("file.separator") + "brino.prefs");
-			for (String key : keys) {
-				String value="null";
-				output.format("%s=%s\r\n",key,value);
-			}
 		}
-
+	}
+	public static void savePrefs() throws FileNotFoundException{
+		String prefs;
+		Formatter output = new Formatter("." + System.getProperty("file.separator") + "brino.prefs");
+		for (String key : preferences.keySet()) {
+			String value=preferences.get(key);
+			output.format("%s=%s\r\n",key,value);
+		}
+		output.flush();
+		output.close();
 	}
 }

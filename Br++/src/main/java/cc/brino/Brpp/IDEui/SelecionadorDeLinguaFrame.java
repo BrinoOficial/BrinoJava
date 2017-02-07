@@ -3,8 +3,12 @@ package cc.brino.Brpp.IDEui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,10 +20,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import org.json.simple.parser.ParseException;
+import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.LanguageVersionUtils;
+import cc.brino.Brpp.Utils.UploaderUtils;
+import cc.brino.Brpp.compiler.BrppCompiler;
 
 
-public class SelecionadorDeLingua extends JFrame {
+public class SelecionadorDeLinguaFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTable linguasTable;
@@ -32,12 +39,12 @@ public class SelecionadorDeLingua extends JFrame {
 	private Object[][] valores;
 	Border emptyBorder = BorderFactory.createEmptyBorder();
 
-	public SelecionadorDeLingua() {
+	public SelecionadorDeLinguaFrame() {
 		super("Selecionador de Língua");
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		try {
-			linguas = LanguageVersionUtils.getVersion();
+			linguas = LanguageVersionUtils.getRemoteVersions();
 			valores = new Object[linguas.size()][2];
 			int i = 0;
 			// itera pelas linguas e printa as
@@ -54,22 +61,47 @@ public class SelecionadorDeLingua extends JFrame {
 			linguasTable = new JTable(valores, colunas);
 			scrollPane = new JScrollPane(linguasTable);
 			scrollPane.setBorder(emptyBorder);
-//			linguasTable.setFillsViewportHeight(true);
+			// linguasTable.setFillsViewportHeight(true);
 			center.add(scrollPane, BorderLayout.CENTER);
 			add(center, BorderLayout.CENTER);
 			texto = new JLabel(
 					"Selecione a língua desejada abaixo e clique em instalar ou atualizar:");
 			JPanel north = new JPanel();
-			north.setLayout(new FlowLayout(FlowLayout.LEFT));			
+			north.setLayout(new FlowLayout(FlowLayout.LEFT));
 			north.add(texto);
 			add(north, BorderLayout.NORTH);
 			JPanel south = new JPanel();
 			south.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			selecionar = new JButton("Baixar");
+			selecionar.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent event) {
+					int row = linguasTable.getSelectedRow();
+					String ling = (String) valores[row][0];
+					if (!LanguageVersionUtils.downloadLanguage(ling))
+						fail();
+					else {
+						JOptionPane.showMessageDialog(null,
+								ling
+										+ " instalado com sucesso!",
+								"Sucesso",
+								JOptionPane.PLAIN_MESSAGE);
+						dispose();
+					}
+				}
+			});
 			cancelar = new JButton("Cancelar");
+			cancelar.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent event) {
+					dispose();
+				}
+			});
 			south.add(cancelar);
 			south.add(selecionar);
-			add(south, BorderLayout.SOUTH);		
+			add(south, BorderLayout.SOUTH);
+			setSize(500, 200);
+			setLocation(100, 100);
 			setVisible(true);
 		} catch (UnknownHostException e) {
 			fail();
@@ -86,11 +118,5 @@ public class SelecionadorDeLingua extends JFrame {
 				"ERRO",
 				JOptionPane.ERROR_MESSAGE);
 		dispose();
-	}
-
-	public static void main(String args[]) {
-		SelecionadorDeLingua frame = new SelecionadorDeLingua();
-		frame.setSize(500, 600);
-		frame.setLocation(100, 30);
 	}
 }
