@@ -50,7 +50,7 @@ public class BrppCompiler {
 
 	private static String file;
 	private static JTextArea out = SouthPanel.LOG;
-	public static String version = "2.5.1-beta";
+	public static String version = "2.5.2-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()

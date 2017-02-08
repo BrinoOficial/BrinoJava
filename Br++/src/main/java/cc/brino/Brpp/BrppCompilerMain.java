@@ -47,6 +47,8 @@ import cc.brino.Brpp.Utils.LanguageVersionUtils;
 import cc.brino.Brpp.compiler.BrppCompiler;
 
 public class BrppCompilerMain {
+	
+	private static String path;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -56,15 +58,16 @@ public class BrppCompilerMain {
 		l.mkdirs();
 		Path currentRelativePath = Paths.get("");
 		String s = currentRelativePath.toAbsolutePath().toString();
+		setPath(s);
 		File destDir = new File(s + System.getProperty("file.separator")
 				+ "Arduino" + System.getProperty("file.separator")
 				+ "libraries");
 		try {
+			PrefManager.setPrefs();
 			JSONUtils.config(s);
 			FileUtils.copyFolder(l, destDir);
 			KeywordManagerUtils.processLibraries();
-			PrefManager.setPrefs();
-			LanguageVersionUtils.updateLanguages(s);
+			LanguageVersionUtils.updateLanguages();
 		}catch (UnknownHostException e) {
 			System.out.print("Sem internet para atualizar!");
 		}catch (IOException e) {
@@ -87,6 +90,14 @@ public class BrppCompilerMain {
 		
 		
 
+	}
+
+	public static String getPath() {
+		return path;
+	}
+
+	public static void setPath(String path) {
+		BrppCompilerMain.path = path;
 	}
 
 }

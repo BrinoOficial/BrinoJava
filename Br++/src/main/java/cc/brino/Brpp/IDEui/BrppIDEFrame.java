@@ -32,6 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.io.FileNotFoundException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -49,6 +50,7 @@ import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.undo.UndoManager;
 
+import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.Brpp.Utils.FileUtils;
 
 public class BrppIDEFrame extends JFrame {
@@ -121,6 +123,12 @@ public class BrppIDEFrame extends JFrame {
 					} else {
 						FileUtils.saveFile(BrppIDEFrame.getTextPane());
 					}
+				}
+				try {
+					PrefManager.savePrefs();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				System.exit(0);
 
