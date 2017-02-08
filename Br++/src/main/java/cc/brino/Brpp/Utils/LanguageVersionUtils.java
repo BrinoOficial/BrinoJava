@@ -58,13 +58,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import cc.brino.Brpp.BrppCompilerMain;
 
 
 public class LanguageVersionUtils {
 
 	private static JSONArray lings;
-	static Path currentRelativePath = Paths.get("");
-	static String path = currentRelativePath.toAbsolutePath().toString();
+	static String path = BrppCompilerMain.getPath();
 
 	public static Map<String, Integer> getRemoteVersions() throws MalformedURLException,
 			IOException,
@@ -108,32 +108,29 @@ public class LanguageVersionUtils {
 		return linguas;
 	}
 
-	public static void updateLanguages(String path) throws MalformedURLException,
+	public static void updateLanguages() throws MalformedURLException,
 			IOException,
 			ParseException {
 		// baixa a lista de linguas do servidor e
 		// suas versões
 		Map<String, Integer> remoteVersions = getRemoteVersions();
-		Map<String, Integer> localVersions = getLocalVersions(path);
+		Map<String, Integer> localVersions = getLocalVersions();
 		for (String key : localVersions.keySet()) {
 			// compara as versoes
 			if (localVersions.get(key) < remoteVersions.get(key)) {
-				downloadLanguage(key, path);
+				downloadLanguage(key);
 			}
 		}
 		JSONUtils.config(path);
 	}
 
-	public static boolean downloadLanguage(String ling) {
-		// TODO Auto-generated method stub
-		return downloadLanguage(ling, path);
-	}
 
-	public static boolean downloadLanguage(String ling, String path) {
+	public static boolean downloadLanguage(String ling) {
 		String url = "http://brino.cc/brino/lib/ling/" + ling + "/"
 				+ ling + ".json";
 		String outputFileName = path
 				+ System.getProperty("file.separator") + "lib"
+				+ System.getProperty("file.separator") + "ling"
 				+ System.getProperty("file.separator") + ling
 				+ ".json";
 		URL website;
@@ -160,12 +157,12 @@ public class LanguageVersionUtils {
 		return true;
 	}
 
-	public static Map<String, Integer> getLocalVersions(String path) throws FileNotFoundException,
+	public static Map<String, Integer> getLocalVersions() throws FileNotFoundException,
 			IOException,
 			ParseException {
 		// cria um file com o diretorio dos json's
 		File f = new File(path + System.getProperty("file.separator")
-				+ "lib");
+				+ "lib"+System.getProperty("file.separator")+"ling");
 		// cria o mapa das versoes locais
 		Map<String, Integer> localVersions = new TreeMap<String, Integer>();
 		// itera pelos arquivos da pasta
@@ -179,6 +176,8 @@ public class LanguageVersionUtils {
 						path
 								+ System.getProperty("file.separator")
 								+ "lib"
+								+ System.getProperty("file.separator")
+								+ "ling"
 								+ System.getProperty("file.separator")
 								+ a));
 				JSONObject jsonObject = (JSONObject) obj;

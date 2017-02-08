@@ -34,6 +34,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,7 +43,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.TooManyListenersException;
+import java.util.TreeMap;
 import java.util.stream.Stream;
 
 import javax.swing.AbstractAction;
@@ -59,9 +62,13 @@ import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
+import org.json.simple.parser.ParseException;
 
+import cc.brino.Brpp.BrppCompilerMain;
 import cc.brino.Brpp.Utils.CommPortUtils;
 import cc.brino.Brpp.Utils.FileUtils;
+import cc.brino.Brpp.Utils.JSONUtils;
+import cc.brino.Brpp.Utils.LanguageVersionUtils;
 import cc.brino.Brpp.Utils.UploaderUtils;
 import cc.brino.Brpp.Utils.abrirExemploAction;
 import cc.brino.Brpp.compiler.BrppCompiler;
@@ -120,6 +127,8 @@ public class MenuBar extends JMenuBar {
 	private JMenu subBoard;
 	private static JRadioButtonMenuItem[] radioBoards;
 	private ButtonGroup gp;
+	private static JRadioButtonMenuItem[] radioLing;
+	private ButtonGroup gpL;
 	private static JRadioButtonMenuItem[] radioCOMS;
 	private ButtonGroup gpCom;
 	private JMenu subCOM;
@@ -128,6 +137,7 @@ public class MenuBar extends JMenuBar {
 	private JMenu ferrMenu;
 	private JMenu exemplosMenu;
 	private JMenu sketchMenu;
+	private JMenu linguaMenu;
 	private JMenuItem novoItem;
 	private JMenuItem salvarItem;
 	private JMenuItem salvarComoItem;
@@ -136,6 +146,7 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem verifyItem;
 	private JMenuItem loadItem;
 	private JMenuItem comentarItem;
+	private JMenuItem gerenciadorLingItem;
 
 	public MenuBar() {
 		// TODO Auto-generated constructor stub
@@ -251,7 +262,7 @@ public class MenuBar extends JMenuBar {
 		// Adiciona o item salvar como
 		salvarComoItem = new JMenuItem("Salvar como");
 		// Cria a acao do item
-		Action salvarComoAction = new AbstractAction("SalvarComo") {
+		Action salvarComoAction = new AbstractAction("Salvar como") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				FileUtils.createFile(BrppIDEFrame.getTextPane());
@@ -269,7 +280,7 @@ public class MenuBar extends JMenuBar {
 		editMenu = new JMenu("Editar");
 		comentarItem = new JMenuItem("Comentar/Descomentar");
 		// Cria a acao do item
-		Action commentAction = new AbstractAction("Comentar Linha") {
+		Action commentAction = new AbstractAction("Comentar linha") {
 			private static final long serialVersionUID = 2474949258335385702L;
 
 			@Override
@@ -308,6 +319,8 @@ public class MenuBar extends JMenuBar {
 		});
 		subBoard = new JMenu("Placa");
 		subCOM = new JMenu("Porta");
+		linguaMenu = new JMenu("Língua");
+		
 		int x = 0;
 		gp = new ButtonGroup();
 		radioBoards = new JRadioButtonMenuItem[boards.length];
@@ -327,6 +340,43 @@ public class MenuBar extends JMenuBar {
 			subBoard.add(radioBoards[x]);
 			x++;
 		}
+		
+		gerenciadorLingItem = new JMenuItem("Gerenciador de Línguas");
+		linguaMenu.add(gerenciadorLingItem);
+		Action lingGeren = new AbstractAction("Gerenciador de Línguas") {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SelecionadorDeLinguaFrame selecionador = new SelecionadorDeLinguaFrame();
+				selecionador.setVisible(true);
+			}
+		};
+		lingGeren.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+				KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
+		gerenciadorLingItem.setAction(lingGeren);
+		linguaMenu.addSeparator();
+		x = 0;
+		gpL = new ButtonGroup();
+		Map<String,Integer> lings;
+		try {
+			lings = LanguageVersionUtils.getLocalVersions();
+		} catch (IOException | ParseException e1) {
+			// TODO Auto-generated catch block
+			lings=new TreeMap<String, Integer>();
+		}
+		radioLing = new JRadioButtonMenuItem[lings.size()];
+		for (String a : lings.keySet()) {
+			radioLing[x] = new JRadioButtonMenuItem(a);
+			radioLing[x].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					setSelectedLing();
+				}
+			});
+			gpL.add(radioLing[x]);
+			linguaMenu.add(radioLing[x]);
+			x++;
+		}
+		
 		x = 0;
 		gpCom = new ButtonGroup();
 		serialMonitor = new JMenuItem("Monitor Serial");
@@ -405,6 +455,7 @@ public class MenuBar extends JMenuBar {
 
 		ferrMenu.add(subBoard);
 		ferrMenu.add(subCOM);
+		ferrMenu.add(linguaMenu);
 		ferrMenu.addSeparator();
 		ferrMenu.add(serialMonitor);
 		editMenu.add(comentarItem);
@@ -448,6 +499,24 @@ public class MenuBar extends JMenuBar {
 		for (int i = 0; i < coms.length; i++) {
 			if (radioCOMS[i].isSelected()) {
 				PrefManager.setPref("porta", radioCOMS[i].getText());
+				i=coms.length;
+			}
+		}
+	}
+	
+
+	private void setSelectedLing() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < radioLing.length; i++) {
+			if (radioLing[i].isSelected()) {
+				PrefManager.setPref("lingua", radioLing[i].getText());
+				try {
+					JSONUtils.config(BrppCompilerMain.getPath());
+				} catch (IOException
+						| ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 	}
