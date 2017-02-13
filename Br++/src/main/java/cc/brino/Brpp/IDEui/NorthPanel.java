@@ -41,14 +41,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 import javax.swing.border.Border;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
+import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.UploaderUtils;
 import cc.brino.Brpp.compiler.BrppCompiler;
 import cc.brino.SerialMonitor.SerialMonitor;
-import cc.brino.Brpp.Pref.PrefManager;
 
 @SuppressWarnings("serial")
 public class NorthPanel extends JPanel {
@@ -85,9 +86,9 @@ public class NorthPanel extends JPanel {
 		COMP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
-					FileUtils.createFile(BrppIDEFrame.getTextPane());
+					FileUtils.createFile(BrppIDEFrame.getTextArea());
 				}
-				FileUtils.saveFile(BrppIDEFrame.getTextPane());
+				FileUtils.saveFile(BrppIDEFrame.getTextArea());
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
@@ -111,9 +112,9 @@ public class NorthPanel extends JPanel {
 		COMPUP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
-					FileUtils.createFile(BrppIDEFrame.getTextPane());
+					FileUtils.createFile(BrppIDEFrame.getTextArea());
 				}
-				FileUtils.saveFile(BrppIDEFrame.getTextPane());
+				FileUtils.saveFile(BrppIDEFrame.getTextArea());
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
@@ -139,12 +140,12 @@ public class NorthPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				int choice = JOptionPane.showConfirmDialog(null,
 						"Você quer salvar o rascunho antes de criar um novo?");
-				JTextPane txt = BrppIDEFrame.getTextPane();
+				RSyntaxTextArea txt = BrppIDEFrame.getTextArea();
 				switch (choice) {
 				case 0:
 					FileUtils.saveFile(txt);
 				case 1:
-					BrppIDEFrame.getTextPane().setText(BrppIDEFrame.getMin());
+					BrppIDEFrame.getTextArea().setText(BrppIDEFrame.getMin());
 					FileUtils.createFile(txt);
 					break;
 				case 2:
@@ -166,12 +167,12 @@ public class NorthPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				int choice = JOptionPane.showConfirmDialog(null,
 						"Você quer salvar o rascunho antes de abrir um novo?");
-				JTextPane txt = BrppIDEFrame.getTextPane();
+				RSyntaxTextArea txt = BrppIDEFrame.getTextArea();
 				switch (choice) {
 				case 0:
 					FileUtils.saveFile(txt);
 				case 1:
-					FileUtils.abrirFile(BrppIDEFrame.getTextPane());
+					FileUtils.abrirFile(BrppIDEFrame.getTextArea());
 					break;
 				case 2:
 					break;
@@ -192,9 +193,9 @@ public class NorthPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (FileUtils.getDiretorio() == null) {
-					FileUtils.createFile(BrppIDEFrame.getTextPane());
+					FileUtils.createFile(BrppIDEFrame.getTextArea());
 				} else {
-					FileUtils.saveFile(BrppIDEFrame.getTextPane());
+					FileUtils.saveFile(BrppIDEFrame.getTextArea());
 				}
 			}
 		});

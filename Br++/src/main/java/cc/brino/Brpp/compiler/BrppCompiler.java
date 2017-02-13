@@ -37,20 +37,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
-import javax.swing.JTextArea;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import cc.brino.Brpp.IDEui.SouthPanel;
 import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.JSONUtils;
 
 public class BrppCompiler {
 
 	private static String file;
-	private static JTextArea out = SouthPanel.LOG;
-	public static String version = "2.5.2-beta";
+	public static String version = "2.6.0-beta";
 
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()
@@ -98,10 +94,8 @@ public class BrppCompiler {
 			return true;
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;

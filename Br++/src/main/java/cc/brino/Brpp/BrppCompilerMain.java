@@ -36,6 +36,8 @@ import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.swing.SwingUtilities;
+
 import org.json.simple.parser.ParseException;
 
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
@@ -52,6 +54,7 @@ public class BrppCompilerMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		final String[] getArgs = args;
 		File f = new File(FileUtils.getBrinodirectory());
 		f.mkdirs();
 		File l = new File(FileUtils.getBrinodirectory() + "/bibliotecas");
@@ -79,14 +82,20 @@ public class BrppCompilerMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		BrppIDEFrame frame = new BrppIDEFrame("Brino " + BrppCompiler.version);
-		frame.setSize(500, 600);
-		frame.setLocation(100, 30);
-		frame.setVisible(true);
-		if (args.length>0){
-			String filePath = args[0];
-			FileUtils.abrirFile(filePath, BrppIDEFrame.getTextPane());
-		}
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				BrppIDEFrame frame = new BrppIDEFrame("Brino " + BrppCompiler.version);
+				frame.setSize(500, 600);
+				frame.setLocation(100, 30);
+				frame.setVisible(true);
+				if (getArgs.length>0){
+					String filePath = getArgs[0];
+					FileUtils.abrirFile(filePath, BrppIDEFrame.getTextArea());
+				}
+			}
+		});		
+		
 		
 		
 

@@ -29,12 +29,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 * @version 5/2/2016
 */
 
+import gnu.io.CommPortIdentifier;
+
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -57,14 +58,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.json.simple.parser.ParseException;
 
 import cc.brino.Brpp.BrppCompilerMain;
+import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.Brpp.Utils.CommPortUtils;
 import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.JSONUtils;
@@ -72,9 +75,7 @@ import cc.brino.Brpp.Utils.LanguageVersionUtils;
 import cc.brino.Brpp.Utils.UploaderUtils;
 import cc.brino.Brpp.Utils.abrirExemploAction;
 import cc.brino.Brpp.compiler.BrppCompiler;
-import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.SerialMonitor.SerialMonitor;
-
 /*
  Copyright (c) 2016 StarFruitBrasil
 
@@ -95,7 +96,6 @@ import cc.brino.SerialMonitor.SerialMonitor;
  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 /**
  * Barra de Menu do IDE
  * 
@@ -103,10 +103,7 @@ import cc.brino.SerialMonitor.SerialMonitor;
  * @contributors  
  * @version 5/2/2016
  */
-
 //import gnu.io.CommPortIdentifier;
-
-import gnu.io.CommPortIdentifier;
 
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
@@ -149,7 +146,6 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem gerenciadorLingItem;
 
 	public MenuBar() {
-		// TODO Auto-generated constructor stub
 		coms = new String[15];
 
 		// Menu Arquivo
@@ -162,15 +158,14 @@ public class MenuBar extends JMenuBar {
 		Action novoAction = new AbstractAction("Novo") {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				int choice = JOptionPane.showConfirmDialog(null,
 						"Você quer salvar o rascunho antes de criar um novo?");
-				JTextPane txt = BrppIDEFrame.getTextPane();
+				RSyntaxTextArea txt = BrppIDEFrame.getTextArea();
 				switch (choice) {
 				case 0:
 					FileUtils.saveFile(txt);
 				case 1:
-					BrppIDEFrame.getTextPane().setText(BrppIDEFrame.getMin());
+					BrppIDEFrame.getTextArea().setText(BrppIDEFrame.getMin());
 					FileUtils.createFile(txt);
 					break;
 				case 2:
@@ -191,12 +186,12 @@ public class MenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 				int choice = JOptionPane.showConfirmDialog(null,
 						"Voc� quer salvar o rascunho antes de abrir um novo?");
-				JTextPane txt = BrppIDEFrame.getTextPane();
+				RSyntaxTextArea txt = BrppIDEFrame.getTextArea();
 				switch (choice) {
 				case 0:
 					FileUtils.saveFile(txt);
 				case 1:
-					FileUtils.abrirFile(BrppIDEFrame.getTextPane());
+					FileUtils.abrirFile(BrppIDEFrame.getTextArea());
 					break;
 				case 2:
 					break;
@@ -248,9 +243,9 @@ public class MenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (FileUtils.getDiretorio() == null) {
-					FileUtils.createFile(BrppIDEFrame.getTextPane());
+					FileUtils.createFile(BrppIDEFrame.getTextArea());
 				} else {
-					FileUtils.saveFile(BrppIDEFrame.getTextPane());
+					FileUtils.saveFile(BrppIDEFrame.getTextArea());
 				}
 			}
 		};
@@ -265,7 +260,7 @@ public class MenuBar extends JMenuBar {
 		Action salvarComoAction = new AbstractAction("Salvar como") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				FileUtils.createFile(BrppIDEFrame.getTextPane());
+				FileUtils.createFile(BrppIDEFrame.getTextArea());
 			}
 		};
 		// Adiciona o atalho CTRL+SHIFT+S
@@ -288,7 +283,6 @@ public class MenuBar extends JMenuBar {
 				try {
 					BrppIDEFrame.comentar();
 				} catch (BadLocationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println("Comentar");
@@ -307,13 +301,11 @@ public class MenuBar extends JMenuBar {
 
 			@Override
 			public void menuCanceled(MenuEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void menuDeselected(MenuEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -360,7 +352,6 @@ public class MenuBar extends JMenuBar {
 		try {
 			lings = LanguageVersionUtils.getLocalVersions();
 		} catch (IOException | ParseException e1) {
-			// TODO Auto-generated catch block
 			lings=new TreeMap<String, Integer>();
 		}
 		radioLing = new JRadioButtonMenuItem[lings.size()];
@@ -383,7 +374,6 @@ public class MenuBar extends JMenuBar {
 		Action serialAction = new AbstractAction("Monitor Serial") {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				if (!PrefManager.getPref("porta").equals("null")) {
 					try {
 						SerialMonitor serial = new SerialMonitor(
@@ -395,7 +385,6 @@ public class MenuBar extends JMenuBar {
 						else
 							serial.dispose();
 					} catch (TooManyListenersException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -407,9 +396,9 @@ public class MenuBar extends JMenuBar {
 		Action verifyAction = new AbstractAction("Compilar/Verificar") {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
-					FileUtils.createFile(BrppIDEFrame.getTextPane());
+					FileUtils.createFile(BrppIDEFrame.getTextArea());
 				}
-				FileUtils.saveFile(BrppIDEFrame.getTextPane());
+				FileUtils.saveFile(BrppIDEFrame.getTextArea());
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
@@ -429,9 +418,9 @@ public class MenuBar extends JMenuBar {
 		Action loadAction = new AbstractAction("Compilar e Carregar") {
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
-					FileUtils.createFile(BrppIDEFrame.getTextPane());
+					FileUtils.createFile(BrppIDEFrame.getTextArea());
 				}
-				FileUtils.saveFile(BrppIDEFrame.getTextPane());
+				FileUtils.saveFile(BrppIDEFrame.getTextArea());
 				if (BrppCompiler.compile(FileUtils.getDiretorio()
 						.getAbsolutePath()))
 					try {
@@ -478,8 +467,7 @@ public class MenuBar extends JMenuBar {
 
 	}
 
-	@SuppressWarnings("rawtypes")
-	public static HashMap getMap() {
+	public static HashMap<String, String> getMap() {
 		return listaExemplos;
 	}
 
@@ -506,7 +494,6 @@ public class MenuBar extends JMenuBar {
 	
 
 	private void setSelectedLing() {
-		// TODO Auto-generated method stub
 		for (int i = 0; i < radioLing.length; i++) {
 			if (radioLing[i].isSelected()) {
 				PrefManager.setPref("lingua", radioLing[i].getText());
@@ -514,7 +501,6 @@ public class MenuBar extends JMenuBar {
 					JSONUtils.config(BrppCompilerMain.getPath());
 				} catch (IOException
 						| ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}

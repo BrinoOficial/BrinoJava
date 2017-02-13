@@ -4,7 +4,8 @@
 	<classpathentry excluding="java/" kind="src" path="src/main"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/RXTXcomm.jar" sourcepath="C:/Users/Rafael_do_Morro/Google Drive/Br.ino/RXTXcomm.jar"/>
-	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/mateus_terra/Documentos/GitHub/Brino/lib/RXTXcomm.jar" sourcepath="C:/Users/Rafael_do_Morro/Google Drive/Br.ino/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="/home/mateus_terra/Documentos/GitHub/Brino/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/mateus_terra/Documentos/RSyntaxTextArea.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
