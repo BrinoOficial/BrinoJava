@@ -160,7 +160,12 @@ public class BrppIDEFrame extends JFrame {
 								- lineElement.getStartOffset()).trim()
 				.contains("//"))
 			code.insertString(lineElement.getStartOffset(), "//", a);
-		else
-			code.remove(lineElement.getStartOffset(), 2);
+		else{
+			String line = code.getText(lineElement.getStartOffset(), lineElement.getEndOffset() - lineElement.getStartOffset());
+			int index = line.indexOf("//");
+			CODE.setCaretPosition(lineElement.getStartOffset()+index);
+		        CODE.moveCaretPosition(lineElement.getStartOffset()+index+2);
+			CODE.replaceSelection("");
+		}
 	}
 }
