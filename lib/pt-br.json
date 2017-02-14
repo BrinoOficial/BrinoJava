@@ -38,14 +38,14 @@
 		{
 			"highlight": "se",
 			"arduino": "if(",
-			"arg": "false",
+			"arg": "true",
 			"highlight-type": "2",
-			"translate": "se[ ]*\\("
+			"translate": "se\\s*\\("
 		},
 		{
 			"highlight": "enquanto",
 			"arduino": "while(",
-			"arg": "false",
+			"arg": "true",
 			"highlight-type": "2",
 			"translate": "enquanto\\s*\\("
 		},
@@ -64,13 +64,6 @@
 			"translate": "USB.enviar"
 		},
 		{
-			"highlight": "enviarln",
-			"arduino": "Serial.println",
-			"arg": "false",
-			"highlight-type": "3",
-			"translate": "USB.enviarln"
-		},
-		{
 			"highlight": "ler",
 			"arduino": "Serial.read",
 			"arg": "false",
@@ -83,13 +76,6 @@
 			"arg": "false",
 			"highlight-type": "4",
 			"translate": "Pino."
-		},
-		{
-			"highlight": "USB",
-			"arduino": "Serial.",
-			"arg": "false",
-			"highlight-type": "4",
-			"translate": "USB."
 		},
 		{
 			"highlight": "definirModo",
@@ -108,9 +94,9 @@
 		{
 			"highlight": "escrever",
 			"arduino": "digitalWrite(",
-			"arg": "s",
+			"arg": "false",
 			"highlight-type": "3",
-			"translate": "escrever\\("
+			"translate": "escrever("
 		},
 		{
 			"highlight": "Digital",
@@ -499,7 +485,7 @@
 		},
 		{
 			"highlight":"escreverMicros",
-			"arduino":"writeMicros",
+			"arduino":"writeMicroseconds",
 			"arg":"false",
 			"highlight-type":"3",
 			"translate":"escreverMicros"
@@ -653,5 +639,5 @@
 		}
 	],
 	"language": "pt-br",
-	"version": "0"
+	"version":"3"
 }
