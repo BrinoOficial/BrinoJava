@@ -171,8 +171,13 @@ public class FileUtils {
 			setDiretorio(null);
 		try {
 			String f = "";
-			Scanner in = new Scanner(new File(
-					getDiretorio().getAbsolutePath()));
+			Scanner in;
+			if (diff)
+				in = new Scanner(
+						new File(
+								getDiretorio().getAbsolutePath()));
+			else
+				in = new Scanner(new File(string));
 			while (in.hasNext()) {
 				String line = in.nextLine();
 				// Highlight

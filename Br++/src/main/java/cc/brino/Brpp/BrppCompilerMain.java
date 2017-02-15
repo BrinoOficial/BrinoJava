@@ -85,7 +85,7 @@ public class BrppCompilerMain {
 		frame.setVisible(true);
 		if (args.length>0){
 			String filePath = args[0];
-			FileUtils.abrirFile(filePath, BrppIDEFrame.getTextPane());
+			FileUtils.abrirFile(filePath, BrppIDEFrame.getTextPane(),true);
 		}
 		
 		
