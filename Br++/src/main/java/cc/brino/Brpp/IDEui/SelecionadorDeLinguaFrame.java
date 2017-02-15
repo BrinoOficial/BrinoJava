@@ -39,7 +39,7 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 	public SelecionadorDeLinguaFrame() {
 		super("Selecionador de Língua");
 		setLayout(new BorderLayout());
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		try {
 			linguas = LanguageVersionUtils.getRemoteVersions();
 			valores = new Object[linguas.size()][2];
