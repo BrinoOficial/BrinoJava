@@ -40,6 +40,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -213,14 +214,16 @@ public class MenuBar extends JMenuBar {
 		// Percorre a pasta exemplos
 		try (Stream<Path> paths = Files.walk(
 				Paths.get("." + fileSeparator + "exemplos" + fileSeparator), 1)) {
-			Iterator<Path> files = paths.iterator();
+			Stream<Path> pathin = paths.sorted();
+			Iterator<Path> files = pathin.iterator();
 			files.next();
 			while (files.hasNext()) {
 				File f = new File(files.next().toString());
 				Stream<Path> path = Files.walk(Paths.get(f.getCanonicalPath()),
 						2);
+				Stream<Path> exPathin = path.sorted();
 				JMenu tipoDeExemplo = new JMenu(f.getName());
-				Iterator<Path> exemplos = path.iterator();
+				Iterator<Path> exemplos = exPathin.iterator();
 				while (exemplos.hasNext()) {
 					File exemplo = new File(exemplos.next().toString());
 					if (!exemplo.isDirectory()) {
