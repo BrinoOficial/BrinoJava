@@ -53,41 +53,43 @@ public class SouthPanel extends JPanel {
 	private Color verde = new Color(72, 155, 0);// 11,
 							// 125,
 							// 73
-	private final Color cinza = new Color(67, 67, 67);
-	private final Color cinzaEscuro = new Color(40, 40, 40);
-	private final Border roundedBorder = new LineBorder(cinzaEscuro, 10,
+	private final Color cinza = new Color(46, 46, 46);
+	private final Color cinzaEscuro = new Color(30, 30, 30);
+	private final Border roundedBorder = new LineBorder(cinzaEscuro, 15,
 			true);
+	private Border translucidBorder = BorderFactory.createEmptyBorder(5,
+			5,
+			5,
+			5);
+	private Border emptyBorder = BorderFactory.createEmptyBorder();
 	public static JTextArea LOG = new JTextArea(5, 10);
-	private static final JPanel blank = new JPanel();
-	private static final Box box = Box.createHorizontalBox();
 	public static JScrollPane LogPanel = new JScrollPane(LOG);
 
 	public SouthPanel() {
 		// TODO Auto-generated constructor stub
-		blank.setLayout(new BorderLayout());
-		box.add(Box.createHorizontalStrut(10));
-		blank.add(box, BorderLayout.CENTER);
-		blank.setBackground(cinza);
-		blank.setMinimumSize(new Dimension(10,1));
 		setLayout(new BorderLayout());
-		add(blank, BorderLayout.EAST);
-		add(blank, BorderLayout.WEST);
-		add(LogPanel, BorderLayout.CENTER);
+		setBackground(cinza);
+		JPanel centralPanel = new JPanel();
+		centralPanel.setBackground(cinza);
+		centralPanel.setBorder(translucidBorder);
+		centralPanel.setLayout(new BorderLayout());
+		centralPanel.add(LogPanel, BorderLayout.CENTER);
 		LogPanel.setBorder(roundedBorder);
 		LogPanel.setBackground(cinza);
 		LogPanel.setForeground(cinzaEscuro);
-		LogPanel.setViewportBorder(BorderFactory.createEmptyBorder());
+		LogPanel.setViewportBorder(emptyBorder);
 		LOG.setEditable(false);
 		LOG.setFocusable(false);
 		LOG.setForeground(branco);
 		LOG.setBackground(cinzaEscuro);
 		LOG.setBorder(roundedBorder);
+		add(centralPanel, BorderLayout.CENTER);
 		DefaultCaret caret = (DefaultCaret) LOG.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		placaCom = new JLabel(PrefManager.getPref("placa.nome")
 				+ " na " + PrefManager.getPref("porta"));
-		setBackground(cinza);
 		placaCom.setForeground(branco);
+		placaCom.setBorder(translucidBorder);
 		Font font = placaCom.getFont();
 		// same font but bold
 		Font boldFont = new Font(font.getFontName(), Font.ITALIC

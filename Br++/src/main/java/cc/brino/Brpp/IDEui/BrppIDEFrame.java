@@ -123,7 +123,7 @@ public class BrppIDEFrame extends JFrame {
 		code.setSize(400, 500);
 		code.setViewportBorder(translucidBorder);
 		code.setBackground(cinza);
-		code.setBorder(emptyBorder);
+		code.setBorder(translucidBorder);
 		centralPane = new JPanel();
 		centralPane.setLayout(new BorderLayout());
 		centralPane.add(southPanel, BorderLayout.SOUTH);
