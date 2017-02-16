@@ -33,9 +33,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -43,6 +43,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 import cc.brino.Brpp.Pref.PrefManager;
+import cc.brino.Brpp.ScrollBar.ScrollLeanUI;
 
 
 public class SouthPanel extends JPanel {
@@ -66,7 +67,6 @@ public class SouthPanel extends JPanel {
 	public static JScrollPane LogPanel = new JScrollPane(LOG);
 
 	public SouthPanel() {
-		// TODO Auto-generated constructor stub
 		setLayout(new BorderLayout());
 		setBackground(cinza);
 		JPanel centralPanel = new JPanel();
@@ -78,6 +78,13 @@ public class SouthPanel extends JPanel {
 		LogPanel.setBackground(cinza);
 		LogPanel.setForeground(cinzaEscuro);
 		LogPanel.setViewportBorder(emptyBorder);
+		JScrollBar sb = LogPanel.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
+		sb.setUI(new ScrollLeanUI());
+		sb.setBackground(cinza);
+		sb.setBorder(emptyBorder);
+		LogPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		LOG.setLineWrap(true);
 		LOG.setEditable(false);
 		LOG.setFocusable(false);
 		LOG.setForeground(branco);

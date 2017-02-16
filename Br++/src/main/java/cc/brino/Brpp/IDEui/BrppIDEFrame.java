@@ -69,8 +69,8 @@ public class BrppIDEFrame extends JFrame {
 	private SouthPanel southPanel;
 	private JPanel centralPane;
 	private final Color cinza = new Color(46, 46, 46);
-	Border emptyBorder = BorderFactory.createEmptyBorder();
-	Border translucidBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+	private Border emptyBorder = BorderFactory.createEmptyBorder();
+	private Border translucidBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private Color verde = new Color(72, 155, 0);// 11,
 							// 125,
 							// 73
@@ -93,10 +93,6 @@ public class BrppIDEFrame extends JFrame {
 		setLocationRelativeTo(null);
 		BorderLayout bl = new BorderLayout();
 		setLayout(bl);
-		// eastPanel = new JPanel();
-		// eastPanel.setMinimumSize(new
-		// Dimension(10,1));
-		// add(eastPanel, BorderLayout.EAST);
 		setBackground(verde);
 		westPanel = new WestPanel();
 		westPanel.setBackground(verde);

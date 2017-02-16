@@ -5,52 +5,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 
 public class ScrollLeanUI extends BasicScrollBarUI {
-	
 
 	private static Border emptyBorder = BorderFactory.createEmptyBorder();
 
-	public static void main(String[] args) {
-		JScrollPane after = makeExamplePane();
-		JScrollBar sb = after.getVerticalScrollBar();
-		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
-		sb.setUI(new ScrollLeanUI());
-		sb.setBorder(emptyBorder);
-		sb.setBackground(Color.black);
-		ScrollLeanUI ui = new ScrollLeanUI();
-		ui.trackHighlightColor = Color.white ;
-		after.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		JFrame f = new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setLayout(new GridLayout(0, 1));
-		f.add(after);
-		f.pack();
-		f.setSize(400, 400);
-		f.setVisible(true);
-	}
-
-	private static JScrollPane makeExamplePane() {
-		JTextArea text = new JTextArea(16, 16);
-		text.setBackground(Color.black);
-		text.append("Lorem ipsum dolor sit amet…\n\n\n\n\n\n\n\n\n\n");
-		JScrollPane scroll = new JScrollPane(text);
-		return scroll;
-	}
-	
 	@Override
 	protected void paintTrack(Graphics g, JComponent c, Rectangle r) {
 		r.setSize(new Dimension(6, r.height));
@@ -60,9 +28,9 @@ public class ScrollLeanUI extends BasicScrollBarUI {
 		Color color = null;
 		c.setBorder(emptyBorder);
 		if (isDragging) {
-			color = new Color(25, 25, 25, 100);
+			color = new Color(46,46,46, 10);
 		} else {
-			color = new Color(220, 220, 200, 2);
+			color = new Color(30, 30, 30, 2);
 		}
 		g2.setStroke(new BasicStroke(0));
 		g2.setPaint(color);
