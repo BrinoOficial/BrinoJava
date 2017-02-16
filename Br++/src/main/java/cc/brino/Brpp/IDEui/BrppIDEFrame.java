@@ -46,6 +46,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.border.Border;
 import javax.swing.text.BadLocationException;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
@@ -54,6 +55,7 @@ import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import cc.brino.Brpp.Pref.PrefManager;
+import cc.brino.Brpp.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Utils.FileUtils;
 
 
@@ -124,6 +126,11 @@ public class BrppIDEFrame extends JFrame {
 		code.setViewportBorder(translucidBorder);
 		code.setBackground(cinza);
 		code.setBorder(translucidBorder);
+		JScrollBar sb = code.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
+		sb.setUI(new ScrollLeanUI());
+		sb.setBackground(cinza);
+		sb.setBorder(emptyBorder);
 		centralPane = new JPanel();
 		centralPane.setLayout(new BorderLayout());
 		centralPane.add(southPanel, BorderLayout.SOUTH);
