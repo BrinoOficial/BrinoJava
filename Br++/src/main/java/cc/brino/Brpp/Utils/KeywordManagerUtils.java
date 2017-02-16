@@ -47,23 +47,16 @@ public class KeywordManagerUtils {
 			+ System.getProperty("file.separator") + "libraries";
 	static File f = new File(libs);
 
-	public static void processLibraries() throws NullPointerException {
+	public static void processLibraries() throws NullPointerException, IOException {
 		for (String a : f.list()) {
 			String keyPath = libs + System.getProperty("file.separator") + a
 					+ System.getProperty("file.separator") + "keywords.txt";
 			File lib = new File(keyPath);
 			if (lib.exists()) {
-				try {
 					byte[] encoded = Files.readAllBytes(Paths.get(keyPath));
 					String keys = new String(encoded);
 					sortKeywords(keys);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				libraries.add(a);
 			}
 			// for (String libraries : libraries) {

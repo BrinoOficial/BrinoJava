@@ -37,7 +37,7 @@ package cc.brino.Brpp.IDEui;
  */
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.BorderFactory;
@@ -45,6 +45,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.text.BadLocationException;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
@@ -62,14 +63,17 @@ public class BrppIDEFrame extends JFrame {
 	private ImageIcon logo = new ImageIcon(getClass().getClassLoader()
 			.getResource("resources/logo.png"));
 	private JMenuBar menuBar;
-	private NorthPanel NorthPanel;
-	private SouthPanel SouthPanel;
+	private WestPanel westPanel;
+	private SouthPanel southPanel;
+	private JPanel centralPane;
+	private final Color cinza = new Color(46, 46, 46);
 	Border emptyBorder = BorderFactory.createEmptyBorder();
+	Border translucidBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 	private Color verde = new Color(72, 155, 0);// 11,
 							// 125,
 							// 73
 	private static RSyntaxTextArea textArea;
-	private RTextScrollPane CentralPane;
+	private RTextScrollPane code;
 	private static final String min = "Configuracao() {\r\n"
 			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\r\n"
 			+ "\r\n"
@@ -87,14 +91,16 @@ public class BrppIDEFrame extends JFrame {
 		setLocationRelativeTo(null);
 		BorderLayout bl = new BorderLayout();
 		setLayout(bl);
+		// eastPanel = new JPanel();
+		// eastPanel.setMinimumSize(new
+		// Dimension(10,1));
+		// add(eastPanel, BorderLayout.EAST);
 		setBackground(verde);
-		NorthPanel = new NorthPanel();
-		NorthPanel.setBackground(verde);
-		NorthPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		add(NorthPanel, BorderLayout.NORTH);
-		NorthPanel.setVisible(true);
-		SouthPanel = new SouthPanel();
-		add(SouthPanel, BorderLayout.SOUTH);
+		westPanel = new WestPanel();
+		westPanel.setBackground(verde);
+		add(westPanel, BorderLayout.WEST);
+		westPanel.setVisible(true);
+		southPanel = new SouthPanel();
 		textArea = new RSyntaxTextArea(20, 60);
 		try {
 			Theme theme = Theme.load(getClass().getResourceAsStream("/org/fife/ui/rsyntaxtextarea/themes/monokai.xml"));
@@ -108,12 +114,22 @@ public class BrppIDEFrame extends JFrame {
 				getClass().getClassLoader());
 		textArea.setSyntaxEditingStyle("text/myLanguage");
 		textArea.setCodeFoldingEnabled(true);
-		CentralPane = new RTextScrollPane(textArea);
-		CentralPane.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		CentralPane.setSize(200, 400);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		textArea.setText(getMin());
-		CentralPane.setBorder(emptyBorder);
-		add(CentralPane, BorderLayout.CENTER);
+		textArea.setBorder(emptyBorder);
+		code = new RTextScrollPane(textArea);
+		code.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		code.setSize(400, 500);
+		code.setViewportBorder(translucidBorder);
+		code.setBackground(cinza);
+		code.setBorder(emptyBorder);
+		centralPane = new JPanel();
+		centralPane.setLayout(new BorderLayout());
+		centralPane.add(southPanel, BorderLayout.SOUTH);
+		centralPane.add(code, BorderLayout.CENTER);
+		centralPane.setBorder(emptyBorder);
+		add(centralPane, BorderLayout.CENTER);
 		menuBar = new MenuBar();
 		setJMenuBar(menuBar);
 		setVisible(true);

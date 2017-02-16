@@ -38,12 +38,12 @@ package cc.brino.Brpp.Utils;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import cc.brino.Brpp.Pref.PrefManager;
 
 
@@ -57,16 +57,8 @@ public class JSONUtils {
 			IOException,
 			ParseException {
 		JSONParser parser = new JSONParser();
-		StringBuilder pt= new StringBuilder(path);
-		pt.append(System.getProperty("file.separator"));
-		pt.append("lib");
-		pt.append(System.getProperty("file.separator"));
-		pt.append("ling");
-		pt.append(System.getProperty("file.separator"));
-		String ext=String.format("%s.%s",PrefManager.getPref("lingua"),"json");
-		pt.append(ext);
-		String file = pt.toString();
-		Object obj = parser.parse(new FileReader(file));
+		final Path file = Paths.get(path, "lib", "ling", PrefManager.getPref("lingua")+".json");
+		Object obj = parser.parse(new FileReader(file.toFile()));
 		JSONObject jsonObject = (JSONObject) obj;
 		Keywords = (JSONArray) jsonObject.get("Keywords");
 	}

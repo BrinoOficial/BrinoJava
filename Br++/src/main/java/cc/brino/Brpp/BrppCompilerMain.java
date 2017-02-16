@@ -36,11 +36,18 @@ package cc.brino.Brpp;
  * @version 18/11/2016
  */
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.UnknownHostException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import org.json.simple.parser.ParseException;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
 import cc.brino.Brpp.Pref.PrefManager;
@@ -54,39 +61,87 @@ import cc.brino.Brpp.compiler.BrppCompiler;
 public class BrppCompilerMain {
 
 	private static String path;
+	private static final String currentRelativePath = Paths.get("")
+			.toAbsolutePath()
+			.toString();
+	private static final File destDir = Paths.get(currentRelativePath,
+			"Arduino",
+			"libraries").toFile();
+	private static final Logger logger = Logger.getLogger(BrppCompilerMain.class.getName());
+	private static Logger l;
+	private static Logger l2;
+	private static FileHandler fh = null;
+	private static FileHandler fh2 = null;
+
+	public static void init() {
+		try {
+			fh = new FileHandler("brino.log", false);
+			fh2 = new FileHandler("lib/detailedLog.log", false);
+		} catch (SecurityException | IOException e) {
+			e.printStackTrace();
+		}
+		l = Logger.getLogger("");
+		l2 = Logger.getLogger("");
+		fh.setFormatter(new SimpleFormatter());
+		fh2.setFormatter(new SimpleFormatter());
+		l.addHandler(fh);
+		l2.addHandler(fh2);
+		l2.setLevel(Level.CONFIG);
+		l.setLevel(Level.WARNING);
+	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		BrppCompilerMain.init();
 		final String[] getArgs = args;
-		File f = new File(FileUtils.getBrinodirectory());
-		f.mkdirs();
-		File l = new File(FileUtils.getBrinodirectory()
+		// cria o diretorio do Brino
+		logger.log(Level.CONFIG, "Criando o diretorio do Brino");
+		File dir = new File(FileUtils.getBrinodirectory());
+		dir.mkdirs();
+		// cria o diretorio do Brino
+		logger.log(Level.CONFIG,
+				"Criando o diretorio de bibliotecas do Brino");
+		File libDir = new File(FileUtils.getBrinodirectory()
 				+ "/bibliotecas");
-		l.mkdirs();
-		Path currentRelativePath = Paths.get("");
-		String s = currentRelativePath.toAbsolutePath().toString();
-		setPath(s);
-		File destDir = new File(s
-				+ System.getProperty("file.separator")
-				+ "Arduino"
-				+ System.getProperty("file.separator")
-				+ "libraries");
+		libDir.mkdirs();
+		// salva o diretorio do brino
+		logger.log(Level.INFO, "Path set to: " + currentRelativePath);
+		setPath(currentRelativePath);
 		try {
+			logger.log(Level.CONFIG, "Configurando preferências");
 			PrefManager.setPrefs();
-			JSONUtils.config(s);
-			FileUtils.copyFolder(l, destDir);
+			logger.log(Level.CONFIG, "Configurando lingua");
+			JSONUtils.config(currentRelativePath);
+			logger.log(Level.CONFIG, "Configurando bibliotecas");
+			FileUtils.copyFolder(libDir, destDir);
+			logger.log(Level.CONFIG,
+					"Processando bibliotecas para highlight");
 			KeywordManagerUtils.processLibraries();
+			logger.log(Level.CONFIG, "Atualizando lingua");
 			LanguageVersionUtils.updateLanguages();
-		} catch (UnknownHostException e) {
-			System.out.print("Sem internet para atualizar!");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (FileNotFoundException fnfe) {
+			logger.log(Level.SEVERE,
+					"Erro ao configurar o programa! Arquivo não encontrado : \n",
+					fnfe);
+		} catch (UnknownHostException uhe) {
+			logger.log(Level.CONFIG,
+					"Nao ha internet. Nao foi possivel atualizar a lingua!\n",
+					uhe);
+		} catch (MalformedURLException mue) {
+			logger.log(Level.SEVERE,
+					"Erro ao acessar a URL da lingua!\n",
+					mue);
+		} catch (IOException ioe) {
+			logger.log(Level.SEVERE,
+					"Erro ao configurar o programa!\n",
+					ioe);
+		} catch (ParseException pe) {
+			logger.log(Level.SEVERE,
+					"Erro ao fazer o parse da lingua!\n",
+					pe);
+		} catch (NullPointerException npe) {
+			logger.log(Level.SEVERE,
+					"Erro ao mover bibliotecas!\n",
+					npe);
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -95,6 +150,7 @@ public class BrppCompilerMain {
 						+ BrppCompiler.version);
 				frame.setSize(500, 600);
 				frame.setLocation(100, 30);
+				logger.log(Level.CONFIG, "Inicializando frame");
 				frame.setVisible(true);
 				if (getArgs.length > 0) {
 					String filePath = getArgs[0];
