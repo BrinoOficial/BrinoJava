@@ -46,7 +46,7 @@ import java.io.OutputStream;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 
 public class FileUtils {
@@ -101,7 +101,7 @@ public class FileUtils {
 		}
 	}
 
-	public static void createFile(JTextPane txt) {
+	public static void createFile(RSyntaxTextArea rSyntaxTextArea) {
 		String name = JOptionPane.showInputDialog("Qual o nome do rascunho?");
 		File f = new File(BrinoDirectory
 				+ System.getProperty("file.separator") + name
@@ -112,7 +112,7 @@ public class FileUtils {
 				f.createNewFile();
 				FileWriter fw = new FileWriter(
 						f.getAbsoluteFile(), false);
-				txt.write(fw);
+				rSyntaxTextArea.write(fw);
 				fw.close();
 			} catch (IOException e2) {
 				e2.printStackTrace();
@@ -121,21 +121,20 @@ public class FileUtils {
 		setDiretorio(f.getAbsoluteFile());
 	}
 
-	public static void saveFile(JTextPane txt) {
+	public static void saveFile(RSyntaxTextArea rSyntaxTextArea) {
 		FileWriter fw;
 		try {
 			fw = new FileWriter(getDiretorio().getAbsoluteFile(),
 					false);
-			txt.write(fw);
+			rSyntaxTextArea.write(fw);
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static void abrirFile(JTextPane txt) {
-		txt.setText(null);
+	public static void abrirFile(RSyntaxTextArea rSyntaxTextArea) {
+		rSyntaxTextArea.setText(null);
 		JFileChooser FC = new JFileChooser(BrinoDirectory);
 		int res = FC.showOpenDialog(null);
 		if (res == JFileChooser.APPROVE_OPTION) {
@@ -150,11 +149,9 @@ public class FileUtils {
 					// Highlight
 					f += (line + "\n");
 				}
-				txt.setText(f);
+				rSyntaxTextArea.setText(f);
 				in.close();
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch
-				// block
 				e1.printStackTrace();
 			}
 		} else
@@ -162,8 +159,9 @@ public class FileUtils {
 					"Voce nao selecionou nenhum diretorio.");
 	}
 
-	public static void abrirFile(String string, JTextPane txt, boolean diff) {
-		// TODO Auto-generated method stub
+	public static void abrirFile(String string,
+			RSyntaxTextArea txt,
+			boolean diff) {
 		System.out.println(string);
 		if (diff)
 			setDiretorio(new File(string));
@@ -186,7 +184,6 @@ public class FileUtils {
 			txt.setText(f);
 			in.close();
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

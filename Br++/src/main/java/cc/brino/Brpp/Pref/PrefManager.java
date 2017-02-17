@@ -64,7 +64,6 @@ public class PrefManager {
 	}
 	
 	public static void savePrefs() throws FileNotFoundException{
-		String prefs;
 		Formatter output = new Formatter("." + System.getProperty("file.separator") + "brino.prefs");
 		for (String key : preferences.keySet()) {
 			String value=preferences.get(key);

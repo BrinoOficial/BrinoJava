@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
 import cc.brino.Brpp.IDEui.MenuBar;
 
@@ -42,26 +42,24 @@ public class abrirExemploAction extends AbstractAction {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static HashMap listaExemplos = MenuBar.getMap();
+	private static HashMap<String, String> listaExemplos = MenuBar.getMap();
 
 	public abrirExemploAction(String replace) {
-		// TODO Auto-generated constructor stub
 		super(replace);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		int choice = JOptionPane.showConfirmDialog(null,
 				"Voce quer salvar o rascunho antes de abrir um novo?");
-		JTextPane txt = BrppIDEFrame.getTextPane();
+		RSyntaxTextArea txt = BrppIDEFrame.getTextArea();
 		switch (choice) {
 			case 0:
 				FileUtils.saveFile(txt);
 			case 1:
 				FileUtils.abrirFile(listaExemplos.get(e.getActionCommand())
 						.toString(),
-						BrppIDEFrame.getTextPane(),
+						BrppIDEFrame.getTextArea(),
 						false);
 				break;
 			case 2:

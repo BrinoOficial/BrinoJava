@@ -1,69 +1,88 @@
 package cc.brino.Brpp.IDEui;
 
 /*
-Copyright (c) 2016 StarFruitBrasil
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
+ * Copyright (c) 2016 StarFruitBrasil
+ * 
+ * Permission is hereby granted, free of charge, to any
+ * person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the
+ * Software without restriction, including without
+ * limitation the rights to use, copy, modify, merge,
+ * publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software
+ * is furnished to do so, subject to the following
+ * conditions:
+ * 
+ * The above copyright notice and this permission notice
+ * shall be included in all copies or substantial portions
+ * of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+ * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+ * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
 /**
  * Janela do IDE e construcao da area de edicao de codigo
  * 
- * @author Mateus Berardo de Souza Terra e Rafael Mascarenhas Dal Moro
- * @contributors 
+ * @author Mateus Berardo de Souza Terra e Rafael
+ *         Mascarenhas Dal Moro
+ * @contributors
  * @version 5/2/2016
  */
-
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.io.FileNotFoundException;
-
+import java.io.IOException;
+import java.io.InputStream;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.Element;
-import javax.swing.undo.UndoManager;
-
+import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.Theme;
+import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
+import org.fife.ui.rtextarea.RTextScrollPane;
 import cc.brino.Brpp.Pref.PrefManager;
+import cc.brino.Brpp.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Utils.FileUtils;
 
+
 public class BrppIDEFrame extends JFrame {
-	private UndoManager undoManager;
+
 	private static final long serialVersionUID = 1L;
-	private static JTextPane CODE;
 	private ImageIcon logo = new ImageIcon(getClass().getClassLoader()
 			.getResource("resources/logo.png"));
 	private JMenuBar menuBar;
-	private NorthPanel NorthPanel;
-	private SouthPanel SouthPanel;
-	Border emptyBorder = BorderFactory.createEmptyBorder();
-	private Color verde = new Color(72, 155, 0);// 11, 125, 73
+	private WestPanel westPanel;
+	private SouthPanel southPanel;
+	private JPanel centralPane;
+	private final Color cinza = new Color(46, 46, 46);
+	private Border emptyBorder = BorderFactory.createEmptyBorder();
+	private Border translucidBorder = BorderFactory.createEmptyBorder(5,
+			5,
+			5,
+			5);
+	private Color verde = new Color(72, 155, 0);// 11,
+							// 125,
+							// 73
+	private static RSyntaxTextArea textArea;
+	private RTextScrollPane code;
 	private static final String min = "Configuracao() {\r\n"
 			+ "//Coloque aqui seu codigo de Configuracao que sera executado uma vez\r\n"
 			+ "\r\n"
@@ -71,10 +90,25 @@ public class BrppIDEFrame extends JFrame {
 			+ "Principal(){\r\n"
 			+ "//Coloque aqui seu codigo Principal, para rodar repetidamente\r\n"
 			+ "\r\n" + "}";
-	private static CodeDocument code = new CodeDocument();
 
 	public BrppIDEFrame(String title) {
 		super(title);
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		InputStream in = getClass().getResourceAsStream("/cc/brino/Brpp/IDEui/theme/monokai.xml");
 		this.setIconImage(logo.getImage());
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setSize(400, 400);
@@ -83,61 +117,77 @@ public class BrppIDEFrame extends JFrame {
 		BorderLayout bl = new BorderLayout();
 		setLayout(bl);
 		setBackground(verde);
-		NorthPanel = new NorthPanel();
-		NorthPanel.setBackground(verde);
-		NorthPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		add(NorthPanel, BorderLayout.NORTH);
-		NorthPanel.setVisible(true);
-		SouthPanel = new SouthPanel();
-		add(SouthPanel, BorderLayout.SOUTH);
-		CODE = new JTextPane(code);
-		CODE.setSize(200, 400);
-		CODE.setText(getMin());
-		JScrollPane CentralPane = new JScrollPane(CODE);
-		CODE.setBorder(emptyBorder);
-		add(CentralPane, BorderLayout.CENTER);
+		westPanel = new WestPanel();
+		westPanel.setBackground(verde);
+		add(westPanel, BorderLayout.WEST);
+		westPanel.setVisible(true);
+		southPanel = new SouthPanel();
+		textArea = new RSyntaxTextArea(20, 60);
+		try {
+			Theme theme = Theme.load(in);
+			theme.apply(textArea);
+		} catch (IOException ioe) { // Never happens
+			ioe.printStackTrace();
+		}
+		AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
+		atmf.putMapping("text/myLanguage",
+				"cc.brino.Brpp.Syntax.BrinoSyntax",
+				getClass().getClassLoader());
+		textArea.setSyntaxEditingStyle("text/myLanguage");
+		textArea.setCodeFoldingEnabled(true);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		textArea.setText(getMin());
+		textArea.setBorder(emptyBorder);
+		code = new RTextScrollPane(textArea);
+		code.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		code.setSize(400, 500);
+		code.setViewportBorder(translucidBorder);
+		code.setBackground(cinza);
+		code.setBorder(translucidBorder);
+		JScrollBar sb = code.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
+		sb.setUI(new ScrollLeanUI());
+		sb.setBackground(cinza);
+		sb.setBorder(emptyBorder);
+		centralPane = new JPanel();
+		centralPane.setLayout(new BorderLayout());
+		centralPane.add(southPanel, BorderLayout.SOUTH);
+		centralPane.add(code, BorderLayout.CENTER);
+		centralPane.setBorder(emptyBorder);
+		add(centralPane, BorderLayout.CENTER);
 		menuBar = new MenuBar();
+		
 		setJMenuBar(menuBar);
 		setVisible(true);
-		undoManager = new UndoManager();
-		Document doc = CODE.getDocument();
-		doc.addUndoableEditListener(new UndoableEditListener() {
-			@Override
-			public void undoableEditHappened(UndoableEditEvent e) {
-				undoManager.addEdit(e.getEdit());
-
-			}
-		});
-
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
+
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				int dialogResult = JOptionPane.showConfirmDialog(
-						BrppIDEFrame.this,
+				int dialogResult = JOptionPane.showConfirmDialog(BrppIDEFrame.this,
 						"Você deseja salvar seu rascunho antes de sair?",
-						"Salvar", JOptionPane.YES_NO_OPTION,
+						"Salvar",
+						JOptionPane.YES_NO_OPTION,
 						JOptionPane.PLAIN_MESSAGE);
 				if (dialogResult == JOptionPane.YES_OPTION) {
 					if (FileUtils.getDiretorio() == null) {
-						FileUtils.createFile(BrppIDEFrame.getTextPane());
+						FileUtils.createFile(BrppIDEFrame.getTextArea());
 					} else {
-						FileUtils.saveFile(BrppIDEFrame.getTextPane());
+						FileUtils.saveFile(BrppIDEFrame.getTextArea());
 					}
 				}
 				try {
 					PrefManager.savePrefs();
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.exit(0);
-
 			}
 		});
 	}
 
-	public static JTextPane getTextPane() {
-		return CODE;
+	public static RSyntaxTextArea getTextArea() {
+		return textArea;
 	}
 
 	public static String getMin() {
@@ -145,27 +195,25 @@ public class BrppIDEFrame extends JFrame {
 	}
 
 	public static void posicionarCaret(int off) {
-		CODE.setCaretPosition(off);
+		textArea.setCaretPosition(off);
 	}
 
 	protected static void comentar() throws BadLocationException {
-		// TODO Auto-generated method stub
-		int car = CODE.getCaretPosition();
-		AttributeSet a = null;
-		Element lineElement = code.getParagraphElement(car);
-		if (!code
-				.getText(
-						lineElement.getStartOffset(),
-						lineElement.getEndOffset()
-								- lineElement.getStartOffset()).trim()
+		int car = textArea.getCaretPosition();
+		int lineNumber = textArea.getLineOfOffset(car);
+		int startOffset = textArea.getLineStartOffset(lineNumber);
+		int endOffset = textArea.getLineEndOffset(lineNumber);
+		if (!textArea.getText(startOffset, endOffset - startOffset)
+				.trim()
 				.contains("//"))
-			code.insertString(lineElement.getStartOffset(), "//", a);
-		else{
-			String line = code.getText(lineElement.getStartOffset(), lineElement.getEndOffset() - lineElement.getStartOffset());
+			textArea.insert("//", startOffset);
+		else {
+			String line = textArea.getText(startOffset, endOffset
+					- startOffset);
 			int index = line.indexOf("//");
-			CODE.setCaretPosition(lineElement.getStartOffset()+index);
-		        CODE.moveCaretPosition(lineElement.getStartOffset()+index+2);
-			CODE.replaceSelection("");
+			textArea.setCaretPosition(startOffset + index);
+			textArea.moveCaretPosition(startOffset + index + 2);
+			textArea.replaceSelection("");
 		}
 	}
 }

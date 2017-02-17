@@ -1,15 +1,13 @@
 package cc.brino.Brpp.IDEui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,11 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
+
 import org.json.simple.parser.ParseException;
-import cc.brino.Brpp.Utils.FileUtils;
+
 import cc.brino.Brpp.Utils.LanguageVersionUtils;
-import cc.brino.Brpp.Utils.UploaderUtils;
-import cc.brino.Brpp.compiler.BrppCompiler;
 
 
 public class SelecionadorDeLinguaFrame extends JFrame {
