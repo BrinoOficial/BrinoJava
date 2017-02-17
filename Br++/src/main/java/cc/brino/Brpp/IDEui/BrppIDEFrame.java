@@ -38,8 +38,10 @@ package cc.brino.Brpp.IDEui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -47,6 +49,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.text.BadLocationException;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
@@ -70,7 +74,10 @@ public class BrppIDEFrame extends JFrame {
 	private JPanel centralPane;
 	private final Color cinza = new Color(46, 46, 46);
 	private Border emptyBorder = BorderFactory.createEmptyBorder();
-	private Border translucidBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+	private Border translucidBorder = BorderFactory.createEmptyBorder(5,
+			5,
+			5,
+			5);
 	private Color verde = new Color(72, 155, 0);// 11,
 							// 125,
 							// 73
@@ -86,6 +93,22 @@ public class BrppIDEFrame extends JFrame {
 
 	public BrppIDEFrame(String title) {
 		super(title);
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		InputStream in = getClass().getResourceAsStream("/cc/brino/Brpp/IDEui/theme/monokai.xml");
 		this.setIconImage(logo.getImage());
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setSize(400, 400);
@@ -101,7 +124,7 @@ public class BrppIDEFrame extends JFrame {
 		southPanel = new SouthPanel();
 		textArea = new RSyntaxTextArea(20, 60);
 		try {
-			Theme theme = Theme.load(getClass().getResourceAsStream("/org/fife/ui/rsyntaxtextarea/themes/monokai.xml"));
+			Theme theme = Theme.load(in);
 			theme.apply(textArea);
 		} catch (IOException ioe) { // Never happens
 			ioe.printStackTrace();
@@ -134,6 +157,7 @@ public class BrppIDEFrame extends JFrame {
 		centralPane.setBorder(emptyBorder);
 		add(centralPane, BorderLayout.CENTER);
 		menuBar = new MenuBar();
+		
 		setJMenuBar(menuBar);
 		setVisible(true);
 		this.addWindowListener(new java.awt.event.WindowAdapter() {

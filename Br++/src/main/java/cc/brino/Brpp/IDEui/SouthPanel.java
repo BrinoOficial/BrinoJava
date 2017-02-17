@@ -58,7 +58,7 @@ public class SouthPanel extends JPanel {
 	private final Color cinzaEscuro = new Color(30, 30, 30);
 	private final Border roundedBorder = new LineBorder(cinzaEscuro, 15,
 			true);
-	private Border translucidBorder = BorderFactory.createEmptyBorder(5,
+	private Border translucidBorder = BorderFactory.createEmptyBorder(2,
 			5,
 			5,
 			5);
