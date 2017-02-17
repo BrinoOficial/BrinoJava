@@ -58,8 +58,8 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import org.fife.ui.rtextarea.RTextScrollPane;
+import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Pref.PrefManager;
-import cc.brino.Brpp.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Utils.FileUtils;
 
 
