@@ -45,6 +45,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -72,6 +73,7 @@ public class BrppCompilerMain {
 	private static Logger l2;
 	private static FileHandler fh = null;
 	private static FileHandler fh2 = null;
+	private static BrppIDEFrame frame;
 
 	public static void init() {
 		try {
@@ -146,7 +148,7 @@ public class BrppCompilerMain {
 		SwingUtilities.invokeLater(new Runnable() {
 
 			public void run() {
-				BrppIDEFrame frame = new BrppIDEFrame("Brino "
+				frame = new BrppIDEFrame("Brino "
 						+ BrppCompiler.version);
 				frame.setSize(500, 600);
 				frame.setLocation(100, 30);
@@ -164,6 +166,11 @@ public class BrppCompilerMain {
 
 	public static String getPath() {
 		return path;
+	}
+	
+	public static JFrame getDialog() {
+		// TODO Auto-generated method stub
+		return frame;
 	}
 
 	public static void setPath(String path) {

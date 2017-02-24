@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/RXTXcomm.jar"/>
 	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/RSyntaxTextArea.jar"/>
 	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/json-simple-1.1.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AutoComplete"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RSTAUI"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

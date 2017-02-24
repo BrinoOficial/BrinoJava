@@ -42,8 +42,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
+import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Pref.PrefManager;
-import cc.brino.Brpp.ScrollBar.ScrollLeanUI;
 
 
 public class SouthPanel extends JPanel {

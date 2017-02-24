@@ -37,8 +37,8 @@ package cc.brino.Brpp.IDEui;
  */
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,12 +54,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.text.BadLocationException;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
+import org.fife.ui.rsyntaxtextarea.ErrorStrip;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import org.fife.ui.rtextarea.RTextScrollPane;
+import cc.brino.Brpp.IDEui.MenuBar.MenuBar;
+import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Pref.PrefManager;
-import cc.brino.Brpp.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Utils.FileUtils;
 
 
@@ -130,13 +132,16 @@ public class BrppIDEFrame extends JFrame {
 			ioe.printStackTrace();
 		}
 		AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
-		atmf.putMapping("text/myLanguage",
+		atmf.putMapping("text/Brpp",
 				"cc.brino.Brpp.Syntax.BrinoSyntax",
 				getClass().getClassLoader());
-		textArea.setSyntaxEditingStyle("text/myLanguage");
+		textArea.setSyntaxEditingStyle("text/Brpp");
 		textArea.setCodeFoldingEnabled(true);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+		textArea.setMarkOccurrences(true);
+		ErrorStrip errorStrip = new ErrorStrip(textArea);
+		add(errorStrip, BorderLayout.LINE_END);
 		textArea.setText(getMin());
 		textArea.setBorder(emptyBorder);
 		code = new RTextScrollPane(textArea);
@@ -157,7 +162,6 @@ public class BrppIDEFrame extends JFrame {
 		centralPane.setBorder(emptyBorder);
 		add(centralPane, BorderLayout.CENTER);
 		menuBar = new MenuBar();
-		
 		setJMenuBar(menuBar);
 		setVisible(true);
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -198,7 +202,7 @@ public class BrppIDEFrame extends JFrame {
 		textArea.setCaretPosition(off);
 	}
 
-	protected static void comentar() throws BadLocationException {
+	public static void comentar() throws BadLocationException {
 		int car = textArea.getCaretPosition();
 		int lineNumber = textArea.getLineOfOffset(car);
 		int startOffset = textArea.getLineStartOffset(lineNumber);
@@ -211,9 +215,18 @@ public class BrppIDEFrame extends JFrame {
 			String line = textArea.getText(startOffset, endOffset
 					- startOffset);
 			int index = line.indexOf("//");
-			textArea.setCaretPosition(startOffset + index);
-			textArea.moveCaretPosition(startOffset + index + 2);
-			textArea.replaceSelection("");
+			// textArea.setCaretPosition(startOffset
+			// + index );
+			// textArea.moveCaretPosition(startOffset
+			// + index + 3);
+			textArea.replaceRange("\r\n",
+					startOffset + index - 1,
+					startOffset + index + 2);
+			// textArea.undoLastAction();
+			// textArea.replaceRange("",
+			// textArea.getCaretPosition(),
+			// textArea.getCaretPosition()+1);
+			// textArea.replaceSelection("");
 		}
 	}
 }

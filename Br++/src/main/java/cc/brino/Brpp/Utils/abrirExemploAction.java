@@ -33,7 +33,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
-import cc.brino.Brpp.IDEui.MenuBar;
+import cc.brino.Brpp.IDEui.MenuBar.MenuBar;
 
 
 public class abrirExemploAction extends AbstractAction {
