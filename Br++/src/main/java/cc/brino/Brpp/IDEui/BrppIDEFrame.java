@@ -39,6 +39,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,10 +50,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 import javax.swing.text.BadLocationException;
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.CompletionProvider;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
 import org.fife.ui.rsyntaxtextarea.ErrorStrip;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -62,6 +66,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import cc.brino.Brpp.IDEui.MenuBar.MenuBar;
 import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Pref.PrefManager;
+import cc.brino.Brpp.Syntax.BrinoCompletionProvider;
 import cc.brino.Brpp.Utils.FileUtils;
 
 
@@ -140,8 +145,13 @@ public class BrppIDEFrame extends JFrame {
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setMarkOccurrences(true);
-		ErrorStrip errorStrip = new ErrorStrip(textArea);
-		add(errorStrip, BorderLayout.LINE_END);
+		CompletionProvider provider = new BrinoCompletionProvider();
+		AutoCompletion ac = new AutoCompletion(provider);
+		ac.setAutoActivationDelay(2000);
+		ac.setAutoCompleteSingleChoices(true);
+		ac.setTriggerKey(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,
+				KeyEvent.CTRL_DOWN_MASK));
+		ac.install(textArea);
 		textArea.setText(getMin());
 		textArea.setBorder(emptyBorder);
 		code = new RTextScrollPane(textArea);

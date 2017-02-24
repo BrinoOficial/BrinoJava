@@ -47,8 +47,8 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.CompletionProvider;
 import org.json.simple.parser.ParseException;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
 import cc.brino.Brpp.Pref.PrefManager;
@@ -145,6 +145,7 @@ public class BrppCompilerMain {
 					"Erro ao mover bibliotecas!\n",
 					npe);
 		}
+		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			public void run() {
@@ -167,7 +168,7 @@ public class BrppCompilerMain {
 	public static String getPath() {
 		return path;
 	}
-	
+
 	public static JFrame getDialog() {
 		// TODO Auto-generated method stub
 		return frame;
