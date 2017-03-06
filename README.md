@@ -111,4 +111,3 @@
 ###Palavras-chaves    
  * `SemRetorno`: utilizada para declarar o tipo de retorno de uma função como vazio (`void`)    
  * `responder <dado>`: indica o dado que será retornada pela função caso não seja SemRetorno (`return`)     
- * `<native>`: indica que a linha é composta por código nativo do arduino    
