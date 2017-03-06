@@ -636,7 +636,14 @@
 			"arg":"false",
 			"highlight-type":"3",
 			"translate":"formatar"
-		}
+		},
+		{ 
+		    "highlight": "Procedimento", 	
+		    "arduino": "void", 	
+		    "arg": "false", 
+		    "highlight-type": "1", 
+		    "translate": "Procedimento" 
+         }
 	],
 	"language": "pt-br",
 	"version":"3"
