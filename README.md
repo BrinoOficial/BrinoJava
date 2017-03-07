@@ -68,7 +68,9 @@
  * `<nome>.conectar(Pino digital)`: conecta o servo à porta digital (`<name>.attach()`)     
  * `<nome>.escreverAngulo(Numero angulo)`: posiciona o servo no ângulo fornecido(`<name>.write`)     
  * `<nome>.escreverMicros(Numero micros)`: define a duracao em microsegundos do pulso para controlar o servo de rotação contínua (`<name>.writeMicroseconds()`)      
- * `Servo.frente`(1700), `Servo.tras`(1300) e `Servo.parar`(1500): constantes de pulso para controle de servos de rotação contínua.     
+ * `Servo.frente`(1700): constantes de pulso para controle de servos de rotação contínua para fente.
+ * `Servo.tras`(1300): constantes de pulso para controle de servos de rotação contínua para trás.
+ * `Servo.parar`(1500): constantes de pulso para controle de servos de rotação contínua para parar.     
       
 ###I2C    
  * `I2C.conectar(Numero endereco)`: inicia a comunicação I2C(o endereço é opcional para o mestre)(`Wire.begin()`)      
