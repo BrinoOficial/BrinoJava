@@ -71,6 +71,7 @@ import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
@@ -227,6 +228,10 @@ public class MenuBar extends JMenuBar implements SearchListener {
 				46, 46, 46));
 		UIManager.put("PopupMenu.border", emptyBorder);
 		UIManager.put("PopupMenu.background", Color.black);
+		UIManager.put("OptionPane.background", new Color(46, 46, 46));
+		UIManager.put("OptionPane.messageForeground", new Color(250,
+				250, 250));
+		UIManager.put("Panel.background", new Color(46, 46, 46));
 		initSearchDialogs();
 		separator.setForeground(Color.green);
 		separator.setBackground(Color.black);

@@ -37,14 +37,17 @@ package cc.brino.Brpp.IDEui;
  */
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -54,11 +57,11 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.CompletionProvider;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
-import org.fife.ui.rsyntaxtextarea.ErrorStrip;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
@@ -88,6 +91,9 @@ public class BrppIDEFrame extends JFrame {
 	private Color verde = new Color(72, 155, 0);// 11,
 							// 125,
 							// 73
+	private final Border roundedBorderVerde = new LineBorder(verde, 5, true);
+	private final Border roundedBorder = new LineBorder(new Color(30,30,30), 15,
+			true);
 	private static RSyntaxTextArea textArea;
 	private RTextScrollPane code;
 	private static final String min = "Configuracao() {\r\n"
@@ -178,11 +184,54 @@ public class BrppIDEFrame extends JFrame {
 
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				int dialogResult = JOptionPane.showConfirmDialog(BrppIDEFrame.this,
-						"Você deseja salvar seu rascunho antes de sair?",
+				final JButton okay = new JButton("Sim");
+//				okay.setBackground(verde);
+				okay.setOpaque(true);
+				okay.setBorder(roundedBorderVerde);
+				okay.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+						pane.setValue(okay);
+					}
+				});
+				final JButton no = new JButton("Não");
+				no.setBorder(roundedBorder);
+				no.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+						pane.setValue(no);
+					}
+				});
+				final JButton cancel = new JButton("Cancelar");
+				no.setBorder(roundedBorder);
+				cancel.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+						pane.setValue(cancel);
+					}
+				});
+				int dialogResult = JOptionPane.showOptionDialog(BrppIDEFrame.this,
+						"Você deseja salvar seu rascunho antes de sair",
 						"Salvar",
-						JOptionPane.YES_NO_OPTION,
-						JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.NO_OPTION,
+						JOptionPane.PLAIN_MESSAGE,
+						null,
+						new JButton[] { okay, no,
+								cancel },
+						okay);
+				System.out.println(dialogResult);
+				// int dialogResult =
+				// JOptionPane.showConfirmDialog(BrppIDEFrame.this,
+				// "Você deseja salvar seu rascunho antes de sair?",
+				// "Salvar",
+				// JOptionPane.YES_NO_OPTION,
+				// JOptionPane.PLAIN_MESSAGE);
 				if (dialogResult == JOptionPane.YES_OPTION) {
 					if (FileUtils.getDiretorio() == null) {
 						FileUtils.createFile(BrppIDEFrame.getTextArea());
@@ -195,7 +244,8 @@ public class BrppIDEFrame extends JFrame {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				System.exit(0);
+				if (dialogResult != 2)
+					System.exit(0);
 			}
 		});
 	}
@@ -238,5 +288,15 @@ public class BrppIDEFrame extends JFrame {
 			// textArea.getCaretPosition()+1);
 			// textArea.replaceSelection("");
 		}
+	}
+
+	protected JOptionPane getOptionPane(JComponent parent) {
+		JOptionPane pane = null;
+		if (!(parent instanceof JOptionPane)) {
+			pane = getOptionPane((JComponent) parent.getParent());
+		} else {
+			pane = (JOptionPane) parent;
+		}
+		return pane;
 	}
 }
