@@ -1,4 +1,4 @@
-package cc.brino.Brpp.ScrollBar;
+package cc.brino.Brpp.IDEui.ScrollBar;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -18,6 +18,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 public class ScrollLeanUI extends BasicScrollBarUI {
 
 	private static Border emptyBorder = BorderFactory.createEmptyBorder();
+	private static final Color verde = new Color(72, 155, 0);
 
 	@Override
 	protected void paintTrack(Graphics g, JComponent c, Rectangle r) {
@@ -49,7 +50,7 @@ public class ScrollLeanUI extends BasicScrollBarUI {
 		if (!sb.isEnabled() || r.width > r.height) {
 			return;
 		}
-		color = Color.green;
+		color = verde;
 		r.setSize(new Dimension(6, r.height));
 		g2.setStroke(new BasicStroke(0));
 		g2.setPaint(color);
