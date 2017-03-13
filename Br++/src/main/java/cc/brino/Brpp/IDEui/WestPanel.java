@@ -126,7 +126,7 @@ public class WestPanel extends JPanel {
 					try {
 						UploaderUtils.compile("\""
 								+ BrppCompiler.getFile()
-								+ "\"");
+								+ "\"",Integer.parseInt(PrefManager.getPref("placa.index")));
 					} catch (IOException e) {
 						logger.log(Level.SEVERE,
 								"Erro ao compilar no Arduino",

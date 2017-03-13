@@ -548,7 +548,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 						System.out.println(BrppCompiler.getFile());
 						UploaderUtils.compile("\""
 								+ BrppCompiler.getFile()
-								+ "\"");
+								+ "\"",Integer.parseInt(PrefManager.getPref("placa.index")));
 					} catch (IOException e) {
 						// TODO
 						// Auto-generated
