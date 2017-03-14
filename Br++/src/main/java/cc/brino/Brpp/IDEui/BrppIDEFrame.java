@@ -38,28 +38,38 @@ package cc.brino.Brpp.IDEui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
+import org.fife.ui.autocomplete.AutoCompletion;
+import org.fife.ui.autocomplete.CompletionProvider;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import org.fife.ui.rtextarea.RTextScrollPane;
+import cc.brino.Brpp.IDEui.MenuBar.MenuBar;
 import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Pref.PrefManager;
+import cc.brino.Brpp.Syntax.BrinoCompletionProvider;
 import cc.brino.Brpp.Utils.FileUtils;
 
 
@@ -81,6 +91,9 @@ public class BrppIDEFrame extends JFrame {
 	private Color verde = new Color(72, 155, 0);// 11,
 							// 125,
 							// 73
+	private final Border roundedBorderVerde = new LineBorder(verde, 5, true);
+	private final Border roundedBorder = new LineBorder(new Color(30,30,30), 15,
+			true);
 	private static RSyntaxTextArea textArea;
 	private RTextScrollPane code;
 	private static final String min = "Configuracao() {\r\n"
@@ -130,13 +143,21 @@ public class BrppIDEFrame extends JFrame {
 			ioe.printStackTrace();
 		}
 		AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
-		atmf.putMapping("text/myLanguage",
+		atmf.putMapping("text/Brpp",
 				"cc.brino.Brpp.Syntax.BrinoSyntax",
 				getClass().getClassLoader());
-		textArea.setSyntaxEditingStyle("text/myLanguage");
+		textArea.setSyntaxEditingStyle("text/Brpp");
 		textArea.setCodeFoldingEnabled(true);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+		textArea.setMarkOccurrences(true);
+		CompletionProvider provider = new BrinoCompletionProvider();
+		AutoCompletion ac = new AutoCompletion(provider);
+		ac.setAutoActivationDelay(2000);
+		ac.setAutoCompleteSingleChoices(true);
+		ac.setTriggerKey(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,
+				KeyEvent.CTRL_DOWN_MASK));
+		ac.install(textArea);
 		textArea.setText(getMin());
 		textArea.setBorder(emptyBorder);
 		code = new RTextScrollPane(textArea);
@@ -157,18 +178,60 @@ public class BrppIDEFrame extends JFrame {
 		centralPane.setBorder(emptyBorder);
 		add(centralPane, BorderLayout.CENTER);
 		menuBar = new MenuBar();
-		
 		setJMenuBar(menuBar);
 		setVisible(true);
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				int dialogResult = JOptionPane.showConfirmDialog(BrppIDEFrame.this,
-						"Você deseja salvar seu rascunho antes de sair?",
-						"Salvar",
-						JOptionPane.YES_NO_OPTION,
-						JOptionPane.PLAIN_MESSAGE);
+//				final JButton okay = new JButton("Sim");
+////				okay.setBackground(verde);
+//				okay.setOpaque(true);
+//				okay.setBorder(roundedBorderVerde);
+//				okay.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+//						pane.setValue(okay);
+//					}
+//				});
+//				final JButton no = new JButton("Não");
+//				no.setBorder(roundedBorder);
+//				no.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+//						pane.setValue(no);
+//					}
+//				});
+//				final JButton cancel = new JButton("Cancelar");
+//				no.setBorder(roundedBorder);
+//				cancel.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+//						pane.setValue(cancel);
+//					}
+//				});
+//				int dialogResult = JOptionPane.showOptionDialog(BrppIDEFrame.this,
+//						"Você deseja salvar seu rascunho antes de sair",
+//						"Salvar",
+//						JOptionPane.NO_OPTION,
+//						JOptionPane.PLAIN_MESSAGE,
+//						null,
+//						new JButton[] { okay, no,
+//								cancel },
+//						okay);
+//				System.out.println(dialogResult);
+				 int dialogResult =
+				 JOptionPane.showConfirmDialog(BrppIDEFrame.this,
+				 "Você deseja salvar seu rascunho antes de sair?",
+				 "Salvar",
+				 JOptionPane.YES_NO_CANCEL_OPTION,
+				 JOptionPane.PLAIN_MESSAGE);
 				if (dialogResult == JOptionPane.YES_OPTION) {
 					if (FileUtils.getDiretorio() == null) {
 						FileUtils.createFile(BrppIDEFrame.getTextArea());
@@ -181,7 +244,8 @@ public class BrppIDEFrame extends JFrame {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				System.exit(0);
+				if (dialogResult != JOptionPane.CANCEL_OPTION)
+					System.exit(0);
 			}
 		});
 	}
@@ -198,7 +262,7 @@ public class BrppIDEFrame extends JFrame {
 		textArea.setCaretPosition(off);
 	}
 
-	protected static void comentar() throws BadLocationException {
+	public static void comentar() throws BadLocationException {
 		int car = textArea.getCaretPosition();
 		int lineNumber = textArea.getLineOfOffset(car);
 		int startOffset = textArea.getLineStartOffset(lineNumber);
@@ -211,9 +275,28 @@ public class BrppIDEFrame extends JFrame {
 			String line = textArea.getText(startOffset, endOffset
 					- startOffset);
 			int index = line.indexOf("//");
-			textArea.setCaretPosition(startOffset + index);
-			textArea.moveCaretPosition(startOffset + index + 2);
-			textArea.replaceSelection("");
+			// textArea.setCaretPosition(startOffset
+			// + index );
+			// textArea.moveCaretPosition(startOffset
+			// + index + 3);
+			textArea.replaceRange("\r\n",
+					startOffset + index - 1,
+					startOffset + index + 2);
+			// textArea.undoLastAction();
+			// textArea.replaceRange("",
+			// textArea.getCaretPosition(),
+			// textArea.getCaretPosition()+1);
+			// textArea.replaceSelection("");
 		}
+	}
+
+	protected JOptionPane getOptionPane(JComponent parent) {
+		JOptionPane pane = null;
+		if (!(parent instanceof JOptionPane)) {
+			pane = getOptionPane((JComponent) parent.getParent());
+		} else {
+			pane = (JOptionPane) parent;
+		}
+		return pane;
 	}
 }

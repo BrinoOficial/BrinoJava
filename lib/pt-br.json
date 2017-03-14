@@ -271,14 +271,14 @@
 			"arduino": "digitalWrite($1,HIGH)",
 			"arg": "d",
 			"highlight-type": "3",
-			"translate": "[^\\w]ligar\\(\\s*([0-9]+)\\s*\\)"
+			"translate": "[^\\w]ligar\\(\\s*([a-zA-z0-9]+)\\s*\\)"
 		},
 		{
 			"highlight": "desligar",
 			"arduino": "digitalWrite($1,LOW)",
 			"arg": "d",
 			"highlight-type": "3",
-			"translate": "desligar\\(\\s*([0-9]+)\\s*\\)"
+			"translate": "desligar\\(\\s*([a-zA-z0-9]+)\\s*\\)"
 		},
 		{
 			"highlight": "usar",
@@ -644,7 +644,8 @@
 		    "highlight-type": "1", 
 		    "translate": "Procedimento" 
          }
+
 	],
 	"language": "pt-br",
-	"version":"3"
+	"version":"5"
 }

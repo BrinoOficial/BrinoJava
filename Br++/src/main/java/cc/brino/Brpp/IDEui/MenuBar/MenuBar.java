@@ -1,4 +1,4 @@
-package cc.brino.Brpp.IDEui;
+package cc.brino.Brpp.IDEui.MenuBar;
 
 /*
  * Copyright (c) 2016 StarFruitBrasil
@@ -71,12 +71,27 @@ import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
+import org.fife.rsta.ui.GoToDialog;
+import org.fife.rsta.ui.search.FindDialog;
+import org.fife.rsta.ui.search.FindToolBar;
+import org.fife.rsta.ui.search.ReplaceDialog;
+import org.fife.rsta.ui.search.ReplaceToolBar;
+import org.fife.rsta.ui.search.SearchEvent;
+import org.fife.rsta.ui.search.SearchListener;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rtextarea.SearchContext;
+import org.fife.ui.rtextarea.SearchEngine;
+import org.fife.ui.rtextarea.SearchResult;
 import org.json.simple.parser.ParseException;
 import cc.brino.Brpp.BrppCompilerMain;
+import cc.brino.Brpp.IDEui.BrppIDEFrame;
+import cc.brino.Brpp.IDEui.SelecionadorDeLinguaFrame;
+import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.Brpp.IDEui.SubMenu;
 import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.Brpp.Utils.CommPortUtils;
 import cc.brino.Brpp.Utils.FileUtils;
@@ -123,14 +138,23 @@ import cc.brino.SerialMonitor.SerialMonitor;
  * @contributors
  * @version 5/2/2016
  */
-// import gnu.io.CommPortIdentifier;
 @SuppressWarnings("serial")
-public class MenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar implements SearchListener {
 
+	private FindDialog findDialog;
+	private ReplaceDialog replaceDialog;
+	private FindToolBar findToolBar;
+	private ReplaceToolBar replaceToolBar;
+	private static RSyntaxTextArea textArea = BrppIDEFrame.getTextArea();
 	private static Border emptyBorder = BorderFactory.createEmptyBorder();
-	private static Border translucidBorder = BorderFactory.createEmptyBorder(5,5,5,5);
-	private static final  JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
-	private static final  JSeparator separator2 = new JSeparator(JSeparator.HORIZONTAL);
+	private static Border translucidBorder = BorderFactory.createEmptyBorder(5,
+			5,
+			5,
+			5);
+	private static final JSeparator separator = new JSeparator(
+			JSeparator.HORIZONTAL);
+	private static final JSeparator separator2 = new JSeparator(
+			JSeparator.HORIZONTAL);
 	private String fileSeparator = System.getProperty("file.separator");
 	private static HashMap<String, String> listaExemplos = new HashMap<String, String>();
 	private static String[] coms = new String[1]; // fix
@@ -168,6 +192,9 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem verifyItem;
 	private JMenuItem loadItem;
 	private JMenuItem comentarItem;
+	private JMenuItem findItem;
+	private JMenuItem replaceItem;
+	private JMenuItem goToItem;
 	private JMenuItem gerenciadorLingItem;
 
 	public MenuBar() {
@@ -201,16 +228,22 @@ public class MenuBar extends JMenuBar {
 				46, 46, 46));
 		UIManager.put("PopupMenu.border", emptyBorder);
 		UIManager.put("PopupMenu.background", Color.black);
+//		UIManager.put("OptionPane.background", new Color(46, 46, 46));
+//		UIManager.put("OptionPane.messageForeground", new Color(250,
+//				250, 250));
+//		UIManager.put("Panel.background", new Color(46, 46, 46));
+//		UIManager.put("Panel.foreground", new Color(250, 250, 250));
+		initSearchDialogs();
 		separator.setForeground(Color.green);
 		separator.setBackground(Color.black);
 		separator.setBorder(translucidBorder);
 		separator.setOpaque(true);
-		separator.setPreferredSize(new Dimension(getWidth(),3));
+		separator.setPreferredSize(new Dimension(getWidth(), 3));
 		separator2.setForeground(Color.green);
 		separator2.setBackground(Color.black);
 		separator2.setBorder(translucidBorder);
 		separator2.setOpaque(true);
-		separator2.setPreferredSize(new Dimension(getWidth(),3));
+		separator2.setPreferredSize(new Dimension(getWidth(), 3));
 		coms = new String[15];
 		// Menu Arquivo
 		fileMenu = new JMenu("Arquivo");
@@ -363,6 +396,12 @@ public class MenuBar extends JMenuBar {
 		// Menu Editar
 		editMenu = new JMenu("Editar");
 		editMenu.setBorder(emptyBorder);
+		findItem = new JMenuItem(new ShowFindDialogAction());
+		findItem.setBorder(emptyBorder);
+		replaceItem = new JMenuItem(new ShowReplaceDialogAction());
+		replaceItem.setBorder(emptyBorder);
+		goToItem = new JMenuItem(new GoToLineAction());
+		goToItem.setBorder(emptyBorder);
 		comentarItem = new JMenuItem("Comentar/Descomentar");
 		comentarItem.setBorder(emptyBorder);
 		// Cria a acao do item
@@ -510,7 +549,8 @@ public class MenuBar extends JMenuBar {
 						System.out.println(BrppCompiler.getFile());
 						UploaderUtils.compile("\""
 								+ BrppCompiler.getFile()
-								+ "\"");
+								+ "\"",
+								Integer.parseInt(PrefManager.getPref("placa.index")));
 					} catch (IOException e) {
 						// TODO
 						// Auto-generated
@@ -561,6 +601,10 @@ public class MenuBar extends JMenuBar {
 		ferrMenu.add(separator);
 		ferrMenu.add(serialMonitor);
 		editMenu.add(comentarItem);
+		editMenu.add(separator);
+		editMenu.add(findItem);
+		editMenu.add(replaceItem);
+		editMenu.add(goToItem);
 		setComs();
 		sketchMenu.add(verifyItem);
 		sketchMenu.add(loadItem);
@@ -678,5 +722,151 @@ public class MenuBar extends JMenuBar {
 		gpCom.add(radioCOMS[0]);
 		subCOM.add(radioCOMS[0]);
 		coms[0] = comsN;
+	}
+
+	private class ShowFindDialogAction extends AbstractAction {
+
+		public ShowFindDialogAction() {
+			super("Find...");
+			int c = getToolkit().getMenuShortcutKeyMask();
+			putValue(ACCELERATOR_KEY,
+					KeyStroke.getKeyStroke(KeyEvent.VK_F, c));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (replaceDialog.isVisible()) {
+				replaceDialog.setVisible(false);
+			}
+			findDialog.setVisible(true);
+		}
+	}
+
+	private class ShowReplaceDialogAction extends AbstractAction {
+
+		public ShowReplaceDialogAction() {
+			super("Replace...");
+			int c = getToolkit().getMenuShortcutKeyMask();
+			putValue(ACCELERATOR_KEY,
+					KeyStroke.getKeyStroke(KeyEvent.VK_H, c));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (findDialog.isVisible()) {
+				findDialog.setVisible(false);
+			}
+			replaceDialog.setVisible(true);
+		}
+	}
+
+	private class GoToLineAction extends AbstractAction {
+
+		public GoToLineAction() {
+			super("Go To Line...");
+			int c = getToolkit().getMenuShortcutKeyMask();
+			putValue(ACCELERATOR_KEY,
+					KeyStroke.getKeyStroke(KeyEvent.VK_L, c));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (findDialog.isVisible()) {
+				findDialog.setVisible(false);
+			}
+			if (replaceDialog.isVisible()) {
+				replaceDialog.setVisible(false);
+			}
+			GoToDialog dialog = new GoToDialog(
+					BrppCompilerMain.getDialog());
+			dialog.setMaxLineNumberAllowed(BrppIDEFrame.getTextArea()
+					.getLineCount());
+			dialog.setVisible(true);
+			int line = dialog.getLineNumber();
+			if (line > 0) {
+				try {
+					BrppIDEFrame.getTextArea()
+							.setCaretPosition(BrppIDEFrame.getTextArea()
+									.getLineStartOffset(line - 1));
+				} catch (BadLocationException ble) { // Never
+									// happens
+					UIManager.getLookAndFeel()
+							.provideErrorFeedback(BrppIDEFrame.getTextArea());
+					ble.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void searchEvent(SearchEvent e) {
+		SearchEvent.Type type = e.getType();
+		SearchContext context = e.getSearchContext();
+		SearchResult result = null;
+		switch (type) {
+			default: // Prevent FindBugs warning
+					// later
+			case MARK_ALL:
+				result = SearchEngine.markAll(textArea, context);
+				break;
+			case FIND:
+				result = SearchEngine.find(textArea, context);
+				if (!result.wasFound()) {
+					UIManager.getLookAndFeel()
+							.provideErrorFeedback(textArea);
+				}
+				break;
+			case REPLACE:
+				result = SearchEngine.replace(textArea, context);
+				if (!result.wasFound()) {
+					UIManager.getLookAndFeel()
+							.provideErrorFeedback(textArea);
+				}
+				break;
+			case REPLACE_ALL:
+				result = SearchEngine.replaceAll(textArea,
+						context);
+				JOptionPane.showMessageDialog(null,
+						result.getCount()
+								+ " occurrences replaced.");
+				break;
+		}
+		String text = null;
+		if (result.wasFound()) {
+			text = "Text found; occurrences marked: "
+					+ result.getMarkedCount();
+		} else if (type == SearchEvent.Type.MARK_ALL) {
+			if (result.getMarkedCount() > 0) {
+				text = "Occurrences marked: "
+						+ result.getMarkedCount();
+			} else {
+				text = "";
+			}
+		} else {
+			text = "Text not found";
+		}
+		// statusBar.setLabel(text);
+	}
+
+	@Override
+	public String getSelectedText() {
+		return textArea.getSelectedText();
+	}
+
+	public void initSearchDialogs() {
+		findDialog = new FindDialog(BrppCompilerMain.getDialog(), this);
+		replaceDialog = new ReplaceDialog(BrppCompilerMain.getDialog(),
+				this);
+		// This ties the properties of the two
+		// dialogs together (match case,
+		// regex, etc.).
+		SearchContext context = findDialog.getSearchContext();
+		replaceDialog.setSearchContext(context);
+		// Create tool bars and tie their search
+		// contexts together also.
+		findToolBar = new FindToolBar(this);
+		findToolBar.setSearchContext(context);
+		replaceToolBar = new ReplaceToolBar(this);
+		replaceToolBar.setSearchContext(context);
 	}
 }

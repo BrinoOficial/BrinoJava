@@ -75,29 +75,25 @@ public class FileUtils {
 								+ System.getProperty("file.separator"),
 						file);
 				// recursive copy
-				if (!destFile.exists())
-					copyFolder(srcFile, destFile);
+				copyFolder(srcFile, destFile);
 			}
 		} else {
-			System.out.println(dest.exists());
-			if (!dest.exists()) {
-				// if file, then copy it
-				// Use bytes stream to
-				// support all file types
-				InputStream in = new FileInputStream(src);
-				OutputStream out = new FileOutputStream(dest);
-				byte[] buffer = new byte[1024];
-				int length;
-				// copy the file content in
-				// bytes
-				while ((length = in.read(buffer)) > 0) {
-					out.write(buffer, 0, length);
-				}
-				in.close();
-				out.close();
-				System.out.println("File copied from " + src
-						+ " to " + dest);
+			// if file, then copy it
+			// Use bytes stream to
+			// support all file types
+			InputStream in = new FileInputStream(src);
+			OutputStream out = new FileOutputStream(dest);
+			byte[] buffer = new byte[1024];
+			int length;
+			// copy the file content in
+			// bytes
+			while ((length = in.read(buffer)) > 0) {
+				out.write(buffer, 0, length);
 			}
+			in.close();
+			out.close();
+			System.out.println("File copied from " + src + " to "
+					+ dest);
 		}
 	}
 
