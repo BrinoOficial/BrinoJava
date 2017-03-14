@@ -184,54 +184,54 @@ public class BrppIDEFrame extends JFrame {
 
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				final JButton okay = new JButton("Sim");
-//				okay.setBackground(verde);
-				okay.setOpaque(true);
-				okay.setBorder(roundedBorderVerde);
-				okay.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane pane = getOptionPane((JComponent) e.getSource());
-						pane.setValue(okay);
-					}
-				});
-				final JButton no = new JButton("Não");
-				no.setBorder(roundedBorder);
-				no.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane pane = getOptionPane((JComponent) e.getSource());
-						pane.setValue(no);
-					}
-				});
-				final JButton cancel = new JButton("Cancelar");
-				no.setBorder(roundedBorder);
-				cancel.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane pane = getOptionPane((JComponent) e.getSource());
-						pane.setValue(cancel);
-					}
-				});
-				int dialogResult = JOptionPane.showOptionDialog(BrppIDEFrame.this,
-						"Você deseja salvar seu rascunho antes de sair",
-						"Salvar",
-						JOptionPane.NO_OPTION,
-						JOptionPane.PLAIN_MESSAGE,
-						null,
-						new JButton[] { okay, no,
-								cancel },
-						okay);
-				System.out.println(dialogResult);
-				// int dialogResult =
-				// JOptionPane.showConfirmDialog(BrppIDEFrame.this,
-				// "Você deseja salvar seu rascunho antes de sair?",
-				// "Salvar",
-				// JOptionPane.YES_NO_OPTION,
-				// JOptionPane.PLAIN_MESSAGE);
+//				final JButton okay = new JButton("Sim");
+////				okay.setBackground(verde);
+//				okay.setOpaque(true);
+//				okay.setBorder(roundedBorderVerde);
+//				okay.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+//						pane.setValue(okay);
+//					}
+//				});
+//				final JButton no = new JButton("Não");
+//				no.setBorder(roundedBorder);
+//				no.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+//						pane.setValue(no);
+//					}
+//				});
+//				final JButton cancel = new JButton("Cancelar");
+//				no.setBorder(roundedBorder);
+//				cancel.addActionListener(new ActionListener() {
+//
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+//						pane.setValue(cancel);
+//					}
+//				});
+//				int dialogResult = JOptionPane.showOptionDialog(BrppIDEFrame.this,
+//						"Você deseja salvar seu rascunho antes de sair",
+//						"Salvar",
+//						JOptionPane.NO_OPTION,
+//						JOptionPane.PLAIN_MESSAGE,
+//						null,
+//						new JButton[] { okay, no,
+//								cancel },
+//						okay);
+//				System.out.println(dialogResult);
+				 int dialogResult =
+				 JOptionPane.showConfirmDialog(BrppIDEFrame.this,
+				 "Você deseja salvar seu rascunho antes de sair?",
+				 "Salvar",
+				 JOptionPane.YES_NO_CANCEL_OPTION,
+				 JOptionPane.PLAIN_MESSAGE);
 				if (dialogResult == JOptionPane.YES_OPTION) {
 					if (FileUtils.getDiretorio() == null) {
 						FileUtils.createFile(BrppIDEFrame.getTextArea());
@@ -244,7 +244,7 @@ public class BrppIDEFrame extends JFrame {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				if (dialogResult != 2)
+				if (dialogResult != JOptionPane.CANCEL_OPTION)
 					System.exit(0);
 			}
 		});
