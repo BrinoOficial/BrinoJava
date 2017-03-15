@@ -144,6 +144,7 @@ public class FileUtils {
 					String line = in.nextLine();
 					// Highlight
 					f += (line + "\n");
+					System.out.println(line);
 				}
 				rSyntaxTextArea.setText(f);
 				in.close();
@@ -176,6 +177,7 @@ public class FileUtils {
 				String line = in.nextLine();
 				// Highlight
 				f += (line + "\n");
+				System.out.println(line);
 			}
 			txt.setText(f);
 			in.close();
