@@ -40,6 +40,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -180,6 +181,67 @@ public class BrppIDEFrame extends JFrame {
 		menuBar = new MenuBar();
 		setJMenuBar(menuBar);
 		setVisible(true);
+		textArea.addKeyListener(new KeyAdapter() {
+		        boolean ctrlPressed = false;
+		        boolean slashPressed = false;
+
+		        @Override
+		        public void keyPressed(KeyEvent e) {
+		            switch(e.getKeyCode()) {
+		            case KeyEvent.VK_SLASH:
+		                slashPressed=true;
+
+		                break;
+		            case KeyEvent.VK_CONTROL:
+		                ctrlPressed=true;
+		                break;
+		            }
+
+		            if(ctrlPressed && slashPressed) {
+		                try {
+					comentar();
+				} catch (BadLocationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		                e.consume();// Stop the event from propagating.
+		            }
+		        }
+		        
+		        @Override
+		        public void keyTyped(KeyEvent e) {
+		            switch(e.getKeyCode()) {
+		            case KeyEvent.VK_SLASH:
+		                slashPressed=true;
+
+		                break;
+		            case KeyEvent.VK_CONTROL:
+		                ctrlPressed=true;
+		                break;
+		            }
+
+		            if(ctrlPressed && slashPressed) {
+		                e.consume();// Stop the event from propagating.
+		            }
+		        }
+
+		        @Override
+		        public void keyReleased(KeyEvent e) {
+		            switch(e.getKeyCode()) {
+		            case KeyEvent.VK_SLASH:
+		                slashPressed=false;
+
+		                break;
+		            case KeyEvent.VK_CONTROL:
+		                ctrlPressed=false;
+		                break;
+		            }
+
+		            if(ctrlPressed && slashPressed) {
+		                e.consume();// Stop the event from propagating.
+		            }
+		        }
+		    });
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 
 			@Override
