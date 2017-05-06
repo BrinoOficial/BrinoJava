@@ -23,6 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -35,13 +36,18 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import cc.brino.Brpp.IDEui.SouthPanel;
+import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Utils.CommPortUtils;
 
 @SuppressWarnings("serial")
@@ -49,6 +55,15 @@ public class SerialMonitor extends JFrame {
 
 	public static boolean isOpen = false;
 	private boolean connected = true;
+	private final Color cinza = new Color(46, 46, 46);
+	private final Color cinzaEscuro = new Color(30, 30, 30);
+	private final Border roundedBorder = new LineBorder(cinzaEscuro, 15,
+			true);
+	private Border translucidBorder = BorderFactory.createEmptyBorder(2,
+			5,
+			5,
+			5);
+	private Border emptyBorder = BorderFactory.createEmptyBorder();
 	private BorderLayout main = new BorderLayout();
 	private JTextPane Jp;
 	private static JTextArea OUT = new JTextArea(600, 500);
@@ -60,6 +75,24 @@ public class SerialMonitor extends JFrame {
 	public SerialMonitor(String com) throws TooManyListenersException {
 		// TODO Auto-generated constructor stub
 		super("Monitor Serial");
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		setBackground(cinza);
+		OUT.setBackground(cinzaEscuro);
+		OUT.setForeground(Color.WHITE);
 		isOpen = true;
 		OUT.setText("");
 		this.setLayout(main);
@@ -90,10 +123,18 @@ public class SerialMonitor extends JFrame {
 		Border b = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		Jp.setBorder(BorderFactory.createLineBorder(Color.black));
 		Jp.setEditable(true);
-		out.setBorder(BorderFactory.createCompoundBorder(b,
-				BorderFactory.createLineBorder(Color.black, 1)));
+		Jp.setBackground(cinzaEscuro);
+		Jp.setForeground(Color.WHITE);
+		out.setBorder(roundedBorder);
+		out.setBackground(cinza);
+		out.setForeground(cinzaEscuro);
+		out.setViewportBorder(emptyBorder);
+		JScrollBar sb = out.getVerticalScrollBar();
+		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
+		sb.setUI(new ScrollLeanUI());
+		sb.setBackground(cinza);
+		sb.setBorder(emptyBorder);
 		out.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		out.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		add(out, BorderLayout.CENTER);
 		add(autorolagem, BorderLayout.SOUTH);
 		OUT.setEditable(false);
