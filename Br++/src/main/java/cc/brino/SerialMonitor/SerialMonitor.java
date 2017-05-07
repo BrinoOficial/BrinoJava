@@ -73,7 +73,7 @@ public class SerialMonitor extends JFrame {
 			connected=false;
 		}
 		Jp = new JTextPane();
-		Action enviaAction = new AbstractAction("Envia") {
+		Action enviaAction = new AbstractAction("Enviar") {
 			private static final long serialVersionUID = -1528090166842624429L;
 
 			@Override
