@@ -233,6 +233,7 @@ public class BrppIDEFrame extends JFrame {
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				final JButton okay = new JButton("Sim");
 				okay.setBackground(UIConstants.VERDE);
+				okay.setForeground(Color.white);
 				okay.setOpaque(true);
 				okay.setBorder(new BubbleBorder(UIConstants.VERDE));
 				okay.addActionListener(new ActionListener() {
@@ -245,6 +246,7 @@ public class BrppIDEFrame extends JFrame {
 				});
 				final JButton no = new JButton("Não");
 				no.setBackground(Color.RED);
+				no.setForeground(Color.white);
 				no.setBorder(new BubbleBorder(Color.RED));
 				no.addActionListener(new ActionListener() {
 
@@ -256,6 +258,7 @@ public class BrppIDEFrame extends JFrame {
 				});
 				final JButton cancel = new JButton("Cancelar");
 				cancel.setBackground(UIConstants.CINZAESCURO);
+				cancel.setForeground(Color.white);
 				cancel.setBorder(new BubbleBorder(UIConstants.CINZAESCURO));
 				cancel.addActionListener(new ActionListener() {
 
