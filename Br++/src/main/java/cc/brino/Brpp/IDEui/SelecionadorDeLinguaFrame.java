@@ -43,7 +43,7 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 			// itera pelas linguas e printa as
 			// linguas
 			for (String key : linguas.keySet()) {
-				// Capturamos o valor a
+				// Captura o valor a
 				// partir da chave
 				Integer value = linguas.get(key);
 				valores[i][0] = key;
@@ -120,11 +120,5 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 				"ERRO",
 				JOptionPane.ERROR_MESSAGE);
 		dispose();
-	}
-	
-	public static void main(String args[]){
-		SelecionadorDeLinguaFrame frame = new SelecionadorDeLinguaFrame();
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setVisible(true);
 	}
 }

@@ -779,21 +779,21 @@ public class MenuBar extends JMenuBar implements SearchListener {
 								+ " occurrences replaced.");
 				break;
 		}
-		String text = null;
-		if (result.wasFound()) {
-			text = "Text found; occurrences marked: "
-					+ result.getMarkedCount();
-		} else if (type == SearchEvent.Type.MARK_ALL) {
-			if (result.getMarkedCount() > 0) {
-				text = "Occurrences marked: "
-						+ result.getMarkedCount();
-			} else {
-				text = "";
-			}
-		} else {
-			text = "Text not found";
-		}
-		// statusBar.setLabel(text);
+//		String text = null;
+//		if (result.wasFound()) {
+//			text = "Text found; occurrences marked: "
+//					+ result.getMarkedCount();
+//		} else if (type == SearchEvent.Type.MARK_ALL) {
+//			if (result.getMarkedCount() > 0) {
+//				text = "Occurrences marked: "
+//						+ result.getMarkedCount();
+//			} else {
+//				text = "";
+//			}
+//		} else {
+//			text = "Text not found";
+//		}
+//		// statusBar.setLabel(text);
 	}
 
 	@Override

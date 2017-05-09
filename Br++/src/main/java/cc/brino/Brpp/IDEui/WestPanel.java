@@ -43,14 +43,12 @@ import java.io.IOException;
 import java.util.TooManyListenersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import cc.brino.Brpp.BrppCompilerMain;
 import cc.brino.Brpp.Pref.PrefManager;
@@ -64,13 +62,7 @@ import cc.brino.SerialMonitor.SerialMonitor;
 public class WestPanel extends JPanel {
 
 	private static final Logger logger = Logger.getLogger(BrppCompilerMain.class.getName());
-	private JButton COMP;
-	private JButton COMPUP;
-	private JButton NOVO;
-	private JButton ABR;
-	private JButton SAL;
-	private JButton SERIAL;
-	Border emptyBorder = BorderFactory.createEmptyBorder();
+	private JButton COMP, COMPUP, NOVO, ABR, SAL, SERIAL;
 	private final ImageIcon novo = new ImageIcon(
 			getClass().getClassLoader()
 					.getResource("resources/novoButton.png"));
@@ -110,11 +102,11 @@ public class WestPanel extends JPanel {
 		COMP = new JButton(comp);
 		COMP.setToolTipText("Compilar");
 		COMP.setBorderPainted(false);
-		COMP.setBorder(emptyBorder);
+		COMP.setBorder(UIConstants.BORDAVAZIA);
 		COMP.setContentAreaFilled(false);
 		COMP.setRolloverIcon(compFocus);
 		COMP.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (FileUtils.getDiretorio() == null) {
@@ -126,7 +118,8 @@ public class WestPanel extends JPanel {
 					try {
 						UploaderUtils.compile("\""
 								+ BrppCompiler.getFile()
-								+ "\"",Integer.parseInt(PrefManager.getPref("placa.index")));
+								+ "\"",
+								Integer.parseInt(PrefManager.getPref("placa.index")));
 					} catch (IOException e) {
 						logger.log(Level.SEVERE,
 								"Erro ao compilar no Arduino",
@@ -138,7 +131,7 @@ public class WestPanel extends JPanel {
 		COMPUP = new JButton(compup);
 		COMPUP.setToolTipText("Compilar e carregar");
 		COMPUP.setBorderPainted(false);
-		COMPUP.setBorder(emptyBorder);
+		COMPUP.setBorder(UIConstants.BORDAVAZIA);
 		COMPUP.setContentAreaFilled(false);
 		COMPUP.setRolloverIcon(compupFocus);
 		COMPUP.addActionListener(new ActionListener() {
@@ -168,7 +161,7 @@ public class WestPanel extends JPanel {
 		NOVO = new JButton(novo);
 		NOVO.setToolTipText("Novo");
 		NOVO.setBorderPainted(false);
-		NOVO.setBorder(emptyBorder);
+		NOVO.setBorder(UIConstants.BORDAVAZIA);
 		NOVO.setContentAreaFilled(false);
 		NOVO.setRolloverIcon(novoFocus);
 		NOVO.addActionListener(new ActionListener() {
@@ -195,7 +188,7 @@ public class WestPanel extends JPanel {
 		ABR = new JButton(abr);
 		ABR.setToolTipText("Abrir");
 		ABR.setBorderPainted(false);
-		ABR.setBorder(emptyBorder);
+		ABR.setBorder(UIConstants.BORDAVAZIA);
 		ABR.setContentAreaFilled(false);
 		ABR.setRolloverIcon(abrFocus);
 		ABR.addActionListener(new ActionListener() {
@@ -220,7 +213,7 @@ public class WestPanel extends JPanel {
 		SAL = new JButton(sal);
 		SAL.setToolTipText("Salvar");
 		SAL.setBorderPainted(false);
-		SAL.setBorder(emptyBorder);
+		SAL.setBorder(UIConstants.BORDAVAZIA);
 		SAL.setContentAreaFilled(false);
 		SAL.setRolloverIcon(salFocus);
 		SAL.addActionListener(new ActionListener() {
@@ -238,7 +231,7 @@ public class WestPanel extends JPanel {
 		SERIAL = new JButton(ser);
 		SERIAL.setToolTipText("Monitor Serial");
 		SERIAL.setBorderPainted(false);
-		SERIAL.setBorder(emptyBorder);
+		SERIAL.setBorder(UIConstants.BORDAVAZIA);
 		SERIAL.setContentAreaFilled(false);
 		SERIAL.setRolloverIcon(serFocus);
 		SERIAL.addActionListener(new ActionListener() {
@@ -269,7 +262,6 @@ public class WestPanel extends JPanel {
 		ABR.setAlignmentX(Component.CENTER_ALIGNMENT);
 		SAL.setAlignmentX(Component.CENTER_ALIGNMENT);
 		SERIAL.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
 		// adiciona os botoes
 		box.add(COMP);
 		box.add(Box.createVerticalStrut(5));
