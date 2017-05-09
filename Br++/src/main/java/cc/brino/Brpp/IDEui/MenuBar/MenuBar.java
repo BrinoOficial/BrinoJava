@@ -71,10 +71,10 @@ import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
+import cc.brino.Brpp.IDEui.BubbleBorder;
 import org.fife.rsta.ui.GoToDialog;
 import org.fife.rsta.ui.search.FindDialog;
 import org.fife.rsta.ui.search.FindToolBar;
@@ -92,6 +92,7 @@ import cc.brino.Brpp.IDEui.BrppIDEFrame;
 import cc.brino.Brpp.IDEui.SelecionadorDeLinguaFrame;
 import cc.brino.Brpp.IDEui.SouthPanel;
 import cc.brino.Brpp.IDEui.SubMenu;
+import cc.brino.Brpp.IDEui.UIConstants;
 import cc.brino.Brpp.Pref.PrefManager;
 import cc.brino.Brpp.Utils.CommPortUtils;
 import cc.brino.Brpp.Utils.FileUtils;
@@ -103,41 +104,6 @@ import cc.brino.Brpp.compiler.BrppCompiler;
 import cc.brino.SerialMonitor.SerialMonitor;
 
 
-/*
- * Copyright (c) 2016 StarFruitBrasil
- * 
- * Permission is hereby granted, free of charge, to any
- * person obtaining a copy of this software and associated
- * documentation files (the "Software"), to deal in the
- * Software without restriction, including without
- * limitation the rights to use, copy, modify, merge,
- * publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software
- * is furnished to do so, subject to the following
- * conditions:
- * 
- * The above copyright notice and this permission notice
- * shall be included in all copies or substantial portions
- * of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
- * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
- * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
- */
-/**
- * Barra de Menu do IDE
- * 
- * @author Mateus Berardo de Souza Terra e Rafael
- *         Mascarenhas Dal Moro
- * @contributors
- * @version 5/2/2016
- */
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar implements SearchListener {
 
@@ -146,14 +112,13 @@ public class MenuBar extends JMenuBar implements SearchListener {
 	private FindToolBar findToolBar;
 	private ReplaceToolBar replaceToolBar;
 	private static RSyntaxTextArea textArea = BrppIDEFrame.getTextArea();
-	private static Border emptyBorder = BorderFactory.createEmptyBorder();
-	private static Border translucidBorder = BorderFactory.createEmptyBorder(5,
-			5,
-			5,
-			5);
+	private static Border emptyBorder = BorderFactory.createEmptyBorder(),
+			translucidBorder = BorderFactory.createEmptyBorder(5,
+					5,
+					5,
+					5);
 	private static final JSeparator separator = new JSeparator(
-			JSeparator.HORIZONTAL);
-	private static final JSeparator separator2 = new JSeparator(
+			JSeparator.HORIZONTAL), separator2 = new JSeparator(
 			JSeparator.HORIZONTAL);
 	private String fileSeparator = System.getProperty("file.separator");
 	private static HashMap<String, String> listaExemplos = new HashMap<String, String>();
@@ -170,32 +135,14 @@ public class MenuBar extends JMenuBar implements SearchListener {
 			"LilyPad 168", "Pro ou Pro Mini 328 5V",
 			"Pro ou Pro Mini 328 3V3", "Pro ou Pro Mini 168 5V",
 			"Pro ou Pro Mini 168 3V3", "Gemma", "One Dollar Board" };
-	private static JRadioButtonMenuItem[] radioBoards;
-	private ButtonGroup gp;
-	private static JRadioButtonMenuItem[] radioLing;
-	private ButtonGroup gpL;
-	private static JRadioButtonMenuItem[] radioCOMS;
-	private ButtonGroup gpCom;
-	private JMenu fileMenu;
-	private JMenu editMenu;
-	private JMenu ferrMenu;
-	private JMenu sketchMenu;
-	private SubMenu exemplosMenu;
-	private SubMenu linguaMenu;
-	private SubMenu subCOM;
-	private SubMenu subBoard;
-	private JMenuItem novoItem;
-	private JMenuItem salvarItem;
-	private JMenuItem salvarComoItem;
-	private JMenuItem abrirItem;
-	private JMenuItem serialMonitor;
-	private JMenuItem verifyItem;
-	private JMenuItem loadItem;
-	private JMenuItem comentarItem;
-	private JMenuItem findItem;
-	private JMenuItem replaceItem;
-	private JMenuItem goToItem;
-	private JMenuItem gerenciadorLingItem;
+	private static JRadioButtonMenuItem[] radioBoards, radioLing,
+			radioCOMS;
+	private ButtonGroup gp, gpL, gpCom;
+	private JMenu fileMenu, editMenu, ferrMenu, sketchMenu;
+	private SubMenu exemplosMenu, linguaMenu, subCOM, subBoard;
+	private JMenuItem novoItem, salvarItem, salvarComoItem, abrirItem,
+			serialMonitor, verifyItem, loadItem, comentarItem,
+			findItem, replaceItem, goToItem, gerenciadorLingItem;
 
 	public MenuBar() {
 		final Font font = new Font(this.getFont().getFamily(),
@@ -228,12 +175,13 @@ public class MenuBar extends JMenuBar implements SearchListener {
 				46, 46, 46));
 		UIManager.put("PopupMenu.border", emptyBorder);
 		UIManager.put("PopupMenu.background", Color.black);
-//		UIManager.put("OptionPane.background", new Color(46, 46, 46));
-//		UIManager.put("OptionPane.messageForeground", new Color(250,
-//				250, 250));
-//		UIManager.put("Panel.background", new Color(46, 46, 46));
-//		UIManager.put("Panel.foreground", new Color(250, 250, 250));
+		UIManager.put("OptionPane.background", new Color(46, 46, 46));
+		UIManager.put("OptionPane.messageForeground", new Color(250,
+				250, 250));
+		UIManager.put("Panel.background", new Color(46, 46, 46));
+		UIManager.put("Panel.foreground", new Color(250, 250, 250));
 		initSearchDialogs();
+		UIManager.put("", new BubbleBorder(UIConstants.VERDE));
 		separator.setForeground(Color.green);
 		separator.setBackground(Color.black);
 		separator.setBorder(translucidBorder);

@@ -47,7 +47,7 @@ import cc.brino.SerialMonitor.SerialMonitor;
 
 public class UploaderUtils {
 
-	static JTextArea out = SouthPanel.LOG;
+	static JTextArea out = SouthPanel.getLOG();
 	private static String[] boards = { "arduino:avr:uno",
 			"arduino:avr:mega:cpu=atmega1280",
 			"arduino:avr:mega:cpu=atmega2560",
@@ -124,7 +124,7 @@ public class UploaderUtils {
 				p.getInputStream()));
 		String line;
 		out.setText("");
-		SouthPanel.LogPanel.getVerticalScrollBar().setValue(0);
+		SouthPanel.scroll(0);
 		out.update(out.getGraphics());
 		Timer t = new Timer();
 		while (true) {

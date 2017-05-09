@@ -1,14 +1,13 @@
 package cc.brino.Brpp.IDEui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Map;
-
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,10 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.Border;
-
 import org.json.simple.parser.ParseException;
-
 import cc.brino.Brpp.Utils.LanguageVersionUtils;
 
 
@@ -27,6 +23,7 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTable linguasTable;
+	private JPanel center, north, south;
 	private Map<String, Integer> linguas;
 	private JScrollPane scrollPane;
 	private JButton selecionar;
@@ -34,7 +31,6 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 	private JLabel texto;
 	private String[] colunas = { "Língua", "Versão" };
 	private Object[][] valores;
-	Border emptyBorder = BorderFactory.createEmptyBorder();
 
 	public SelecionadorDeLinguaFrame() {
 		super("Selecionador de Língua");
@@ -54,22 +50,29 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 				valores[i][1] = value;
 				i++;
 			}
-			JPanel center = new JPanel();
+			center = new JPanel();
+			center.setBackground(UIConstants.CINZA);
 			linguasTable = new JTable(valores, colunas);
 			scrollPane = new JScrollPane(linguasTable);
-			scrollPane.setBorder(emptyBorder);
-			// linguasTable.setFillsViewportHeight(true);
+			scrollPane.setBackground(UIConstants.CINZA);
+			scrollPane.setViewportBorder(UIConstants.BORDAVAZIA);
+			scrollPane.setBorder(UIConstants.BORDAVAZIA);
 			center.add(scrollPane, BorderLayout.CENTER);
 			add(center, BorderLayout.CENTER);
 			texto = new JLabel(
-					"Selecione a língua desejada abaixo e clique em instalar ou atualizar:");
-			JPanel north = new JPanel();
+					"Selecione a língua desejada abaixo e clique em baixar:");
+			north = new JPanel();
+			north.setBackground(UIConstants.CINZA);
 			north.setLayout(new FlowLayout(FlowLayout.LEFT));
 			north.add(texto);
+			texto.setForeground(Color.white);
 			add(north, BorderLayout.NORTH);
-			JPanel south = new JPanel();
+			south = new JPanel();
+			south.setBackground(UIConstants.CINZA);
 			south.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			selecionar = new JButton("Baixar");
+			selecionar.setBackground(Color.green);
+			selecionar.setBorder(new BubbleBorder(Color.green));
 			selecionar.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -88,6 +91,8 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 				}
 			});
 			cancelar = new JButton("Cancelar");
+			cancelar.setBackground(Color.red);
+			cancelar.setBorder(new BubbleBorder(Color.red));
 			cancelar.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -115,5 +120,11 @@ public class SelecionadorDeLinguaFrame extends JFrame {
 				"ERRO",
 				JOptionPane.ERROR_MESSAGE);
 		dispose();
+	}
+	
+	public static void main(String args[]){
+		SelecionadorDeLinguaFrame frame = new SelecionadorDeLinguaFrame();
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 }

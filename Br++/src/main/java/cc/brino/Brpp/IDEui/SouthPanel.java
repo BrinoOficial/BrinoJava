@@ -32,15 +32,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 import cc.brino.Brpp.Pref.PrefManager;
@@ -49,58 +46,46 @@ import cc.brino.Brpp.Pref.PrefManager;
 public class SouthPanel extends JPanel {
 
 	private static JLabel placaCom;
+	private static Font font, boldFont;
 	private static final long serialVersionUID = 1L;
-	private Color branco = new Color(255, 255, 255);
-	private Color verde = new Color(72, 155, 0);// 11,
-							// 125,
-							// 73
-	private final Color cinza = new Color(46, 46, 46);
-	private final Color cinzaEscuro = new Color(30, 30, 30);
-	private final Border roundedBorder = new LineBorder(cinzaEscuro, 15,
-			true);
-	private Border translucidBorder = BorderFactory.createEmptyBorder(2,
-			5,
-			5,
-			5);
-	private Border emptyBorder = BorderFactory.createEmptyBorder();
-	public static JTextArea LOG = new JTextArea(5, 10);
-	public static JScrollPane LogPanel = new JScrollPane(LOG);
+	private static JTextArea LOG = new JTextArea(5, 10);
+	private static JScrollPane LogPanel = new JScrollPane(LOG);
+	private static JPanel centralPanel; 
 
 	public SouthPanel() {
 		setLayout(new BorderLayout());
-		setBackground(cinza);
-		JPanel centralPanel = new JPanel();
-		centralPanel.setBackground(cinza);
-		centralPanel.setBorder(translucidBorder);
+		setBackground(UIConstants.CINZA);
+		centralPanel = new JPanel();
+		centralPanel.setBackground(UIConstants.CINZA);
+		centralPanel.setBorder(UIConstants.BORDATRANSPARENTE);
 		centralPanel.setLayout(new BorderLayout());
 		centralPanel.add(LogPanel, BorderLayout.CENTER);
-		LogPanel.setBorder(roundedBorder);
-		LogPanel.setBackground(cinza);
-		LogPanel.setForeground(cinzaEscuro);
-		LogPanel.setViewportBorder(emptyBorder);
+		LogPanel.setBorder(UIConstants.BORDACINZAESCUROARREDONDADA);
+		LogPanel.setBackground(UIConstants.CINZA);
+		LogPanel.setForeground(UIConstants.CINZAESCURO);
+		LogPanel.setViewportBorder(UIConstants.BORDAVAZIA);
 		JScrollBar sb = LogPanel.getVerticalScrollBar();
 		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
 		sb.setUI(new ScrollLeanUI());
-		sb.setBackground(cinza);
-		sb.setBorder(emptyBorder);
+		sb.setBackground(UIConstants.CINZA);
+		sb.setBorder(UIConstants.BORDAVAZIA);
 		LogPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		LOG.setLineWrap(true);
 		LOG.setEditable(false);
 		LOG.setFocusable(false);
-		LOG.setForeground(branco);
-		LOG.setBackground(cinzaEscuro);
-		LOG.setBorder(roundedBorder);
+		LOG.setForeground(Color.white);
+		LOG.setBackground(UIConstants.CINZAESCURO);
+		LOG.setBorder(UIConstants.BORDACINZAESCUROARREDONDADA);
 		add(centralPanel, BorderLayout.CENTER);
 		DefaultCaret caret = (DefaultCaret) LOG.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		placaCom = new JLabel(PrefManager.getPref("placa.nome")
 				+ " na " + PrefManager.getPref("porta"));
-		placaCom.setForeground(branco);
-		placaCom.setBorder(translucidBorder);
-		Font font = placaCom.getFont();
-		// same font but bold
-		Font boldFont = new Font(font.getFontName(), Font.ITALIC
-				+ Font.BOLD, font.getSize() - 2);
+		placaCom.setForeground(Color.white);
+		placaCom.setBorder(UIConstants.BORDATRANSPARENTE);
+		font = placaCom.getFont();
+		boldFont = new Font(font.getFontName(),
+				Font.ITALIC + Font.BOLD, font.getSize() - 2);
 		placaCom.setFont(boldFont);
 		add(placaCom, BorderLayout.SOUTH);
 	}
@@ -112,5 +97,13 @@ public class SouthPanel extends JPanel {
 
 	public static void updatePlacaCom(String Board, String com) {
 		placaCom.setText(Board + " na " + com);
+	}
+
+	public static JTextArea getLOG() {
+		return LOG;
+	}
+
+	public static void scroll(int value) {
+		LogPanel.getVerticalScrollBar().setValue(value);
 	}
 }

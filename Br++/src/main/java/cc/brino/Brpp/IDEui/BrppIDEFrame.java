@@ -36,18 +36,13 @@ package cc.brino.Brpp.IDEui;
  * @version 5/2/2016
  */
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -57,8 +52,6 @@ import javax.swing.JScrollBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.CompletionProvider;
@@ -83,18 +76,6 @@ public class BrppIDEFrame extends JFrame {
 	private WestPanel westPanel;
 	private SouthPanel southPanel;
 	private JPanel centralPane;
-	private final Color cinza = new Color(46, 46, 46);
-	private Border emptyBorder = BorderFactory.createEmptyBorder();
-	private Border translucidBorder = BorderFactory.createEmptyBorder(5,
-			5,
-			5,
-			5);
-	private Color verde = new Color(72, 155, 0);// 11,
-							// 125,
-							// 73
-	private final Border roundedBorderVerde = new LineBorder(verde, 5, true);
-	private final Border roundedBorder = new LineBorder(new Color(30,30,30), 15,
-			true);
 	private static RSyntaxTextArea textArea;
 	private RTextScrollPane code;
 	private static final String min = "Configuracao() {\r\n"
@@ -130,9 +111,9 @@ public class BrppIDEFrame extends JFrame {
 		setLocationRelativeTo(null);
 		BorderLayout bl = new BorderLayout();
 		setLayout(bl);
-		setBackground(verde);
+		setBackground(UIConstants.VERDE);
 		westPanel = new WestPanel();
-		westPanel.setBackground(verde);
+		westPanel.setBackground(UIConstants.VERDE);
 		add(westPanel, BorderLayout.WEST);
 		westPanel.setVisible(true);
 		southPanel = new SouthPanel();
@@ -160,23 +141,23 @@ public class BrppIDEFrame extends JFrame {
 				KeyEvent.CTRL_DOWN_MASK));
 		ac.install(textArea);
 		textArea.setText(getMin());
-		textArea.setBorder(emptyBorder);
+		textArea.setBorder(UIConstants.BORDAVAZIA);
 		code = new RTextScrollPane(textArea);
 		code.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		code.setSize(400, 500);
-		code.setViewportBorder(translucidBorder);
-		code.setBackground(cinza);
-		code.setBorder(translucidBorder);
+		code.setViewportBorder(UIConstants.BORDATRANSPARENTE);
+		code.setBackground(UIConstants.CINZA);
+		code.setBorder(UIConstants.BORDATRANSPARENTE);
 		JScrollBar sb = code.getVerticalScrollBar();
 		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
 		sb.setUI(new ScrollLeanUI());
-		sb.setBackground(cinza);
-		sb.setBorder(emptyBorder);
+		sb.setBackground(UIConstants.CINZA);
+		sb.setBorder(UIConstants.BORDAVAZIA);
 		centralPane = new JPanel();
 		centralPane.setLayout(new BorderLayout());
 		centralPane.add(southPanel, BorderLayout.SOUTH);
 		centralPane.add(code, BorderLayout.CENTER);
-		centralPane.setBorder(emptyBorder);
+		centralPane.setBorder(UIConstants.BORDAVAZIA);
 		add(centralPane, BorderLayout.CENTER);
 		menuBar = new MenuBar();
 		setJMenuBar(menuBar);
