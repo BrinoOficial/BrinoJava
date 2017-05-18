@@ -102,8 +102,8 @@ public class BrppCompilerMain {
 		// cria o diretorio do Brino
 		logger.log(Level.CONFIG,
 				"Criando o diretorio de bibliotecas do Brino");
-		File libDir = new File(FileUtils.getBrinodirectory()
-				+ "/bibliotecas");
+		File libDir = new File(Paths.get(FileUtils.getBrinodirectory(),
+				"bibliotecas").toAbsolutePath().toString());
 		libDir.mkdirs();
 		// salva o diretorio do brino
 		logger.log(Level.INFO, "Path set to: " + currentRelativePath);
@@ -145,7 +145,6 @@ public class BrppCompilerMain {
 					"Erro ao mover bibliotecas!\n",
 					npe);
 		}
-		
 		SwingUtilities.invokeLater(new Runnable() {
 
 			public void run() {
