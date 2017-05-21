@@ -44,9 +44,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import cc.brino.Brpp.BrppCompilerMain;
+import cc.brino.Brpp.IDEui.BrppIDEFrame;
 
 
 public class FileUtils {

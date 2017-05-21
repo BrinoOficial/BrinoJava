@@ -6,7 +6,7 @@
 <RSyntaxTheme version="1.0">
 
 	<!-- General editor colors. -->
-	<background color="2E2E2E" />
+	<background color="191919" /> <!-- 2e2e2e -->
 	<caret color="D2D2D2" />
 	<selection useFG="false" bg="4C4C4C" roundedEdges="false" />
 	<currentLineHighlight color="383A38" fade="false" />
@@ -14,8 +14,9 @@
 	<markAllHighlight color="383A38" />
 	<markOccurrencesHighlight color="383A38"
 		border="false" />
-	<matchedBracket fg="F0F0F0" bg="2E2E2E" highlightBoth="true"
+	<matchedBracket fg="F0F0F0" bg="191919" highlightBoth="true"
 		animate="true" />
+		<!--bg =2e2e2e-->
 	<hyperlinks fg="A082BD" />
 	<secondaryLanguages>
 		<language index="1" bg="333344" />

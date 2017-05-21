@@ -59,7 +59,6 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -70,11 +69,9 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import javax.swing.text.BadLocationException;
-import cc.brino.Brpp.IDEui.BubbleBorder;
 import org.fife.rsta.ui.GoToDialog;
 import org.fife.rsta.ui.search.FindDialog;
 import org.fife.rsta.ui.search.FindToolBar;
@@ -89,6 +86,7 @@ import org.fife.ui.rtextarea.SearchResult;
 import org.json.simple.parser.ParseException;
 import cc.brino.Brpp.BrppCompilerMain;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
+import cc.brino.Brpp.IDEui.BubbleBorder;
 import cc.brino.Brpp.IDEui.SelecionadorDeLinguaFrame;
 import cc.brino.Brpp.IDEui.SouthPanel;
 import cc.brino.Brpp.IDEui.SubMenu;
@@ -112,11 +110,6 @@ public class MenuBar extends JMenuBar implements SearchListener {
 	private FindToolBar findToolBar;
 	private ReplaceToolBar replaceToolBar;
 	private static RSyntaxTextArea textArea = BrppIDEFrame.getTextArea();
-	private static Border emptyBorder = BorderFactory.createEmptyBorder(),
-			translucidBorder = BorderFactory.createEmptyBorder(5,
-					5,
-					5,
-					5);
 	private static final JSeparator separator = new JSeparator(
 			JSeparator.HORIZONTAL), separator2 = new JSeparator(
 			JSeparator.HORIZONTAL);
@@ -124,8 +117,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 	private static HashMap<String, String> listaExemplos = new HashMap<String, String>();
 	private static String[] coms = new String[1]; // fix
 	boolean first = true;
-	static boolean hasCom = false;
-	ArrayList<String> comOldList = new ArrayList<String>();
+	private static boolean hasCom = false;
 	private static String[] boards = { "Uno", "Mega 1280", "Mega 2560",
 			"Mega ADK", "Nano", "Nano 168",
 			"Diecimila ou Duemilanove 328",
@@ -145,51 +137,16 @@ public class MenuBar extends JMenuBar implements SearchListener {
 			findItem, replaceItem, goToItem, gerenciadorLingItem;
 
 	public MenuBar() {
-		final Font font = new Font(this.getFont().getFamily(),
-				Font.PLAIN, this.getFont().getSize());
-		UIManager.put("Menu.font", font);
-		UIManager.put("MenuBar.font", font);
-		UIManager.put("MenuItem.font", font);
-		UIManager.put("RadioButtonMenuItem.font", font);
-		UIManager.put("MenuBar.background", Color.black);
-		UIManager.put("MenuItem.background", Color.black);
-		UIManager.put("RadioButtonMenuItem.background", Color.black);
-		UIManager.put("MenuBar.foreground", Color.WHITE);
-		UIManager.put("Menu.foreground", Color.WHITE);
-		UIManager.put("MenuItem.foreground", Color.WHITE);
-		UIManager.put("RadioButtonMenuItem.foreground", Color.WHITE);
-		UIManager.put("MenuItem.acceleratorForeground", Color.green);
-		UIManager.put("MenuItem.acceleratorSelectionForeground",
-				Color.green);
-		UIManager.put("MenuBar.selectionForeground", new Color(255,
-				255, 255));
-		UIManager.put("Menu.selectionForeground", new Color(255, 255,
-				255));
-		UIManager.put("MenuItem.selectionForeground", new Color(255,
-				255, 255));
-		UIManager.put("MenuBar.selectionBackground", Color.black);
-		UIManager.put("Menu.selectionBackground", Color.black);
-		UIManager.put("MenuItem.selectionBackground", new Color(46, 46,
-				46));
-		UIManager.put("RadioMenuItem.selectionBackground", new Color(
-				46, 46, 46));
-		UIManager.put("PopupMenu.border", emptyBorder);
-		UIManager.put("PopupMenu.background", Color.black);
-		UIManager.put("OptionPane.background", new Color(46, 46, 46));
-		UIManager.put("OptionPane.messageForeground", new Color(250,
-				250, 250));
-		UIManager.put("Panel.background", new Color(46, 46, 46));
-		UIManager.put("Panel.foreground", new Color(250, 250, 250));
+		initUIManager(this);
 		initSearchDialogs();
-		UIManager.put("", new BubbleBorder(UIConstants.VERDE));
 		separator.setForeground(Color.green);
-		separator.setBackground(Color.black);
-		separator.setBorder(translucidBorder);
+		separator.setBackground(Color.BLACK);
+		separator.setBorder(UIConstants.BORDATRANSPARENTE);
 		separator.setOpaque(true);
 		separator.setPreferredSize(new Dimension(getWidth(), 3));
 		separator2.setForeground(Color.green);
-		separator2.setBackground(Color.black);
-		separator2.setBorder(translucidBorder);
+		separator2.setBackground(Color.BLACK);
+		separator2.setBorder(UIConstants.BORDATRANSPARENTE);
 		separator2.setOpaque(true);
 		separator2.setPreferredSize(new Dimension(getWidth(), 3));
 		coms = new String[15];
@@ -197,10 +154,10 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		fileMenu = new JMenu("Arquivo");
 		// Adiciona A como atalho
 		fileMenu.setMnemonic(KeyEvent.VK_A);
-		fileMenu.setBorder(emptyBorder);
+		fileMenu.setBorder(UIConstants.BORDAVAZIA);
 		// Adicona o item "novo"
 		novoItem = new JMenuItem("Novo");
-		novoItem.setBorder(emptyBorder);
+		novoItem.setBorder(UIConstants.BORDAVAZIA);
 		// Cria a acao do item
 		Action novoAction = new AbstractAction("Novo") {
 
@@ -230,7 +187,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		novoItem.setAction(novoAction);
 		// Adiciona o item abrir
 		abrirItem = new JMenuItem("Abrir");
-		abrirItem.setBorder(emptyBorder);
+		abrirItem.setBorder(UIConstants.BORDAVAZIA);
 		// Cria a acao do item
 		Action abrirAction = new AbstractAction("Abrir") {
 
@@ -258,8 +215,8 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		abrirItem.setAction(abrirAction);
 		// Cria o submenu exemplos
 		exemplosMenu = new SubMenu("Exemplos");
-		exemplosMenu.setBackground(Color.black);
-		exemplosMenu.setBorder(emptyBorder);
+		exemplosMenu.setBackground(Color.BLACK);
+		exemplosMenu.setBorder(UIConstants.BORDAVAZIA);
 		// Percorre a pasta exemplos
 		try (Stream<Path> paths = Files.walk(Paths.get("."
 				+ fileSeparator + "exemplos" + fileSeparator),
@@ -273,7 +230,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 						2);
 				Stream<Path> exPathin = path.sorted();
 				SubMenu tipoDeExemplo = new SubMenu(f.getName());
-				tipoDeExemplo.setBorder(emptyBorder);
+				tipoDeExemplo.setBorder(UIConstants.BORDAVAZIA);
 				Iterator<Path> exemplos = exPathin.iterator();
 				while (exemplos.hasNext()) {
 					File exemplo = new File(exemplos.next()
@@ -283,7 +240,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 								exemplo.getName()
 										.replace(".brpp",
 												""));
-						exemploItem.setBorder(emptyBorder);
+						exemploItem.setBorder(UIConstants.BORDAVAZIA);
 						listaExemplos.put(exemplo.getName()
 								.replace(".brpp",
 										""),
@@ -304,7 +261,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		}
 		// Adiciona o item salvar
 		salvarItem = new JMenuItem("Salvar");
-		salvarItem.setBorder(emptyBorder);
+		salvarItem.setBorder(UIConstants.BORDAVAZIA);
 		// Cria a acao do item
 		Action salvarAction = new AbstractAction("Salvar") {
 
@@ -325,7 +282,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		salvarItem.setAction(salvarAction);
 		// Adiciona o item salvar como
 		salvarComoItem = new JMenuItem("Salvar como");
-		salvarComoItem.setBorder(emptyBorder);
+		salvarComoItem.setBorder(UIConstants.BORDAVAZIA);
 		// Cria a acao do item
 		Action salvarComoAction = new AbstractAction("Salvar como") {
 
@@ -343,15 +300,15 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		salvarComoItem.setAction(salvarComoAction);
 		// Menu Editar
 		editMenu = new JMenu("Editar");
-		editMenu.setBorder(emptyBorder);
+		editMenu.setBorder(UIConstants.BORDAVAZIA);
 		findItem = new JMenuItem(new ShowFindDialogAction());
-		findItem.setBorder(emptyBorder);
+		findItem.setBorder(UIConstants.BORDAVAZIA);
 		replaceItem = new JMenuItem(new ShowReplaceDialogAction());
-		replaceItem.setBorder(emptyBorder);
+		replaceItem.setBorder(UIConstants.BORDAVAZIA);
 		goToItem = new JMenuItem(new GoToLineAction());
-		goToItem.setBorder(emptyBorder);
+		goToItem.setBorder(UIConstants.BORDAVAZIA);
 		comentarItem = new JMenuItem("Comentar/Descomentar");
-		comentarItem.setBorder(emptyBorder);
+		comentarItem.setBorder(UIConstants.BORDAVAZIA);
 		// Cria a acao do item
 		Action commentAction = new AbstractAction("Comentar linha") {
 
@@ -373,7 +330,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		comentarItem.setAction(commentAction);
 		// menu Ferramentas
 		ferrMenu = new JMenu("Ferramentas");
-		ferrMenu.setBorder(emptyBorder);
+		ferrMenu.setBorder(UIConstants.BORDAVAZIA);
 		ferrMenu.addMenuListener(new MenuListener() {
 
 			public void menuSelected(MenuEvent e) {
@@ -389,17 +346,17 @@ public class MenuBar extends JMenuBar implements SearchListener {
 			}
 		});
 		subBoard = new SubMenu("Placa");
-		subBoard.setBorder(emptyBorder);
+		subBoard.setBorder(UIConstants.BORDAVAZIA);
 		subCOM = new SubMenu("Porta");
-		subCOM.setBorder(emptyBorder);
+		subCOM.setBorder(UIConstants.BORDAVAZIA);
 		linguaMenu = new SubMenu("Língua");
-		linguaMenu.setBorder(emptyBorder);
+		linguaMenu.setBorder(UIConstants.BORDAVAZIA);
 		int x = 0;
 		gp = new ButtonGroup();
 		radioBoards = new JRadioButtonMenuItem[boards.length];
 		for (String a : boards) {
 			radioBoards[x] = new JRadioButtonMenuItem(a);
-			radioBoards[x].setBorder(emptyBorder);
+			radioBoards[x].setBorder(UIConstants.BORDAVAZIA);
 			radioBoards[x].addActionListener(new ActionListener() {
 
 				@Override
@@ -416,7 +373,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 			x++;
 		}
 		gerenciadorLingItem = new JMenuItem("Gerenciador de Línguas");
-		gerenciadorLingItem.setBorder(emptyBorder);
+		gerenciadorLingItem.setBorder(UIConstants.BORDAVAZIA);
 		linguaMenu.add(gerenciadorLingItem);
 		Action lingGeren = new AbstractAction("Gerenciador de Línguas") {
 
@@ -442,7 +399,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		radioLing = new JRadioButtonMenuItem[lings.size()];
 		for (String a : lings.keySet()) {
 			radioLing[x] = new JRadioButtonMenuItem(a);
-			radioLing[x].setBorder(emptyBorder);
+			radioLing[x].setBorder(UIConstants.BORDAVAZIA);
 			radioLing[x].addActionListener(new ActionListener() {
 
 				@Override
@@ -457,7 +414,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		x = 0;
 		gpCom = new ButtonGroup();
 		serialMonitor = new JMenuItem("Monitor Serial");
-		serialMonitor.setBorder(emptyBorder);
+		serialMonitor.setBorder(UIConstants.BORDAVAZIA);
 		Action serialAction = new AbstractAction("Monitor Serial") {
 
 			@Override
@@ -481,9 +438,9 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		};
 		// Menu Rascunho
 		sketchMenu = new JMenu("Rascunho");
-		sketchMenu.setBorder(emptyBorder);
+		sketchMenu.setBorder(UIConstants.BORDAVAZIA);
 		verifyItem = new JMenuItem("Compilar/Verificar");
-		verifyItem.setBorder(emptyBorder);
+		verifyItem.setBorder(UIConstants.BORDAVAZIA);
 		Action verifyAction = new AbstractAction("Compilar/Verificar") {
 
 			public void actionPerformed(ActionEvent event) {
@@ -513,7 +470,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 						KeyEvent.CTRL_DOWN_MASK));
 		verifyItem.setAction(verifyAction);
 		loadItem = new JMenuItem("Carregar");
-		loadItem.setBorder(emptyBorder);
+		loadItem.setBorder(UIConstants.BORDAVAZIA);
 		Action loadAction = new AbstractAction("Compilar e Carregar") {
 
 			public void actionPerformed(ActionEvent event) {
@@ -567,10 +524,10 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		super.paintComponent(g);
 		setPreferredSize(new Dimension(getWidth(), 25));
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(new Color(46, 46, 46));
+		g2d.setColor(UIConstants.CINZA);
 		g2d.fillRect(0, 0, getWidth(), getHeight() - 2);
-		setBackground(Color.black);
-		setBorder(emptyBorder);
+		setBackground(Color.BLACK);
+		setBorder(UIConstants.BORDAVAZIA);
 		add(fileMenu);
 		add(editMenu);
 		add(ferrMenu);
@@ -624,8 +581,6 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		while (comm.hasMoreElements()) {
 			CommPortIdentifier port_identifier = (CommPortIdentifier) comm.nextElement();
 			if (port_identifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				// if
-				// (!comOldList.contains(port_identifier.getName()))
 				comList.add(port_identifier.getName());
 			}
 		}
@@ -779,21 +734,22 @@ public class MenuBar extends JMenuBar implements SearchListener {
 								+ " occurrences replaced.");
 				break;
 		}
-//		String text = null;
-//		if (result.wasFound()) {
-//			text = "Text found; occurrences marked: "
-//					+ result.getMarkedCount();
-//		} else if (type == SearchEvent.Type.MARK_ALL) {
-//			if (result.getMarkedCount() > 0) {
-//				text = "Occurrences marked: "
-//						+ result.getMarkedCount();
-//			} else {
-//				text = "";
-//			}
-//		} else {
-//			text = "Text not found";
-//		}
-//		// statusBar.setLabel(text);
+		// String text = null;
+		// if (result.wasFound()) {
+		// text = "Text found; occurrences marked: "
+		// + result.getMarkedCount();
+		// } else if (type ==
+		// SearchEvent.Type.MARK_ALL) {
+		// if (result.getMarkedCount() > 0) {
+		// text = "Occurrences marked: "
+		// + result.getMarkedCount();
+		// } else {
+		// text = "";
+		// }
+		// } else {
+		// text = "Text not found";
+		// }
+		// // statusBar.setLabel(text);
 	}
 
 	@Override
@@ -816,5 +772,48 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		findToolBar.setSearchContext(context);
 		replaceToolBar = new ReplaceToolBar(this);
 		replaceToolBar.setSearchContext(context);
+	}
+
+	public static void initUIManager(MenuBar o) {
+		final Font font = new Font(o.getFont().getFamily(), Font.PLAIN,
+				o.getFont().getSize());
+		UIManager.put("Menu.font", font);
+		UIManager.put("MenuBar.font", font);
+		UIManager.put("MenuItem.font", font);
+		UIManager.put("RadioButtonMenuItem.font", font);
+		UIManager.put("MenuBar.background", Color.BLACK);
+		UIManager.put("MenuItem.background", Color.BLACK);
+		UIManager.put("RadioButtonMenuItem.background", Color.BLACK);
+		UIManager.put("MenuBar.foreground", Color.WHITE);
+		UIManager.put("Menu.foreground", Color.WHITE);
+		UIManager.put("MenuItem.foreground", Color.WHITE);
+		UIManager.put("RadioButtonMenuItem.foreground", Color.WHITE);
+		UIManager.put("MenuItem.acceleratorForeground", Color.green);
+		UIManager.put("MenuItem.acceleratorSelectionForeground",
+				Color.green);
+		UIManager.put("MenuBar.selectionForeground", Color.WHITE);
+		UIManager.put("Menu.selectionForeground", Color.WHITE);
+		UIManager.put("MenuItem.selectionForeground", Color.WHITE);
+		UIManager.put("MenuBar.selectionBackground", Color.BLACK);
+		UIManager.put("Menu.selectionBackground", Color.BLACK);
+		UIManager.put("MenuItem.selectionBackground", UIConstants.CINZA);
+		UIManager.put("RadioMenuItem.selectionBackground",
+				UIConstants.CINZA);
+		UIManager.put("PopupMenu.border", UIConstants.BORDAVAZIA);
+		UIManager.put("PopupMenu.background", Color.BLACK);
+		UIManager.put("OptionPane.background", UIConstants.CINZA);
+		UIManager.put("OptionPane.messageForeground", Color.WHITE);
+		UIManager.put("Panel.background", UIConstants.CINZA);
+		UIManager.put("Panel.foreground", Color.WHITE);
+		UIManager.put("TextField.background", UIConstants.CINZAESCURO);
+		UIManager.put("TextField.foreground", Color.WHITE);
+		UIManager.put("TextField.border", new BubbleBorder(
+				UIConstants.CINZAESCURO));
+		UIManager.put("nimbusBase", Color.DARK_GRAY);
+//		UIManager.put("FileChooser.listViewBorder",new BubbleBorder(UIConstants.CINZAESCURO));
+//		UIManager.put("FileChooser.listViewBackground",UIConstants.CINZAESCURO);
+//		UIManager.put("FileChooser.listViewForeground",Color.WHITE);
+		UIManager.put("FileChooser.Foreground",Color.WHITE);
+		UIManager.put("Button.border", new BubbleBorder(Color.WHITE));
 	}
 }
