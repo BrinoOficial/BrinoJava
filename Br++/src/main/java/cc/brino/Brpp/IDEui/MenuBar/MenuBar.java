@@ -819,9 +819,7 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		UIManager.put("TextArea.foreground", Color.WHITE);
 		UIManager.put("EditorPane.foreground", Color.WHITE);
 		UIManager.put("nimbusBase", UIConstants.CINZAESCURO);
-//		UIManager.put("FileChooser.listViewBorder",new BubbleBorder(UIConstants.CINZAESCURO));
-//		UIManager.put("FileChooser.listViewBackground",UIConstants.CINZAESCURO);
-//		UIManager.put("FileChooser.listViewForeground",Color.WHITE);
+		UIManager.put("FileChooser.listViewBackground",UIConstants.CINZAESCURO);
 		UIManager.put("FileChooser.Foreground",Color.WHITE);
 		UIManager.put("Button.border", new BubbleBorder(Color.WHITE));
 	}

@@ -16,22 +16,22 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import cc.brino.Brpp.IDEui.UIConstants;
 
 
-public class ScrollLeanUI extends BasicScrollBarUI {
+public class HorizontalScrollLeanUI extends BasicScrollBarUI {
 
 	private static final Color verde = new Color(72, 155, 0);
 
 	@Override
 	protected void paintTrack(Graphics g, JComponent c, Rectangle r) {
-		r.setSize(new Dimension(6, r.height));
+		r.setSize(new Dimension(r.width, 6));
 		Graphics2D g2 = (Graphics2D) g.create();
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		Color color = null;
 		c.setBorder(UIConstants.BORDAVAZIA);
 		if (isDragging) {
-			color = new Color(46,46,46, 10);
+			color = UIConstants.CINZA;
 		} else {
-			color = new Color(30, 30, 30, 2);
+			color = UIConstants.CINZAESCURO;
 		}
 		g2.setStroke(new BasicStroke(0));
 		g2.setPaint(color);
@@ -47,11 +47,11 @@ public class ScrollLeanUI extends BasicScrollBarUI {
 		Color color = null;
 		JScrollBar sb = (JScrollBar) c;
 		c.setBorder(UIConstants.BORDAVAZIA);
-		if (!sb.isEnabled() || r.width > r.height) {
+		if (!sb.isEnabled() || r.height > r.width) {
 			return;
 		}
 		color = verde;
-		r.setSize(new Dimension(6, r.height));
+		r.setSize(new Dimension(r.width, 6));
 		g2.setStroke(new BasicStroke(0));
 		g2.setPaint(color);
 		g2.fillRoundRect(r.x, r.y, r.width, r.height, 10, 10);
@@ -60,7 +60,7 @@ public class ScrollLeanUI extends BasicScrollBarUI {
 
 	@Override
 	protected void setThumbBounds(int x, int y, int width, int height) {
-		super.setThumbBounds(x, y, 6, height);
+		super.setThumbBounds(x, y, width, 6);
 		scrollbar.repaint();
 	}
 
