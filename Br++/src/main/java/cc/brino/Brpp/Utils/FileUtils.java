@@ -35,6 +35,8 @@ package cc.brino.Brpp.Utils;
  * @contributors Rafael Mascarenhas Dal Moro
  * @version 5/2/2016
  */
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,15 +46,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import cc.brino.Brpp.BrppCompilerMain;
-import cc.brino.Brpp.IDEui.BrppIDEFrame;
 
 
 public class FileUtils {
@@ -136,10 +133,29 @@ public class FileUtils {
 	}
 
 	public static void abrirFile(RSyntaxTextArea rSyntaxTextArea) {
-		rSyntaxTextArea.setText(null);
 		JFileChooser FC = new JFileChooser(BrinoDirectory);
+		FC.addChoosableFileFilter(new FileFilter()
+                {
+                   @Override
+                   public boolean accept(File file)
+                   {
+                      return file.getName().toUpperCase().
+                             equals(".DOC");
+                   }
+
+                   @Override
+                   public String getDescription()
+                   {
+                      return ".doc files";
+                   }
+                });
+		for(Component i : FC.getComponents() ){
+			i.setForeground(Color.WHITE);
+		}
+		FC.setAcceptAllFileFilterUsed(false);
 		int res = FC.showOpenDialog(null);
 		if (res == JFileChooser.APPROVE_OPTION) {
+			rSyntaxTextArea.setText(null);
 			setDiretorio(FC.getSelectedFile());
 			try {
 				String f = "";

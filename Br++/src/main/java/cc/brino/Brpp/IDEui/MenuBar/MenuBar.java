@@ -791,8 +791,10 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		UIManager.put("MenuItem.acceleratorForeground", Color.green);
 		UIManager.put("MenuItem.acceleratorSelectionForeground",
 				Color.green);
+
 		UIManager.put("MenuBar.selectionForeground", Color.WHITE);
 		UIManager.put("Menu.selectionForeground", Color.WHITE);
+		UIManager.put("Menu.textForeground", Color.white);
 		UIManager.put("MenuItem.selectionForeground", Color.WHITE);
 		UIManager.put("MenuBar.selectionBackground", Color.BLACK);
 		UIManager.put("Menu.selectionBackground", Color.BLACK);
@@ -809,14 +811,18 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		UIManager.put("TextField.foreground", Color.WHITE);
 		UIManager.put("TextField.border", new BubbleBorder(
 				UIConstants.CINZAESCURO));
-<<<<<<< HEAD
-		UIManager.put("nimbusBase", Color.DARK_GRAY);
+		UIManager.put("textForeground", Color.WHITE);
+
+		UIManager.put("ToolTip.textForeground", Color.WHITE);
+		UIManager.put("List.textForeground", Color.WHITE);
+		UIManager.put("TextField.foreground", Color.WHITE);
+		UIManager.put("TextArea.foreground", Color.WHITE);
+		UIManager.put("EditorPane.foreground", Color.WHITE);
+		UIManager.put("nimbusBase", UIConstants.CINZAESCURO);
 //		UIManager.put("FileChooser.listViewBorder",new BubbleBorder(UIConstants.CINZAESCURO));
 //		UIManager.put("FileChooser.listViewBackground",UIConstants.CINZAESCURO);
 //		UIManager.put("FileChooser.listViewForeground",Color.WHITE);
 		UIManager.put("FileChooser.Foreground",Color.WHITE);
-=======
->>>>>>> 62c865e9f507b221d482c61027f383e9b16db0b9
 		UIManager.put("Button.border", new BubbleBorder(Color.WHITE));
 	}
 }
