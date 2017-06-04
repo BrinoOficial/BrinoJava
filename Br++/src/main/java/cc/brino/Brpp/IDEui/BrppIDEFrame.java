@@ -37,6 +37,7 @@ package cc.brino.Brpp.IDEui;
  */
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +46,6 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -57,8 +57,6 @@ import javax.swing.JScrollBar;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.CompletionProvider;
@@ -83,18 +81,6 @@ public class BrppIDEFrame extends JFrame {
 	private WestPanel westPanel;
 	private SouthPanel southPanel;
 	private JPanel centralPane;
-	private final Color cinza = new Color(46, 46, 46);
-	private Border emptyBorder = BorderFactory.createEmptyBorder();
-	private Border translucidBorder = BorderFactory.createEmptyBorder(5,
-			5,
-			5,
-			5);
-	private Color verde = new Color(72, 155, 0);// 11,
-							// 125,
-							// 73
-	private final Border roundedBorderVerde = new LineBorder(verde, 5, true);
-	private final Border roundedBorder = new LineBorder(new Color(30,30,30), 15,
-			true);
 	private static RSyntaxTextArea textArea;
 	private RTextScrollPane code;
 	private static final String min = "Configuracao() {\r\n"
@@ -130,9 +116,9 @@ public class BrppIDEFrame extends JFrame {
 		setLocationRelativeTo(null);
 		BorderLayout bl = new BorderLayout();
 		setLayout(bl);
-		setBackground(verde);
+		setBackground(UIConstants.VERDE);
 		westPanel = new WestPanel();
-		westPanel.setBackground(verde);
+		westPanel.setBackground(UIConstants.VERDE);
 		add(westPanel, BorderLayout.WEST);
 		westPanel.setVisible(true);
 		southPanel = new SouthPanel();
@@ -160,23 +146,23 @@ public class BrppIDEFrame extends JFrame {
 				KeyEvent.CTRL_DOWN_MASK));
 		ac.install(textArea);
 		textArea.setText(getMin());
-		textArea.setBorder(emptyBorder);
+		textArea.setBorder(UIConstants.BORDAVAZIA);
 		code = new RTextScrollPane(textArea);
 		code.setHorizontalScrollBarPolicy(RTextScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		code.setSize(400, 500);
-		code.setViewportBorder(translucidBorder);
-		code.setBackground(cinza);
-		code.setBorder(translucidBorder);
+		code.setViewportBorder(UIConstants.BORDATRANSPARENTE);
+		code.setBackground(UIConstants.CINZA);
+		code.setBorder(UIConstants.BORDATRANSPARENTE);
 		JScrollBar sb = code.getVerticalScrollBar();
 		sb.setPreferredSize(new Dimension(6, sb.getHeight()));
 		sb.setUI(new ScrollLeanUI());
-		sb.setBackground(cinza);
-		sb.setBorder(emptyBorder);
+		sb.setBackground(UIConstants.CINZA);
+		sb.setBorder(UIConstants.BORDAVAZIA);
 		centralPane = new JPanel();
 		centralPane.setLayout(new BorderLayout());
 		centralPane.add(southPanel, BorderLayout.SOUTH);
 		centralPane.add(code, BorderLayout.CENTER);
-		centralPane.setBorder(emptyBorder);
+		centralPane.setBorder(UIConstants.BORDAVAZIA);
 		add(centralPane, BorderLayout.CENTER);
 		menuBar = new MenuBar();
 		setJMenuBar(menuBar);
@@ -246,54 +232,53 @@ public class BrppIDEFrame extends JFrame {
 
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-//				final JButton okay = new JButton("Sim");
-////				okay.setBackground(verde);
-//				okay.setOpaque(true);
-//				okay.setBorder(roundedBorderVerde);
-//				okay.addActionListener(new ActionListener() {
-//
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
-//						pane.setValue(okay);
-//					}
-//				});
-//				final JButton no = new JButton("Não");
-//				no.setBorder(roundedBorder);
-//				no.addActionListener(new ActionListener() {
-//
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
-//						pane.setValue(no);
-//					}
-//				});
-//				final JButton cancel = new JButton("Cancelar");
-//				no.setBorder(roundedBorder);
-//				cancel.addActionListener(new ActionListener() {
-//
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						JOptionPane pane = getOptionPane((JComponent) e.getSource());
-//						pane.setValue(cancel);
-//					}
-//				});
-//				int dialogResult = JOptionPane.showOptionDialog(BrppIDEFrame.this,
-//						"Você deseja salvar seu rascunho antes de sair",
-//						"Salvar",
-//						JOptionPane.NO_OPTION,
-//						JOptionPane.PLAIN_MESSAGE,
-//						null,
-//						new JButton[] { okay, no,
-//								cancel },
-//						okay);
-//				System.out.println(dialogResult);
-				 int dialogResult =
-				 JOptionPane.showConfirmDialog(BrppIDEFrame.this,
-				 "Você deseja salvar seu rascunho antes de sair?",
-				 "Salvar",
-				 JOptionPane.YES_NO_CANCEL_OPTION,
-				 JOptionPane.PLAIN_MESSAGE);
+				final JButton okay = new JButton("Sim");
+				okay.setBackground(UIConstants.VERDE);
+				okay.setForeground(Color.white);
+				okay.setOpaque(true);
+				okay.setBorder(new BubbleBorder(UIConstants.VERDE));
+				okay.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+						pane.setValue(okay);
+					}
+				});
+				final JButton no = new JButton("Não");
+				no.setBackground(Color.RED);
+				no.setForeground(Color.white);
+				no.setBorder(new BubbleBorder(Color.RED));
+				no.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+						pane.setValue(no);
+					}
+				});
+				final JButton cancel = new JButton("Cancelar");
+				cancel.setBackground(UIConstants.CINZAESCURO);
+				cancel.setForeground(Color.white);
+				cancel.setBorder(new BubbleBorder(UIConstants.CINZAESCURO));
+				cancel.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JOptionPane pane = getOptionPane((JComponent) e.getSource());
+						pane.setValue(cancel);
+					}
+				});
+				int dialogResult = JOptionPane.showOptionDialog(BrppIDEFrame.this,
+						"Você deseja salvar seu rascunho antes de sair",
+						"Salvar",
+						JOptionPane.NO_OPTION,
+						JOptionPane.PLAIN_MESSAGE,
+						null,
+						new JButton[] { okay, no,
+								cancel },
+						okay);
+				System.out.println(dialogResult);
 				if (dialogResult == JOptionPane.YES_OPTION) {
 					if (FileUtils.getDiretorio() == null) {
 						FileUtils.createFile(BrppIDEFrame.getTextArea());
@@ -306,7 +291,7 @@ public class BrppIDEFrame extends JFrame {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-				if (dialogResult != JOptionPane.CANCEL_OPTION)
+				if (dialogResult != JOptionPane.CANCEL_OPTION && dialogResult!=-1)
 					System.exit(0);
 			}
 		});
@@ -361,4 +346,5 @@ public class BrppIDEFrame extends JFrame {
 		}
 		return pane;
 	}
+	
 }

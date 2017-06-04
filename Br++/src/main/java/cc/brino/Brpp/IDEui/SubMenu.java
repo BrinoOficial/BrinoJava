@@ -5,9 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Action;
-import javax.swing.BorderFactory;
 import javax.swing.JMenu;
-import javax.swing.border.Border;
 
 
 public class SubMenu extends JMenu implements MouseListener {
@@ -16,9 +14,7 @@ public class SubMenu extends JMenu implements MouseListener {
 	 * 
 	 */
 	private Color color = Color.black;
-	private static final Color cinza = new Color(46, 46, 46);
 	private static final long serialVersionUID = 1L;
-	private static Border emptyBorder = BorderFactory.createEmptyBorder();
 
 	public void setColor(Color color){
 		this.color=color;
@@ -44,7 +40,7 @@ public class SubMenu extends JMenu implements MouseListener {
 		super.paintComponent(g);
 		setOpaque(true);
 		setBackground(color);
-		setBorder(emptyBorder);
+		setBorder(UIConstants.BORDAVAZIA);
 	}
 
 	@Override
@@ -56,7 +52,7 @@ public class SubMenu extends JMenu implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		setColor(cinza);
+		setColor(UIConstants.CINZA);
 		setBackground(color);
 		repaint();
 	}

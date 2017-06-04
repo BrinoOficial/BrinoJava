@@ -35,6 +35,8 @@ package cc.brino.Brpp.Utils;
  * @contributors Rafael Mascarenhas Dal Moro
  * @version 5/2/2016
  */
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -44,9 +46,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
+import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
+import javax.swing.JViewport;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.plaf.metal.MetalFileChooserUI;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import cc.brino.Brpp.IDEui.BrppIDEFrame;
+import cc.brino.Brpp.IDEui.BubbleBorder;
+import cc.brino.Brpp.IDEui.UIConstants;
+import cc.brino.Brpp.IDEui.ScrollBar.HorizontalScrollLeanUI;
+import cc.brino.Brpp.IDEui.ScrollBar.ScrollLeanUI;
 
 
 public class FileUtils {
@@ -56,6 +76,36 @@ public class FileUtils {
 			+ System.getProperty("file.separator")
 			+ "Documents"
 			+ System.getProperty("file.separator") + "Brino";
+	private static ImageIcon goup = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/goup.png"));
+	private static ImageIcon goupFocus = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/goupFocus.png"));
+	private static ImageIcon newFolder = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/newFolder.png"));
+	private static ImageIcon newFolderFocus = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/newFolderFocus.png"));
+	private static ImageIcon homeFolder = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/homeFolder.png"));
+	private static ImageIcon homeFolderFocus = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/homeFolderFocus.png"));
+	private static ImageIcon list = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/list.png"));
+	private static ImageIcon listFocus = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/listFocus.png"));
+	private static ImageIcon details = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/details.png"));
+	private static ImageIcon detailsFocus = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/detailsFocus.png"));
 
 	public static void copyFolder(File src, File dest) throws IOException {
 		if (src.isDirectory()) {
@@ -130,10 +180,136 @@ public class FileUtils {
 	}
 
 	public static void abrirFile(RSyntaxTextArea rSyntaxTextArea) {
-		rSyntaxTextArea.setText(null);
 		JFileChooser FC = new JFileChooser(BrinoDirectory);
+		FC.addChoosableFileFilter(new FileFilter() {
+
+			@Override
+			public boolean accept(File file) {
+				return file.getName()
+						.toUpperCase()
+						.contains(".BRPP")
+						|| file.isDirectory();
+			}
+
+			@Override
+			public String getDescription() {
+				return "Arquivos de Código Brino";
+			}
+		});
+		for (Component i : FC.getComponents()) {
+			try {
+				boolean a=true;
+				for (Component c : ((JPanel) i).getComponents()) {
+					if(c.getClass().toString().equals("class javax.swing.plaf.metal.MetalFileChooserUI$1")){
+						JComboBox jcom = (JComboBox) c;
+						jcom.setBackground(UIConstants.VERDE);
+						jcom.setForeground(Color.white);
+						jcom.setBorder(new BubbleBorder(
+								UIConstants.VERDE));
+						for (int z = 0; z < jcom.getComponentCount(); z++) {
+							if (jcom.getComponent(z) instanceof JComponent) {
+								((JComponent) jcom.getComponent(z)).setBorder(UIConstants.BORDAVAZIA);
+							}
+							if (jcom.getComponent(z) instanceof AbstractButton) {
+								((AbstractButton) jcom.getComponent(z)).setBorderPainted(false);
+							}
+						}
+					}
+					if (c.getClass() == javax.swing.JLabel.class) {
+						c.setForeground(Color.WHITE);
+					}
+					
+					if (c.getClass() == javax.swing.JPanel.class) {
+						for (Component d : ((JPanel) c).getComponents()) {
+							if(d.getClass() ==  javax.swing.JToggleButton.class){
+								JToggleButton jtg = (JToggleButton) d; 
+								if(jtg.getToolTipText().equals("List")){
+									jtg.setIcon(list);
+									jtg.setSelectedIcon(listFocus);
+									jtg.setBackground(UIConstants.CINZA);
+									jtg.setBorder(UIConstants.BORDAVAZIA);
+									jtg.setRolloverIcon(listFocus);
+								} else{
+									jtg.setIcon(details);
+									jtg.setSelectedIcon(detailsFocus);
+									jtg.setBorder(UIConstants.BORDAVAZIA);
+									jtg.setBackground(UIConstants.CINZA);
+									jtg.setRolloverIcon(detailsFocus);
+								}
+							}
+							if (d.getClass() == javax.swing.JComboBox.class) {
+								JComboBox jcom = (JComboBox) d;
+								jcom.setBackground(UIConstants.VERDE);
+								jcom.setForeground(Color.white);
+								jcom.setBorder(new BubbleBorder(
+										UIConstants.VERDE));
+								for (int z = 0; z < jcom.getComponentCount(); z++) {
+									if (jcom.getComponent(z) instanceof JComponent) {
+										((JComponent) jcom.getComponent(z)).setBorder(UIConstants.BORDAVAZIA);
+									}
+									if (jcom.getComponent(z) instanceof AbstractButton) {
+										((AbstractButton) jcom.getComponent(z)).setBorderPainted(false);
+									}
+								}
+							}
+							if (d.getClass() != javax.swing.JButton.class
+									&& d.getClass() != javax.swing.JComboBox.class)
+								d.setForeground(Color.WHITE);
+							else if (d.getClass() == javax.swing.JButton.class) {
+								// d.setBackground(UIConstants.VERDE);
+								JButton btn = (JButton) d;
+								if (btn.getText() != null) {
+									if (btn.getText()
+											.equals("Open")) {
+										btn.setBorder(new BubbleBorder(
+												UIConstants.VERDE));
+										btn.setForeground(Color.white);
+										btn.setText("Abrir");
+										btn.setBackground(UIConstants.VERDE);
+									}
+									if (btn.getText()
+											.equals("Cancel")) {
+										btn.setBorder(new BubbleBorder(
+												UIConstants.CINZACLARO));
+										btn.setForeground(Color.white);
+										btn.setText("Cancelar");
+										btn.setBackground(UIConstants.CINZACLARO);
+									}
+								}
+								if (btn.getActionCommand()
+										.equals("Go Up")) {
+									btn.setIcon(goup);
+									btn.setBorder(UIConstants.BORDAVAZIA);
+									btn.setBackground(UIConstants.CINZA);
+									btn.setRolloverIcon(goupFocus);
+								} else if (btn.getActionCommand()
+										.equals("New Folder")) {
+									btn.setIcon(newFolder);
+									btn.setBorder(UIConstants.BORDAVAZIA);
+									btn.setBackground(UIConstants.CINZA);
+									btn.setRolloverIcon(newFolderFocus);
+								} else if (btn.getToolTipText()
+										.equals("Home")) {
+									btn.setIcon(homeFolder);
+									btn.setBorder(UIConstants.BORDAVAZIA);
+									btn.setBackground(UIConstants.CINZA);
+									btn.setRolloverIcon(homeFolderFocus);
+								}
+							}
+							if (d.getClass() == javax.swing.JScrollPane.class) {
+								setScroll((JScrollPane) d);
+							}
+						}
+					}
+				}
+			} catch (java.lang.ClassCastException e) {
+				e.printStackTrace();
+			}
+		}
+		FC.setAcceptAllFileFilterUsed(false);
 		int res = FC.showOpenDialog(null);
 		if (res == JFileChooser.APPROVE_OPTION) {
+			rSyntaxTextArea.setText(null);
 			setDiretorio(FC.getSelectedFile());
 			try {
 				String f = "";
@@ -227,5 +403,24 @@ public class FileUtils {
 				out.write(buf, 0, length);
 			}
 		}
+	}
+
+	private static void setScroll(JScrollPane scroll) {
+		scroll.setBackground(UIConstants.CINZA);
+		scroll.setForeground(Color.white);
+		scroll.setBorder(UIConstants.BORDACINZAESCUROARREDONDADA);
+		scroll.setViewportBorder(UIConstants.BORDAVAZIA);
+		for (Component comp : scroll.getComponents()) {
+			if(comp.getClass()==(JViewport.class))
+				((JViewport)comp).getComponent(0).setForeground(Color.white);
+		}
+		JScrollBar horBar = scroll.getHorizontalScrollBar();
+		horBar.setUI(new HorizontalScrollLeanUI());
+		JScrollBar verBar = scroll.getVerticalScrollBar();
+		verBar.setUI(new ScrollLeanUI());
+		horBar.setBackground(UIConstants.CINZAESCURO);
+		horBar.setBorder(UIConstants.BORDAVAZIA);
+		verBar.setBackground(UIConstants.CINZAESCURO);
+		verBar.setBorder(UIConstants.BORDAVAZIA);
 	}
 }

@@ -83,7 +83,7 @@ public class SerialMonitor extends JFrame {
 		// TODO Auto-generated constructor stub
 		super("Monitor Serial");
 		if (!CommPortUtils.openPort(com)) {
-			SouthPanel.LOG.append("A porta selecionada não está disponível!\r\n");
+			SouthPanel.getLOG().append("A porta selecionada não está disponível!\r\n");
 			dispatchEvent(new WindowEvent(this,
 					WindowEvent.WINDOW_CLOSING));
 			setVisible(false);
