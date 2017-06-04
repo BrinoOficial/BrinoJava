@@ -60,6 +60,7 @@ import java.util.stream.Stream;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -135,6 +136,9 @@ public class MenuBar extends JMenuBar implements SearchListener {
 	private JMenuItem novoItem, salvarItem, salvarComoItem, abrirItem,
 			serialMonitor, verifyItem, loadItem, comentarItem,
 			findItem, replaceItem, goToItem, gerenciadorLingItem;
+	private static ImageIcon folder = new ImageIcon(
+			BrppIDEFrame.class.getClassLoader()
+					.getResource("resources/folder.png"));
 
 	public MenuBar() {
 		initUIManager(this);
@@ -822,5 +826,9 @@ public class MenuBar extends JMenuBar implements SearchListener {
 		UIManager.put("FileChooser.listViewBackground",UIConstants.CINZAESCURO);
 		UIManager.put("FileChooser.Foreground",Color.WHITE);
 		UIManager.put("Button.border", new BubbleBorder(Color.WHITE));
+		UIManager.put("ComboBox.borderPaintsFocus", Boolean.TRUE);
+		UIManager.put("ComboBox.borderPaints", Boolean.FALSE);
+		UIManager.put("ComboBox.editorBorder", UIConstants.BORDAVAZIA);
+		UIManager.put("FileView.directoryIcon", folder);
 	}
 }
