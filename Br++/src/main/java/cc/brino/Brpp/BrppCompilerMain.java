@@ -47,8 +47,6 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import org.fife.ui.autocomplete.AutoCompletion;
-import org.fife.ui.autocomplete.CompletionProvider;
 import org.json.simple.parser.ParseException;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
 import cc.brino.Brpp.Pref.PrefManager;

@@ -35,7 +35,6 @@ package cc.brino.Brpp.IDEui.MenuBar;
  * @contributors
  * @version 5/2/2016
  */
-import gnu.io.CommPortIdentifier;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -85,6 +84,7 @@ import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
 import org.fife.ui.rtextarea.SearchResult;
 import org.json.simple.parser.ParseException;
+import purejavacomm.CommPortIdentifier;
 import cc.brino.Brpp.BrppCompilerMain;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
 import cc.brino.Brpp.IDEui.BubbleBorder;

@@ -5,10 +5,10 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/RXTXcomm.jar"/>
-	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/RSyntaxTextArea.jar"/>
-	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/AutoComplete.jar"/>
-	<classpathentry kind="lib" path="/home/mateus/Documents/GitHub/Brino/lib/RSTAUI.jar"/>
+	<classpathentry kind="lib" path="/home/mateus/Documents/Programacao/GitHub/Brino/lib/AutoComplete.jar"/>
+	<classpathentry kind="lib" path="/home/mateus/Documents/Programacao/GitHub/Brino/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/mateus/Documents/Programacao/GitHub/Brino/lib/RSTAUI.jar"/>
+	<classpathentry kind="lib" path="/home/mateus/Documents/Programacao/GitHub/Brino/lib/RSyntaxTextArea.jar"/>
+	<classpathentry kind="lib" path="/home/mateus/BrinoBuildScript/Filesx64/Brino/Arduino/java/lib/ext/purejavacomm-0.0.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
