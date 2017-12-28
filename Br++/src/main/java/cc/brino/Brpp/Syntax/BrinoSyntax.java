@@ -6,10 +6,12 @@ package cc.brino.Brpp.Syntax;
  */
 
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
 import javax.swing.text.Segment;
-
-import org.fife.ui.rsyntaxtextarea.*;
+import org.fife.ui.rsyntaxtextarea.AbstractJFlexCTokenMaker;
+import org.fife.ui.rsyntaxtextarea.Token;
+import org.fife.ui.rsyntaxtextarea.TokenImpl;
 
 
 /**

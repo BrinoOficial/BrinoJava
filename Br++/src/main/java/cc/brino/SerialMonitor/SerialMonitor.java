@@ -78,19 +78,24 @@ public class SerialMonitor extends JFrame {
 	private static JCheckBox autorolagem = new JCheckBox("Auto-rolagem");
 	private JButton Enviar = new JButton("Enviar");
 	static String messageString = "Hello, world!\n";
+	private CommPortUtils PortUtils;
 
 	public SerialMonitor(String com) throws TooManyListenersException {
 		// TODO Auto-generated constructor stub
 		super("Monitor Serial");
-		if (!CommPortUtils.openPort(com)) {
-			SouthPanel.getLOG().append("A porta selecionada não está disponível!\r\n");
+		PortUtils = new CommPortUtils();
+		isOpen = true;
+		connected = true;
+		if (!PortUtils.openPort(com)) {
+			SouthPanel.getLOG()
+					.append("A porta selecionada não está disponível!\r\n");
 			dispatchEvent(new WindowEvent(this,
 					WindowEvent.WINDOW_CLOSING));
 			setVisible(false);
 			dispose();
 			connected = false;
+			isOpen = false;
 		}
-		isOpen = true;
 		this.setLayout(main);
 		setBackground(cinza);
 		main.setHgap(10);
@@ -115,6 +120,7 @@ public class SerialMonitor extends JFrame {
 		OUT.setText("");
 		OUT.setEditable(false);
 		Action enviaAction = new AbstractAction("Enviar") {
+
 			private static final long serialVersionUID = -1528090166842624429L;
 
 			@Override
@@ -122,7 +128,7 @@ public class SerialMonitor extends JFrame {
 				// TODO Auto-generated
 				// method stub
 				String msg = Jp.getText();
-				CommPortUtils.send(msg);
+				PortUtils.send(msg);
 				Jp.setText("");
 			}
 		};
@@ -168,7 +174,7 @@ public class SerialMonitor extends JFrame {
 		NorthPanel.add(Jp, BorderLayout.CENTER);
 		NorthPanel.add(Enviar, BorderLayout.EAST);
 		NorthPanel.setBorder(translucidBorder);
-		NorthPanel.setSize(getWidth(),10);
+		NorthPanel.setSize(getWidth(), 10);
 		add(NorthPanel, BorderLayout.NORTH);
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -186,7 +192,6 @@ public class SerialMonitor extends JFrame {
 	}
 
 	public static void display(String string) {
-		// TODO Auto-generated method stub
 		OUT.append(string);
 		if (autorolagem.isSelected()) {
 			OUT.setCaretPosition(OUT.getDocument().getLength());
@@ -194,7 +199,6 @@ public class SerialMonitor extends JFrame {
 	}
 
 	public boolean getConnected() {
-		// TODO Auto-generated method stub
 		return connected;
 	}
 }

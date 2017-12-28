@@ -51,7 +51,7 @@ import cc.brino.Brpp.Utils.JSONUtils;
 public class BrppCompiler {
 
 	private static String file;
-	public static String version = "2.6.2";
+	public static String version = "2.6.3";
 	public static String fileSeparator = System.getProperty("file.separator");
 	public static boolean compile(String path) {
 		setFile(FileUtils.getBrinodirectory()

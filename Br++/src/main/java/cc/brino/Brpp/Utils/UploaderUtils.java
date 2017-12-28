@@ -96,8 +96,8 @@ public class UploaderUtils {
 		}
 		builder.redirectErrorStream(true);
 		processar(builder, board);
-		if (SerialMonitor.isOpen)
-			CommPortUtils.openPort(com);
+		//if (SerialMonitor.isOpen)
+		//	CommPortUtils.openPort(com);
 	}
 
 	public static void compile(String file, int board) throws IOException {

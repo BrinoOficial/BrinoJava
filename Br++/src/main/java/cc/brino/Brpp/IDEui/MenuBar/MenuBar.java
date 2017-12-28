@@ -35,7 +35,6 @@ package cc.brino.Brpp.IDEui.MenuBar;
  * @contributors
  * @version 5/2/2016
  */
-import gnu.io.CommPortIdentifier;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -50,7 +49,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -580,14 +578,8 @@ public class MenuBar extends JMenuBar implements SearchListener {
 	}
 
 	public void setComs() {
-		ArrayList<String> comList = new ArrayList<String>();
-		Enumeration<CommPortIdentifier> comm = CommPortUtils.getComPorts();
-		while (comm.hasMoreElements()) {
-			CommPortIdentifier port_identifier = (CommPortIdentifier) comm.nextElement();
-			if (port_identifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				comList.add(port_identifier.getName());
-			}
-		}
+		CommPortUtils PortUtils = new CommPortUtils();
+		ArrayList<String> comList =  PortUtils.getComPorts();
 		if (comList.isEmpty()) {
 			addCom("Não há portas disponíveis");
 			hasCom = false;
