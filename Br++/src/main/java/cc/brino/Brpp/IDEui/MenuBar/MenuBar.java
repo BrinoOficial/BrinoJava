@@ -49,7 +49,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -84,7 +83,6 @@ import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
 import org.fife.ui.rtextarea.SearchResult;
 import org.json.simple.parser.ParseException;
-import purejavacomm.CommPortIdentifier;
 import cc.brino.Brpp.BrppCompilerMain;
 import cc.brino.Brpp.IDEui.BrppIDEFrame;
 import cc.brino.Brpp.IDEui.BubbleBorder;
@@ -580,14 +578,8 @@ public class MenuBar extends JMenuBar implements SearchListener {
 	}
 
 	public void setComs() {
-		ArrayList<String> comList = new ArrayList<String>();
-		Enumeration<CommPortIdentifier> comm = CommPortUtils.getComPorts();
-		while (comm.hasMoreElements()) {
-			CommPortIdentifier port_identifier = (CommPortIdentifier) comm.nextElement();
-			if (port_identifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				comList.add(port_identifier.getName());
-			}
-		}
+		CommPortUtils PortUtils = new CommPortUtils();
+		ArrayList<String> comList =  PortUtils.getComPorts();
 		if (comList.isEmpty()) {
 			addCom("Não há portas disponíveis");
 			hasCom = false;

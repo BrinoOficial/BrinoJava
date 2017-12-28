@@ -9,7 +9,5 @@
 	<classpathentry kind="lib" path="/home/mateus/Documents/Programacao/GitHub/Brino/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/home/mateus/Documents/Programacao/GitHub/Brino/lib/RSTAUI.jar"/>
 	<classpathentry kind="lib" path="/home/mateus/Documents/Programacao/GitHub/Brino/lib/RSyntaxTextArea.jar"/>
-	<classpathentry kind="lib" path="/home/mateus/BrinoBuildScript/Filesx64/Brino/Arduino/java/lib/ext/purejavacomm-0.0.14.jar"/>
-	<classpathentry kind="lib" path="/home/mateus/BrinoBuildScript/Filesx64/Brino/Arduino/java/lib/ext/jna-platform-4.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

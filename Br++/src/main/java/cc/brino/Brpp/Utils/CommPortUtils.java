@@ -1,130 +1,141 @@
 package cc.brino.Brpp.Utils;
 
 /*
-Copyright (c) 2016 StarFruitBrasil
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
-
+ * Copyright (c) 2016 StarFruitBrasil
+ * 
+ * Permission is hereby granted, free of charge, to any
+ * person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the
+ * Software without restriction, including without
+ * limitation the rights to use, copy, modify, merge,
+ * publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software
+ * is furnished to do so, subject to the following
+ * conditions:
+ * 
+ * The above copyright notice and this permission notice
+ * shall be included in all copies or substantial portions
+ * of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+ * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+ * THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ * PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Enumeration;
-import java.util.TooManyListenersException;
-import purejavacomm.CommPortIdentifier;
-import purejavacomm.PortInUseException;
-import purejavacomm.SerialPort;
-import purejavacomm.SerialPortEvent;
-import purejavacomm.SerialPortEventListener;
-import purejavacomm.UnsupportedCommOperationException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import cc.brino.SerialMonitor.SerialMonitor;
 
+
 /**
- *
- * @author JSupport http://javasrilankansupport.blogspot.com/
+ * 
+ * @author Mateus Berardo de Souza Terra
  */
-public class CommPortUtils implements SerialPortEventListener {
+public class CommPortUtils {
 
-	static CommPortIdentifier portId;
-	static SerialPort serialPort;
-	static InputStream inStream;
-	static OutputStream outputStream;
+	private static volatile boolean isOpen = false;
+	private BufferedReader stdout;
+	private BufferedWriter stdin;
+	private static ProcessBuilder pb;
+	private static Process p;
+	final Thread ioThread = new Thread() {
 
-	public static Enumeration<CommPortIdentifier> getComPorts() {
-		@SuppressWarnings("unchecked")
-		Enumeration<CommPortIdentifier> enu_ports = CommPortIdentifier
-				.getPortIdentifiers();
+		@Override
+		public void run() {
+			while (isOpen)
+				try {
+					SerialMonitor.display(String.valueOf((char) stdout.read()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	};
+
+	public ArrayList<String> getComPorts() {
+		ArrayList<String> enu_ports;
+		pb = new ProcessBuilder("bash", "-c",
+				("python3 Python/Coms.py"));
+		pb.redirectErrorStream(true);
+		String c = "";
+		try {
+			p = pb.start();
+			stdout = new BufferedReader(new InputStreamReader(
+					p.getInputStream(), "UTF8"));
+			c = stdout.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		c = c.replace("[", "");
+		c = c.replace("]", "");
+		c = c.replace(" ", "");
+		c = c.replace("'", "");
+		if (!c.equals("")) {
+			String[] coms = c.split(",");
+			enu_ports = new ArrayList<String>(Arrays.asList(coms));
+		} else {
+			enu_ports = new ArrayList<String>();
+		}
 		return enu_ports;
 	}
 
-	public static boolean openPort(String com) {
-		Enumeration<CommPortIdentifier> portList = getComPorts();
-		while (portList.hasMoreElements()) {
-			portId = (CommPortIdentifier) portList.nextElement();
-			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				if (portId.getName().equals(com)) {
-					// if (portId.getName().equals("/dev/term/a")) {
-					try {
-						serialPort = (SerialPort) portId.open("Arduino", 9600);
-						serialPort.setSerialPortParams(9600,
-								SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
-								SerialPort.PARITY_NONE);
-						inStream = serialPort.getInputStream();
-						serialPort.addEventListener(new CommPortUtils());
-						serialPort.notifyOnDataAvailable(true);
-						// serialPort.notifyOnBreakInterrupt(true);
-						// serialPort.notifyOnCarrierDetect(true);
-						// serialPort.notifyOnCTS(true);
-						// serialPort.notifyOnDataAvailable(true);
-						// serialPort.notifyOnDSR(true);
-						// serialPort.notifyOnFramingError(true);
-						// serialPort.notifyOnOutputEmpty(true);
-						// serialPort.notifyOnOverrunError(true);
-						// serialPort.notifyOnParityError(true);
-						// serialPort.notifyOnRingIndicator(true);
-						return true;
-					} catch (PortInUseException e) {
-						System.out.println("PortInUse");
-						e.printStackTrace();
-						return false;
-					} catch (UnsupportedCommOperationException e) {
-						e.printStackTrace();
-						return false;
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						return false;
-					} catch (TooManyListenersException e) {
-						e.printStackTrace();
-						return false;
-					} 
-				}
+	public boolean openPort(String com) {
+		ArrayList<String> ports = getComPorts();
+		if (ports.contains(com)) {
+			pb = new ProcessBuilder("bash", "-c",
+					("python3 Python/Monitor.py " + com));
+			pb.redirectErrorStream(true);
+			try {
+				p = pb.start();
+				stdout = new BufferedReader(
+						new InputStreamReader(
+								p.getInputStream(),
+								"UTF8"));
+				stdin = new BufferedWriter(
+						new OutputStreamWriter(
+								p.getOutputStream(),
+								"UTF8"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch
+				// block
+				e.printStackTrace();
+				return false;
 			}
+			isOpen = true;
+			ioThread.start();
+			return true;
 		}
 		return false;
 	}
 
-	public static void send(String msg) {
-
+	public void send(String msg) {
 		try {
-			outputStream = serialPort.getOutputStream();
-			outputStream.write(msg.getBytes());
+			stdin.write(msg);
+			stdin.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void serialEvent(SerialPortEvent event) {
-//		byte[] readBuffer = new byte[2000];
-		try {
-			while (inStream.available() > 0) {
-//				inStream.read(readBuffer);
-				SerialMonitor.display(String.valueOf((char) inStream.read()));
-			}
-//			SerialMonitor.display(new String(readBuffer));
-		} catch (IOException ioe) {
-			System.out.println("Exception " + ioe);
-			ioe.printStackTrace();
-		} 
-	}
-
 	public static void closePort() throws NullPointerException {
-		serialPort.close();
+		isOpen = false;
+		try {
+			p.getErrorStream().close();
+			p.getInputStream().close();
+			p.getOutputStream().close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		p.destroy();
 	}
-
 }
