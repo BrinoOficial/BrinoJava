@@ -53,17 +53,14 @@ public class BrppCompiler {
 	private static String file;
 	public static String version = "2.6.3";
 	public static String fileSeparator = System.getProperty("file.separator");
+
 	public static boolean compile(String path) {
-		setFile(FileUtils.getBrinodirectory()
-				+ fileSeparator
+		setFile(FileUtils.getBrinodirectory() + fileSeparator
 				+ "Arduino");
-		
 		setFile(getFile().concat(path.substring(path.lastIndexOf(fileSeparator),
 				path.length() - 5)));
-		
 		setFile(getFile().concat(path.substring(path.lastIndexOf(fileSeparator),
 				path.length() - 4)));
-		
 		setFile(getFile().concat("ino"));
 		File ino = new File(getFile());
 		if (!ino.exists()) {

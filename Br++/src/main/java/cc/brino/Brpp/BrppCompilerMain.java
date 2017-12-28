@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.nio.file.Paths;
 import java.util.logging.FileHandler;
@@ -54,6 +55,7 @@ import cc.brino.Brpp.Utils.FileUtils;
 import cc.brino.Brpp.Utils.JSONUtils;
 import cc.brino.Brpp.Utils.KeywordManagerUtils;
 import cc.brino.Brpp.Utils.LanguageVersionUtils;
+import cc.brino.Brpp.Utils.VersionUtils;
 import cc.brino.Brpp.compiler.BrppCompiler;
 
 
@@ -118,6 +120,8 @@ public class BrppCompilerMain {
 			KeywordManagerUtils.processLibraries();
 			logger.log(Level.CONFIG, "Atualizando lingua");
 			LanguageVersionUtils.updateLanguages();
+			logger.log(Level.CONFIG, "Verificando versao");
+			VersionUtils.checkVersion();
 		} catch (FileNotFoundException fnfe) {
 			logger.log(Level.SEVERE,
 					"Erro ao configurar o programa! Arquivo não encontrado : \n",
@@ -142,6 +146,10 @@ public class BrppCompilerMain {
 			logger.log(Level.SEVERE,
 					"Erro ao mover bibliotecas!\n",
 					npe);
+		} catch (URISyntaxException e) {
+			logger.log(Level.SEVERE,
+					"Erro ao abrir página de downloads!\n",
+					e);
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 
