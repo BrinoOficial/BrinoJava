@@ -64,7 +64,7 @@ public class CommPortUtils {
 	public ArrayList<String> getComPorts() {
 		ArrayList<String> enu_ports;
 		if (System.getProperty("os.name").contains("Windows")) {
-			String proc = "Python/Coms.exe";
+			String proc = "Python\\Coms.exe";
 			pb = new ProcessBuilder("cmd.exe", "/c", proc);
 		} else {
 			pb = new ProcessBuilder("bash", "-c",
@@ -97,7 +97,7 @@ public class CommPortUtils {
 		ArrayList<String> ports = getComPorts();
 		if (ports.contains(com)) {
 			if (System.getProperty("os.name").contains("Windows")) {
-				String proc = "Python/Monitor.exe";
+				String proc = "Python\\Monitor.exe"+com;
 				pb = new ProcessBuilder("cmd.exe", "/c", proc);
 			} else {
 				pb = new ProcessBuilder("bash", "-c",
