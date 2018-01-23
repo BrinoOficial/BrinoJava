@@ -1,7 +1,11 @@
 import serial
+import platform
 import threading
-import getch
 import sys
+if platform.system() == 'Windows':
+    import msvcrt as getch
+else:
+	import getch
 
 arg = sys.argv
 
