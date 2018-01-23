@@ -63,8 +63,13 @@ public class CommPortUtils {
 
 	public ArrayList<String> getComPorts() {
 		ArrayList<String> enu_ports;
-		pb = new ProcessBuilder("bash", "-c",
-				("python3 Python/Coms.py"));
+		if (System.getProperty("os.name").contains("Windows")) {
+			String proc = "Python/Coms.exe";
+			pb = new ProcessBuilder("cmd.exe", "/c", proc);
+		} else {
+			pb = new ProcessBuilder("bash", "-c",
+					("python3 Python/Coms.py"));
+		}
 		pb.redirectErrorStream(true);
 		String c = "";
 		try {
@@ -91,8 +96,13 @@ public class CommPortUtils {
 	public boolean openPort(String com) {
 		ArrayList<String> ports = getComPorts();
 		if (ports.contains(com)) {
-			pb = new ProcessBuilder("bash", "-c",
-					("python3 Python/Monitor.py " + com));
+			if (System.getProperty("os.name").contains("Windows")) {
+				String proc = "Python/Monitor.exe";
+				pb = new ProcessBuilder("cmd.exe", "/c", proc);
+			} else {
+				pb = new ProcessBuilder("bash", "-c",
+						("python3 Python/Monitor.py " + com));
+			}
 			pb.redirectErrorStream(true);
 			try {
 				p = pb.start();
