@@ -97,7 +97,7 @@ public class CommPortUtils {
 		ArrayList<String> ports = getComPorts();
 		if (ports.contains(com)) {
 			if (System.getProperty("os.name").contains("Windows")) {
-				String proc = "Python\\Monitor.exe"+com;
+				String proc = "Python\\Monitor.exe "+com;
 				pb = new ProcessBuilder("cmd.exe", "/c", proc);
 			} else {
 				pb = new ProcessBuilder("bash", "-c",
