@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import cc.brino.SerialMonitor.SerialMonitor;
 
-
 /**
  * 
  * @author Mateus Berardo de Souza Terra
@@ -97,10 +96,12 @@ public class CommPortUtils {
 		ArrayList<String> ports = getComPorts();
 		if (ports.contains(com)) {
 			if (System.getProperty("os.name").contains("Windows")) {
-				String proc = "Python\\Monitor.exe "+com;
+				String proc = "Python\\Monitor.exe " + com;
 				pb = new ProcessBuilder("cmd.exe", "/c", proc);
 			} else {
-				pb = new ProcessBuilder("bash", "-c",
+				pb = new ProcessBuilder(
+						"bash",
+						"-c",
 						("python3 Python/Monitor.py " + com));
 			}
 			pb.redirectErrorStream(true);
