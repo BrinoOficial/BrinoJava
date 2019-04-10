@@ -1395,6 +1395,28 @@
     {
       "highlight": "noDisplay",
       "highlight-type": "3"
+    },
+     {
+      "highlight": "geradorAleatorio",
+      "arduino": "randomSeed",
+      "arg": "false",
+      "highlight-type": "3",
+      "translate": "geradorAleatorio"
+    },
+    {
+      "highlight": "randomSeed",
+      "highlight-type": "3"
+    },
+     {
+      "highlight": "numeroAleatorio",
+      "arduino": "random",
+      "arg": "false",
+      "highlight-type": "3",
+      "translate": "numeroAleatorio"
+    },
+    {
+      "highlight": "random",
+      "highlight-type": "3"
     }
   ],
   "language": "pt-br",
