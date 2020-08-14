@@ -1,5 +1,8 @@
 # Brino
 
+## Este projeto possui uma nova versão!
+### Para ter acesso a nova versão desse projeto, em python, basta acessar: https://github.com/BrinoOficial/BrinoPy
+
 ## Tipos de Dados:    
  * `Numero`: valores númericos inteiros até +- 32767 (`int`)    
  * `NumeroDecimal`: valores númericos com casas decimais (`float`)    
